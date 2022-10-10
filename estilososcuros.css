@@ -23,6 +23,10 @@ p {
   background: rgb(175, 120, 58);
   color: white;
   padding: 2rem 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
 }
 .header a {
     color: white;
@@ -54,3 +58,6 @@ p {
    .navigation ul li a:hover {
     background: #9c9a9a;
    }
+.main{
+    padding-top:10rem;
+}
