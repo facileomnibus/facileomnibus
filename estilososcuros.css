@@ -20,7 +20,7 @@ p {
 }
 
 .header {
-  background: rgb(175, 120, 58);
+  background: rgb(90, 62, 30);
   color: white;
   padding: 2rem 0;
   position: fixed;
@@ -60,4 +60,10 @@ p {
    }
 .main{
     padding-top:11rem;
+}
+.footer{
+    background: rgb(90, 62, 30);
+    padding: 1rem 0;
+    text-align: center;
+    margin-top: 2rem;
 }
