@@ -10,11 +10,15 @@ body{
     height: 200%;
     background-image: linear-gradient(#B3B3B3, #62b8ff);
     padding-top:11rem;
-    position: relative;
 }
 h1 {
     font-size: 2rem;
     line-height: 1.3em;
+}
+@keyframes cambiar{
+       0%{background-position: 0 50%;}
+       50%{background-position: 100 50%;}
+       100%{background-position: 0 50%;}
 }
 p {
  margin-bottom: 1.6em;
