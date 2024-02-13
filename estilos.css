@@ -8,7 +8,7 @@ body{
 }
 .intro{
     height: 100%;
-    background: linear-gradient(#ffffff, #62b8ff);
+    background-image: linear-gradient(#ffffff, #62b8ff, green);
 }    
 h1 {
     font-size: 2rem;
