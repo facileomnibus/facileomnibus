@@ -1,10 +1,16 @@
-body{
+body {
     font-family: georgia, times, serif;
     color:#333;
     font-size: 1.0rem;
     line-height: 1.5em;
     margin:0;
     text-align: center;
+}
+body{
+ background-image: linear-gradient((90deg, rgba(2,0,36,1) 0%, 
+                rgba(29,164,200,1) 50%, 
+                rgba(0,212,255,1) 100%);
+ background-size: 500%;
 }
 h1 {
     font-size: 2rem;
