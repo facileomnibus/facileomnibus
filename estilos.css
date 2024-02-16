@@ -77,8 +77,9 @@ p {
     text-align: center;
     margin-top: 2rem;
 }
-@media only screen and (max-width: 858px) {
-     .menu-icon {
+@media only screen and (max-width: 600px) {
+    
+    .menu-icon {
       display: block;
       cursor: pointer;
       padding: 0.5rem 1rem;
