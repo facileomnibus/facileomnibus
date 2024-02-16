@@ -6,6 +6,11 @@ body{
     margin:0;
     text-align: center;
 }
+.intro{
+    height: 200%;
+    background-image: linear-gradient(#5C5C5C, #000000);
+    padding-top:11rem;
+}
 h1 {
     font-size: 2rem;
     line-height: 1.3em; 
