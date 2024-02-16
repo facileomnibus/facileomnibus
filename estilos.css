@@ -47,9 +47,6 @@ p {
     letter-spacing: 5px;
     font-size: 1.3em;
 }
-.menu-icon {
-    display: none;
-} 
 .navigation ul {
     float: right;
     margin:0;
