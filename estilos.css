@@ -1,5 +1,5 @@
 body{
-    font-family: @import url('https://fonts.cdnfonts.com/css/franklin-gothic');
+    font-family: <link href="https://fonts.cdnfonts.com/css/franklin-gothic" rel="stylesheet">
     color:#333;
     font-size: 1.0rem;
     line-height: 1.5em;
