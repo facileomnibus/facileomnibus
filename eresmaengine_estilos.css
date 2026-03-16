@@ -1,114 +1,120 @@
 /* ===============================
-   ESTILO FRUTIGER AERO MODERNO
+   FONDO GENERAL
 ================================ */
 
 body{
     margin:0;
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family:"Segoe UI", Arial, sans-serif;
     background:
         radial-gradient(circle at 20% 20%, #6ecbff33, transparent 40%),
         radial-gradient(circle at 80% 40%, #a6f0ff33, transparent 40%),
         linear-gradient(180deg,#aee6ff,#e9fbff);
-    min-height:100vh;
 }
 
-/* efecto cristal */
-
-.container{
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.15);
-    border-radius:20px;
-    padding:20px;
-    margin:20px auto;
-    max-width:1400px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.15);
-}
-
-/* header moderno */
+/* ===============================
+   HEADER MODERNO MARRÓN
+================================ */
 
 .header{
-    background: linear-gradient(90deg,#5bd3ff,#b2f1ff);
-    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+    background: rgb(175,120,58);
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
     position:sticky;
     top:0;
     z-index:1000;
 }
 
-.navigation ul{
+/* ===============================
+   OCULTAR NAVIGATION EN PANTALLAS GRANDES
+================================ */
+
+@media (min-width:900px){
+.navigation{
+    display:none;
+}
+}
+
+/* ===============================
+   SECCIONES
+================================ */
+
+section{
     display:flex;
-    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:14px;
 }
 
-.navigation a{
-    color:white;
-    font-weight:600;
-    text-decoration:none;
-    transition:0.3s;
-}
+/* ===============================
+   ICONOS CUADRADOS IGUALES
+================================ */
 
-.navigation a:hover{
-    color:#003d5e;
+.logo{
+    width:70px;
+    height:70px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
-
-/* iconos noticias */
 
 .logo img{
-    border-radius:10px;
+    width:60px;
+    height:60px;
+    object-fit:contain;
+    border-radius:12px;
     transition:0.25s;
 }
 
 .logo img:hover{
-    transform:scale(1.15);
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    transform:scale(1.12);
 }
 
-/* títulos */
+/* ===============================
+   TÍTULOS DE SECCIÓN
+================================ */
 
 h3{
     color:white;
-    background:linear-gradient(90deg,#4ac8ff,#7ae3ff);
-    padding:10px 20px;
+    background:linear-gradient(90deg,#2bbcff,#29e38a);
+    padding:10px 18px;
     border-radius:15px;
     width:fit-content;
     box-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* grid adaptable */
-
-section{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-}
-
-/* animación suave */
-
-@keyframes float{
-    0%{transform:translateY(0)}
-    50%{transform:translateY(-4px)}
-    100%{transform:translateY(0)}
-}
-
-.logo img:hover{
-    animation:float 1.2s infinite;
-}
-
-/* barra superior widgets */
+/* ===============================
+   BARRA DE WIDGETS
+================================ */
 
 .widgets-bar{
     display:flex;
     gap:20px;
     justify-content:center;
     align-items:center;
-    padding:10px;
-    margin:10px auto;
-    max-width:1200px;
+    padding:12px;
 }
 
 .widget-box{
-    background:rgba(255,255,255,0.4);
+    background:rgba(255,255,255,0.45);
     backdrop-filter: blur(6px);
     padding:10px 18px;
     border-radius:15px;
     box-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* ===============================
+   BOTONES DE SECCIONES
+================================ */
+
+button, .btn{
+    background:linear-gradient(90deg,#2bbcff,#29e38a);
+    border:none;
+    padding:8px 14px;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover, .btn:hover{
+    transform:scale(1.05);
 }
