@@ -9,24 +9,40 @@ body{
     overflow-x:hidden;
 }
 
-/* efecto cristal */
-.container{
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.15);
-    border-radius:20px;
-    padding:20px;
-    margin:20px auto 40px auto;
+/* BARRA DE WIDGETS SUPERIOR */
+.widgets-bar{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    align-items:center;
+    padding:10px;
     max-width:1400px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.15);
+    margin:0 auto;
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(8px);
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
-/* HEADER RESTAURADO */
+/* widgets estilo cristal */
+.widget-box{
+    background:rgba(255,255,255,0.4);
+    backdrop-filter: blur(6px);
+    padding:10px 18px;
+    border-radius:15px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* HEADER ORIGINAL */
 .header{
     background:#62b8ff; /* azul original */
     box-shadow:0 5px 10px rgba(0,0,0,0.15);
     position:sticky;
-    top:0;
-    z-index:900; /* menor que widgets para que queden encima */
+    top:40px; /* debajo de la barra de widgets */
+    z-index:900;
     padding:1rem 0;
 }
 
@@ -55,17 +71,6 @@ body{
     color:#003d5e;
 }
 
-/* iconos noticias */
-.logo img{
-    border-radius:10px;
-    transition:0.25s;
-}
-
-.logo img:hover{
-    transform:scale(1.15);
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-
 /* títulos secciones */
 h3{
     color:white;
@@ -74,7 +79,7 @@ h3{
     border-radius:15px;
     width:fit-content;
     box-shadow:0 4px 10px rgba(0,0,0,0.2);
-    scroll-margin-top:120px;
+    scroll-margin-top:160px; /* evita que header tape el título */
 }
 
 /* botones de secciones */
@@ -92,11 +97,14 @@ button:hover, .btn:hover{
     transform:scale(1.05);
 }
 
-/* grid adaptable */
-section{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
+/* grid adaptable portal moderno */
+.main-dashboard{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-auto-rows: minmax(100px, auto);
+    gap:20px;
+    padding:20px;
+    margin-top:10px;
 }
 
 /* animación suave */
@@ -108,33 +116,6 @@ section{
 
 .logo img:hover{
     animation:float 1.2s infinite;
-}
-
-/* BARRA SUPERIOR WIDGETS RESTAURADA */
-.widgets-bar{
-    display:flex;
-    gap:20px;
-    justify-content:center;
-    align-items:center;
-    padding:10px;
-    margin:0 auto;
-    max-width:1200px;
-    background:rgba(255,255,255,0.15);
-    backdrop-filter:blur(8px);
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.15);
-    z-index:1000;
-    position:sticky;
-    top:0; /* barra encima del header */
-}
-
-/* widgets estilo cristal */
-.widget-box{
-    background:rgba(255,255,255,0.4);
-    backdrop-filter: blur(6px);
-    padding:10px 18px;
-    border-radius:15px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.15);
 }
 
 /* responsive */
@@ -152,7 +133,7 @@ section{
 
     .navigation ul.show{
         display:block;
-        background:linear-gradient(90deg,#62b8ff,#109110); /* azul degradado coherente con header */
+        background:linear-gradient(90deg,#62b8ff,#109110);
         color:white;
         backdrop-filter:blur(8px);
         border-radius:10px;
@@ -170,7 +151,6 @@ section{
         color:white;
     }
 
-    /* widgets verticales */
     .widgets-bar{
         flex-direction:column;
         gap:10px;
@@ -180,15 +160,14 @@ section{
         width:220px !important;
         max-width:90vw;
     }
+
+    .main-dashboard{
+        grid-template-columns: 1fr; /* columna única en móvil */
+    }
 }
 
 /* imágenes adaptables */
 img{
     max-width:100%;
     height:auto;
-}
-
-/* contenido más cerca del header */
-main.intro, .container{
-    margin-top:10px;
 }
