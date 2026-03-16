@@ -9,23 +9,39 @@ body{
     overflow-x:hidden;
 }
 
-/* efecto cristal */
-.container{
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.15);
-    border-radius:20px;
-    padding:20px;
-    margin:20px auto 40px auto;
-    max-width:1400px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.15);
+/* BARRA DE WIDGETS ENCIMA DEL HEADER */
+.widgets-bar{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    align-items:center;
+    padding:10px;
+    margin:0 auto;
+    max-width:1200px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(8px);
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    position:sticky;
+    top:0;
+    z-index:1001; /* encima del header */
 }
 
-/* HEADER RESTAURADO */
+/* efecto cristal en widgets */
+.widget-box{
+    background:rgba(255,255,255,0.4);
+    backdrop-filter: blur(6px);
+    padding:10px 18px;
+    border-radius:15px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* HEADER RESTAURADO ORIGINAL */
 .header{
     background:#62b8ff; /* azul original */
     box-shadow:0 5px 10px rgba(0,0,0,0.15);
     position:sticky;
-    top:0;
+    top:45px; /* debajo de la barra de widgets */
     z-index:1000;
     padding:1rem 0;
 }
@@ -55,10 +71,12 @@ body{
     color:#003d5e;
 }
 
-/* iconos noticias */
+/* iconos noticias y secciones */
 .logo img{
     border-radius:10px;
     transition:0.25s;
+    display:block; /* fuerza alineación cuadrada */
+    margin:0 auto; /* centra todos los iconos dentro de su contenedor */
 }
 
 .logo img:hover{
@@ -74,7 +92,7 @@ h3{
     border-radius:15px;
     width:fit-content;
     box-shadow:0 4px 10px rgba(0,0,0,0.2);
-    scroll-margin-top:120px; /* evita que header tape el título */
+    scroll-margin-top:150px; /* evita que header tape el título */
 }
 
 /* botones de secciones */
@@ -110,31 +128,6 @@ section{
     animation:float 1.2s infinite;
 }
 
-/* barra superior widgets */
-.widgets-bar{
-    display:flex;
-    gap:20px;
-    justify-content:center;
-    align-items:center;
-    padding:10px;
-    margin:10px auto 0 auto;
-    max-width:1200px;
-    background:rgba(255,255,255,0.15);
-    backdrop-filter:blur(8px);
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.15);
-    z-index:1000;
-}
-
-/* widgets estilo cristal */
-.widget-box{
-    background:rgba(255,255,255,0.4);
-    backdrop-filter: blur(6px);
-    padding:10px 18px;
-    border-radius:15px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.15);
-}
-
 /* responsive */
 @media only screen and (max-width:767px){
     .menu-icon{
@@ -150,7 +143,7 @@ section{
 
     .navigation ul.show{
         display:block;
-        background:rgba(0,0,0,0.8); /* MENÚ OSCURO para que se vea el texto */
+        background:linear-gradient(90deg,#62b8ff,#29e38a); /* menú móvil degradado azul-verde */
         color:white;
         backdrop-filter:blur(8px);
         border-radius:10px;
@@ -168,7 +161,7 @@ section{
         color:white;
     }
 
-    /* widgets verticales y más cercanos al header */
+    /* widgets verticales y más cerca del header */
     .widgets-bar{
         flex-direction:column;
         gap:10px;
@@ -187,7 +180,7 @@ img{
     height:auto;
 }
 
-/* ESPACIO CONTENIDO MÁS CERCA DEL HEADER */
+/* reducir espacio arriba del contenido */
 main.intro, .container{
-    margin-top:20px; /* reduce espacio superior */
+    margin-top:20px;
 }
