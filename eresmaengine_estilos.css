@@ -189,6 +189,9 @@ section{
 .widget-box input{
     width:220px !important;
 }
+.main-dashboard{
+    grid-template-columns: 1fr; /* columna única en móvil */
+}
 /* evitar overflow horizontal */
 
 body{
