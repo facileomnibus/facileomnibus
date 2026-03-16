@@ -112,3 +112,19 @@ section{
     border-radius:15px;
     box-shadow:0 3px 10px rgba(0,0,0,0.15);
 }
+
+/* botones de secciones */
+
+button, .btn{
+    background:linear-gradient(90deg,#2bbcff,#29e38a);
+    border:none;
+    padding:8px 14px;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover, .btn:hover{
+    transform:scale(1.05);
+}
