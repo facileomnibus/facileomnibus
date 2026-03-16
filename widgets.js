@@ -41,7 +41,8 @@ padding:8px;
 border-radius:10px;
 border:none;
 outline:none;
-width:300px;
+width:260px;
+max-width:90vw;
 font-size:14px;
 ">
 </form>
@@ -58,7 +59,7 @@ const topBtn=document.createElement("div")
 topBtn.innerHTML="⬆"
 topBtn.style=`
 position:fixed;
-bottom:40px;
+bottom:110px;
 right:25px;
 background:#4ac8ff;
 color:white;
@@ -67,12 +68,38 @@ border-radius:50%;
 cursor:pointer;
 font-size:20px;
 box-shadow:0 5px 15px rgba(0,0,0,0.3);
+z-index:999;
+transition:0.2s;
 `
 
+topBtn.onmouseover=()=>{
+topBtn.style.transform="scale(1.1)"
+}
+
+topBtn.onmouseout=()=>{
+topBtn.style.transform="scale(1)"
+}
+
 topBtn.onclick=()=>{
- window.scrollTo({top:0,behavior:"smooth"})
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ })
 }
 
 document.body.appendChild(topBtn)
+
+/* ===============================
+   MENÚ RESPONSIVE
+================================ */
+
+const menuBtn=document.querySelector(".menu-icon")
+const menu=document.querySelector(".navigation ul")
+
+if(menuBtn && menu){
+menuBtn.addEventListener("click",()=>{
+menu.classList.toggle("show")
+})
+}
 
 })
