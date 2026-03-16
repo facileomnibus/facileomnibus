@@ -37,33 +37,17 @@ search.innerHTML=`
 <form action="https://www.google.com/search" target="_blank">
 <input name="q" placeholder="Buscar en Internet..."
 style="
-padding:6px;
-border-radius:8px;
+padding:8px;
+border-radius:10px;
 border:none;
 outline:none;
-width:180px;
+width:260px;
+font-size:14px;
 ">
 </form>
 `
 
 bar.appendChild(search)
-
-/* ===============================
-   BOTÓN MODO OSCURO
-================================ */
-
-const dark=document.createElement("div")
-dark.className="widget-box"
-
-dark.innerHTML="🌙 Modo oscuro"
-
-dark.style.cursor="pointer"
-
-dark.onclick=()=>{
- document.body.classList.toggle("darkmode")
-}
-
-bar.appendChild(dark)
 
 /* ===============================
    BOTÓN SCROLL ARRIBA
@@ -76,7 +60,7 @@ topBtn.style=`
 position:fixed;
 bottom:25px;
 right:25px;
-background:#4ac8ff;
+background:linear-gradient(90deg,#2bbcff,#29e38a);
 color:white;
 padding:10px 15px;
 border-radius:50%;
