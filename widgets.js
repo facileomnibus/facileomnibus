@@ -41,7 +41,7 @@ padding:8px;
 border-radius:10px;
 border:none;
 outline:none;
-width:260px;
+width:300px;
 font-size:14px;
 ">
 </form>
@@ -60,7 +60,7 @@ topBtn.style=`
 position:fixed;
 bottom:25px;
 right:25px;
-background:linear-gradient(90deg,#2bbcff,#29e38a);
+background:#4ac8ff;
 color:white;
 padding:10px 15px;
 border-radius:50%;
