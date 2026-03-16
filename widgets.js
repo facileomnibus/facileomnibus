@@ -12,7 +12,6 @@ document.body.prepend(bar)
 ================================ */
 const clock=document.createElement("div")
 clock.className="widget-box"
-
 function updateClock(){
  const now=new Date()
  clock.innerHTML="🕒 "+now.toLocaleTimeString()
@@ -26,7 +25,6 @@ bar.appendChild(clock)
 ================================ */
 const search=document.createElement("div")
 search.className="widget-box"
-
 search.innerHTML=`
 <form action="https://www.google.com/search" target="_blank">
 <input name="q" placeholder="Buscar en Internet..."
@@ -41,7 +39,6 @@ font-size:14px;
 ">
 </form>
 `
-
 bar.appendChild(search)
 
 /* ===============================
@@ -49,7 +46,6 @@ bar.appendChild(search)
 ================================ */
 const menuBtn=document.querySelector(".menu-icon")
 const menu=document.querySelector(".navigation ul")
-
 if(menuBtn && menu){
     menuBtn.addEventListener("click",()=>{
         menu.classList.toggle("show")
