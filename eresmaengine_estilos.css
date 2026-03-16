@@ -28,7 +28,7 @@ body{
 /* header moderno */
 
 .header{
-    background: rgb(98, 184, 255)
+    background: rgba(98, 184, 255);
     box-shadow:0 5px 20px rgba(0,0,0,0.15);
     position:sticky;
     top:0;
