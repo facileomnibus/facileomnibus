@@ -128,3 +128,92 @@ button, .btn{
 button:hover, .btn:hover{
     transform:scale(1.05);
 }
+/* ===============================
+   HEADER RESPONSIVE
+================================ */
+
+.logo-nav-container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+/* menú escritorio */
+
+.navigation ul{
+    display:flex;
+    gap:20px;
+}
+
+/* ===============================
+   RESPONSIVE MOVIL
+================================ */
+
+@media only screen and (max-width:767px){
+
+.header{
+    padding:1rem 0;
+}
+
+.logo{
+    font-size:1.2rem;
+}
+
+/* icono menú */
+
+.menu-icon{
+    display:block;
+    font-size:22px;
+}
+
+/* ocultar menú */
+
+.navigation ul{
+    display:none;
+    width:100%;
+}
+
+/* cuando se abre */
+
+.navigation ul.show{
+    display:block;
+    background:rgba(255,255,255,0.9);
+    backdrop-filter:blur(10px);
+    border-radius:10px;
+    padding:10px;
+}
+
+/* enlaces verticales */
+
+.navigation ul li{
+    display:block;
+    margin:5px 0;
+}
+
+.navigation ul li a{
+    display:block;
+    padding:8px;
+}
+
+/* widgets responsive */
+
+.widgets-bar{
+    flex-direction:column;
+    gap:10px;
+}
+
+.widget-box input{
+    width:220px !important;
+}
+/* evitar overflow horizontal */
+
+body{
+overflow-x:hidden;
+}
+
+/* imágenes adaptables */
+
+img{
+max-width:100%;
+height:auto;
+}
