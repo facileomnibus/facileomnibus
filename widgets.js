@@ -3,16 +3,13 @@ document.addEventListener("DOMContentLoaded",()=>{
 /* ===============================
    BARRA DE WIDGETS SUPERIOR
 ================================ */
-
 const bar=document.createElement("div")
 bar.className="widgets-bar"
-
 document.body.prepend(bar)
 
 /* ===============================
    RELOJ
 ================================ */
-
 const clock=document.createElement("div")
 clock.className="widget-box"
 
@@ -20,16 +17,13 @@ function updateClock(){
  const now=new Date()
  clock.innerHTML="🕒 "+now.toLocaleTimeString()
 }
-
 setInterval(updateClock,1000)
 updateClock()
-
 bar.appendChild(clock)
 
 /* ===============================
    BUSCADOR GOOGLE
 ================================ */
-
 const search=document.createElement("div")
 search.className="widget-box"
 
@@ -51,55 +45,13 @@ font-size:14px;
 bar.appendChild(search)
 
 /* ===============================
-   BOTÓN SCROLL ARRIBA
-================================ */
-
-const topBtn=document.createElement("div")
-
-topBtn.innerHTML="⬆"
-topBtn.style=`
-position:fixed;
-bottom:70px; /* alineado con OpenWidget */
-right:25px;
-background:#4ac8ff;
-color:white;
-padding:10px 15px;
-border-radius:50%;
-cursor:pointer;
-font-size:20px;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-z-index:999;
-transition:0.2s;
-`
-
-topBtn.onmouseover=()=>{
-topBtn.style.transform="scale(1.1)"
-}
-
-topBtn.onmouseout=()=>{
-topBtn.style.transform="scale(1)"
-}
-
-topBtn.onclick=()=>{
- window.scrollTo({
-  top:0,
-  behavior:"smooth"
- })
-}
-
-document.body.appendChild(topBtn)
-
-/* ===============================
    MENÚ RESPONSIVE FUNCIONAL
 ================================ */
-
 const menuBtn=document.querySelector(".menu-icon")
 const menu=document.querySelector(".navigation ul")
 
 if(menuBtn && menu){
-menuBtn.addEventListener("click",()=>{
-menu.classList.toggle("show")
-})
+    menuBtn.addEventListener("click",()=>{
+        menu.classList.toggle("show")
+    })
 }
-
-})
