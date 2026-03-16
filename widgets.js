@@ -51,17 +51,17 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     bar.appendChild(search)
 
-    /* ===============================
-       MENÚ RESPONSIVE FUNCIONAL
-    ================================= */
+/* ===============================
+   MENÚ RESPONSIVE FUNCIONAL
+================================ */
 
-    const menuBtn=document.querySelector(".menu-icon")
-    const menu=document.querySelector(".navigation ul")
+document.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.querySelector(".menu-icon");
+    const menu = document.querySelector(".navigation ul");
 
     if(menuBtn && menu){
-        menuBtn.addEventListener("click",()=>{
-            menu.classList.toggle("show")
-        })
+        menuBtn.addEventListener("click", () => {
+            menu.classList.toggle("show");
+        });
     }
-
-})
+});
