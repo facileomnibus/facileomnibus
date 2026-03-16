@@ -58,7 +58,7 @@ const topBtn=document.createElement("div")
 topBtn.innerHTML="⬆"
 topBtn.style=`
 position:fixed;
-bottom:25px;
+bottom:40px;
 right:25px;
 background:#4ac8ff;
 color:white;
