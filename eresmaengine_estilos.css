@@ -1,4 +1,4 @@
-/* ===============================
+//* ===============================
    ESTILO FRUTIGER AERO MODERNO
 ================================ */
 
@@ -28,15 +28,12 @@ body{
 /* header moderno */
 
 .header{
-    background: #5a9edc; /* color similar al azul inicial del index.html */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 0.8rem 1rem; /* tamaño más contenido */
-    max-width: 1200px; /* igual que el contenido */
-    margin: 0 auto;
-    border-radius: 10px; /* opcional, suave */
+    background: rgb(98, 184, 255)
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    padding:0.8rem 0;
 }
 
 .logo-nav-container{
@@ -61,16 +58,8 @@ body{
 }
 
 .navigation a:hover{
-    color:#ffd700;
+    color:#003d5e;
 }
-/* header moderno */
-.footer{
-    background: rgb(175, 120, 58)
-    padding: 1rem 1rem;
-    text-align: center;
-    max-width: 1200px;
-    margin: 40px auto 20px auto;
-    border-radius: 10px;
 
 /* iconos noticias */
 
@@ -99,7 +88,7 @@ h3{
 /* botones de secciones */
 
 button, .btn{
-    background:linear-gradient(90deg,#5bd3ff,#29e38a);
+    background:linear-gradient(90deg,#5bd3ff,#29e38a); /* acorde al fondo */
     border:none;
     padding:8px 14px;
     border-radius:10px;
@@ -140,7 +129,7 @@ section{
     justify-content:center;
     align-items:center;
     padding:10px;
-    margin:0 auto;
+    margin:10px auto 0 auto;
     max-width:1200px;
 }
 
@@ -170,11 +159,11 @@ section{
     }
 
     .navigation ul.show{
-    display:block;
-    background: rgba(90, 158, 220, 0.95); /* azul suave que combine */
-    backdrop-filter: blur(10px);
-    border-radius:10px;
-    padding:10px;
+        display:block;
+        background:rgba(255,255,255,0.9);
+        backdrop-filter:blur(10px);
+        border-radius:10px;
+        padding:10px;
     }
 
     .navigation ul li{
@@ -196,5 +185,13 @@ section{
 
     .widget-box input{
         width:220px !important;
+        max-width:90vw;
     }
+}
+
+/* imágenes adaptables */
+
+img{
+    max-width:100%;
+    height:auto;
 }
