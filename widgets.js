@@ -57,11 +57,10 @@ bar.appendChild(search)
 const topBtn=document.createElement("div")
 
 topBtn.innerHTML="⬆"
-
 topBtn.style=`
 position:fixed;
-bottom:110px;
-right:30px;
+bottom:70px; /* alineado con OpenWidget */
+right:25px;
 background:#4ac8ff;
 color:white;
 padding:10px 15px;
@@ -69,7 +68,7 @@ border-radius:50%;
 cursor:pointer;
 font-size:20px;
 box-shadow:0 5px 15px rgba(0,0,0,0.3);
-z-index:9999;
+z-index:999;
 transition:0.2s;
 `
 
@@ -91,34 +90,16 @@ topBtn.onclick=()=>{
 document.body.appendChild(topBtn)
 
 /* ===============================
-   MENÚ RESPONSIVE
+   MENÚ RESPONSIVE FUNCIONAL
 ================================ */
-
-function initMobileMenu(){
 
 const menuBtn=document.querySelector(".menu-icon")
 const menu=document.querySelector(".navigation ul")
 
-if(!menuBtn || !menu) return
-
-menuBtn.addEventListener("click",(e)=>{
-
-e.stopPropagation()
-
+if(menuBtn && menu){
+menuBtn.addEventListener("click",()=>{
 menu.classList.toggle("show")
-
 })
-
-document.addEventListener("click",(e)=>{
-
-if(!menu.contains(e.target) && !menuBtn.contains(e.target)){
-menu.classList.remove("show")
 }
-
-})
-
-}
-
-initMobileMenu()
 
 })
