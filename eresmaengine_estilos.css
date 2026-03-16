@@ -1,3 +1,7 @@
+/* ===============================
+   ESTILO FRUTIGER AERO MODERNO
+================================ */
+
 body{
     margin:0;
     font-family: "Segoe UI", Arial, sans-serif;
@@ -10,24 +14,26 @@ body{
 }
 
 /* efecto cristal */
+
 .container{
     backdrop-filter: blur(10px);
     background: rgba(255,255,255,0.15);
     border-radius:20px;
     padding:20px;
-    margin:40px auto;
+    margin:100px auto 40px auto; /* más cercano al header */
     max-width:1400px;
     box-shadow:0 10px 40px rgba(0,0,0,0.15);
 }
 
-/* HEADER ORIGINAL */
+/* header moderno */
+
 .header{
-    background:#62b8ff; /* azul original */
-    box-shadow:0 5px 10px rgba(0,0,0,0.15);
+    background: linear-gradient(90deg,#5bd3ff,#29e38a); /* azul-verde degradado */
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
     position:sticky;
     top:0;
-    z-index:900;
-    padding:1rem 0;
+    z-index:1000;
+    padding:0.8rem 0;
 }
 
 .logo-nav-container{
@@ -56,6 +62,7 @@ body{
 }
 
 /* iconos noticias */
+
 .logo img{
     border-radius:10px;
     transition:0.25s;
@@ -67,19 +74,21 @@ body{
 }
 
 /* títulos secciones */
+
 h3{
     color:white;
-    background:linear-gradient(90deg,#62b8ff,#109110); /* azul→verde */
+    background:linear-gradient(90deg,#5bd3ff,#29e38a);
     padding:10px 20px;
     border-radius:15px;
     width:fit-content;
     box-shadow:0 4px 10px rgba(0,0,0,0.2);
-    scroll-margin-top:120px;
+    scroll-margin-top:120px; /* evita que header tape el título */
 }
 
-/* botones de secciones (modificados) */
+/* botones de secciones */
+
 button, .btn{
-    background:linear-gradient(90deg,#62b8ff,#109110); /* azul→verde */
+    background:linear-gradient(90deg,#5bd3ff,#29e38a); /* acorde al fondo */
     border:none;
     padding:8px 14px;
     border-radius:10px;
@@ -93,6 +102,7 @@ button:hover, .btn:hover{
 }
 
 /* grid adaptable */
+
 section{
     display:flex;
     flex-wrap:wrap;
@@ -100,6 +110,7 @@ section{
 }
 
 /* animación suave */
+
 @keyframes float{
     0%{transform:translateY(0)}
     50%{transform:translateY(-4px)}
@@ -111,24 +122,19 @@ section{
 }
 
 /* barra superior widgets */
+
 .widgets-bar{
     display:flex;
     gap:20px;
     justify-content:center;
     align-items:center;
     padding:10px;
-    margin:0 auto;
+    margin:10px auto 0 auto;
     max-width:1200px;
-    background:rgba(255,255,255,0.2);
-    backdrop-filter:blur(8px);
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.15);
-    z-index:1000;
-    position:sticky;
-    top:0;
 }
 
 /* widgets estilo cristal */
+
 .widget-box{
     background:rgba(255,255,255,0.4);
     backdrop-filter: blur(6px);
@@ -137,8 +143,10 @@ section{
     box-shadow:0 3px 10px rgba(0,0,0,0.15);
 }
 
-/* responsive */
+/* botones responsive */
+
 @media only screen and (max-width:767px){
+
     .menu-icon{
         display:block;
         cursor:pointer;
@@ -152,9 +160,8 @@ section{
 
     .navigation ul.show{
         display:block;
-        background:linear-gradient(90deg,#62b8ff,#109110); /* azul→verde coherente */
-        color:white;
-        backdrop-filter:blur(8px);
+        background:rgba(255,255,255,0.9);
+        backdrop-filter:blur(10px);
         border-radius:10px;
         padding:10px;
     }
@@ -167,12 +174,13 @@ section{
     .navigation ul li a{
         display:block;
         padding:8px;
-        color:white;
     }
 
+    /* widgets verticales y más cercanos al header */
     .widgets-bar{
         flex-direction:column;
         gap:10px;
+        margin-top:0;
     }
 
     .widget-box input{
@@ -182,12 +190,8 @@ section{
 }
 
 /* imágenes adaptables */
+
 img{
     max-width:100%;
     height:auto;
-}
-
-/* contenido original más cercano al header */
-main.intro, .container{
-    margin-top:20px;
 }
