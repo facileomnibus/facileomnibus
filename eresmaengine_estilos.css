@@ -28,12 +28,12 @@ body{
 /* header moderno */
 
 .header{
-    background: linear-gradient(90deg,#5bd3ff,#29e38a); /* azul-verde degradado */
+    background:#175a9b; /* azul clásico inicial */
     box-shadow:0 5px 20px rgba(0,0,0,0.15);
     position:sticky;
     top:0;
     z-index:1000;
-    padding:0.8rem 0;
+    padding:1rem 0;
 }
 
 .logo-nav-container{
@@ -58,7 +58,7 @@ body{
 }
 
 .navigation a:hover{
-    color:#003d5e;
+    color:#ffd700;
 }
 
 /* iconos noticias */
@@ -88,7 +88,7 @@ h3{
 /* botones de secciones */
 
 button, .btn{
-    background:linear-gradient(90deg,#5bd3ff,#29e38a); /* acorde al fondo */
+    background:linear-gradient(90deg,#5bd3ff,#29e38a);
     border:none;
     padding:8px 14px;
     border-radius:10px;
@@ -129,7 +129,7 @@ section{
     justify-content:center;
     align-items:center;
     padding:10px;
-    margin:10px auto 0 auto;
+    margin:0 auto;
     max-width:1200px;
 }
 
@@ -160,8 +160,8 @@ section{
 
     .navigation ul.show{
         display:block;
-        background:rgba(255,255,255,0.9);
-        backdrop-filter:blur(10px);
+        background: #175a9b; /* mismo azul que header */
+        color:white;
         border-radius:10px;
         padding:10px;
     }
@@ -185,13 +185,5 @@ section{
 
     .widget-box input{
         width:220px !important;
-        max-width:90vw;
     }
-}
-
-/* imágenes adaptables */
-
-img{
-    max-width:100%;
-    height:auto;
 }
