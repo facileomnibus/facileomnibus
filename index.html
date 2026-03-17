@@ -37,7 +37,7 @@
     </header>
     <main class="intro">
      <body>
-     <!-- WIDGET CLIMA DINÁMICO -->
+     <!-- WIDGET CLIMA DINÁMICO MEJORADO -->
 <div id="weather-widget" style="
 width:100%;
 max-width:900px;
@@ -47,17 +47,41 @@ overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.2);
 backdrop-filter:blur(10px);
 background:rgba(255,255,255,0.2);
-padding:10px;
+padding:15px;
 text-align:center;
 color:white;
 font-family:Segoe UI, Arial;
 ">
-🌍 Detectando tu ubicación...
+
+<div id="weather-content">🌍 Cargando clima...</div>
+
+<input id="city-input" placeholder="Escribe tu ciudad..."
+style="
+margin-top:10px;
+padding:8px;
+border-radius:10px;
+border:none;
+outline:none;
+width:220px;
+">
+
+<button onclick="searchCity()" style="
+padding:8px 12px;
+border:none;
+border-radius:10px;
+margin-left:5px;
+cursor:pointer;
+background:#5bd3ff;
+color:white;
+">
+Buscar
+</button>
+
 </div>
 
 <script>
-function loadWeather(lat, lon){
-  const url = `https://wttr.in/${lat},${lon}?format=j1`;
+function loadWeather(query){
+  const url = `https://wttr.in/${query}?format=j1`;
 
   fetch(url)
     .then(res => res.json())
@@ -65,31 +89,43 @@ function loadWeather(lat, lon){
       const current = data.current_condition[0];
       const area = data.nearest_area[0];
 
-      document.getElementById("weather-widget").innerHTML = `
-        <h3 style="margin:10px 0;">🌤️ ${area.areaName[0].value}</h3>
-        <p style="font-size:28px;margin:5px 0;">
-          ${current.temp_C}°C
-        </p>
-        <p style="margin:5px 0;">
-          ${current.weatherDesc[0].value}
-        </p>
-        <p style="font-size:12px;opacity:0.8;">
+      document.getElementById("weather-content").innerHTML = `
+        <h3>🌤️ ${area.areaName[0].value}</h3>
+        <p style="font-size:28px;">${current.temp_C}°C</p>
+        <p>${current.weatherDesc[0].value}</p>
+        <p style="font-size:12px;">
           Sensación: ${current.FeelsLikeC}°C | Humedad: ${current.humidity}%
         </p>
       `;
     })
     .catch(()=>{
-      document.getElementById("weather-widget").innerHTML = "❌ No se pudo cargar el clima";
+      document.getElementById("weather-content").innerHTML = "❌ Error al cargar clima";
     });
 }
 
-if(navigator.geolocation){
+function searchCity(){
+  const city = document.getElementById("city-input").value;
+  if(city){
+    localStorage.setItem("weatherCity", city);
+    loadWeather(city);
+  }
+}
+
+/* ===============================
+   INICIO INTELIGENTE
+================================ */
+
+const savedCity = localStorage.getItem("weatherCity");
+
+if(savedCity){
+  loadWeather(savedCity);
+}else if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(
-    pos => loadWeather(pos.coords.latitude, pos.coords.longitude),
-    () => loadWeather("40.4168","-3.7038") // fallback Madrid
+    pos => loadWeather(pos.coords.latitude + "," + pos.coords.longitude),
+    () => loadWeather("Madrid")
   );
 }else{
-  loadWeather("40.4168","-3.7038");
+  loadWeather("Madrid");
 }
 </script>
      <!-- TradingView Widget BEGIN -->
