@@ -94,7 +94,7 @@ function loadWeather(lat, lon, name="Tu ubicación"){
       const daily = data.daily;
 
       /* ===============================
-         ICONOS SEGÚN CÓDIGO METEO
+         ICONOS
       ================================= */
       function getIcon(code){
         if(code === 0) return "☀️";
@@ -108,7 +108,7 @@ function loadWeather(lat, lon, name="Tu ubicación"){
       }
 
       /* ===============================
-         DÍA DE LA SEMANA
+         DÍA
       ================================= */
       function getDay(dateStr){
         const d = new Date(dateStr);
@@ -116,21 +116,31 @@ function loadWeather(lat, lon, name="Tu ubicación"){
       }
 
       /* ===============================
-         HTML PREVISIÓN 3 DÍAS
+         PREVISIÓN 6 DÍAS
       ================================= */
-      let forecastHTML = `<div style="display:flex;justify-content:center;gap:15px;margin-top:15px;flex-wrap:wrap;">`;
+      let forecastHTML = `
+        <div style="
+          display:flex;
+          justify-content:center;
+          gap:12px;
+          margin-top:15px;
+          flex-wrap:wrap;
+        ">
+      `;
 
-      for(let i=1;i<=3;i++){
+      for(let i=1;i<=6;i++){
         forecastHTML += `
           <div style="
             background:rgba(255,255,255,0.25);
             padding:10px;
             border-radius:15px;
-            min-width:80px;
+            min-width:85px;
             backdrop-filter:blur(6px);
           ">
-            <div>${getDay(daily.time[i])}</div>
-            <div style="font-size:22px;">${getIcon(daily.weathercode[i])}</div>
+            <div style="font-size:12px;">${getDay(daily.time[i])}</div>
+            <div style="font-size:24px;margin:5px 0;">
+              ${getIcon(daily.weathercode[i])}
+            </div>
             <div style="font-size:12px;">
               ${daily.temperature_2m_max[i]}° / ${daily.temperature_2m_min[i]}°
             </div>
@@ -141,12 +151,18 @@ function loadWeather(lat, lon, name="Tu ubicación"){
       forecastHTML += `</div>`;
 
       /* ===============================
-         RENDER FINAL
+         RENDER FINAL (ICONO GRANDE)
       ================================= */
       document.getElementById("weather-content").innerHTML = `
-        <h3 style="margin:10px 0;">${getIcon(w.weathercode)} ${name}</h3>
+        <h3 style="margin:10px 0;">
+          ${name}
+        </h3>
 
-        <p style="font-size:32px;margin:5px 0;">
+        <div style="font-size:60px; margin:10px 0;">
+          ${getIcon(w.weathercode)}
+        </div>
+
+        <p style="font-size:34px;margin:5px 0;">
           ${w.temperature}°C
         </p>
 
