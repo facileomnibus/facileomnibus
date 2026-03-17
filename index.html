@@ -94,16 +94,26 @@ function loadWeather(lat, lon, name="Tu ubicación"){
       const daily = data.daily;
 
       /* ===============================
-         ICONOS
+         ICONOS DÍA / NOCHE
       ================================= */
-      function getIcon(code){
-        if(code === 0) return "☀️";
-        if(code <= 3) return "⛅";
-        if(code <= 48) return "🌫️";
-        if(code <= 67) return "🌧️";
-        if(code <= 77) return "❄️";
-        if(code <= 82) return "🌦️";
-        if(code <= 99) return "⛈️";
+      function getIcon(code, isDay=true){
+        if(isDay){
+          if(code === 0) return "☀️";
+          if(code <= 3) return "⛅";
+          if(code <= 48) return "🌫️";
+          if(code <= 67) return "🌧️";
+          if(code <= 77) return "❄️";
+          if(code <= 82) return "🌦️";
+          if(code <= 99) return "⛈️";
+        }else{
+          if(code === 0) return "🌙";
+          if(code <= 3) return "🌙☁️";
+          if(code <= 48) return "🌫️";
+          if(code <= 67) return "🌧️";
+          if(code <= 77) return "❄️";
+          if(code <= 82) return "🌧️";
+          if(code <= 99) return "⛈️";
+        }
         return "🌍";
       }
 
@@ -139,7 +149,7 @@ function loadWeather(lat, lon, name="Tu ubicación"){
           ">
             <div style="font-size:12px;">${getDay(daily.time[i])}</div>
             <div style="font-size:24px;margin:5px 0;">
-              ${getIcon(daily.weathercode[i])}
+              ${getIcon(daily.weathercode[i], true)}
             </div>
             <div style="font-size:12px;">
               ${daily.temperature_2m_max[i]}° / ${daily.temperature_2m_min[i]}°
@@ -151,15 +161,18 @@ function loadWeather(lat, lon, name="Tu ubicación"){
       forecastHTML += `</div>`;
 
       /* ===============================
-         RENDER FINAL (ICONO GRANDE)
+         RENDER FINAL
       ================================= */
       document.getElementById("weather-content").innerHTML = `
         <h3 style="margin:10px 0;">
           ${name}
         </h3>
 
-        <div style="font-size:60px; margin:10px 0;">
-          ${getIcon(w.weathercode)}
+        <div style="
+          font-size:65px;
+          margin:25px 0 10px 0; /* 👈 MÁS ARRIBA Y ESPACIADO */
+        ">
+          ${getIcon(w.weathercode, w.is_day === 1)}
         </div>
 
         <p style="font-size:34px;margin:5px 0;">
