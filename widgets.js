@@ -7,6 +7,19 @@ document.addEventListener("DOMContentLoaded",()=>{
 const bar=document.createElement("div")
 bar.className="widgets-bar"
 
+/* ===== REUBICAR BARRA DE WIDGETS ===== */
+
+const targetContainer =
+    document.querySelector(".main-dashboard") ||
+    document.querySelector("main") ||
+    document.querySelector(".container");
+
+if(targetContainer){
+    targetContainer.prepend(bar);
+}else{
+    document.body.prepend(bar);
+}
+
 document.body.prepend(bar)
 
 /* ===============================
