@@ -80,6 +80,5 @@ menuBtn.addEventListener("touchstart", function(e){
     e.stopPropagation();
     e.preventDefault();
 }, true);   
-}
 
 })
