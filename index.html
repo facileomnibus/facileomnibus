@@ -85,28 +85,82 @@ Buscar
    CARGAR CLIMA POR COORDENADAS
 ================================ */
 function loadWeather(lat, lon, name="Tu ubicación"){
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`;
 
   fetch(url)
     .then(res => res.json())
     .then(data => {
       const w = data.current_weather;
+      const daily = data.daily;
 
+      /* ===============================
+         ICONOS SEGÚN CÓDIGO METEO
+      ================================= */
+      function getIcon(code){
+        if(code === 0) return "☀️";
+        if(code <= 3) return "⛅";
+        if(code <= 48) return "🌫️";
+        if(code <= 67) return "🌧️";
+        if(code <= 77) return "❄️";
+        if(code <= 82) return "🌦️";
+        if(code <= 99) return "⛈️";
+        return "🌍";
+      }
+
+      /* ===============================
+         DÍA DE LA SEMANA
+      ================================= */
+      function getDay(dateStr){
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('es-ES', { weekday: 'short' });
+      }
+
+      /* ===============================
+         HTML PREVISIÓN 3 DÍAS
+      ================================= */
+      let forecastHTML = `<div style="display:flex;justify-content:center;gap:15px;margin-top:15px;flex-wrap:wrap;">`;
+
+      for(let i=1;i<=3;i++){
+        forecastHTML += `
+          <div style="
+            background:rgba(255,255,255,0.25);
+            padding:10px;
+            border-radius:15px;
+            min-width:80px;
+            backdrop-filter:blur(6px);
+          ">
+            <div>${getDay(daily.time[i])}</div>
+            <div style="font-size:22px;">${getIcon(daily.weathercode[i])}</div>
+            <div style="font-size:12px;">
+              ${daily.temperature_2m_max[i]}° / ${daily.temperature_2m_min[i]}°
+            </div>
+          </div>
+        `;
+      }
+
+      forecastHTML += `</div>`;
+
+      /* ===============================
+         RENDER FINAL
+      ================================= */
       document.getElementById("weather-content").innerHTML = `
-        <h3>🌤️ ${name}</h3>
-        <p style="font-size:28px;margin:5px 0;">
+        <h3 style="margin:10px 0;">${getIcon(w.weathercode)} ${name}</h3>
+
+        <p style="font-size:32px;margin:5px 0;">
           ${w.temperature}°C
         </p>
-        <p>
+
+        <p style="font-size:14px;">
           Viento: ${w.windspeed} km/h
         </p>
+
+        ${forecastHTML}
       `;
     })
     .catch(()=>{
       document.getElementById("weather-content").innerHTML = "❌ No se pudo cargar el clima";
     });
 }
-
 /* ===============================
    BUSCAR CIUDAD
 ================================ */
