@@ -59,9 +59,15 @@ const menuBtn=document.querySelector(".menu-icon")
 const menu=document.querySelector(".navigation ul")
 
 if(menuBtn && menu){
+
 menuBtn.addEventListener("click",()=>{
 menu.classList.toggle("show")
 })
+
+menuBtn.addEventListener("touchstart",()=>{
+menu.classList.toggle("show")
+})
+
 }
 
 })
