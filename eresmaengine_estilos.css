@@ -40,7 +40,7 @@ body{
 }
 
 .navigation a{
-    color:white;
+    color:black;
     font-weight:600;
     text-decoration:none;
     transition:0.3s;
