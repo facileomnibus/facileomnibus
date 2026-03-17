@@ -21,7 +21,7 @@ body{
     padding:20px;
     margin:20px auto;
     max-width:1400px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.15);
+    box-shadow:0 10px 40px linear-gradient(90deg,#5bd3ff,#29e38a); 
 }
 
 /* header moderno */
