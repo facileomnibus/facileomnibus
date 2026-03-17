@@ -436,6 +436,114 @@ if(savedCity){
   </script>
 </div>
 <!-- TradingView Widget END -->
+<!-- WIDGET TICKER DE NOTICIAS DINÁMICO -->
+<div id="rss-ticker" style="
+width:100%;
+max-width:1200px;
+margin:20px auto;
+padding:15px;
+border-radius:20px;
+overflow:hidden;
+background:linear-gradient(90deg,#5bd3ff33,#29e38a33);
+backdrop-filter: blur(12px);
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+position:relative;
+color:white;
+font-family:Segoe UI, Arial, sans-serif;
+height:100px;
+display:flex;
+align-items:center;
+">
+<div id="ticker-content" style="
+display:flex;
+gap:50px;
+white-space:nowrap;
+align-items:center;
+animation:scrollTicker 40s linear infinite;
+">
+</div>
+</div>
+
+<style>
+@keyframes scrollTicker{
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.rss-item {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(0,0,0,0.25);
+  padding:8px 12px;
+  border-radius:12px;
+  transition: transform 0.3s;
+}
+.rss-item:hover {
+  transform: scale(1.05);
+  cursor:pointer;
+}
+.rss-item img {
+  width:50px;
+  height:50px;
+  border-radius:8px;
+  object-fit:cover;
+}
+.rss-item span {
+  font-weight:600;
+  max-width:200px;
+}
+</style>
+
+<script>
+const tickerContent = document.getElementById("ticker-content");
+
+// Función para obtener noticias de Google News vía RSS 
+async function fetchNews() {
+  try {
+    const proxy = "https://api.allorigins.win/get?url=";
+    const rssUrl = encodeURIComponent("https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es");
+    const response = await fetch(proxy + rssUrl);
+    const data = await response.json();
+    
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data.contents, "text/xml");
+    const items = xml.querySelectorAll("item");
+    
+    tickerContent.innerHTML = "";
+    
+    items.forEach(item => {
+      const title = item.querySelector("title").textContent;
+      const link = item.querySelector("link").textContent;
+      let image = "";
+
+      // Google News RSS a veces contiene media:content
+      const media = item.querySelector("media\\:thumbnail, thumbnail");
+      if(media) image = media.getAttribute("url");
+      else image = "https://via.placeholder.com/50x50?text=News";
+
+      const newsItem = document.createElement("a");
+      newsItem.className = "rss-item";
+      newsItem.href = link;
+      newsItem.target = "_blank";
+      newsItem.innerHTML = `
+        <img src="${image}" alt="news">
+        <span>${title}</span>
+      `;
+      
+      tickerContent.appendChild(newsItem);
+    });
+  } catch(e) {
+    tickerContent.innerHTML = "❌ No se pudo cargar el ticker de noticias";
+    console.error(e);
+  }
+}
+
+// Cargar noticias al inicio
+fetchNews();
+
+// Actualizar cada 10 minutos
+setInterval(fetchNews, 10*60*1000);
+</script>
 <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Cargando..." data-fw-param="174041/"></script> <!-- end feedwind code -->
      <body>   
      <div class="container">
