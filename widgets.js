@@ -6,27 +6,8 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 const bar=document.createElement("div")
 bar.className="widgets-bar"
-/* ===== REUBICAR BARRA DE WIDGETS ===== */
-
-const targetContainer =
-    document.querySelector(".main-dashboard") ||
-    document.querySelector("main") ||
-    document.querySelector(".container");
-
-if(targetContainer){
-    targetContainer.prepend(bar);
-}else{
-    document.body.prepend(bar);
-}
 
 document.body.prepend(bar)
-/* ===== COLOCAR BARRA DEBAJO DEL HEADER ===== */
-
-const header = document.querySelector(".header");
-
-if(header && header.parentNode){
-    header.parentNode.insertBefore(bar, header.nextSibling);
-}
 
 /* ===============================
    RELOJ
@@ -99,5 +80,6 @@ menuBtn.addEventListener("touchstart", function(e){
     e.stopPropagation();
     e.preventDefault();
 }, true);   
+}
 
 })
