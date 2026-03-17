@@ -20,6 +20,13 @@ if(targetContainer){
 }
 
 document.body.prepend(bar)
+/* ===== COLOCAR BARRA DEBAJO DEL HEADER ===== */
+
+const header = document.querySelector(".header");
+
+if(header && header.parentNode){
+    header.parentNode.insertBefore(bar, header.nextSibling);
+}
 
 /* ===============================
    RELOJ
