@@ -40,7 +40,7 @@ body{
 }
 
 .navigation a{
-    color: rgba(0, 98, 255);
+    color:black;
     font-weight:600;
     text-decoration:none;
     transition:0.3s;
@@ -238,21 +238,4 @@ height:auto;
 .navigation ul.show li{
     width:100%;
     text-align:center;
-}
-/* asegurar visibilidad de la barra */
-
-.widgets-bar{
-    position: relative;
-    z-index: 5;
-}
-/* ===== FIX VISIBILIDAD WIDGETS BAR ===== */
-
-.widgets-bar{
-    position: relative;
-    z-index: 1100; /* por encima del header */
-}
-
-/* separarla visualmente del header */
-.header + .widgets-bar{
-    margin-top: 70px; /* ajusta si quieres más o menos espacio */
 }
