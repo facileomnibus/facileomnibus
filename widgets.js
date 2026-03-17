@@ -68,6 +68,18 @@ menuBtn.addEventListener("touchstart",()=>{
 menu.classList.toggle("show")
 })
 
+/* ===== FIX CLICK PC (evitar doble evento) ===== */
+
+menuBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+    e.preventDefault();
+    menu.classList.toggle("show");
+}, true);
+
+menuBtn.addEventListener("touchstart", function(e){
+    e.stopPropagation();
+    e.preventDefault();
+}, true);   
 }
 
 })
