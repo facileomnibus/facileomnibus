@@ -216,4 +216,26 @@ img{
 max-width:100%;
 height:auto;
 }
+/* ===== FIX MENÚ MOBILE (mejora visual + centrado) ===== */
+
+.navigation ul.show{
+    background: linear-gradient(180deg,#5bd3ff,#b2f1ff);
+    backdrop-filter: blur(12px);
+    border-radius:15px;
+    padding:12px;
+
+    /* centrado real */
+    margin:10px auto;
+    max-width:95%;
+
+    /* alineación interna */
+    align-items:center;
+    text-align:center;
+}
+
+/* centrar elementos del menú */
+
+.navigation ul.show li{
+    width:100%;
+    text-align:center;
 }
