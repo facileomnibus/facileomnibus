@@ -164,16 +164,17 @@ function loadWeather(lat, lon, name="Tu ubicación"){
          RENDER FINAL
       ================================= */
       document.getElementById("weather-content").innerHTML = `
-        <h3 style="margin:10px 0;">
-          ${name}
-        </h3>
+        <h3 style="margin:5px 0 15px 0;">
+  ${name}
+</h3>
 
-        <div style="
-          font-size:65px;
-          margin:25px 0 10px 0; /* 👈 MÁS ARRIBA Y ESPACIADO */
-        ">
-          ${getIcon(w.weathercode, w.is_day === 1)}
-        </div>
+<div style="
+  font-size:70px;
+  margin:10px 0 20px 0;
+  line-height:1;
+">
+  ${getIcon(w.weathercode, w.is_day === 1)}
+</div>
 
         <p style="font-size:34px;margin:5px 0;">
           ${w.temperature}°C
