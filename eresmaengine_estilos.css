@@ -245,3 +245,14 @@ height:auto;
     position: relative;
     z-index: 5;
 }
+/* ===== FIX VISIBILIDAD WIDGETS BAR ===== */
+
+.widgets-bar{
+    position: relative;
+    z-index: 1100; /* por encima del header */
+}
+
+/* separarla visualmente del header */
+.header + .widgets-bar{
+    margin-top: 70px; /* ajusta si quieres más o menos espacio */
+}
