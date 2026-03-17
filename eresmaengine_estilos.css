@@ -239,3 +239,9 @@ height:auto;
     width:100%;
     text-align:center;
 }
+/* asegurar visibilidad de la barra */
+
+.widgets-bar{
+    position: relative;
+    z-index: 5;
+}
