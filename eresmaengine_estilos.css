@@ -21,7 +21,7 @@ body{
     padding:20px;
     margin:20px auto;
     max-width:1400px;
-    box-shadow:0 10px 40px linear-gradient(90deg,#5bd3ff,#29e38a); 
+    box-shadow:0 10px 40px rgba(0,0,0,0.15);
 }
 
 /* header moderno */
@@ -47,7 +47,7 @@ body{
 }
 
 .navigation a:hover{
-    color:#003d5e;
+    color: linear-gradient(90deg,#5bd3ff,#29e38a);
 }
 
 /* iconos noticias */
