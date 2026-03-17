@@ -17,15 +17,18 @@ document.body.prepend(bar)
   dateWidget.className="widget-box"
 
   function updateDate(){
-    const today = new Date()
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-    dateWidget.innerHTML = "📅 "+today.toLocaleDateString('es-ES', options)
+    const now = new Date()
+    // Formato: Día de la semana, dd/mm/yyyy
+    const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit' }
+    dateWidget.innerHTML = "📅 " + now.toLocaleDateString('es-ES', options)
   }
 
-  updateDate() // mostrar fecha al cargar
-  setInterval(updateDate, 60*1000) // actualizar cada minuto
-  bar.insertBefore(dateWidget, clock.nextSibling) // lo colocamos justo después del reloj
-   
+  updateDate()
+  // Actualiza la fecha a medianoche para que cambie correctamente (opcional)
+  setInterval(updateDate, 60 * 1000) // cada minuto
+
+  bar.appendChild(dateWidget)
+
 /* ===============================
    RELOJ
 ================================ */
