@@ -236,7 +236,108 @@ if(savedCity){
   loadWeather(40.4168, -3.7038, "Madrid");
 }
 </script>
-     <!-- TradingView Widget BEGIN -->
+     <!-- TICKER FINANCIERO PRO -->
+<div id="market-widget" style="
+max-width:1200px;
+margin:20px auto;
+padding:15px;
+border-radius:20px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+color:white;
+font-family:Segoe UI, Arial;
+">
+
+<h3 style="margin-bottom:10px;">📊 Mercados en tiempo real</h3>
+
+<div id="market-container" style="
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+justify-content:center;
+">
+Cargando datos...
+</div>
+
+</div>
+
+<script>
+const assets = [
+  // Índices
+  {name:"IBEX 35", symbol:"^IBEX"},
+  {name:"S&P 500", symbol:"^GSPC"},
+  {name:"NASDAQ 100", symbol:"^NDX"},
+  {name:"DOW JONES", symbol:"^DJI"},
+
+  // Empresas IBEX
+  {name:"Santander", symbol:"SAN.MC", logo:"https://logo.clearbit.com/santander.com"},
+  {name:"BBVA", symbol:"BBVA.MC", logo:"https://logo.clearbit.com/bbva.com"},
+  {name:"Inditex", symbol:"ITX.MC", logo:"https://logo.clearbit.com/inditex.com"},
+  {name:"Iberdrola", symbol:"IBE.MC", logo:"https://logo.clearbit.com/iberdrola.com"},
+  {name:"Repsol", symbol:"REP.MC", logo:"https://logo.clearbit.com/repsol.com"},
+
+  // Crypto
+  {name:"Bitcoin", symbol:"BTC-USD"},
+  {name:"Ethereum", symbol:"ETH-USD"},
+
+  // Divisas
+  {name:"EUR/USD", symbol:"EURUSD=X"},
+  {name:"EUR/GBP", symbol:"EURGBP=X"},
+  {name:"EUR/JPY", symbol:"EURJPY=X"}
+];
+
+async function loadMarket(){
+
+  const container = document.getElementById("market-container");
+  container.innerHTML = "";
+
+  for (let asset of assets){
+
+    try{
+      const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${asset.symbol}`);
+      const data = await res.json();
+
+      const price = data.chart.result[0].meta.regularMarketPrice;
+      const prev = data.chart.result[0].meta.previousClose;
+      const change = ((price - prev) / prev * 100).toFixed(2);
+
+      const isUp = change >= 0;
+
+      const box = document.createElement("div");
+      box.style = `
+        padding:10px 15px;
+        border-radius:15px;
+        background:rgba(255,255,255,0.25);
+        min-width:140px;
+        text-align:center;
+        box-shadow:0 5px 15px rgba(0,0,0,0.15);
+      `;
+
+      box.innerHTML = `
+        ${asset.logo ? `<img src="${asset.logo}" style="width:20px;height:20px;margin-bottom:5px;">` : ""}
+        <div style="font-weight:bold;">${asset.name}</div>
+        <div>${price.toFixed(2)}</div>
+        <div style="color:${isUp ? "#00ff9c" : "#ff4d4d"};">
+          ${change}%
+        </div>
+      `;
+
+      container.appendChild(box);
+
+    }catch(e){
+      console.log("Error cargando", asset.name);
+    }
+  }
+}
+
+// cargar al inicio
+loadMarket()
+
+// actualizar cada 60s
+setInterval(loadMarket, 60000)
+</script>
+         <!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
   <div class="tradingview-widget-container__widget"></div>
   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
