@@ -10,26 +10,22 @@ bar.className="widgets-bar"
 document.body.prepend(bar)
 
 /* ===============================
-   FECHA
-================================ */
-  document.addEventListener("DOMContentLoaded", ()=>{
-  const bar = document.querySelector(".widgets-bar");
-  if(bar){
-    const dateWidget = document.createElement("div");
-    dateWidget.className = "widget-box";
-    
-    function updateDate(){
-      const today = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      dateWidget.innerHTML = "📅 " + today.toLocaleDateString('es-ES', options);
-    }
-    
-    updateDate();  // Inicial
-    setInterval(updateDate, 60*1000); // Se actualiza cada minuto
-    bar.appendChild(dateWidget);
-  }
-});
+     FECHA
+  ================================= */
 
+  const dateWidget = document.createElement("div")
+  dateWidget.className="widget-box"
+
+  function updateDate(){
+    const today = new Date()
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    dateWidget.innerHTML = "📅 "+today.toLocaleDateString('es-ES', options)
+  }
+
+  updateDate() // mostrar fecha al cargar
+  setInterval(updateDate, 60*1000) // actualizar cada minuto
+  bar.insertBefore(dateWidget, clock.nextSibling) // lo colocamos justo después del reloj
+   
 /* ===============================
    RELOJ
 ================================ */
