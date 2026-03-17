@@ -157,6 +157,17 @@ section{
     display:none;
     width:100%;
 }
+   
+/* mostrar menú cuando se activa */
+
+.navigation ul.show{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+}
+.navigation ul{
+    flex-direction:column;
+}
 
 /* cuando se abre */
 
@@ -168,16 +179,6 @@ section{
     padding:10px;
 }
 
-/* mostrar menú cuando se activa */
-
-.navigation ul.show{
-    display:flex;
-    flex-direction:column;
-    width:100%;
-}
-.navigation ul{
-    flex-direction:column;
-}
 /* enlaces verticales */
 
 .navigation ul li{
