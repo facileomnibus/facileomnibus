@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 const bar=document.createElement("div")
 bar.className="widgets-bar"
-
 /* ===== REUBICAR BARRA DE WIDGETS ===== */
 
 const targetContainer =
