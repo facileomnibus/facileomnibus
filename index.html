@@ -436,6 +436,152 @@ if(savedCity){
   </script>
 </div>
 <!-- TradingView Widget END -->
+<!-- ===============================
+     TICKER NOTICIAS PRO
+================================ -->
+<div id="news-ticker-container">
+  <div id="news-ticker-track">Cargando noticias...</div>
+</div>
+
+<style>
+#news-ticker-container{
+  width:100%;
+  overflow:hidden;
+  border-radius:20px;
+  margin:20px auto;
+  max-width:1200px;
+
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+  padding:10px 0;
+}
+
+#news-ticker-track{
+  display:flex;
+  gap:20px;
+  width:max-content;
+  animation: scrollNews 80s linear infinite;
+}
+
+.news-item{
+  min-width:280px;
+  max-width:280px;
+  height:140px;
+  border-radius:15px;
+  overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+
+  display:flex;
+  align-items:flex-end;
+
+  color:white;
+  font-size:14px;
+  font-weight:600;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.news-item:hover{
+  transform:scale(1.05);
+}
+
+.news-bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  filter:brightness(0.7);
+}
+
+.news-title{
+  position:relative;
+  padding:10px;
+  z-index:2;
+}
+
+/* animación lenta */
+@keyframes scrollNews{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+</style>
+
+<script>
+const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
+
+/* Proxy principal + fallback */
+const PROXIES = [
+  url => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`,
+  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
+];
+
+async function fetchNews(){
+  for(let proxy of PROXIES){
+    try{
+      const res = await fetch(proxy(RSS_URL));
+      if(!res.ok) continue;
+
+      const data = await res.json();
+
+      // rss2json
+      if(data.items){
+        return data.items;
+      }
+
+      // allorigins (XML → parsear)
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(data.contents, "text/xml");
+      const items = [...xml.querySelectorAll("item")].map(item => ({
+        title: item.querySelector("title").textContent,
+        link: item.querySelector("link").textContent
+      }));
+
+      return items;
+    }catch(e){}
+  }
+
+  return []; // nunca rompe la app
+}
+
+function createNewsHTML(news){
+
+  if(!news.length){
+    return `<div style="color:white;padding:10px;">📰 No hay noticias disponibles</div>`;
+  }
+
+  return news.slice(0,15).map(item => {
+
+    // imagen aleatoria (Google News no da imágenes directas fiables)
+    const img = `https://source.unsplash.com/400x300/?news,world,technology&sig=${Math.random()}`;
+
+    return `
+      <a href="${item.link}" target="_blank" class="news-item">
+        <div class="news-bg" style="background-image:url('${img}')"></div>
+        <div class="news-title">${item.title}</div>
+      </a>
+    `;
+  }).join("");
+}
+
+async function initTicker(){
+  const container = document.getElementById("news-ticker-track");
+
+  const news = await fetchNews();
+
+  const html = createNewsHTML(news);
+
+  // duplicamos contenido para scroll infinito fluido
+  container.innerHTML = html + html;
+}
+
+initTicker();
+</script>
 <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Cargando..." data-fw-param="174041/"></script> <!-- end feedwind code -->
      <body>   
      <div class="container">
