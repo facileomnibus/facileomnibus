@@ -436,93 +436,98 @@ if(savedCity){
   </script>
 </div>
 <!-- TradingView Widget END -->
-<!-- TICKER DE NOTICIAS DINÁMICO -->
+<!-- WIDGET TICKER DE NOTICIAS GOOGLE NEWS -->
 <div id="news-ticker" style="
-width:100%;
-max-width:1200px;
-margin:20px auto;
-padding:15px;
-border-radius:20px;
-overflow:hidden;
-position:relative;
-background: linear-gradient(90deg, rgba(91,211,255,0.2), rgba(41,227,138,0.2));
-backdrop-filter: blur(10px);
-box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-color:white;
-font-family: 'Segoe UI', Arial, sans-serif;
+  width:100%;
+  max-width:1200px;
+  margin:20px auto;
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+  background: rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  height:100px;
+  display:flex;
+  align-items:center;
+  padding:10px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color:white;
 ">
-  <div id="news-items" style="
+  <div id="news-container" style="
     display:flex;
     gap:20px;
-    overflow-x:auto;
-    scroll-behavior: smooth;
-    padding-bottom:5px;
-  ">
-    <span style="white-space:nowrap;">Cargando noticias...</span>
-  </div>
+    animation: scrollNews 60s linear infinite;
+    white-space:nowrap;
+  "></div>
 </div>
 
+<style>
+@keyframes scrollNews{
+  0%{transform: translateX(100%)}
+  100%{transform: translateX(-100%)}
+}
+
+.news-item{
+  display:inline-block;
+  min-width:250px;
+  max-width:300px;
+  background-size:cover;
+  background-position:center;
+  border-radius:15px;
+  padding:10px 15px;
+  backdrop-filter: blur(6px);
+  color:white;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  flex-shrink:0;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+}
+.news-item a{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+}
+.news-item a:hover{
+  text-decoration:underline;
+}
+</style>
+
 <script>
-async function loadNews() {
-  const container = document.getElementById('news-items');
-  container.innerHTML = 'Cargando noticias...';
+async function loadNews(){
+  const container = document.getElementById('news-container');
 
   try {
     // Google News RSS global
-    const rssUrl = "https://news.google.com/rss?hl=es-419&gl=ES&ceid=ES:es";
+    const CORS_PROXY = "https://api.allorigins.win/get?url=";
+    const rssURL = encodeURIComponent("https://news.google.com/rss?hl=es-419&gl=ES&ceid=ES:es");
 
-    // Usamos cors-anywhere para evitar problemas de CORS
-    const proxy = "https://api.allorigins.win/get?url=" + encodeURIComponent(rssUrl);
-
-    const res = await fetch(proxy);
+    const res = await fetch(`${CORS_PROXY}${rssURL}`);
     const data = await res.json();
     const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, "text/xml");
-    const items = xml.querySelectorAll("item");
+    const xmlDoc = parser.parseFromString(data.contents,"text/xml");
 
-    container.innerHTML = ""; // vaciamos el contenido previo
+    const items = xmlDoc.querySelectorAll("item");
+    container.innerHTML = ""; // limpiar antes
 
-    items.forEach(item => {
-      const title = item.querySelector("title").textContent;
-      const link = item.querySelector("link").textContent;
-      const pubDate = item.querySelector("pubDate").textContent;
+    items.forEach(item=>{
+      const title = item.querySelector("title")?.textContent || "Sin título";
+      const link = item.querySelector("link")?.textContent || "#";
+      const media = item.querySelector("media\\:thumbnail, thumbnail")?.getAttribute("url") || "https://via.placeholder.com/300x100?text=Noticias";
 
-      // Buscamos una imagen si existe en media:content
-      let img = "";
-      const media = item.getElementsByTagName("media:thumbnail")[0];
-      if(media) img = media.getAttribute("url");
-
-      const newsDiv = document.createElement("div");
-      newsDiv.style.minWidth = "280px";
-      newsDiv.style.background = img ? `url('${img}') center/cover no-repeat` : "rgba(0,0,0,0.3)";
-      newsDiv.style.borderRadius = "15px";
-      newsDiv.style.padding = "10px";
-      newsDiv.style.flexShrink = "0";
-      newsDiv.style.boxShadow = "0 5px 15px rgba(0,0,0,0.3)";
-      newsDiv.style.transition = "transform 0.3s";
-      newsDiv.style.cursor = "pointer";
-
-      newsDiv.innerHTML = `
-        <h4 style="margin:0 0 5px; font-size:14px; text-shadow:1px 1px 3px rgba(0,0,0,0.6);">${title}</h4>
-        <p style="margin:0; font-size:10px; text-shadow:1px 1px 3px rgba(0,0,0,0.6);">${new Date(pubDate).toLocaleTimeString('es-ES')}</p>
-      `;
-
-      newsDiv.addEventListener("click", () => window.open(link, "_blank"));
-
-      // efecto hover
-      newsDiv.addEventListener("mouseenter", () => newsDiv.style.transform = "scale(1.05)");
-      newsDiv.addEventListener("mouseleave", () => newsDiv.style.transform = "scale(1)");
-
-      container.appendChild(newsDiv);
+      const div = document.createElement("div");
+      div.className = "news-item";
+      div.style.backgroundImage = `url('${media}')`;
+      div.innerHTML = `<a href="${link}" target="_blank">${title}</a>`;
+      container.appendChild(div);
     });
 
-  } catch (err) {
-    container.innerHTML = '❌ No se pudieron cargar las noticias. Intenta recargar la página.';
-    console.error(err);
+  } catch(e){
+    container.innerHTML = "<span style='color:red;font-weight:bold;'>❌ No se pudo cargar el ticker de noticias</span>";
+    console.error("Error cargando noticias:", e);
   }
 }
 
-// Cargar noticias al inicio
+// cargar ticker
 loadNews();
 </script>
 <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Cargando..." data-fw-param="174041/"></script> <!-- end feedwind code -->
