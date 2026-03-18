@@ -4,7 +4,7 @@
 
 body{
     margin:0;
-    font-family: "Segoe UI", "Arial", "sans-serif";
+    font-family: "Segoe UI", Arial, sans-serif;
     background:
         radial-gradient(circle at 20% 20%, #6ecbff33, transparent 40%),
         radial-gradient(circle at 80% 40%, #a6f0ff33, transparent 40%),
