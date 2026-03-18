@@ -291,36 +291,3 @@ section,
         position: relative;
     }
 }
-/* ===============================
-   CENTRADO REAL WIDGET CLIMA
-================================ */
-
-/* igualar comportamiento al ticker */
-.weather-widget {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-/* caja interna del clima */
-.weather-widget > div {
-    width: 100%;
-    max-width: 850px; /* mismo ancho visual que container */
-    margin: 0 auto;
-}
-
-/* móvil PERFECTO */
-@media only screen and (max-width:767px){
-
-.weather-widget {
-    padding: 0;
-    margin: 0 auto;
-}
-
-.weather-widget > div {
-    width: 100%;
-    max-width: 95%;
-    margin: 0 auto;
-}
-
-}
