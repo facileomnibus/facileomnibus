@@ -239,3 +239,39 @@ height:auto;
     width:100%;
     text-align:center;
 }
+/* ===============================
+   FIX WIDGET CLIMA PRO FUNCIONAL (CENTRADO TOTAL)
+================================ */
+
+/* contenedor del widget clima */
+.weather-widget {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto; /* centrado horizontal */
+    display: flex;
+    justify-content: center;
+}
+
+/* caja interna del widget */
+.weather-widget .weather-container {
+    width: 100%;
+    text-align: center;
+}
+
+/* FIX móvil (el importante) */
+@media only screen and (max-width:767px){
+
+.weather-widget {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+}
+
+/* evita que se desplace a la derecha */
+.weather-widget * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+}
