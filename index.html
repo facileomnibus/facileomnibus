@@ -583,8 +583,8 @@ async function fetchNews(){
 function getCategory(title){
   const t = title.toLowerCase();
 
-  if(t.includes("tecnolog") || t.includes("ia")) return "TECNO";
-  if(t.includes("deporte") || t.includes("fútbol")) return "DEPORTE";
+  if(t.includes("tecnolog") || t.includes("ia")) return "TECNOLOGÍA";
+  if(t.includes("deporte") || t.includes("fútbol")) return "DEPORTES";
   if(t.includes("econom")) return "ECONOMÍA";
   if(t.includes("polít")) return "POLÍTICA";
   return "GENERAL";
@@ -621,7 +621,7 @@ function createHTML(news){
 
         <div class="news-content">
           <div class="news-title">${item.title}</div>
-          <div class="news-source">${item.author || "Google News"}</div>
+          <div class="news-source">${item.author || "Haz clic para saber más"}</div>
         </div>
 
       </a>
