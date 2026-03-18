@@ -3,7 +3,7 @@
 ================================ */
 
 body{
-    margin:200;
+    margin:0;
     font-family: "Segoe UI", Arial, sans-serif;
     background:
         radial-gradient(circle at 20% 20%, #6ecbff33, transparent 40%),
