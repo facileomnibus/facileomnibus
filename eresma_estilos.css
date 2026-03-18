@@ -291,3 +291,71 @@ section,
         position: relative;
     }
 }
+/* ===============================
+   CENTRADO PERFECTO WIDGET CLIMA
+================================ */
+
+.weather-widget {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 20px auto;
+}
+
+/* contenedor interno real */
+.weather-widget > div {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* TODO el contenido centrado */
+.weather-widget * {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* títulos, temperatura, texto */
+.weather-widget h2,
+.weather-widget h3,
+.weather-widget p,
+.weather-widget span {
+    text-align: center !important;
+}
+
+/* input perfectamente centrado */
+.weather-widget input {
+    display: block;
+    margin: 10px auto !important;
+    text-align: center;
+}
+
+/* botón centrado */
+.weather-widget button {
+    display: block;
+    margin: 10px auto !important;
+}
+
+/* emojis e iconos */
+.weather-widget img,
+.weather-widget svg {
+    display: block;
+    margin: 0 auto;
+}
+
+/* móvil PERFECTO */
+@media only screen and (max-width:767px){
+
+    .weather-widget {
+        width: 100%;
+        padding: 0;
+    }
+
+    .weather-widget > div {
+        width: 95%;
+    }
+
+}
