@@ -437,52 +437,70 @@ if(savedCity){
 </div>
 <!-- TradingView Widget END -->
 <!-- ===============================
-     TICKER NOTICIAS PRO
+     📰 WIDGET NOTICIAS PRO+
 ================================ -->
+<div id="news-header">📰 ÚLTIMA HORA</div>
+
 <div id="news-ticker-container">
-  <div id="news-ticker-track">Cargando noticias...</div>
+  <div id="news-ticker-track"></div>
 </div>
 
 <style>
+#news-header{
+  max-width:1200px;
+  margin:20px auto 10px;
+  padding:10px 20px;
+  border-radius:15px;
+
+  background:linear-gradient(90deg,#5bd3ff,#29e38a);
+  color:white;
+  font-weight:bold;
+  font-size:18px;
+  width:fit-content;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* contenedor */
 #news-ticker-container{
   width:100%;
   overflow:hidden;
   border-radius:20px;
-  margin:20px auto;
+  margin:0 auto 20px;
   max-width:1200px;
 
   background:rgba(255,255,255,0.15);
   backdrop-filter:blur(10px);
   box-shadow:0 10px 30px rgba(0,0,0,0.2);
 
-  padding:10px 0;
+  padding:15px 0;
 }
 
+/* track */
 #news-ticker-track{
   display:flex;
   gap:20px;
   width:max-content;
-  animation: scrollNews 80s linear infinite;
+  animation: scrollNews 100s linear infinite;
 }
 
+/* noticia */
 .news-item{
-  min-width:280px;
-  max-width:280px;
-  height:140px;
+  min-width:300px;
+  height:160px;
   border-radius:15px;
   overflow:hidden;
   position:relative;
   flex-shrink:0;
 
   display:flex;
-  align-items:flex-end;
+  flex-direction:column;
+  justify-content:flex-end;
 
   color:white;
-  font-size:14px;
-  font-weight:600;
+  text-decoration:none;
 
   box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  cursor:pointer;
   transition:0.3s;
 }
 
@@ -490,19 +508,55 @@ if(savedCity){
   transform:scale(1.05);
 }
 
+/* imagen */
 .news-bg{
   position:absolute;
   width:100%;
   height:100%;
   background-size:cover;
   background-position:center;
-  filter:brightness(0.7);
+  z-index:0;
 }
 
-.news-title{
+/* overlay para legibilidad */
+.news-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.8));
+  z-index:1;
+}
+
+/* contenido */
+.news-content{
   position:relative;
-  padding:10px;
   z-index:2;
+  padding:10px;
+}
+
+/* título */
+.news-title{
+  font-size:14px;
+  font-weight:700;
+}
+
+/* subtítulo */
+.news-source{
+  font-size:11px;
+  opacity:0.8;
+}
+
+/* categoría */
+.news-tag{
+  position:absolute;
+  top:8px;
+  left:8px;
+  background:#5bd3ff;
+  padding:3px 8px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:bold;
+  z-index:3;
 }
 
 /* animación lenta */
@@ -515,41 +569,38 @@ if(savedCity){
 <script>
 const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
 
-/* Proxy principal + fallback */
-const PROXIES = [
-  url => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`,
-  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
-];
-
 async function fetchNews(){
-  for(let proxy of PROXIES){
-    try{
-      const res = await fetch(proxy(RSS_URL));
-      if(!res.ok) continue;
-
-      const data = await res.json();
-
-      // rss2json
-      if(data.items){
-        return data.items;
-      }
-
-      // allorigins (XML → parsear)
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(data.contents, "text/xml");
-      const items = [...xml.querySelectorAll("item")].map(item => ({
-        title: item.querySelector("title").textContent,
-        link: item.querySelector("link").textContent
-      }));
-
-      return items;
-    }catch(e){}
+  try{
+    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`);
+    const data = await res.json();
+    return data.items || [];
+  }catch{
+    return [];
   }
-
-  return []; // nunca rompe la app
 }
 
-function createNewsHTML(news){
+/* detectar categoría simple */
+function getCategory(title){
+  const t = title.toLowerCase();
+
+  if(t.includes("tecnolog") || t.includes("ia")) return "TECNO";
+  if(t.includes("deporte") || t.includes("fútbol")) return "DEPORTE";
+  if(t.includes("econom")) return "ECONOMÍA";
+  if(t.includes("polít")) return "POLÍTICA";
+  return "GENERAL";
+}
+
+/* extraer imagen real */
+function getImage(item){
+  if(item.thumbnail) return item.thumbnail;
+
+  const match = item.description?.match(/<img.*?src="(.*?)"/);
+  if(match) return match[1];
+
+  return `https://source.unsplash.com/400x300/?news&sig=${Math.random()}`;
+}
+
+function createHTML(news){
 
   if(!news.length){
     return `<div style="color:white;padding:10px;">📰 No hay noticias disponibles</div>`;
@@ -557,13 +608,22 @@ function createNewsHTML(news){
 
   return news.slice(0,15).map(item => {
 
-    // imagen aleatoria (Google News no da imágenes directas fiables)
-    const img = `https://source.unsplash.com/400x300/?news,world,technology&sig=${Math.random()}`;
+    const img = getImage(item);
+    const category = getCategory(item.title);
 
     return `
       <a href="${item.link}" target="_blank" class="news-item">
+        
         <div class="news-bg" style="background-image:url('${img}')"></div>
-        <div class="news-title">${item.title}</div>
+        <div class="news-overlay"></div>
+
+        <div class="news-tag">${category}</div>
+
+        <div class="news-content">
+          <div class="news-title">${item.title}</div>
+          <div class="news-source">${item.author || "Google News"}</div>
+        </div>
+
       </a>
     `;
   }).join("");
@@ -573,10 +633,8 @@ async function initTicker(){
   const container = document.getElementById("news-ticker-track");
 
   const news = await fetchNews();
+  const html = createHTML(news);
 
-  const html = createNewsHTML(news);
-
-  // duplicamos contenido para scroll infinito fluido
   container.innerHTML = html + html;
 }
 
