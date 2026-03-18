@@ -437,7 +437,7 @@ if(savedCity){
 </div>
 <!-- TradingView Widget END -->
 <!-- ===============================
-     📰 WIDGET NOTICIAS PRO+
+     📰 WIDGET NOTICIAS PRO (FIX)
 ================================ -->
 <div id="news-header">📰 INFORMACIÓN FÁCIL</div>
 
@@ -451,32 +451,27 @@ if(savedCity){
   margin:20px auto 10px;
   padding:10px 20px;
   border-radius:15px;
-
   background:linear-gradient(90deg,#5bd3ff,#29e38a);
   color:white;
   font-weight:bold;
   font-size:18px;
   width:fit-content;
-
   box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* contenedor */
 #news-ticker-container{
   width:100%;
   overflow:hidden;
   border-radius:20px;
   margin:0 auto 20px;
   max-width:1200px;
-
   background:rgba(255,255,255,0.15);
   backdrop-filter:blur(10px);
   box-shadow:0 10px 30px rgba(0,0,0,0.2);
-
   padding:15px 0;
 }
 
-/* track */
+/* TRACK */
 #news-ticker-track{
   display:flex;
   gap:20px;
@@ -484,7 +479,11 @@ if(savedCity){
   animation: scrollNews 100s linear infinite;
 }
 
-/* noticia */
+/* ⏸️ PAUSA AL HOVER */
+#news-ticker-container:hover #news-ticker-track{
+  animation-play-state: paused;
+}
+
 .news-item{
   min-width:300px;
   height:160px;
@@ -492,14 +491,11 @@ if(savedCity){
   overflow:hidden;
   position:relative;
   flex-shrink:0;
-
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
-
   color:white;
   text-decoration:none;
-
   box-shadow:0 5px 15px rgba(0,0,0,0.3);
   transition:0.3s;
 }
@@ -508,7 +504,7 @@ if(savedCity){
   transform:scale(1.05);
 }
 
-/* imagen */
+/* IMAGEN SIEMPRE VISIBLE */
 .news-bg{
   position:absolute;
   width:100%;
@@ -518,45 +514,29 @@ if(savedCity){
   z-index:0;
 }
 
-/* overlay para legibilidad */
+/* overlay oscuro */
 .news-overlay{
   position:absolute;
   width:100%;
   height:100%;
-  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.8));
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.85));
   z-index:1;
 }
 
-/* contenido */
 .news-content{
   position:relative;
   z-index:2;
   padding:10px;
 }
 
-/* título */
 .news-title{
   font-size:14px;
   font-weight:700;
 }
 
-/* subtítulo */
 .news-source{
   font-size:11px;
   opacity:0.8;
-}
-
-/* categoría */
-.news-tag{
-  position:absolute;
-  top:8px;
-  left:8px;
-  background:#5bd3ff;
-  padding:3px 8px;
-  border-radius:8px;
-  font-size:10px;
-  font-weight:bold;
-  z-index:3;
 }
 
 /* animación lenta */
@@ -579,25 +559,19 @@ async function fetchNews(){
   }
 }
 
-/* detectar categoría simple */
-function getCategory(title){
-  const t = title.toLowerCase();
-
-  if(t.includes("tecnolog") || t.includes("ia")) return "TECNOLOGÍA";
-  if(t.includes("deporte") || t.includes("fútbol")) return "DEPORTES";
-  if(t.includes("econom")) return "ECONOMÍA";
-  if(t.includes("polít")) return "POLÍTICA";
-  return "GENERAL";
-}
-
-/* extraer imagen real */
+/* 🖼️ SISTEMA ROBUSTO DE IMÁGENES */
 function getImage(item){
+
+  // 1. Imagen directa
   if(item.thumbnail) return item.thumbnail;
 
+  // 2. Buscar en descripción
   const match = item.description?.match(/<img.*?src="(.*?)"/);
   if(match) return match[1];
 
-  return `https://source.unsplash.com/400x300/?news&sig=${Math.random()}`;
+  // 3. Imagen temática según contenido
+  const keywords = encodeURIComponent(item.title.split(" ").slice(0,3).join(" "));
+  return `https://source.unsplash.com/400x300/?${keywords}`;
 }
 
 function createHTML(news){
@@ -609,7 +583,6 @@ function createHTML(news){
   return news.slice(0,15).map(item => {
 
     const img = getImage(item);
-    const category = getCategory(item.title);
 
     return `
       <a href="${item.link}" target="_blank" class="news-item">
@@ -617,11 +590,9 @@ function createHTML(news){
         <div class="news-bg" style="background-image:url('${img}')"></div>
         <div class="news-overlay"></div>
 
-        <div class="news-tag">${category}</div>
-
         <div class="news-content">
           <div class="news-title">${item.title}</div>
-          <div class="news-source">${item.author || "Haz clic para saber más"}</div>
+          <div class="news-source">${item.author || "Google News"}</div>
         </div>
 
       </a>
