@@ -439,9 +439,8 @@ if(savedCity){
 <!-- ===============================
      📰 WIDGET NOTICIAS PRO (FIX)
 ================================ -->
-<div id="news-header">📰 INFORMACIÓN FÁCIL</div>
-
 <div id="news-ticker-container">
+  <div id="news-ticker-title">📰 INFORMACIÓN FÁCIL</div>
   <div id="news-ticker-track"></div>
 </div>
 
@@ -458,7 +457,17 @@ if(savedCity){
   width:fit-content;
   box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
-
+#news-ticker-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  padding: 8px 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #5bd3ff, #29e38a);
+  max-width: fit-content;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
 #news-ticker-container{
   width:100%;
   overflow:hidden;
