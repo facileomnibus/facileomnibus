@@ -1,6 +1,21 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
 /* ===============================
+   BARRA DE WIDGETS SUPERIOR
+================================ */
+
+const bar=document.createElement("div")
+bar.className="widgets-bar"
+
+const header = document.querySelector(".header")
+
+if(header){
+  header.after(bar)
+}else{
+  document.body.prepend(bar)
+}
+
+/* ===============================
      FECHA
   ================================= */
 
