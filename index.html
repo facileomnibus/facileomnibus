@@ -619,8 +619,18 @@ async function initTicker(){
 
   container.innerHTML = html + html;
 }
+/* ===============================
+   🔄 ACTUALIZACIÓN AUTOMÁTICA
+================================ */
 
+// primera carga
 initTicker();
+
+// refresco cada 30 minutos
+setInterval(() => {
+  initTicker();
+}, 1800000); // 30 minutos
+
 </script>
      <body>   
      <div class="container">
