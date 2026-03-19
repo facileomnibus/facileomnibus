@@ -390,3 +390,12 @@ main.intro {
         padding-top: calc(4rem + 10px) !important; /* ajusta según altura real del header */
     }
 }
+/* FIX WIDGETS PARA HEADER FIJO EN MÓVIL */
+@media only screen and (max-width: 767px) {
+    .widgets-bar {
+        position: relative; /* se mantiene en flujo, no se superpone al header */
+        top: 0; /* ajusta si quieres separarlo del header */
+        z-index: 9999; /* por debajo del header fijo */
+        margin-top: 60px; /* separación del header (ajusta según altura del header) */
+    }
+}
