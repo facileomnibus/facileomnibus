@@ -352,3 +352,25 @@ section,
         max-width: 100%;
     }
 }
+/* ===============================
+   ESTILO PARA TRADINGVIEW TICKERVIEW
+================================ */
+.tradingview-widget-container {
+    max-width: 1200px;
+    margin: 30px auto; /* separación con widget de noticias */
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+}
+
+.tradingview-widget-container__widget {
+    border-radius: 20px !important;
+}
+
+/* Ajuste de color y tamaño de texto interno */
+.tradingview-widget-container iframe {
+    border-radius: 20px !important;
+}
