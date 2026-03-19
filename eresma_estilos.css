@@ -365,3 +365,12 @@ section,
 .ticker-widget .tradingview-widget-container {
   width: 100%;
 }
+/* Ajuste para compensar header sticky */
+main.intro {
+    padding-top: 120px; /* ajusta según altura real del header */
+}
+@media only screen and (max-width: 767px) {
+    main.intro {
+        padding-top: 80px; /* header más pequeño en móvil */
+    }
+}
