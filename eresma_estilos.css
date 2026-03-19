@@ -36,6 +36,10 @@ body{
     z-index:1000;
 }
 
+body{
+  padding-top: 90px; /* ajusta a la altura real */
+}
+
 .navigation ul{
     display:flex;
     gap:20px;
@@ -98,13 +102,26 @@ section{
 /* barra superior widgets */
 
 .widgets-bar{
-    display:flex;
-    gap:20px;
-    justify-content:center;
-    align-items:center;
-    padding:10px;
-    margin:10px auto;
-    max-width:1200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+
+  padding: 10px 15px;
+  margin: 10px auto 0;
+
+  max-width: 1200px;
+
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+
+  position: relative;
+  z-index: 5;
 }
 
 .widget-box{
