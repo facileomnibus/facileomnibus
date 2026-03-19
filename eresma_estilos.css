@@ -30,7 +30,7 @@ body{
     background: linear-gradient(90deg,#5bd3ff,#b2f1ff);
     box-shadow:0 5px 20px rgba(0,0,0,0.15);
     position:sticky;
-    top:0;
+    top:60px;
     z-index:1000;
 }
 
@@ -101,8 +101,17 @@ section{
     justify-content:center;
     align-items:center;
     padding:10px;
-    margin:10px auto;
+    margin:0 auto; /* eliminamos margin-top para evitar huecos */
     max-width:1200px;
+
+    /* NUEVO: fijar la barra */
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1100; /* superior al header */
+    background: rgba(255,255,255,0.15); /* mantener efecto visual */
+    backdrop-filter: blur(10px);
 }
 
 .widget-box{
@@ -387,21 +396,6 @@ main.intro {
 
     /* Añadimos padding a main para no tapar contenido */
     .intro, .main {
-        padding-top: calc(4rem + 10px) !important; /* ajusta según altura real del header */
-    }
-}
-/* FIJAR BARRA DE WIDGETS ENCIMA DEL HEADER */
-.widgets-bar {
-    position: relative; /* permite que z-index funcione */
-    z-index: 10001; /* superior al header */
-}
-/* Ajuste para contenido: header + barra de widgets */
-main.intro, .main {
-    padding-top: calc(4rem + 3.5rem + 10px); /* header 4rem + widgets ~3.5rem + margen */
-}
-
-@media only screen and (max-width: 767px) {
-    main.intro, .main {
-        padding-top: calc(4rem + 5rem); /* ajusta según header móvil + widgets */
+        padding-top: calc(60rem + 80px) !important; /* ajusta según altura real del header */
     }
 }
