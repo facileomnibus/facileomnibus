@@ -10,7 +10,6 @@ body{
         radial-gradient(circle at 80% 40%, #a6f0ff33, transparent 40%),
         linear-gradient(180deg,#aee6ff,#e9fbff);
     min-height:100vh;
-    padding-top:140px;
 }
 
 /* efecto cristal */
@@ -30,16 +29,9 @@ body{
 .header{
     background: linear-gradient(90deg,#5bd3ff,#b2f1ff);
     box-shadow:0 5px 20px rgba(0,0,0,0.15);
-    position:fixed;
+    position:sticky;
     top:0;
-    left: 0;
-    right: 0;
     z-index:1000;
-}
-
-.header .container{
-  display: flex;
-  flex-direction: column;
 }
 
 .navigation ul{
@@ -104,22 +96,13 @@ section{
 /* barra superior widgets */
 
 .widgets-bar{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-
-  padding: 8px 15px;
-  margin-top: 10px;
-
-  border-radius: 12px;
-
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    align-items:center;
+    padding:10px;
+    margin:10px auto;
+    max-width:1200px;
 }
 
 .widget-box{
@@ -382,22 +365,12 @@ section,
 .ticker-widget .tradingview-widget-container {
   width: 100%;
 }
-
-@media (max-width: 767px){
-
-  .widgets-bar{
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .widget-box{
-    width: 100%;
-    text-align: center;
-  }
-
-  .widget-box input{
-    width: 100% !important;
-  }
-
+/* Ajuste para compensar header sticky */
+main.intro {
+    padding-top: 0px; /* ajusta según altura real del header */
+}
+@media only screen and (max-width: 767px) {
+    main.intro {
+        padding-top: 10px; /* header más pequeño en móvil */
+    }
 }
