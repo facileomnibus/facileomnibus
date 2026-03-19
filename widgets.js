@@ -7,17 +7,8 @@ document.addEventListener("DOMContentLoaded",()=>{
 const bar=document.createElement("div")
 bar.className="widgets-bar"
 
+document.body.prepend(bar)
 
-const header = document.querySelector(".header")
-
-if(header){
-  header.after(bar)
-}else{
-  const header = document.querySelector(".header")
-
-if(header){
-  header.appendChild(bar)
-}
 /* ===============================
      FECHA
   ================================= */
