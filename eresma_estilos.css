@@ -367,7 +367,7 @@ section,
 }
 /* Ajuste para compensar header sticky */
 main.intro {
-    padding-top: 120px; /* ajusta según altura real del header */
+    padding-top: 100px; /* ajusta según altura real del header */
 }
 @media only screen and (max-width: 767px) {
     main.intro {
