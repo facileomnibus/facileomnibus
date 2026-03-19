@@ -10,6 +10,7 @@ body{
         radial-gradient(circle at 80% 40%, #a6f0ff33, transparent 40%),
         linear-gradient(180deg,#aee6ff,#e9fbff);
     min-height:100vh;
+    padding-top:80px;
 }
 
 /* efecto cristal */
