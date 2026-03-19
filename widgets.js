@@ -13,7 +13,10 @@ const header = document.querySelector(".header")
 if(header){
   header.after(bar)
 }else{
-  document.body.prepend(bar)
+  const header = document.querySelector(".header")
+
+if(header){
+  header.appendChild(bar)
 }
 /* ===============================
      FECHA
