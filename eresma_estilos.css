@@ -1,360 +1,72 @@
 /* ===============================
-   ESTILO FRUTIGER AERO MODERNO
+   RESET Y AJUSTES GLOBALES
 ================================ */
 
-body{
-    margin:0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background:
-        radial-gradient(circle at 20% 20%, #6ecbff33, transparent 40%),
-        radial-gradient(circle at 80% 40%, #a6f0ff33, transparent 40%),
-        linear-gradient(180deg,#aee6ff,#e9fbff);
-    min-height:100vh;
+html, body {
+    overflow-x: hidden;
 }
 
-/* efecto cristal */
-
-.container{
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.15);
-    border-radius:20px;
-    padding:20px;
-    margin:20px auto;
-    max-width:1400px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.15);
+img {
+    max-width: 100%;
+    height: auto;
 }
 
-/* header moderno */
-
-.header{
-    background: linear-gradient(90deg,#5bd3ff,#b2f1ff);
-    box-shadow:0 5px 20px rgba(0,0,0,0.15);
-    position:fixed;
-    top:0;
-    left: 0;
-    right: 0;
-    z-index:1000;
-}
-
-body{
-  padding-top: 90px; /* ajusta a la altura real */
-}
-
-.navigation ul{
-    display:flex;
-    gap:20px;
-}
-
-.navigation a{
-    color: rgba(0, 98, 255);
-    font-weight:600;
-    text-decoration:none;
-    transition:0.3s;
-}
-
-.navigation a:hover{
-    color: linear-gradient(90deg,#5bd3ff,#29e38a);
-}
-
-/* iconos noticias */
-
-.logo img{
-    border-radius:10px;
-    transition:0.25s;
-}
-
-.logo img:hover{
-    transform:scale(1.15);
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-
-/* títulos */
-
-h3{
-    color:white;
-    background:linear-gradient(90deg,#5bd3ff,#29e38a);
-    padding:10px 20px;
-    border-radius:15px;
-    width:fit-content;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* grid adaptable */
-
-section{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-}
-
-/* animación suave */
-
-@keyframes float{
-    0%{transform:translateY(0)}
-    50%{transform:translateY(-4px)}
-    100%{transform:translateY(0)}
-}
-
-.logo img:hover{
-    animation:float 1.2s infinite;
-}
-
-/* barra superior widgets */
-
-.widgets-bar{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
-
-  padding: 10px 15px;
-  margin: 10px auto 0;
-
-  max-width: 1200px;
-
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-
-  position: relative;
-  z-index: 5;
-
-  position: sticky;
-  top: 80px; /* altura del header */
-  z-index: 999;
-}
-
-.widget-box{
-    background:rgba(255,255,255,0.4);
-    backdrop-filter: blur(6px);
-    padding:10px 18px;
-    border-radius:15px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.15);
-}
 /* ===============================
-   HEADER RESPONSIVE
+   HEADER Y NAVEGACIÓN
 ================================ */
 
-.logo-nav-container{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.logo-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
 }
 
 /* menú escritorio */
 
-.navigation ul{
-    display:flex;
-    gap:20px;
+.navigation ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* ===============================
-   RESPONSIVE MOVIL
+   WIDGETS SUPERIORES
 ================================ */
 
-@media only screen and (max-width:767px){
-
-.header{
-    padding:1rem 0;
-}
-
-.logo{
-    font-size:1.2rem;
-}
-
-/* icono menú */
-
-.menu-icon{
-    display:block;
-    font-size:22px;
-}
-
-/* ocultar menú */
-
-.navigation ul{
-    display:none;
-    width:100%;
-}
-   
-/* mostrar menú cuando se activa */
-
-.navigation ul.show{
-    display:flex;
-    flex-direction:column;
-    width:100%;
-}
-.navigation ul{
-    flex-direction:column;
-}
-
-/* cuando se abre */
-
-.navigation ul.show{
-    display:block;
-    background:rgba(255,255,255,0.15);
-    backdrop-filter:blur(10px);
-    border-radius:10px;
-    padding:10px;
-}
-
-/* enlaces verticales */
-
-.navigation ul li{
-    display:block;
-    margin:5px 0;
-}
-
-.navigation ul li a{
-    display:block;
-    padding:8px;
-}
-
-/* widgets responsive */
-
-.widgets-bar{
-    flex-direction:column;
-    gap:10px;
-}
-
-.widget-box input{
-    width:220px !important;
-}
-.main-dashboard{
-    grid-template-columns: 1fr; /* columna única en móvil */
-}
-/* evitar overflow horizontal */
-
-body{
-overflow-x:hidden;
-}
-
-/* imágenes adaptables */
-
-img{
-max-width:100%;
-height:auto;
-}
-/* ===== FIX MENÚ MOBILE (mejora visual + centrado) ===== */
-
-.navigation ul.show{
-    background: linear-gradient(180deg,#5bd3ff,#b2f1ff);
-    backdrop-filter: blur(12px);
-    border-radius:15px;
-    padding:12px;
-
-    /* centrado real */
-    margin:10px auto;
-    max-width:95%;
-
-    /* alineación interna */
-    align-items:center;
-    text-align:center;
-}
-
-/* centrar elementos del menú */
-
-.navigation ul.show li{
-    width:100%;
-    text-align:center;
-}
-/* ===============================
-   FIX GLOBAL DESBORDAMIENTO + CLIMA
-================================ */
-
-/* evita cualquier scroll lateral */
-html, body {
-    overflow-x: hidden;
-}
-
-/* todos los contenedores centrados */
-.container,
-section,
-.main,
 .widgets-bar {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px auto;
+    max-width: 1200px;
 }
 
-/* FIX ESPECÍFICO CLIMA */
+.widget-box {
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(6px);
+    padding: 10px 18px;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* ===============================
+   WIDGET CLIMA (LIMPIO)
+================================ */
+
 .weather-widget {
     width: 100%;
     max-width: 500px;
     margin: 20px auto;
-    display: block;
-}
-
-/* TODO lo interno se adapta */
-.weather-widget * {
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-/* INPUT (causante típico del problema) */
-.weather-widget input {
-    width: 100% !important;
-}
-
-/* móvil ultra-fix */
-@media only screen and (max-width:767px){
-
-    .weather-widget {
-        width: 95%;
-        margin: 15px auto;
-        padding: 0;
-    }
-
-    /* esto elimina el desplazamiento fantasma */
-    body {
-        position: relative;
-    }
-}
-/* ===============================
-   FIX FINAL: WIDGET CLIMA CENTRADO 100%
-================================ */
-
-.weather-widget {
-    width: 100%;
-    max-width: 500px;  /* ancho máximo para escritorio/móvil */
-    margin: 20px auto; /* centrado horizontal */
     padding: 20px;
     display: block;
-    text-align: center; /* centra todo el contenido interno */
-    box-sizing: border-box;
-}
-
-/* TODOS los elementos internos se centran */
-.weather-widget * {
-    max-width: 100%;
-    box-sizing: border-box;
     text-align: center;
-}
+    box-sizing: border-box;
 
-/* TITULOS, PÁRRAFOS Y EMOJIS */
-.weather-widget h3,
-.weather-widget p,
-.weather-widget div,
-.weather-widget span {
-    text-align: center !important;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* INPUTS y BOTONES */
-.weather-widget input,
-.weather-widget button {
-    display: inline-block;
-    text-align: center;
-    max-width: 100%;
-}
-
-/* BACKDROP Y BORDES SE MANTIENEN */
-.weather-widget {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -362,39 +74,138 @@ section,
     background: rgba(255,255,255,0.2);
 }
 
-/* MÓVIL: ajuste total */
-@media only screen and (max-width:767px) {
+/* contenido interno */
+
+.weather-widget * {
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* inputs y botones */
+
+.weather-widget input,
+.weather-widget button {
+    display: inline-block;
+    max-width: 100%;
+    text-align: center;
+}
+
+/* ===============================
+   TICKER (NOTICIAS / TRADINGVIEW)
+================================ */
+
+.ticker-widget {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 15px 0;
+}
+
+.ticker-widget .tradingview-widget-container {
+    width: 100%;
+}
+
+/* ===============================
+   SECCIONES Y CONTENIDO
+================================ */
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+h3 {
+    color: white;
+    background: linear-gradient(90deg,#5bd3ff,#29e38a);
+    padding: 10px 20px;
+    border-radius: 15px;
+    width: fit-content;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* animación logo */
+
+@keyframes float {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-4px);}
+    100% {transform: translateY(0);}
+}
+
+.logo img:hover {
+    animation: float 1.2s infinite;
+}
+
+/* ===============================
+   RESPONSIVE (MÓVIL)
+================================ */
+
+@media only screen and (max-width: 767px) {
+
+    /* header */
+
+    .header {
+        padding: 1rem 0;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .menu-icon {
+        display: block;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    /* menú oculto por defecto */
+
+    .navigation ul {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    /* menú desplegado */
+
+    .navigation ul.show {
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(180deg,#5bd3ff,#b2f1ff);
+        backdrop-filter: blur(12px);
+        border-radius: 15px;
+        padding: 12px;
+        margin: 10px auto;
+        max-width: 95%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .navigation ul li {
+        width: 100%;
+        margin: 5px 0;
+        text-align: center;
+    }
+
+    .navigation ul li a {
+        display: block;
+        padding: 8px;
+    }
+
+    /* widgets en columna */
+
+    .widgets-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* clima más compacto */
 
     .weather-widget {
         width: 95%;
         margin: 15px auto;
         padding: 15px;
     }
-
-    .weather-widget * {
-        max-width: 100%;
-    }
 }
-/* TickerView personalizado */
-.ticker-widget {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  padding: 15px 0;
-}
-
-/* Ajuste interno del widget TradingView */
-.ticker-widget .tradingview-widget-container {
-  width: 100%;
-}
-/* Ajuste para compensar header sticky */
-main.intro {
-    padding-top: 0px; /* ajusta según altura real del header */
-}
-@media only screen and (max-width: 767px) {
-    main.intro {
-        padding-top: 10px; /* header más pequeño en móvil */
-    }
-}
-
