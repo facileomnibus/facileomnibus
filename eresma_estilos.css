@@ -390,3 +390,18 @@ main.intro {
         padding-top: calc(4rem + 10px) !important; /* ajusta según altura real del header */
     }
 }
+/* FIJAR BARRA DE WIDGETS ENCIMA DEL HEADER */
+.widgets-bar {
+    position: relative; /* permite que z-index funcione */
+    z-index: 10001; /* superior al header */
+}
+/* Ajuste para contenido: header + barra de widgets */
+main.intro, .main {
+    padding-top: calc(4rem + 3.5rem + 10px); /* header 4rem + widgets ~3.5rem + margen */
+}
+
+@media only screen and (max-width: 767px) {
+    main.intro, .main {
+        padding-top: calc(4rem + 5rem); /* ajusta según header móvil + widgets */
+    }
+}
