@@ -122,6 +122,10 @@ section{
 
   position: relative;
   z-index: 5;
+
+  position: sticky;
+  top: 80px; /* altura del header */
+  z-index: 999;
 }
 
 .widget-box{
