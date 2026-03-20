@@ -8,39 +8,7 @@ const bar=document.createElement("div")
 bar.className="widgets-bar"
 
 document.body.prepend(bar)
-// ===== AJUSTE AUTOMÁTICO DEL BODY (evita que tape el header) =====
-function ajustarEspacioWidgets(){
-    const altura = bar.offsetHeight
-    document.body.style.paddingTop = altura + "px"
-}
 
-// ejecutar al cargar
-setTimeout(ajustarEspacioWidgets, 100)
-
-// reajustar si cambia tamaño (móvil, rotación, etc.)
-window.addEventListener("resize", ajustarEspacioWidgets)
-
-// ===== AJUSTAR HEADER PARA NO SOLAPARSE =====
-function ajustarHeader(){
-    const header = document.querySelector(".header")
-    if(!header) return
-
-    const altura = bar.offsetHeight
-
-    header.style.top = altura + "px"
-}
-
-// ejecutar junto al anterior
-setTimeout(()=>{
-    ajustarEspacioWidgets()
-    ajustarHeader()
-},100)
-
-// en resize
-window.addEventListener("resize", ()=>{
-    ajustarEspacioWidgets()
-    ajustarHeader()
-})
 /* ===============================
      FECHA
   ================================= */
