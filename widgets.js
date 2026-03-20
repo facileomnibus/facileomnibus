@@ -20,6 +20,27 @@ setTimeout(ajustarEspacioWidgets, 100)
 // reajustar si cambia tamaño (móvil, rotación, etc.)
 window.addEventListener("resize", ajustarEspacioWidgets)
 
+// ===== AJUSTAR HEADER PARA NO SOLAPARSE =====
+function ajustarHeader(){
+    const header = document.querySelector(".header")
+    if(!header) return
+
+    const altura = bar.offsetHeight
+
+    header.style.top = altura + "px"
+}
+
+// ejecutar junto al anterior
+setTimeout(()=>{
+    ajustarEspacioWidgets()
+    ajustarHeader()
+},100)
+
+// en resize
+window.addEventListener("resize", ()=>{
+    ajustarEspacioWidgets()
+    ajustarHeader()
+})
 /* ===============================
      FECHA
   ================================= */
