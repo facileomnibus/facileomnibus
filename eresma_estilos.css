@@ -405,3 +405,24 @@ main.intro, .main {
         padding-top: calc(4rem + 5rem); /* ajusta según header móvil + widgets */
     }
 }
+/* ===== FIX WIDGETS BAR MOBILE ===== */
+
+.widgets-bar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000; /* por encima del header */
+    
+    /* mantener estilo */
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.25);
+}
+
+/* opcional: mejorar en móvil */
+@media only screen and (max-width:767px){
+    .widgets-bar{
+        padding: 8px 5px;
+    }
+}
