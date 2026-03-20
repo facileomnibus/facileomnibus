@@ -103,6 +103,9 @@ section{
     padding:10px;
     margin:10px auto;
     max-width:1200px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.25);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
 .widget-box{
