@@ -50,35 +50,30 @@ updateClock()
 
 bar.appendChild(clock)
 
-// =============================== BUSCADOR GOOGLE ================================
-const search = document.createElement("div");
-search.className = "widget-box";
+/* ===============================
+   BUSCADOR GOOGLE
+================================ */
 
-search.innerHTML = `
-  <form id="top-search" action="https://www.google.com/search" method="GET" target="_blank" aria-label="Buscar en Internet">
-    <input
-      type="search"
-      name="q"
-      placeholder="Buscar en Internet…"
-      aria-label="Buscar en Internet"
-      autocomplete="off"
-      class="widgets-input"
-    />
-    <button type="submit" class="widgets-btn" aria-label="Buscar">🔎</button>
-  </form>
-`;
+const search=document.createElement("div")
+search.className="widget-box"
 
-bar.appendChild(search);
+search.innerHTML=`
+<form action="https://www.google.com/search" target="_blank">
+<input name="q" placeholder="Buscar en Internet..."
+style="
+padding:8px;
+border-radius:10px;
+border:none;
+outline:none;
+width:260px;
+max-width:90vw;
+font-size:14px;
+">
+</form>
+`
 
-// Accesibilidad: permitir Enter desde el input aunque el foco no esté en el botón
-const topSearchForm = search.querySelector('#top-search');
-topSearchForm.addEventListener('submit', (e) => {
-  const q = topSearchForm.querySelector('input[name="q"]').value.trim();
-  if (!q) {
-    e.preventDefault(); // evita abrir una pestaña vacía
-  }
-});
-``
+bar.appendChild(search)
+
 
 /* ===============================
    MENÚ RESPONSIVE
