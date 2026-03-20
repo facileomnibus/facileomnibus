@@ -439,3 +439,17 @@ main.intro, .main {
 #widgets-container{
     margin-bottom: 5px;
 }
+/* 🔥 ALTURA REAL DEL HEADER */
+:root{
+    --header-height: 140px;
+}
+
+/* empuja widgets fuera del header */
+#widgets-container{
+    margin-top: var(--header-height);
+}
+@media only screen and (max-width:767px){
+    :root{
+        --header-height: 110px;
+    }
+}
