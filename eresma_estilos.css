@@ -416,3 +416,15 @@ main.intro, .main {
         margin-top: 5px;
     }
 }
+/* 🔥 FIX: eliminar hueco entre header y widgets */
+#widgets-container{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.widgets-bar{
+    margin-top: 0 !important;
+} 
+.header + #widgets-container{
+    margin-top: -5px;
+}
