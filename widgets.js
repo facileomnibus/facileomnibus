@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded",()=>{
 const bar=document.createElement("div")
 bar.className="widgets-bar"
 
-const header = document.querySelector(".header")
+const container = document.getElementById("widgets-container")
 
-if(header){
-    header.insertAdjacentElement("afterend", bar)
+if(container){
+    container.appendChild(bar)
 }
 
 /* ===============================
