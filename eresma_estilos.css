@@ -410,3 +410,9 @@ main.intro, .main {
         margin-top: 5px;
     }
 }
+/* mejora separación visual móvil */
+@media only screen and (max-width:767px){
+    #widgets-container{
+        margin-top: 5px;
+    }
+}
