@@ -405,3 +405,8 @@ main.intro, .main {
         padding-top: calc(4rem + 5rem); /* ajusta según header móvil + widgets */
     }
 }
+@media only screen and (max-width:767px){
+    .widgets-bar{
+        margin-top: 5px;
+    }
+}
