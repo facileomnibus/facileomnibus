@@ -8,6 +8,17 @@ const bar=document.createElement("div")
 bar.className="widgets-bar"
 
 document.body.prepend(bar)
+// ===== AJUSTE AUTOMÁTICO DEL BODY (evita que tape el header) =====
+function ajustarEspacioWidgets(){
+    const altura = bar.offsetHeight
+    document.body.style.paddingTop = altura + "px"
+}
+
+// ejecutar al cargar
+setTimeout(ajustarEspacioWidgets, 100)
+
+// reajustar si cambia tamaño (móvil, rotación, etc.)
+window.addEventListener("resize", ajustarEspacioWidgets)
 
 /* ===============================
      FECHA
