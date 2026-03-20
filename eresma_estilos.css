@@ -428,3 +428,17 @@ main.intro, .main {
 .header + #widgets-container{
     margin-top: -5px;
 }
+/* 🔥 FIX REAL: eliminar hueco falso */
+.intro{
+    padding-top: 20px !important;
+}
+
+/* opcional fino */
+@media only screen and (max-width:767px){
+    .intro{
+        padding-top: 15px !important;
+    }
+}
+#widgets-container{
+    margin-bottom: 5px;
+}
