@@ -29,7 +29,7 @@ body{
 .header{
     background: linear-gradient(90deg,#5bd3ff,#b2f1ff);
     box-shadow:0 5px 20px rgba(0,0,0,0.15);
-    position:fixed;
+    position:sticky;
     top:0;
     z-index:1000;
 }
