@@ -365,10 +365,7 @@ section,
 .ticker-widget .tradingview-widget-container {
   width: 100%;
 }
-/* Ajuste para compensar header sticky */
-main.intro {
-    padding-top: 100px; /* ajusta según altura real del header */
-}
+
 @media only screen and (max-width: 767px) {
     main.intro {
         padding-top: 80px; /* header más pequeño en móvil */
@@ -387,7 +384,7 @@ main.intro {
 
     /* Añadimos padding a main para no tapar contenido */
     .intro, .main {
-        padding-top: calc(4rem + 10px) !important; /* ajusta según altura real del header */
+        padding-top: 20px !important; /* ajusta según altura real del header */
     }
 }
 /* FIJAR BARRA DE WIDGETS ENCIMA DEL HEADER */
