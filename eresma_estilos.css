@@ -103,9 +103,6 @@ section{
     padding:10px;
     margin:10px auto;
     max-width:1200px;
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.25);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
 .widget-box{
@@ -406,38 +403,5 @@ main.intro, .main {
 @media only screen and (max-width: 767px) {
     main.intro, .main {
         padding-top: calc(4rem + 5rem); /* ajusta según header móvil + widgets */
-    }
-}
-/* ===============================
-   FIX DEFINITIVO BARRA WIDGETS MOBILE
-================================ */
-
-.widgets-bar{
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 20000; /* por encima del header */
-}
-
-/* Empujamos el header hacia abajo */
-.header{
-    top: 50px !important; /* ajusta a la altura real de la barra */
-}
-
-/* Ajustamos contenido */
-@media only screen and (max-width:767px){
-
-    .widgets-bar{
-        flex-direction: column;
-        padding: 8px;
-    }
-
-    .header{
-        top: 60px !important;
-    }
-
-    .intro, .main{
-        padding-top: calc(120px) !important;
     }
 }
