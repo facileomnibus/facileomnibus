@@ -371,39 +371,7 @@ section,
         padding-top: 80px; /* header más pequeño en móvil */
     }
 }
-/* FIX HEADER FIJO EN MÓVIL */
-@media only screen and (max-width: 767px) {
-    .header {
-        position: fixed !important;
-        top: 0;                 
-        left: 0;
-        width: 100%;            
-        z-index: 10001;         
-        margin: 0;              
-        padding: 10px 0;        
-        display: flex;
-        flex-direction: column; 
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-    }
 
-    /* Añadimos padding a main para no tapar contenido */
-    .intro, .main {
-        padding-top: 180px !important; /* ajusta según altura real del header */
-    }
-}
-/* FIJAR BARRA DE WIDGETS ENCIMA DEL HEADER */
-.widgets-bar {
-    position: relative; /* permite que z-index funcione */
-    z-index: 1; /* superior al header */
-}
-
-@media only screen and (max-width:767px){
-    .widgets-bar{
-        margin-top: 90px;
-    }
-}
 /* mejora separación visual móvil */
 @media only screen and (max-width:767px){
     #widgets-container{
