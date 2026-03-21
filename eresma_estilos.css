@@ -31,6 +31,7 @@ body{
     box-shadow:0 5px 20px rgba(0,0,0,0.15);
     position:sticky;
     top:0;
+    z-index:1000;
 }
 
 .navigation ul{
@@ -100,10 +101,7 @@ section{
     justify-content:center;
     align-items:center;
     padding:10px;
-    position: static; 
     margin:10px auto;
-    top: auto;
-    transform: none;
     max-width:1200px;
 }
 
