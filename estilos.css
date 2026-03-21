@@ -6,8 +6,10 @@ body{
     margin:0;
     text-align: center;
 }
-.intro{
+.intro,
+.main{   
     height: 200%;
+    padding-top: 20px;
     background-image: linear-gradient(#62b8ff, #109110);
 }
 h1 {
@@ -66,9 +68,6 @@ p {
    .navigation ul li a:hover {
     background: #9c9a9a;
    }
-.main{
-    padding-top:11rem;
-}
 
 .footer{
     background: rgb(175, 120, 58);
