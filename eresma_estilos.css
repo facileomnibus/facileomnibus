@@ -410,17 +410,6 @@ section,
     padding-top: 0 !important;
 }
 
-.widgets-bar{
-    margin-top: 0 !important;
-} 
-.header + #widgets-container{
-    margin-top: -5px;
-}
-/* 🔥 FIX REAL: eliminar hueco falso */
-.intro{
-    padding-top: 20px !important;
-}
-
 /* opcional fino */
 @media only screen and (max-width:767px){
     .intro{
@@ -434,5 +423,32 @@ section,
 @media only screen and (max-width:767px){
     :root{
         --header-height: 110px;
+    }
+}
+/* ===============================
+   FIX REAL HEADER + WIDGETS (MÓVIL)
+================================ */
+
+@media only screen and (max-width:767px){
+
+    :root{
+        --header-height: 110px; /* ajustable */
+    }
+
+    .header{
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10000;
+    }
+
+    /* 👉 empuja TODO el contenido */
+    #widgets-container{
+        margin-top: var(--header-height);
+    }
+
+    /* opcional fino */
+    .widgets-bar{
+        margin-top: 10px;
     }
 }
