@@ -245,7 +245,7 @@ height:auto;
 
 /* evita cualquier scroll lateral */
 html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* todos los contenedores centrados */
