@@ -102,8 +102,14 @@ p {
         display: none;
      }
      .navigation ul.show {
-        display: block;    
-     }
+     display: block;
+     background: linear-gradient(180deg,#5bd3ff,#b2f1ff) !important;
+     backdrop-filter: blur(12px) !important;
+     border-radius: 15px !important;
+     padding: 12px !important;
+     margin: 10px auto !important;
+     max-width: 95% !important;
+      }
       .navigation ul li{
         display: block;
        }
