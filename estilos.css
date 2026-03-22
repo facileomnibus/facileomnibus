@@ -43,7 +43,13 @@ p {
 .header a {
     color: white;
     text-decoration: none;
-}   
+}
+@media only screen and (max-width: 767px) {
+    .header {
+        position: sticky;
+        top: 0;
+    }
+}
 .logo-nav-container {
     display: flex;
     justify-content: space-between;
