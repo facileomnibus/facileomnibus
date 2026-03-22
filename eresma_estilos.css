@@ -378,18 +378,7 @@ section,
         margin-top: 5px;
     }
 }
-/* 🔥 FIX: eliminar hueco entre header y widgets */
-#widgets-container{
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-}
 
-/* opcional fino */
-@media only screen and (max-width:767px){
-    .intro{
-        padding-top: 15px !important;
-    }
-}
 #widgets-container{
     margin-bottom: 5px;
 }
@@ -399,59 +388,14 @@ section,
         --header-height: 110px;
     }
 }
-/* ===============================
-   FIX REAL HEADER + WIDGETS (MÓVIL)
-================================ */
+/* =================================
+   MÓVIL = IGUAL QUE ESCRITORIO
+================================= */
 
 @media only screen and (max-width:767px){
-
-    :root{
-        --header-height: 110px; /* ajustable */
-    }
 
     .header{
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 10000;
+        position: static !important; 
     }
 
-    /* 👉 empuja TODO el contenido */
-    #widgets-container{
-        margin-top: var(--header-height);
-    }
-
-    /* opcional fino */
-    .widgets-bar{
-        margin-top: 10px;
-    }
-}
-/* ===============================
-   FIX FINAL: WIDGETS POR ENCIMA DEL HEADER
-================================ */
-
-@media only screen and (max-width:767px){
-
-    /* Barra de widgets fija */
-    .widgets-bar {
-        position: fixed;       
-        top: 0;                
-        left: 0;
-        width: 100%;
-        z-index: 10001;        
-        margin: 0;             
-        padding: 10px 0;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-        background: rgba(255,255,255,0.2); 
-        backdrop-filter: blur(10px);       
-    }
-
-    /* Ajustar contenido para que no quede debajo de header + widgets */
-    .intro, .main {
-        padding-top: 180px !important; 
-    }
 }
