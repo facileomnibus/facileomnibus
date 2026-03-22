@@ -78,7 +78,7 @@ p {
     border-radius: 5px;
   }
    .navigation ul li a:hover {
-    background: #9c9a9a;
+    background: linear-gradient(90deg, #5bd3ff, #b2f1ff) !important;
    }
 
 .footer{
@@ -120,7 +120,7 @@ p {
         border-radius: 5px;
         }
         .navigation ul li a:hover {
-        background: #9c9a9a;
+        background: linear-gradient(90deg, #5bd3ff, #b2f1ff) !important;
          }  
 }
 @media only screen and (max-width: 767px) {
