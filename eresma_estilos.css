@@ -1,33 +1,42 @@
 /* ===============================
    ESTILO FRUTIGER AERO MODERNO
 ================================ */
+:root {
+  --primary-color: #5bd3ff;
+  --secondary-color: #29e38a;
+  --background-gradient: linear-gradient(180deg,#aee6ff,#e9fbff);
+  --header-bg: linear-gradient(90deg,#5bd3ff,#b2f1ff);
+  --text-color: white;
+  --text-dark: #333;
+  --glass-bg: rgba(255,255,255,0.15);
+  --custom-background: none;
+}
 
 body{
     margin:0;
     font-family: "Segoe UI", Arial, sans-serif;
-    background:
-        radial-gradient(circle at 20% 20%, #6ecbff33, transparent 40%),
-        radial-gradient(circle at 80% 40%, #a6f0ff33, transparent 40%),
-        linear-gradient(180deg,#aee6ff,#e9fbff);
+    background: var(--custom-background), var(--background-gradient);
+    background-attachment: fixed;
     min-height:100vh;
+    color: var(--text-dark);
 }
 
 /* efecto cristal */
 
 .container{
     backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.15);
+    background: var(--glass-bg);
     border-radius:20px;
     padding:20px;
     margin:20px auto;
     max-width:1400px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.15);
+    box-shadow:0 10px 40px rgba(0,0,0,0.15); 
 }
 
 /* header moderno */
 
 .header{
-    background: linear-gradient(90deg,#5bd3ff,#b2f1ff);
+    background: var(--header-bg);
     box-shadow:0 5px 20px rgba(0,0,0,0.15);
     position:sticky !important;
     top:0;
@@ -40,14 +49,14 @@ body{
 }
 
 .navigation a{
-    color: rgba(0, 98, 255);
+    color: var(--primary-color);
     font-weight:600;
     text-decoration:none;
     transition:0.3s;
 }
 
 .navigation a:hover{
-    color: linear-gradient(90deg,#5bd3ff,#29e38a);
+    color: var(--secondary-color);
 }
 
 /* iconos noticias */
@@ -65,12 +74,12 @@ body{
 /* títulos */
 
 h3{
-    color:white;
-    background:linear-gradient(90deg,#5bd3ff,#29e38a);
-    padding:10px 20px;
-    border-radius:15px;
-    width:fit-content;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  color: var(--text-color);
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  padding:10px 20px;
+  border-radius:15px;
+  width:fit-content;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);  
 }
 
 /* grid adaptable */
@@ -106,11 +115,12 @@ section{
 }
 
 .widget-box{
-    background:rgba(255,255,255,0.4);
+    background: var(--glass-bg);
     backdrop-filter: blur(6px);
     padding:10px 18px;
     border-radius:15px;
     box-shadow:0 3px 10px rgba(0,0,0,0.15);
+    color: var(--text-color);
 }
 /* ===============================
    HEADER RESPONSIVE
