@@ -29,9 +29,11 @@ body{
 .header{
     background: linear-gradient(90deg,#5bd3ff,#b2f1ff);
     box-shadow:0 5px 20px rgba(0,0,0,0.15);
-    position:sticky;
+    position:fixed;
     top:0;
     z-index:1000;
+    left: 0;
+    right: 0;
 }
 
 .navigation ul{
@@ -368,7 +370,7 @@ section,
 
 @media only screen and (max-width: 767px) {
     main.intro {
-        padding-top: 80px; /* header más pequeño en móvil */
+        padding-top: 120px; /* header más pequeño en móvil */
     }
 }
 
