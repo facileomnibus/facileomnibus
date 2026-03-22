@@ -8,6 +8,7 @@
      <link href="estilos.css" rel="stylesheet">
      <link href="eresma_estilos.css" rel="stylesheet">
      <script defer src="widgets.js"></script>
+     <script defer src="temas.js"></script>
      <!-- Start of OpenWidget (www.openwidget.com) code -->
      <script>
      window.__ow = window.__ow || {};
@@ -1730,7 +1731,166 @@ setInterval(() => {
      </main>
   <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
   <script src="scripts.js"></script>
+<!-- INSERTAR ESTO EN index.html ANTES DEL </body> -->
 
+<div id="theme-panel" class="theme-panel">
+  <button id="theme-toggle" class="theme-toggle-btn">🎨 Temas</button>
+  
+  <div id="theme-menu" class="theme-menu" style="display:none;">
+    <h3 style="margin-top:0;">Selecciona un Tema</h3>
+    
+    <!-- Botones de temas -->
+    <div class="theme-buttons">
+      <button onclick="applyTheme('light')" class="theme-btn">☀️ Claro</button>
+      <button onclick="applyTheme('dark')" class="theme-btn">🌙 Oscuro</button>
+      <button onclick="applyTheme('forest')" class="theme-btn">🌲 Bosque</button>
+      <button onclick="applyTheme('sunset')" class="theme-btn">🌅 Atardecer</button>
+      <button onclick="applyTheme('ocean')" class="theme-btn">🌊 Océano</button>
+    </div>
+    
+    <hr>
+    
+    <!-- Fondo personalizado -->
+    <h4>Fondo Personalizado</h4>
+    <input type="text" id="bg-url" placeholder="Pega URL de imagen..." 
+           style="width:100%;padding:8px;border-radius:5px;border:none;">
+    <button onclick="applyCustomBackground()" 
+            style="width:100%;margin-top:8px;padding:8px;cursor:pointer;
+                   background:var(--primary-color);color:white;border:none;border-radius:5px;">
+      Aplicar Fondo
+    </button>
+    
+    <button onclick="clearCustomBackground()" 
+            style="width:100%;margin-top:5px;padding:8px;cursor:pointer;
+                   background:#999;color:white;border:none;border-radius:5px;">
+      Limpiar Fondo
+    </button>
+  </div>
+</div>
+
+<style>
+.theme-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2000;
+}
+
+.theme-toggle-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.3s;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.theme-menu {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  min-width: 250px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text-color);
+}
+
+.theme-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.theme-btn {
+  padding: 10px;
+  border: 2px solid var(--primary-color);
+  background: transparent;
+  color: var(--text-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+}
+
+.theme-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .theme-panel {
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .theme-toggle-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .theme-menu {
+    min-width: 200px;
+    bottom: 60px;
+  }
+  
+  .theme-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+// Toggle del menú
+document.getElementById("theme-toggle").addEventListener("click", function() {
+  const menu = document.getElementById("theme-menu");
+  menu.style.display = menu.style.display === "none" ? "block" : "none";
+});
+
+// Cerrar menú al hacer click fuera
+document.addEventListener("click", function(e) {
+  const panel = document.getElementById("theme-panel");
+  if (!panel.contains(e.target)) {
+    document.getElementById("theme-menu").style.display = "none";
+  }
+});
+
+// Aplicar fondo personalizado
+function applyCustomBackground() {
+  const url = document.getElementById("bg-url").value;
+  if (!url) {
+    alert("Por favor, pega una URL de imagen válida");
+    return;
+  }
+  
+  const currentTheme = localStorage.getItem("selectedTheme") || "light";
+  applyTheme(currentTheme, url);
+  alert("✅ Fondo aplicado");
+}
+
+// Limpiar fondo
+function clearCustomBackground() {
+  const currentTheme = localStorage.getItem("selectedTheme") || "light";
+  applyTheme(currentTheme, null);
+  document.getElementById("bg-url").value = "";
+  alert("✅ Fondo limpiado");
+}
+</script>
 </body>
 </html>    
 
