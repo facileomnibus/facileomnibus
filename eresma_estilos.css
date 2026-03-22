@@ -395,7 +395,9 @@ section,
 @media only screen and (max-width:767px){
 
     .header{
-        position: static !important; 
+       position: sticky !important;
+       top: 0;
+       z-index: 1000; 
     }
 
 }
