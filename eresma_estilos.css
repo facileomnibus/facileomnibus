@@ -388,13 +388,3 @@ section,
         --header-height: 110px;
     }
 }
-@media only screen and (max-width:767px){
-    .header{
-       position: sticky !important;
-       top: 0;
-       z-index: 1000;
-       left: 0 !important;
-       right: 0 !important;
-       width: 100% !important;
-    }
-}
