@@ -49,7 +49,7 @@ body{
 }
 
 .navigation a{
-    color: var(--primary-color);
+    color: var(--text-color);
     font-weight:600;
     text-decoration:none;
     transition:0.3s;
