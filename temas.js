@@ -34,7 +34,7 @@ const THEMES = {
   forest: {
     name: "Tema Bosque",
     colors: {
-      primary: "#2d6a4f",
+      primary: "#ebedec",
       secondary: "#40916c",
       background: "linear-gradient(180deg, #1b4332, #2d6a4f)",
       headerBg: "linear-gradient(90deg, #1b4332, #40916c)",
