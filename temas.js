@@ -46,7 +46,7 @@ const THEMES = {
   },
   
   sunset: {
-    name: "Tema Atardecer",
+    name: "Tema Puesta de Sol",
     colors: {
       primary: "#ff6b35",
       secondary: "#f7931e",
