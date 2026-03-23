@@ -10,7 +10,7 @@ const THEMES = {
       secondary: "#009c03",
       background: "linear-gradient(180deg, #aee6ff, #e9fbff)",
       headerBg: "linear-gradient(90deg, #5bd3ff, #b2f1ff)",
-      textColor: "white",
+      textColor: "black",
       textDark: "#333",
       glass: "rgba(255,255,255,0.15)"
     },
