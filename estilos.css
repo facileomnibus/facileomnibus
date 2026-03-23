@@ -10,7 +10,8 @@ body{
 .main{   
     height: 200%;
     padding-top: 20px;
-    background-image: var(--background-gradient), var(--custom-background);
+    background-image: var(--background-gradient);
+}
 @media only screen and (max-width: 767px) {
     .intro,
     .main {
