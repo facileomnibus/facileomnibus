@@ -8,9 +8,9 @@ const THEMES = {
     colors: {
       primary: "#035fff",
       secondary: "#009c03",
-      background: "linear-gradient(180deg, #aee6ff, #e9fbff)",
+      background: "linear-gradient(180deg, #62b8ff, #109110)",
       headerBg: "linear-gradient(90deg, #5bd3ff, #b2f1ff)",
-      textColor: "black",
+      textColor: "rgba(255,255,255,0.9)",
       textDark: "#333",
       glass: "rgba(255,255,255,0.15)"
     },
