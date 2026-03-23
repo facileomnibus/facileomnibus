@@ -3,8 +3,8 @@
 ================================== */
 
 const THEMES = {
-  light: {
-    name: "Tema Claro (Predeterminado)",
+  sol: {
+    name: "Tema Sol (Predeterminado)",
     colors: {
       primary: "#035fff",
       secondary: "#009c03",
@@ -17,8 +17,8 @@ const THEMES = {
     backgroundImage: "none"
   },
   
-  dark: {
-    name: "Tema Oscuro",
+  luna: {
+    name: "Tema Luna",
     colors: {
       primary: "#1e88e5",
       secondary: "#26c6da",
