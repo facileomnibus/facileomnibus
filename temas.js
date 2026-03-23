@@ -6,8 +6,8 @@ const THEMES = {
   light: {
     name: "Tema Claro (Predeterminado)",
     colors: {
-      primary: "#5bd3ff",
-      secondary: "#29e38a",
+      primary: "#035fff",
+      secondary: "#009c03",
       background: "linear-gradient(180deg, #aee6ff, #e9fbff)",
       headerBg: "linear-gradient(90deg, #5bd3ff, #b2f1ff)",
       textColor: "white",
