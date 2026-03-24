@@ -554,14 +554,21 @@ const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
 
 async function fetchNews(){
   try{
-    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`);
-    const data = await res.json();
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`);
+    const text = await res.text();
+    
+    if(data.status !== "ok") {
+      console.error("RSS error:", data);
+      return [];
+    }
+
     return data.items || [];
-  }catch{
+
+  }catch(e){
+    console.error("Fetch error:", e);
     return [];
   }
 }
-
 /* 🖼️ SISTEMA ROBUSTO DE IMÁGENES */
 function getImage(item){
 
