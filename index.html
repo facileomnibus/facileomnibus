@@ -554,21 +554,14 @@ const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
 
 async function fetchNews(){
   try{
-    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`);
-    const text = await res.text();
-    
-    if(data.status !== "ok") {
-      console.error("RSS error:", data);
-      return [];
-    }
-
+    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`);
+    const data = await res.json();
     return data.items || [];
-
-  }catch(e){
-    console.error("Fetch error:", e);
+  }catch{
     return [];
   }
 }
+
 /* 🖼️ SISTEMA ROBUSTO DE IMÁGENES */
 function getImage(item){
 
@@ -1890,7 +1883,6 @@ function clearCustomBackground() {
 </script>
 </body>
 </html>    
-
 
 
 
