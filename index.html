@@ -554,76 +554,53 @@ const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
 /* ===============================
    OBTENER NOTICIAS
 ================================ */
-async function fetchNews(){
-  // Usamos un proxy más estable
+async function fetchNews() {
   const proxy = "https://corsproxy.io/?";
-  const res = await fetch(proxy + encodeURIComponent(RSS_URL));
-  const text = await res.text();
-
-  const parser = new DOMParser();
-  const xml = parser.parseFromString(text, "text/xml");
-
-  return [...xml.querySelectorAll("item")].map(item => ({
-    title: item.querySelector("title")?.textContent,
-    link: item.querySelector("link")?.textContent,
-    author: item.querySelector("source")?.textContent || "Google News",
-    description: item.querySelector("description")?.textContent,
-    xmlItem: item  // guardamos el elemento XML para extraer imágenes
-  }));
+  const url = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
+  try {
+    const res = await fetch(proxy + encodeURIComponent(url));
+    const text = await res.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, "text/xml");
+    return [...xml.querySelectorAll("item")].map(item => ({
+      title: item.querySelector("title")?.textContent,
+      link: item.querySelector("link")?.textContent,
+      author: item.querySelector("source")?.textContent || "Google News",
+      description: item.querySelector("description")?.textContent
+    }));
+  } catch (error) {
+    console.error("Error cargando noticias:", error);
+    return []; // Devuelve array vacío para que muestre mensaje
+  }
 }
 
 /* ===============================
-   IMÁGENES - MEJORADA
+   IMÁGENES
 ================================ */
 function getImage(item){
-  // Función auxiliar para obtener atributos
-  const getAttr = (elem, attr) => elem ? elem.getAttribute(attr) : null;
-
-  // 1. Buscar <media:thumbnail>
-  let mediaThumb = item.getElementsByTagName("media:thumbnail")[0];
-  if(mediaThumb){
-    let url = getAttr(mediaThumb, "url");
-    if(url) return url;
-  }
-
-  // 2. Buscar <media:content>
-  let mediaContent = item.getElementsByTagName("media:content")[0];
-  if(mediaContent){
-    let url = getAttr(mediaContent, "url");
-    if(url) return url;
-  }
-
-  // 3. Buscar <enclosure> de tipo imagen
-  let enclosure = item.getElementsByTagName("enclosure")[0];
-  if(enclosure){
-    let url = getAttr(enclosure, "url");
-    let type = getAttr(enclosure, "type");
-    if(url && type && type.startsWith("image/")) return url;
-  }
-
-  // 4. Extraer imagen del description (HTML)
   const match = item.description?.match(/<img.*?src="(.*?)"/);
   if(match) return match[1];
 
-  // 5. Fallback: Unsplash con las 3 primeras palabras del título
-  const keywords = encodeURIComponent(item.title.split(" ").slice(0, 3).join(" "));
+  const keywords = encodeURIComponent(item.title.split(" ").slice(0,3).join(" "));
   return `https://source.unsplash.com/400x300/?${keywords}`;
 }
 
 /* ===============================
-   HTML DEL TICKER
+   HTML
 ================================ */
 function createHTML(news){
   if(!news.length){
     return `<div style="color:white;padding:10px;">📰 No hay noticias disponibles</div>`;
   }
 
-  return news.slice(0, 15).map(item => {
-    const img = getImage(item.xmlItem); // pasamos el elemento XML
+  return news.slice(0,15).map(item => {
+    const img = getImage(item);
+
     return `
       <a href="${item.link}" target="_blank" class="news-item">
         <div class="news-bg" style="background-image:url('${img}')"></div>
         <div class="news-overlay"></div>
+
         <div class="news-content">
           <div class="news-title">${item.title}</div>
           <div class="news-source">${item.author}</div>
@@ -642,6 +619,7 @@ async function initTicker(){
 
   const news = await fetchNews();
   const html = createHTML(news);
+
   container.innerHTML = html + html; // efecto infinito
 }
 
@@ -1910,7 +1888,6 @@ function clearCustomBackground() {
 </script>
 </body>
 </html>    
-
 
 
 
