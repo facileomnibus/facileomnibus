@@ -554,19 +554,24 @@ const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
 /* ===============================
    OBTENER NOTICIAS
 ================================ */
-async function fetchNews(){
-  const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`);
-  const text = await res.text();
-
-  const parser = new DOMParser();
-  const xml = parser.parseFromString(text, "text/xml");
-
-  return [...xml.querySelectorAll("item")].map(item => ({
-    title: item.querySelector("title")?.textContent,
-    link: item.querySelector("link")?.textContent,
-    author: item.querySelector("source")?.textContent || "Google News",
-    description: item.querySelector("description")?.textContent
-  }));
+async function fetchNews() {
+  const proxy = "https://corsproxy.io/?";
+  const url = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
+  try {
+    const res = await fetch(proxy + encodeURIComponent(url));
+    const text = await res.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, "text/xml");
+    return [...xml.querySelectorAll("item")].map(item => ({
+      title: item.querySelector("title")?.textContent,
+      link: item.querySelector("link")?.textContent,
+      author: item.querySelector("source")?.textContent || "Google News",
+      description: item.querySelector("description")?.textContent
+    }));
+  } catch (error) {
+    console.error("Error cargando noticias:", error);
+    return []; // Devuelve array vacío para que muestre mensaje
+  }
 }
 
 /* ===============================
