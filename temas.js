@@ -65,7 +65,7 @@ const THEMES = {
       primary: "#0077be",
       secondary: "#00d4ff",
       background: "linear-gradient(180deg, #001d3d, #0a2a4e, #0077be)",
-      headerBg: "linear-gradient(90deg, #0077be, #00d4ff)",
+      headerBg: "linear-gradient(90deg, #030fff, #0282fa)",
       textColor: "rgba(255,255,255,0.95)",
       textDark: "#b8d4e8",
       glass: "rgba(0,119,190,0.3)"
