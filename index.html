@@ -614,8 +614,7 @@ function createHTML(news){
 async function initTicker(){
   const container = document.getElementById("news-ticker-track");
 
-  const news = await fetchNews();
-  const html = createHTML(news);
+  if (!container) return; 
 
   container.innerHTML = html + html;
 }
