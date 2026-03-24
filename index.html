@@ -554,10 +554,11 @@ const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
 
 async function fetchNews(){
   try{
-const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`);
-const data = await res.json();
+const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`);
+const text = await res.text();
+
 const parser = new DOMParser();
-const xml = parser.parseFromString(data.contents, "text/xml");
+const xml = parser.parseFromString(text, "text/xml");
 
 const items = [...xml.querySelectorAll("item")].map(item => ({
   title: item.querySelector("title")?.textContent,
