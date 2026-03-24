@@ -554,13 +554,20 @@ const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
 
 async function fetchNews(){
   try{
-    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`);
-    const data = await res.json();
-    return data.items || [];
-  }catch{
-    return [];
-  }
-}
+const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`);
+const data = await res.json();
+const parser = new DOMParser();
+const xml = parser.parseFromString(data.contents, "text/xml");
+
+const items = [...xml.querySelectorAll("item")].map(item => ({
+  title: item.querySelector("title")?.textContent,
+  link: item.querySelector("link")?.textContent,
+  author: item.querySelector("source")?.textContent || "Google News",
+  description: item.querySelector("description")?.textContent,
+  thumbnail: null
+}));
+
+return items;
 
 /* 🖼️ SISTEMA ROBUSTO DE IMÁGENES */
 function getImage(item){
