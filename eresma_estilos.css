@@ -156,52 +156,69 @@ section{
 }
 
 /* icono menú */
+ .menu-icon {
+    display: block;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .menu-icon:hover {
+    transform: scale(1.1);
+  }
 
-.menu-icon{
-    display:block;
-    font-size:22px;
+  /* Menú desplegable */
+  .navigation ul {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    margin: 0 10px;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.4s ease, padding 0.2s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+  }
+
+  /* Menú abierto */
+  .navigation ul.show {
+    max-height: 500px;
+    padding: 12px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .navigation ul li {
+    display: block;
+    margin: 8px 0;
+    text-align: center;
+  }
+
+  .navigation ul li a {
+    display: block;
+    padding: 10px;
+    border-radius: 12px;
+    transition: background 0.2s ease, transform 0.2s ease;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .navigation ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+  }
+  /* Evitar scroll cuando menú abierto */
+  body.menu-open {
+    overflow: hidden;
+  }
 }
-
-/* ocultar menú */
-
-.navigation ul{
-    display:none;
-    width:100%;
-}
-   
-/* mostrar menú cuando se activa */
-
-.navigation ul.show{
-    display:flex;
-    flex-direction:column;
-    width:100%;
-}
-.navigation ul{
-    flex-direction:column;
-}
-
-/* cuando se abre */
-
-.navigation ul.show{
-    display:block;
-    background: var(--header-bg);
-    backdrop-filter:blur(10px);
-    border-radius:10px;
-    padding:10px;
-}
-
-/* enlaces verticales */
-
-.navigation ul li{
-    display:block;
-    margin:5px 0;
-}
-
-.navigation ul li a{
-    display:block;
-    padding:8px;
-}
-
 /* widgets responsive */
 
 .widgets-bar{
