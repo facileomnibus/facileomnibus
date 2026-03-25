@@ -9,8 +9,7 @@ body{
 .intro,
 .main{   
     height: 200%;
-    padding-top: 20px;
-    background-image: var(--background-gradient); 
+    padding-top: 20px; 
 }
 @media only screen and (max-width: 767px) {
     .intro,
