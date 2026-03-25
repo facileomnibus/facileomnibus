@@ -158,10 +158,18 @@ section{
 /* icono menú */
 
 .menu-icon{
-    display:block;
-    font-size:22px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
-
+.menu-icon img {
+  width: 100%;
+  height: auto;
+}
 /* ocultar menú */
 
 .navigation ul{
