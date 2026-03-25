@@ -74,26 +74,23 @@ font-size:14px;
 
 bar.appendChild(search)
 
+
 /* ===============================
-   MENÚ RESPONSIVE (FIX)
+   MENÚ RESPONSIVE
 ================================ */
 
-const menuBtn = document.querySelector(".menu-icon");
-const menu = document.querySelector(".navigation ul");
+const menuBtn=document.querySelector(".menu-icon")
+const menu=document.querySelector(".navigation ul")
 
-if (menuBtn && menu) {
-    // Manejador para clic (escritorio y móvil con ratón)
-    menuBtn.addEventListener("click", function(e) {
-        e.preventDefault();         // Evita comportamientos extraños
-        menu.classList.toggle("show");
-    });
+if(menuBtn && menu){
 
-    // Manejador específico para toque en móvil (mejor respuesta)
-    menuBtn.addEventListener("touchstart", function(e) {
-        e.preventDefault();         // Evita zoom/scroll accidental
-        menu.classList.toggle("show");
-    });
-}
+menuBtn.addEventListener("click",()=>{
+menu.classList.toggle("show")
+})
+
+menuBtn.addEventListener("touchstart",()=>{
+menu.classList.toggle("show")
+})
 
 /* ===== FIX CLICK PC (evitar doble evento) ===== */
 
