@@ -9,7 +9,7 @@ const THEMES = {
       primary: "#035fff",
       secondary: "#009c03",
       background: "linear-gradient(180deg, #62b8ff, #109110)",
-      headerBg: "linear-gradient(90deg, #5bd3ff, #b2f1ff)",
+      headerBg: "linear-gradient(90deg, #03b7ff, #4ed4fc)",
       textColor: "rgba(255,255,255,0.9)",
       textDark: "#333",
       glass: "rgba(255,255,255,0.15)"
