@@ -74,47 +74,36 @@ font-size:14px;
 
 bar.appendChild(search)
 
+
 /* ===============================
-   MENÚ RESPONSIVE MEJORADO
+   MENÚ RESPONSIVE
 ================================ */
 
-const menuBtn = document.querySelector(".menu-icon");
-const menu = document.querySelector(".navigation ul");
+const menuBtn=document.querySelector(".menu-icon")
+const menu=document.querySelector(".navigation ul")
 
-if (menuBtn && menu) {
+if(menuBtn && menu){
 
-  // Función para alternar menú
-  function toggleMenu() {
+menuBtn.addEventListener("click",()=>{
+menu.classList.toggle("show")
+})
+
+menuBtn.addEventListener("touchstart",()=>{
+menu.classList.toggle("show")
+})
+
+/* ===== FIX CLICK PC (evitar doble evento) ===== */
+
+menuBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+    e.preventDefault();
     menu.classList.toggle("show");
-    // Bloquea el scroll cuando el menú está abierto
-    document.body.classList.toggle("menu-open");
-  }
+}, true);
 
-  // Eventos de clic y táctil para abrir/cerrar
-  menuBtn.addEventListener("click", function(e) {
+menuBtn.addEventListener("touchstart", function(e){
     e.stopPropagation();
-    toggleMenu();
-  });
-
-  menuBtn.addEventListener("touchstart", function(e) {
-    e.stopPropagation();
-    toggleMenu();
-  });
-
-  // Cerrar menú al hacer clic en cualquier enlace
-  const menuLinks = menu.querySelectorAll("a");
-  menuLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      menu.classList.remove("show");
-      document.body.classList.remove("menu-open");
-    });
-  });
-
-  // Cerrar menú al hacer clic fuera
-  document.addEventListener("click", function(e) {
-    if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
-      menu.classList.remove("show");
-      document.body.classList.remove("menu-open");
-    }
-  });
+    e.preventDefault();
+}, true);   
 }
+
+})
