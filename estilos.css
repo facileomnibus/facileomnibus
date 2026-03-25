@@ -97,7 +97,17 @@ p {
       width: 100%;
       margin-top: 1rem; 
      } 
+     .navigation ul {
+        display: none;
+     }
      .navigation ul.show {
+     display: block;
+     background: var(--glass-bg) !important;
+     backdrop-filter: blur(12px) !important;
+     border-radius: 15px !important;
+     padding: 12px !important;
+     margin: 10px auto !important;
+     max-width: 95% !important;
      align-items:center;
      text-align:center;
       }
