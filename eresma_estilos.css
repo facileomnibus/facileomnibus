@@ -158,10 +158,17 @@ section{
 /* icono menú */
 
 .menu-icon{
-    display:block;
-    font-size:22px;
+    display:inline-block;
+    cursor: pointer;
+    padding: 10px; 
+    margin: -10px; 
+    position: relative;
+    z-index: 1001;
 }
-
+.menu-icon img {
+    display: block;
+    pointer-events: none; /* Delegamos el click al contenedor */
+}
 /* ocultar menú */
 
 .navigation ul{
