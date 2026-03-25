@@ -2,10 +2,10 @@
    ESTILO FRUTIGER AERO MODERNO
 ================================ */
 :root {
-  --primary-color: #035fff;
+  --primary-color: #5290fa;
   --secondary-color: #009c03;
   --background-gradient: linear-gradient(180deg, #62b8ff, #109110);
-  --header-bg: linear-gradient(90deg, #5bd3ff, #b2f1ff);
+  --header-bg: linear-gradient(90deg, #03b7ff, #4ed4fc);
   --text-color: rgba(255,255,255,0.9);
   --text-dark: #333;
   --glass-bg: rgba(255,255,255,0.15);
