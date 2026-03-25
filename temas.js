@@ -6,7 +6,7 @@ const THEMES = {
   sol: {
     name: "Tema Sol (Predeterminado)",
     colors: {
-      primary: "#035fff",
+      primary: "#5290fa",
       secondary: "#009c03",
       background: "linear-gradient(180deg, #62b8ff, #109110)",
       headerBg: "linear-gradient(90deg, #03b7ff, #4ed4fc)",
