@@ -180,6 +180,16 @@ section{
     flex-direction:column;
 }
 
+/* cuando se abre */
+
+.navigation ul.show{
+    display:block;
+    background: var(--header-bg);
+    backdrop-filter:blur(10px);
+    border-radius:10px;
+    padding:10px;
+}
+
 /* enlaces verticales */
 
 .navigation ul li{
@@ -216,6 +226,22 @@ overflow-x:hidden;
 img{
 max-width:100%;
 height:auto;
+}
+/* ===== FIX MENÚ MOBILE (mejora visual + centrado) ===== */
+
+.navigation ul.show{
+    background: linear-gradient(180deg,#5bd3ff,#b2f1ff);
+    backdrop-filter: blur(12px);
+    border-radius:15px;
+    padding:12px;
+
+    /* centrado real */
+    margin:10px auto;
+    max-width:95%;
+
+    /* alineación interna */
+    align-items:center;
+    text-align:center;
 }
 
 /* centrar elementos del menú */
