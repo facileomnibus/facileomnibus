@@ -183,7 +183,7 @@ section{
 
 .navigation ul.show{
     display:block;
-    background: linear-gradient(180deg,#5bd3ff,#b2f1ff);
+    background: var(--header-bg);
     backdrop-filter:blur(10px);
     border-radius:10px;
     padding:10px;
