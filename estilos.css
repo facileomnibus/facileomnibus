@@ -14,7 +14,7 @@ body{
 @media only screen and (max-width: 767px) {
     .intro,
     .main {
-        padding-top: 40px;
+        padding-top: 20px;
     }
 }
 h1 {
