@@ -91,62 +91,37 @@ p {
     .menu-icon {
       display: block;
       cursor: pointer;
-      padding: 8px;
-      border-radius: 50%;
-      background: var(--glass-bg);
-      backdrop-filter: blur(8px);
-      transition: transform 0.3s ease, background 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      padding: 0.5rem 1rem;
     } 
-    menu-icon:hover {
-        transform: scale(1.1);
-        background: rgba(255,255,255,0.3);
-    }
-    .menu-icon img {
-        width: 32px;
-        height: 32px;
-        display: block;
-    }
     .navigation {
       width: 100%;
       margin-top: 1rem; 
      } 
      .navigation ul {
-        display: block;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    opacity 0.3s ease,
-                    padding 0.3s ease;
-        opacity: 0;
-        padding: 0;
-        margin: 0;
-        background: var(--glass-bg);
-        backdrop-filter: blur(12px);
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        display: none;
      }
      .navigation ul.show {
-       max-height: 500px;        
-       opacity: 1;
-       padding: 12px;
+     display: block;
+     background: var(--glass-bg) !important;
+     backdrop-filter: blur(12px) !important;
+     border-radius: 15px !important;
+     padding: 12px !important;
+     margin: 10px auto !important;
+     max-width: 95% !important;
+     align-items:center;
+     text-align:center;
       }
       .navigation ul li{
         display: block;
-        margin: 5px 0;
-        text-align: center;
        }
         .navigation ul li a{
         display: block;
-        padding: 10px 15px;
-        color: var(--text-color);
-        font-weight: 600;
-        border-radius: 10px;
-        transition: background 0.3s ease, transform 0.2s ease;
+        padding: 0.5rem 0;
+        transition: all 0.4 s linear;
+        border-radius: 5px;
         }
         .navigation ul li a:hover {
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-        transform: translateX(5px);
+        background: linear-gradient(90deg, #5bd3ff, #b2f1ff) !important;
          }  
 }
 @media only screen and (max-width: 767px) {
