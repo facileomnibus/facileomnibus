@@ -79,14 +79,18 @@ bar.appendChild(search)
    MENÚ RESPONSIVE
 ================================ */
 
-const menuBtn = document.querySelector(".menu-icon");
-const menu = document.querySelector(".navigation ul");
+const menuBtn=document.querySelector(".menu-icon")
+const menu=document.querySelector(".navigation ul")
 
-if (menuBtn && menu) {
-    menuBtn.addEventListener("click", function(e) {
-        menu.classList.toggle("show");
-    });
-}
+if(menuBtn && menu){
+
+menuBtn.addEventListener("click",()=>{
+menu.classList.toggle("show")
+})
+
+menuBtn.addEventListener("touchstart",()=>{
+menu.classList.toggle("show")
+})
 
 /* ===== FIX CLICK PC (evitar doble evento) ===== */
 
