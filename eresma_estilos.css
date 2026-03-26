@@ -276,8 +276,33 @@ section,
     margin-right: auto;
 }
 
+/* FIX ESPECÍFICO CLIMA */
+.weather-widget {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    display: block;
+}
+
+/* TODO lo interno se adapta */
+.weather-widget * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* INPUT (causante típico del problema) */
+.weather-widget input {
+    width: 100% !important;
+}
+
 /* móvil ultra-fix */
 @media only screen and (max-width:767px){
+
+    .weather-widget {
+        width: 95%;
+        margin: 15px auto;
+        padding: 0;
+    }
 
     /* esto elimina el desplazamiento fantasma */
     body {
@@ -290,92 +315,59 @@ section,
 
 .weather-widget {
     width: 100%;
-    max-width: 500px;
-    margin: 20px auto;
+    max-width: 500px;  /* ancho máximo para escritorio/móvil */
+    margin: 20px auto; /* centrado horizontal */
     padding: 20px;
+    display: block;
+    text-align: center; /* centra todo el contenido interno */
+    box-sizing: border-box;
+}
+
+/* TODOS los elementos internos se centran */
+.weather-widget * {
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* TITULOS, PÁRRAFOS Y EMOJIS */
+.weather-widget h3,
+.weather-widget p,
+.weather-widget div,
+.weather-widget span {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* INPUTS y BOTONES */
+.weather-widget input,
+.weather-widget button {
+    display: inline-block;
+    text-align: center;
+    max-width: 100%;
+}
+
+/* BACKDROP Y BORDES SE MANTIENEN */
+.weather-widget {
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     backdrop-filter: blur(10px);
     background: rgba(255,255,255,0.2);
-    text-align: center;
-    color: white;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    box-sizing: border-box;
 }
 
-.weather-widget .city-name {
-    margin: 5px 0 15px 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
+/* MÓVIL: ajuste total */
+@media only screen and (max-width:767px) {
 
-.weather-widget .weather-icon {
-    font-size: 70px;
-    margin: 10px 0 20px 0;
-    line-height: 1;
-}
-
-.weather-widget .temperature {
-    font-size: 34px;
-    margin: 5px 0;
-}
-
-.weather-widget .wind {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-.weather-widget .forecast {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 15px;
-    flex-wrap: wrap;
-}
-
-.weather-widget .forecast-day {
-    background: rgba(255,255,255,0.25);
-    padding: 10px;
-    border-radius: 15px;
-    min-width: 85px;
-    backdrop-filter: blur(6px);
-    text-align: center;
-}
-
-.weather-widget .forecast-day .day {
-    font-size: 12px;
-}
-
-.weather-widget .forecast-day .icon {
-    font-size: 24px;
-    margin: 5px 0;
-}
-
-.weather-widget .forecast-day .temp-range {
-    font-size: 12px;
-}
-
-/* Responsive móvil */
-@media only screen and (max-width: 767px) {
     .weather-widget {
         width: 95%;
         margin: 15px auto;
         padding: 15px;
     }
-    .weather-widget .weather-icon {
-        font-size: 48px;
-        margin: 5px 0;
-    }
-    .weather-widget .temperature {
-        font-size: 28px;
-    }
-    .weather-widget .forecast-day {
-        min-width: 70px;
-        padding: 6px;
-    }
-    .weather-widget .forecast-day .icon {
-        font-size: 20px;
+
+    .weather-widget * {
+        max-width: 100%;
     }
 }
 /* TickerView personalizado */
@@ -428,16 +420,35 @@ main.intro .container {
 /* Todos los widgets heredan el ancho del contenedor */
 #widgets-container,
 #news-ticker-container,
-.ticker-widget {
+.ticker-widget,
+.weather-widget {
     width: 100%;
     margin: 20px auto;
     box-sizing: border-box;
+}
+
+/* Widget de clima (sin estilos inline) */
+.weather-widget {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.2);
+    text-align: center;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 /* Responsive: en móvil, el contenedor se adapta */
 @media only screen and (max-width: 767px) {
     main.intro .container {
         padding: 0 15px;
+    }
+    
+    .weather-widget {
+        padding: 15px;
     }
     
     /* Ajuste para el ticker de noticias */
