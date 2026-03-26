@@ -37,206 +37,207 @@
     </header>
     <main class="intro">
     <div id="widgets-container"></div>
-     <!-- WIDGET CLIMA PRO FUNCIONAL -->
-<div id="weather-widget" class="weather-widget" style="
-width:75%;
-max-width:900px;
-margin:20px auto;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-backdrop-filter:blur(10px);
-background:rgba(255,255,255,0.2);
-padding:20px;
-text-align:center;
-color:white;
-font-family:Segoe UI, Arial;
-">
-
-<div id="weather-content">🌍 Cargando clima...</div>
-
-<div style="margin-top:10px;">
-<input id="city-input" placeholder="Escribe tu ciudad..."
-style="
-padding:8px;
-border-radius:10px;
-border:none;
-outline:none;
-width:220px;
-">
-
-<button onclick="searchCity()" style="
-padding:8px 12px;
-border:none;
-border-radius:10px;
-margin-left:5px;
-cursor:pointer;
-background:#5bd3ff;
-color:white;
-">
-Buscar
-</button>
+    <!-- ===============================
+     📰 WIDGET NOTICIAS PRO (FIX)
+================================ -->
+<div id="news-ticker-container">
+  <div id="news-ticker-title">📰 INFORMACIÓN FÁCIL</div>
+  <div id="news-ticker-track"></div>
 </div>
 
-</div>
+<style>
+#news-header{
+  max-width:1200px;
+  margin:20px auto 10px;
+  padding:10px 20px;
+  border-radius:15px;
+  background:linear-gradient(90deg,#5bd3ff,#29e38a);
+  color:white;
+  font-weight:bold;
+  font-size:18px;
+  width:fit-content;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+#news-ticker-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  padding: 8px 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  max-width: fit-content;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+#news-ticker-container{
+  width:100%;
+  overflow:hidden;
+  border-radius:20px;
+  margin:0 auto 20px;
+  max-width:1200px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  padding:15px 0;
+}
+
+/* TRACK */
+#news-ticker-track{
+  display:flex;
+  gap:20px;
+  width:max-content;
+  animation: scrollNews 100s linear infinite;
+}
+
+/* ⏸️ PAUSA AL HOVER */
+#news-ticker-container:hover #news-ticker-track{
+  animation-play-state: paused;
+}
+
+.news-item{
+  min-width:300px;
+  height:160px;
+  border-radius:15px;
+  overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  color:white;
+  text-decoration:none;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  transition:0.3s;
+}
+
+.news-item:hover{
+  transform:scale(1.05);
+}
+
+/* IMAGEN SIEMPRE VISIBLE */
+.news-bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  z-index:0;
+}
+
+/* overlay oscuro */
+.news-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.85));
+  z-index:1;
+}
+
+.news-content{
+  position:relative;
+  z-index:2;
+  padding:10px;
+}
+
+.news-title{
+  font-size:14px;
+  font-weight:700;
+}
+
+.news-source{
+  font-size:11px;
+  opacity:0.8;
+}
+
+/* animación lenta */
+@keyframes scrollNews{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+</style>
 
 <script>
+const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
+
 /* ===============================
-   CARGAR CLIMA POR COORDENADAS
+   OBTENER NOTICIAS
 ================================ */
-function loadWeather(lat, lon, name="Tu ubicación"){
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`;
-
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      const w = data.current_weather;
-      const daily = data.daily;
-
-      /* ===============================
-         ICONOS DÍA / NOCHE
-      ================================= */
-      function getIcon(code, isDay=true){
-        if(isDay){
-          if(code === 0) return "☀️";
-          if(code <= 3) return "⛅";
-          if(code <= 48) return "🌫️";
-          if(code <= 67) return "🌧️";
-          if(code <= 77) return "❄️";
-          if(code <= 82) return "🌦️";
-          if(code <= 99) return "⛈️";
-        }else{
-          if(code === 0) return "🌙";
-          if(code <= 3) return "🌙☁️";
-          if(code <= 48) return "🌫️";
-          if(code <= 67) return "🌧️";
-          if(code <= 77) return "❄️";
-          if(code <= 82) return "🌧️";
-          if(code <= 99) return "⛈️";
-        }
-        return "🌍";
-      }
-
-      /* ===============================
-         DÍA
-      ================================= */
-      function getDay(dateStr){
-        const d = new Date(dateStr);
-        return d.toLocaleDateString('es-ES', { weekday: 'short' });
-      }
-
-      /* ===============================
-         PREVISIÓN 6 DÍAS
-      ================================= */
-      let forecastHTML = `
-        <div style="
-          display:flex;
-          justify-content:center;
-          gap:12px;
-          margin-top:15px;
-          flex-wrap:wrap;
-        ">
-      `;
-
-      for(let i=1;i<=6;i++){
-        forecastHTML += `
-          <div style="
-            background:rgba(255,255,255,0.25);
-            padding:10px;
-            border-radius:15px;
-            min-width:85px;
-            backdrop-filter:blur(6px);
-          ">
-            <div style="font-size:12px;">${getDay(daily.time[i])}</div>
-            <div style="font-size:24px;margin:5px 0;">
-              ${getIcon(daily.weathercode[i], true)}
-            </div>
-            <div style="font-size:12px;">
-              ${daily.temperature_2m_max[i]}° / ${daily.temperature_2m_min[i]}°
-            </div>
-          </div>
-        `;
-      }
-
-      forecastHTML += `</div>`;
-
-      /* ===============================
-         RENDER FINAL
-      ================================= */
-      document.getElementById("weather-content").innerHTML = `
-        <h3 style="margin:5px 0 15px 0;">
-  ${name}
-</h3>
-
-<div style="
-  font-size:70px;
-  margin:10px 0 20px 0;
-  line-height:1;
-">
-  ${getIcon(w.weathercode, w.is_day === 1)}
-</div>
-
-        <p style="font-size:34px;margin:5px 0;">
-          ${w.temperature}°C
-        </p>
-
-        <p style="font-size:14px;">
-          Viento: ${w.windspeed} km/h
-        </p>
-
-        ${forecastHTML}
-      `;
-    })
-    .catch(()=>{
-      document.getElementById("weather-content").innerHTML = "❌ No se pudo cargar el clima";
-    });
-}
-/* ===============================
-   BUSCAR CIUDAD
-================================ */
-function searchCity(){
-  const city = document.getElementById("city-input").value;
-
-  if(!city) return;
-
-  fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`)
-    .then(res => res.json())
-    .then(data => {
-      if(!data.results){
-        document.getElementById("weather-content").innerHTML = "❌ Ciudad no encontrada";
-        return;
-      }
-
-      const place = data.results[0];
-
-      localStorage.setItem("weatherCity", city);
-
-      loadWeather(place.latitude, place.longitude, place.name);
-    })
-    .catch(()=>{
-      document.getElementById("weather-content").innerHTML = "❌ Error buscando ciudad";
-    });
+async function fetchNews() {
+  const proxy = "https://corsproxy.io/?";
+  const url = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
+  try {
+    const res = await fetch(proxy + encodeURIComponent(url));
+    const text = await res.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, "text/xml");
+    return [...xml.querySelectorAll("item")].map(item => ({
+      title: item.querySelector("title")?.textContent,
+      link: item.querySelector("link")?.textContent,
+      author: item.querySelector("source")?.textContent || "Google News",
+      description: item.querySelector("description")?.textContent
+    }));
+  } catch (error) {
+    console.error("Error cargando noticias:", error);
+    return []; // Devuelve array vacío para que muestre mensaje
+  }
 }
 
 /* ===============================
-   INICIO INTELIGENTE
+   IMÁGENES
 ================================ */
+function getImage(item){
+  const match = item.description?.match(/<img.*?src="(.*?)"/);
+  if(match) return match[1];
 
-const savedCity = localStorage.getItem("weatherCity");
-
-if(savedCity){
-  document.getElementById("city-input").value = savedCity;
-  searchCity();
-}else if(navigator.geolocation){
-  navigator.geolocation.getCurrentPosition(
-    pos => loadWeather(pos.coords.latitude, pos.coords.longitude, "Tu ubicación"),
-    () => loadWeather(40.4168, -3.7038, "Madrid")
-  );
-}else{
-  loadWeather(40.4168, -3.7038, "Madrid");
+  const keywords = encodeURIComponent(item.title.split(" ").slice(0,3).join(" "));
+  return `https://source.unsplash.com/400x300/?${keywords}`;
 }
+
+/* ===============================
+   HTML
+================================ */
+function createHTML(news){
+  if(!news.length){
+    return `<div style="color:white;padding:10px;">📰 No hay noticias disponibles</div>`;
+  }
+
+  return news.slice(0,15).map(item => {
+    const img = getImage(item);
+
+    return `
+      <a href="${item.link}" target="_blank" class="news-item">
+        <div class="news-bg" style="background-image:url('${img}')"></div>
+        <div class="news-overlay"></div>
+
+        <div class="news-content">
+          <div class="news-title">${item.title}</div>
+          <div class="news-source">${item.author}</div>
+        </div>
+      </a>
+    `;
+  }).join("");
+}
+
+/* ===============================
+   INICIALIZAR TICKER
+================================ */
+async function initTicker(){
+  const container = document.getElementById("news-ticker-track");
+  if (!container) return;
+
+  const news = await fetchNews();
+  const html = createHTML(news);
+
+  container.innerHTML = html + html; // efecto infinito
+}
+
+/* ===============================
+   AUTOREFRESH
+================================ */
+initTicker();
+setInterval(initTicker, 1800000); // 30 min
 </script>
-         <!-- TradingView Widget BEGIN -->
+<!-- TradingView Widget BEGIN -->
 <div class="widget-box ticker-widget" style="margin: 20px auto; max-width:1200px;">
  <div class="tradingview-widget-container">
   <div class="tradingview-widget-container__widget"></div>
@@ -438,205 +439,204 @@ if(savedCity){
   </div>
 </div>
 <!-- TradingView Widget END -->
-<!-- ===============================
-     📰 WIDGET NOTICIAS PRO (FIX)
-================================ -->
-<div id="news-ticker-container">
-  <div id="news-ticker-title">📰 INFORMACIÓN FÁCIL</div>
-  <div id="news-ticker-track"></div>
+<!-- WIDGET CLIMA PRO FUNCIONAL -->
+<div id="weather-widget" class="weather-widget" style="
+width:100%;
+max-width:900px;
+margin:20px auto;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+backdrop-filter:blur(10px);
+background:rgba(255,255,255,0.2);
+padding:20px;
+text-align:center;
+color:white;
+font-family:Segoe UI, Arial;
+">
+
+<div id="weather-content">🌍 Cargando clima...</div>
+
+<div style="margin-top:10px;">
+<input id="city-input" placeholder="Escribe tu ciudad..."
+style="
+padding:8px;
+border-radius:10px;
+border:none;
+outline:none;
+width:220px;
+">
+
+<button onclick="searchCity()" style="
+padding:8px 12px;
+border:none;
+border-radius:10px;
+margin-left:5px;
+cursor:pointer;
+background:#5bd3ff;
+color:white;
+">
+Buscar
+</button>
 </div>
 
-<style>
-#news-header{
-  max-width:1200px;
-  margin:20px auto 10px;
-  padding:10px 20px;
-  border-radius:15px;
-  background:linear-gradient(90deg,#5bd3ff,#29e38a);
-  color:white;
-  font-weight:bold;
-  font-size:18px;
-  width:fit-content;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-#news-ticker-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  padding: 8px 15px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  max-width: fit-content;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-#news-ticker-container{
-  width:100%;
-  overflow:hidden;
-  border-radius:20px;
-  margin:0 auto 20px;
-  max-width:1200px;
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(10px);
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  padding:15px 0;
-}
-
-/* TRACK */
-#news-ticker-track{
-  display:flex;
-  gap:20px;
-  width:max-content;
-  animation: scrollNews 100s linear infinite;
-}
-
-/* ⏸️ PAUSA AL HOVER */
-#news-ticker-container:hover #news-ticker-track{
-  animation-play-state: paused;
-}
-
-.news-item{
-  min-width:300px;
-  height:160px;
-  border-radius:15px;
-  overflow:hidden;
-  position:relative;
-  flex-shrink:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  color:white;
-  text-decoration:none;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  transition:0.3s;
-}
-
-.news-item:hover{
-  transform:scale(1.05);
-}
-
-/* IMAGEN SIEMPRE VISIBLE */
-.news-bg{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background-size:cover;
-  background-position:center;
-  z-index:0;
-}
-
-/* overlay oscuro */
-.news-overlay{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.85));
-  z-index:1;
-}
-
-.news-content{
-  position:relative;
-  z-index:2;
-  padding:10px;
-}
-
-.news-title{
-  font-size:14px;
-  font-weight:700;
-}
-
-.news-source{
-  font-size:11px;
-  opacity:0.8;
-}
-
-/* animación lenta */
-@keyframes scrollNews{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
-}
-</style>
+</div>
 
 <script>
-const RSS_URL = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
-
 /* ===============================
-   OBTENER NOTICIAS
+   CARGAR CLIMA POR COORDENADAS
 ================================ */
-async function fetchNews() {
-  const proxy = "https://corsproxy.io/?";
-  const url = "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
-  try {
-    const res = await fetch(proxy + encodeURIComponent(url));
-    const text = await res.text();
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, "text/xml");
-    return [...xml.querySelectorAll("item")].map(item => ({
-      title: item.querySelector("title")?.textContent,
-      link: item.querySelector("link")?.textContent,
-      author: item.querySelector("source")?.textContent || "Google News",
-      description: item.querySelector("description")?.textContent
-    }));
-  } catch (error) {
-    console.error("Error cargando noticias:", error);
-    return []; // Devuelve array vacío para que muestre mensaje
-  }
+function loadWeather(lat, lon, name="Tu ubicación"){
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`;
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      const w = data.current_weather;
+      const daily = data.daily;
+
+      /* ===============================
+         ICONOS DÍA / NOCHE
+      ================================= */
+      function getIcon(code, isDay=true){
+        if(isDay){
+          if(code === 0) return "☀️";
+          if(code <= 3) return "⛅";
+          if(code <= 48) return "🌫️";
+          if(code <= 67) return "🌧️";
+          if(code <= 77) return "❄️";
+          if(code <= 82) return "🌦️";
+          if(code <= 99) return "⛈️";
+        }else{
+          if(code === 0) return "🌙";
+          if(code <= 3) return "🌙☁️";
+          if(code <= 48) return "🌫️";
+          if(code <= 67) return "🌧️";
+          if(code <= 77) return "❄️";
+          if(code <= 82) return "🌧️";
+          if(code <= 99) return "⛈️";
+        }
+        return "🌍";
+      }
+
+      /* ===============================
+         DÍA
+      ================================= */
+      function getDay(dateStr){
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('es-ES', { weekday: 'short' });
+      }
+
+      /* ===============================
+         PREVISIÓN 6 DÍAS
+      ================================= */
+      let forecastHTML = `
+        <div style="
+          display:flex;
+          justify-content:center;
+          gap:12px;
+          margin-top:15px;
+          flex-wrap:wrap;
+        ">
+      `;
+
+      for(let i=1;i<=6;i++){
+        forecastHTML += `
+          <div style="
+            background:rgba(255,255,255,0.25);
+            padding:10px;
+            border-radius:15px;
+            min-width:85px;
+            backdrop-filter:blur(6px);
+          ">
+            <div style="font-size:12px;">${getDay(daily.time[i])}</div>
+            <div style="font-size:24px;margin:5px 0;">
+              ${getIcon(daily.weathercode[i], true)}
+            </div>
+            <div style="font-size:12px;">
+              ${daily.temperature_2m_max[i]}° / ${daily.temperature_2m_min[i]}°
+            </div>
+          </div>
+        `;
+      }
+
+      forecastHTML += `</div>`;
+
+      /* ===============================
+         RENDER FINAL
+      ================================= */
+      document.getElementById("weather-content").innerHTML = `
+        <h3 style="margin:5px 0 15px 0;">
+  ${name}
+</h3>
+
+<div style="
+  font-size:70px;
+  margin:10px 0 20px 0;
+  line-height:1;
+">
+  ${getIcon(w.weathercode, w.is_day === 1)}
+</div>
+
+        <p style="font-size:34px;margin:5px 0;">
+          ${w.temperature}°C
+        </p>
+
+        <p style="font-size:14px;">
+          Viento: ${w.windspeed} km/h
+        </p>
+
+        ${forecastHTML}
+      `;
+    })
+    .catch(()=>{
+      document.getElementById("weather-content").innerHTML = "❌ No se pudo cargar el clima";
+    });
+}
+/* ===============================
+   BUSCAR CIUDAD
+================================ */
+function searchCity(){
+  const city = document.getElementById("city-input").value;
+
+  if(!city) return;
+
+  fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`)
+    .then(res => res.json())
+    .then(data => {
+      if(!data.results){
+        document.getElementById("weather-content").innerHTML = "❌ Ciudad no encontrada";
+        return;
+      }
+
+      const place = data.results[0];
+
+      localStorage.setItem("weatherCity", city);
+
+      loadWeather(place.latitude, place.longitude, place.name);
+    })
+    .catch(()=>{
+      document.getElementById("weather-content").innerHTML = "❌ Error buscando ciudad";
+    });
 }
 
 /* ===============================
-   IMÁGENES
+   INICIO INTELIGENTE
 ================================ */
-function getImage(item){
-  const match = item.description?.match(/<img.*?src="(.*?)"/);
-  if(match) return match[1];
 
-  const keywords = encodeURIComponent(item.title.split(" ").slice(0,3).join(" "));
-  return `https://source.unsplash.com/400x300/?${keywords}`;
+const savedCity = localStorage.getItem("weatherCity");
+
+if(savedCity){
+  document.getElementById("city-input").value = savedCity;
+  searchCity();
+}else if(navigator.geolocation){
+  navigator.geolocation.getCurrentPosition(
+    pos => loadWeather(pos.coords.latitude, pos.coords.longitude, "Tu ubicación"),
+    () => loadWeather(40.4168, -3.7038, "Madrid")
+  );
+}else{
+  loadWeather(40.4168, -3.7038, "Madrid");
 }
-
-/* ===============================
-   HTML
-================================ */
-function createHTML(news){
-  if(!news.length){
-    return `<div style="color:white;padding:10px;">📰 No hay noticias disponibles</div>`;
-  }
-
-  return news.slice(0,15).map(item => {
-    const img = getImage(item);
-
-    return `
-      <a href="${item.link}" target="_blank" class="news-item">
-        <div class="news-bg" style="background-image:url('${img}')"></div>
-        <div class="news-overlay"></div>
-
-        <div class="news-content">
-          <div class="news-title">${item.title}</div>
-          <div class="news-source">${item.author}</div>
-        </div>
-      </a>
-    `;
-  }).join("");
-}
-
-/* ===============================
-   INICIALIZAR TICKER
-================================ */
-async function initTicker(){
-  const container = document.getElementById("news-ticker-track");
-  if (!container) return;
-
-  const news = await fetchNews();
-  const html = createHTML(news);
-
-  container.innerHTML = html + html; // efecto infinito
-}
-
-/* ===============================
-   AUTOREFRESH
-================================ */
-initTicker();
-setInterval(initTicker, 1800000); // 30 min
 </script>
      <body>   
      <div class="container">
