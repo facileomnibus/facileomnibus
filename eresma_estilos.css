@@ -272,7 +272,7 @@ section,
 /* FIX ESPECÍFICO CLIMA */
 .weather-widget {
     width: 100%;
-    max-width: 350px;
+    max-width: 300px;
     margin: 20px auto;
     display: block;
 }
@@ -308,7 +308,7 @@ section,
 
 .weather-widget {
     width: 100%;
-    max-width: 350px;  /* ancho máximo para escritorio/móvil */
+    max-width: 300px;  /* ancho máximo para escritorio/móvil */
     margin: 20px auto; /* centrado horizontal */
     padding: 20px;
     display: block;
