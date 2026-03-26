@@ -406,3 +406,58 @@ section,
         --header-height: 110px;
     }
 }
+/* ===============================
+   UNIFICAR WIDGETS DENTRO DEL CONTAINER
+================================ */
+
+/* Contenedor principal que centra todo */
+main.intro .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Todos los widgets heredan el ancho del contenedor */
+#widgets-container,
+#news-ticker-container,
+.ticker-widget,
+.weather-widget {
+    width: 100%;
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
+/* Widget de clima (sin estilos inline) */
+.weather-widget {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.2);
+    text-align: center;
+    color: white;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Responsive: en móvil, el contenedor se adapta */
+@media only screen and (max-width: 767px) {
+    main.intro .container {
+        padding: 0 15px;
+    }
+    
+    .weather-widget {
+        padding: 15px;
+    }
+    
+    /* Ajuste para el ticker de noticias */
+    #news-ticker-container {
+        padding: 10px 0;
+    }
+    
+    .news-item {
+        min-width: 260px;
+        height: 140px;
+    }
+}
