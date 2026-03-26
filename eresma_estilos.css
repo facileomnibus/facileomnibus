@@ -272,8 +272,8 @@ section,
 /* FIX ESPECÍFICO CLIMA */
 .weather-widget {
     width: 100%;
-    max-width: 350px;
-    margin: 15px auto;
+    max-width: 500px;
+    margin: 20px auto;
     display: block;
 }
 
@@ -308,9 +308,9 @@ section,
 
 .weather-widget {
     width: 100%;
-    max-width: 350px;  /* ancho máximo para escritorio/móvil */
+    max-width: 500px;  /* ancho máximo para escritorio/móvil */
     margin: 20px auto; /* centrado horizontal */
-    padding: 12px;
+    padding: 20px;
     display: block;
     text-align: center; /* centra todo el contenido interno */
     box-sizing: border-box;
@@ -356,7 +356,7 @@ section,
     .weather-widget {
         width: 95%;
         margin: 15px auto;
-        padding: 10px;
+        padding: 15px;
     }
 
     .weather-widget * {
