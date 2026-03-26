@@ -308,7 +308,7 @@ section,
 
 .weather-widget {
     width: 100%;
-    max-width: 500px;  /* ancho máximo para escritorio/móvil */
+    max-width: 380px;  /* ancho máximo para escritorio/móvil */
     margin: 20px auto; /* centrado horizontal */
     padding: 20px;
     display: block;
