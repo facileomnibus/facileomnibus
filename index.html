@@ -530,12 +530,22 @@ function loadWeather(lat, lon, name="Tu ubicación"){
 
       for(let i=1;i<=6;i++){
         forecastHTML += `
-  <div class="forecast-day">
-    <div class="day">${getDay(daily.time[i])}</div>
-    <div class="icon">${getIcon(daily.weathercode[i], true)}</div>
-    <div class="temp-range">${daily.temperature_2m_max[i]}° / ${daily.temperature_2m_min[i]}°</div>
-  </div>
-`;
+          <div style="
+            background:rgba(255,255,255,0.25);
+            padding:10px;
+            border-radius:15px;
+            min-width:85px;
+            backdrop-filter:blur(6px);
+          ">
+            <div style="font-size:12px;">${getDay(daily.time[i])}</div>
+            <div style="font-size:24px;margin:5px 0;">
+              ${getIcon(daily.weathercode[i], true)}
+            </div>
+            <div style="font-size:12px;">
+              ${daily.temperature_2m_max[i]}° / ${daily.temperature_2m_min[i]}°
+            </div>
+          </div>
+        `;
       }
 
       forecastHTML += `</div>`;
@@ -544,14 +554,28 @@ function loadWeather(lat, lon, name="Tu ubicación"){
          RENDER FINAL
       ================================= */
       document.getElementById("weather-content").innerHTML = `
-  <h3 class="city-name">${name}</h3>
-  <div class="weather-icon">${getIcon(w.weathercode, w.is_day === 1)}</div>
-  <div class="temperature">${w.temperature}°C</div>
-  <div class="wind">Viento: ${w.windspeed} km/h</div>
-  <div class="forecast">
-    ${forecastHTML}
-  </div>
-`;
+        <h3 style="margin:5px 0 15px 0;">
+  ${name}
+</h3>
+
+<div style="
+  font-size:70px;
+  margin:10px 0 20px 0;
+  line-height:1;
+">
+  ${getIcon(w.weathercode, w.is_day === 1)}
+</div>
+
+        <p style="font-size:34px;margin:5px 0;">
+          ${w.temperature}°C
+        </p>
+
+        <p style="font-size:14px;">
+          Viento: ${w.windspeed} km/h
+        </p>
+
+        ${forecastHTML}
+      `;
     })
     .catch(()=>{
       document.getElementById("weather-content").innerHTML = "❌ No se pudo cargar el clima";
@@ -1860,6 +1884,41 @@ function clearCustomBackground() {
 </script>
 </body>
 </html>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
