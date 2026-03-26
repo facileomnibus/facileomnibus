@@ -237,7 +237,7 @@ height:auto;
 /* ===== FIX MENÚ MOBILE (mejora visual + centrado) ===== */
 
 .navigation ul.show{
-    background: linear-gradient(180deg,#5bd3ff,#b2f1ff);
+    background: var(--header-bg);
     backdrop-filter: blur(12px);
     border-radius:15px;
     padding:12px;
