@@ -190,6 +190,10 @@ section{
     display:block;
     opacity: 1;
     transform: translateY(0);
+    background: var(--header-bg);
+    backdrop-filter:blur(10px);
+    border-radius:10px;
+    padding:10px;
 }
 
 /* enlaces verticales */
