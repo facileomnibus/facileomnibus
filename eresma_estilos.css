@@ -454,3 +454,120 @@ main.intro .container {
         height: 140px;
     }
 }
+/* ===============================
+   ESTILOS PARA WIDGET FEEDWIND
+================================ */
+
+.feedwind-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px auto;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 15px 0;
+    overflow: hidden;
+}
+
+/* Título personalizado (igual que antes) */
+#news-ticker-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    padding: 8px 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    max-width: fit-content;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Contenedor interno de Feedwind */
+.feedwind-wrapper .feedwind {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Si Feedwind genera un título propio, lo ocultamos */
+.feedwind-wrapper .fw-header,
+.feedwind-wrapper .fw-title {
+    display: none !important;
+}
+
+/* Ajuste del feed para que se comporte como un carrusel horizontal */
+.feedwind-wrapper .fw-items {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 0 15px;
+    scrollbar-width: thin;
+}
+
+/* Estilo de cada noticia (similar a .news-item) */
+.feedwind-wrapper .fw-item {
+    min-width: 300px;
+    height: 160px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: 0.3s;
+    background-size: cover;
+    background-position: center;
+}
+
+.feedwind-wrapper .fw-item:hover {
+    transform: scale(1.05);
+}
+
+/* Overlay oscuro sobre la imagen (si Feedwind no lo trae) */
+.feedwind-wrapper .fw-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.85));
+    z-index: 1;
+}
+
+/* Contenido de la noticia */
+.feedwind-wrapper .fw-item-content {
+    position: relative;
+    z-index: 2;
+    padding: 10px;
+}
+
+.feedwind-wrapper .fw-item-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.feedwind-wrapper .fw-item-source {
+    font-size: 11px;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+/* Ajustes responsivos */
+@media only screen and (max-width: 767px) {
+    .feedwind-wrapper {
+        padding: 10px 0;
+    }
+    .feedwind-wrapper .fw-item {
+        min-width: 260px;
+        height: 140px;
+    }
+}
