@@ -44,6 +44,32 @@
     <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Cargando..." data-fw-param="174041/"></script> <!-- end feedwind code -->
 <script>
 (function() {
+    // Espera a que Feedwind termine de cargar
+    const observer = new MutationObserver(function(mutations, obs) {
+        const container = document.querySelector('.feedwind-wrapper');
+        if (!container) return;
+        const items = container.querySelectorAll('[class*="item"]');
+        if (items.length > 0) {
+            obs.disconnect();
+            // Añade una clase personalizada a cada noticia
+            items.forEach(item => {
+                item.classList.add('fw-custom-item');
+                // Busca título y fuente
+                const title = item.querySelector('[class*="title"]');
+                if (title) title.classList.add('fw-custom-title');
+                const source = item.querySelector('[class*="source"]');
+                if (source) source.classList.add('fw-custom-source');
+            });
+            // También añade clase al contenedor del carrusel
+            const track = container.querySelector('[class*="items"]');
+            if (track) track.classList.add('fw-custom-track');
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+<script>
+(function() {
     const wrapper = document.querySelector('.feedwind-wrapper');
     if (!wrapper) return;
 
