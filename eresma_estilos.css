@@ -455,119 +455,189 @@ main.intro .container {
     }
 }
 /* ===============================
-   ESTILOS PARA WIDGET FEEDWIND
+   ESTILOS FEEDWIND - FRUTIGER AERO
 ================================ */
 
 .feedwind-wrapper {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto 20px auto;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    padding: 15px 0;
+    margin: 0 auto 30px auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    padding: 20px 0;
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-/* Título personalizado (igual que antes) */
+/* Título del widget */
 #news-ticker-title {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 1px;
     color: white;
-    padding: 8px 15px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    padding: 8px 24px;
+    margin-bottom: 20px;
+    border-radius: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     max-width: fit-content;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
 }
 
-/* Contenedor interno de Feedwind */
-.feedwind-wrapper .feedwind {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-/* Si Feedwind genera un título propio, lo ocultamos */
-.feedwind-wrapper .fw-header,
-.feedwind-wrapper .fw-title {
-    display: none !important;
-}
-
-/* Ajuste del feed para que se comporte como un carrusel horizontal */
+/* Contenedor del carrusel (asumiendo que Feedwind usa .fw-items) */
 .feedwind-wrapper .fw-items {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 0 15px;
+    padding: 0 20px;
     scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) rgba(255,255,255,0.2);
+    -webkit-overflow-scrolling: touch;
 }
 
-/* Estilo de cada noticia (similar a .news-item) */
-.feedwind-wrapper .fw-item {
-    min-width: 300px;
-    height: 160px;
-    border-radius: 15px;
+/* Ocultar scrollbar en Chrome/Safari (opcional, para diseño limpio) */
+.feedwind-wrapper .fw-items::-webkit-scrollbar {
+    height: 6px;
+}
+.feedwind-wrapper .fw-items::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+.feedwind-wrapper .fw-items::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+/* Cada noticia – ajusta la clase según la real */
+.feedwind-wrapper .fw-item,
+.feedwind-wrapper .fw-article,
+.feedwind-wrapper [class*="item"] {
+    min-width: 280px;
+    width: 280px;
+    height: 220px;
+    border-radius: 24px;
     overflow: hidden;
     position: relative;
     flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    color: white;
-    text-decoration: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: 0.3s;
-    background-size: cover;
-    background-position: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
-.feedwind-wrapper .fw-item:hover {
-    transform: scale(1.05);
+.feedwind-wrapper .fw-item:hover,
+.feedwind-wrapper .fw-article:hover,
+.feedwind-wrapper [class*="item"]:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Overlay oscuro sobre la imagen (si Feedwind no lo trae) */
-.feedwind-wrapper .fw-item::before {
-    content: '';
+/* Imagen de fondo */
+.feedwind-wrapper .fw-item img,
+.feedwind-wrapper .fw-article img,
+.feedwind-wrapper [class*="item"] img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.85));
+    object-fit: cover;
+    z-index: 0;
+    transition: transform 0.5s ease;
+}
+
+.feedwind-wrapper .fw-item:hover img,
+.feedwind-wrapper .fw-article:hover img,
+.feedwind-wrapper [class*="item"]:hover img {
+    transform: scale(1.1);
+}
+
+/* Overlay degradado */
+.feedwind-wrapper .fw-item::after,
+.feedwind-wrapper .fw-article::after,
+.feedwind-wrapper [class*="item"]::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.7));
     z-index: 1;
+    pointer-events: none;
 }
 
-/* Contenido de la noticia */
-.feedwind-wrapper .fw-item-content {
-    position: relative;
+/* Contenedor del texto */
+.feedwind-wrapper .fw-item-content,
+.feedwind-wrapper .fw-article-content,
+.feedwind-wrapper [class*="content"] {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
     z-index: 2;
-    padding: 10px;
+    text-align: left;
 }
 
-.feedwind-wrapper .fw-item-title {
-    font-size: 14px;
+/* Título */
+.feedwind-wrapper .fw-item-title,
+.feedwind-wrapper .fw-article-title,
+.feedwind-wrapper [class*="title"] {
+    font-size: 1rem;
     font-weight: 700;
-    margin: 0;
+    color: white;
+    margin: 0 0 6px 0;
     line-height: 1.3;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.feedwind-wrapper .fw-item-source {
-    font-size: 11px;
-    opacity: 0.8;
-    margin-top: 5px;
+/* Fuente / fecha */
+.feedwind-wrapper .fw-item-source,
+.feedwind-wrapper .fw-article-source,
+.feedwind-wrapper [class*="source"] {
+    font-size: 0.75rem;
+    opacity: 0.85;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-/* Ajustes responsivos */
+/* Icono de fuente (opcional) */
+.feedwind-wrapper .fw-item-source::before {
+    content: "📰";
+    font-size: 0.7rem;
+}
+
+/* Responsive móvil */
 @media only screen and (max-width: 767px) {
     .feedwind-wrapper {
-        padding: 10px 0;
+        padding: 15px 0;
+        margin-bottom: 20px;
     }
-    .feedwind-wrapper .fw-item {
-        min-width: 260px;
-        height: 140px;
+    .feedwind-wrapper .fw-items {
+        gap: 16px;
+        padding: 0 12px;
+    }
+    .feedwind-wrapper .fw-item,
+    .feedwind-wrapper .fw-article,
+    .feedwind-wrapper [class*="item"] {
+        min-width: 240px;
+        width: 240px;
+        height: 190px;
+    }
+    .feedwind-wrapper .fw-item-title,
+    .feedwind-wrapper .fw-article-title,
+    .feedwind-wrapper [class*="title"] {
+        font-size: 0.9rem;
     }
 }
