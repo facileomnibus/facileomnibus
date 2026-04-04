@@ -620,3 +620,132 @@ main.intro .container {
         padding: 6px 18px;
     }
 }
+/* ===============================
+   FEEDWIND – CARGA OBLIGATORIA HORIZONTAL
+================================ */
+
+.feedwind-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    position: relative;
+}
+
+/* El contenedor de los items debe ser flex horizontal */
+.feedwind-wrapper [class*="items"],
+.feedwind-wrapper .fw-items,
+.feedwind-wrapper .fw-content {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 20px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 10px 20px !important;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Cada tarjeta de noticia */
+.feedwind-wrapper [class*="item"],
+.feedwind-wrapper .fw-item {
+    flex: 0 0 auto !important;
+    width: 280px !important;
+    min-width: 280px !important;
+    height: 220px !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background: rgba(0,0,0,0.3) !important;
+    backdrop-filter: blur(4px) !important;
+    transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.feedwind-wrapper [class*="item"]:hover,
+.feedwind-wrapper .fw-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* Imagen de fondo */
+.feedwind-wrapper [class*="item"] img,
+.feedwind-wrapper .fw-item img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    z-index: 0 !important;
+    transition: transform 0.5s !important;
+}
+
+.feedwind-wrapper [class*="item"]:hover img,
+.feedwind-wrapper .fw-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Overlay degradado */
+.feedwind-wrapper [class*="item"]::after,
+.feedwind-wrapper .fw-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.7));
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Contenedor del texto */
+.feedwind-wrapper [class*="item"] > div:not(:first-child),
+.feedwind-wrapper .fw-item > div {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 16px !important;
+    z-index: 2 !important;
+}
+
+/* Título */
+.feedwind-wrapper [class*="title"],
+.feedwind-wrapper .fw-item-title {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    margin: 0 0 6px 0 !important;
+    line-height: 1.3 !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+/* Fuente / fecha */
+.feedwind-wrapper [class*="source"],
+.feedwind-wrapper .fw-item-source {
+    font-size: 0.75rem !important;
+    opacity: 0.85 !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+/* Ajuste móvil */
+@media only screen and (max-width: 767px) {
+    .feedwind-wrapper [class*="item"],
+    .feedwind-wrapper .fw-item {
+        width: 240px !important;
+        min-width: 240px !important;
+        height: 190px !important;
+    }
+    .feedwind-wrapper [class*="title"],
+    .feedwind-wrapper .fw-item-title {
+        font-size: 0.9rem !important;
+    }
+}
