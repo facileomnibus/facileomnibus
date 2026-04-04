@@ -436,7 +436,6 @@ main.intro .container {
     margin: 20px auto;
     box-sizing: border-box;
 }
-.feedwind-wrapper,
 .weather-widget {
     width: 100%;
     margin: 20px auto;
@@ -459,7 +458,7 @@ main.intro .container {
     }
 }
 /* ===============================
-   ESTILOS FEEDWIND - FRUTIGER AERO
+   FEEDWIND - ESTILO UNIFICADO (PC + MÓVIL)
 ================================ */
 
 .feedwind-wrapper {
@@ -469,28 +468,27 @@ main.intro .container {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(12px);
     border-radius: 28px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
     padding: 20px 0;
     overflow: hidden;
-    transition: all 0.3s ease;
 }
 
-/* Título del widget */
+/* Título */
 #news-ticker-title {
     font-size: 1.4rem;
     font-weight: 600;
     letter-spacing: 1px;
     color: white;
     padding: 8px 24px;
-    margin-bottom: 20px;
+    margin: 0 0 20px 20px;
     border-radius: 40px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    max-width: fit-content;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: fit-content;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     backdrop-filter: blur(4px);
 }
 
-/* Contenedor del carrusel (asumiendo que Feedwind usa .fw-items) */
+/* Contenedor del carrusel (Feedwind genera .fw-items) */
 .feedwind-wrapper .fw-items {
     display: flex;
     gap: 24px;
@@ -499,10 +497,9 @@ main.intro .container {
     padding: 0 20px;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-color) rgba(255,255,255,0.2);
-    -webkit-overflow-scrolling: touch;
 }
 
-/* Ocultar scrollbar en Chrome/Safari (opcional, para diseño limpio) */
+/* Scrollbar estilizada */
 .feedwind-wrapper .fw-items::-webkit-scrollbar {
     height: 6px;
 }
@@ -515,10 +512,8 @@ main.intro .container {
     border-radius: 10px;
 }
 
-/* Cada noticia – ajusta la clase según la real */
-.feedwind-wrapper .fw-item,
-.feedwind-wrapper .fw-article,
-.feedwind-wrapper [class*="item"] {
+/* Cada noticia (tarjeta) */
+.feedwind-wrapper .fw-item {
     min-width: 280px;
     width: 280px;
     height: 220px;
@@ -526,24 +521,19 @@ main.intro .container {
     overflow: hidden;
     position: relative;
     flex-shrink: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0,0,0,0.3);
     backdrop-filter: blur(4px);
-    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-.feedwind-wrapper .fw-item:hover,
-.feedwind-wrapper .fw-article:hover,
-.feedwind-wrapper [class*="item"]:hover {
+.feedwind-wrapper .fw-item:hover {
     transform: scale(1.03);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 
 /* Imagen de fondo */
-.feedwind-wrapper .fw-item img,
-.feedwind-wrapper .fw-article img,
-.feedwind-wrapper [class*="item"] img {
+.feedwind-wrapper .fw-item img {
     position: absolute;
     top: 0;
     left: 0;
@@ -551,19 +541,15 @@ main.intro .container {
     height: 100%;
     object-fit: cover;
     z-index: 0;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s;
 }
 
-.feedwind-wrapper .fw-item:hover img,
-.feedwind-wrapper .fw-article:hover img,
-.feedwind-wrapper [class*="item"]:hover img {
+.feedwind-wrapper .fw-item:hover img {
     transform: scale(1.1);
 }
 
-/* Overlay degradado */
-.feedwind-wrapper .fw-item::after,
-.feedwind-wrapper .fw-article::after,
-.feedwind-wrapper [class*="item"]::after {
+/* Overlay oscuro (si Feedwind no lo incluye, lo añadimos con pseudo-elemento) */
+.feedwind-wrapper .fw-item::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -576,9 +562,7 @@ main.intro .container {
 }
 
 /* Contenedor del texto */
-.feedwind-wrapper .fw-item-content,
-.feedwind-wrapper .fw-article-content,
-.feedwind-wrapper [class*="content"] {
+.feedwind-wrapper .fw-item-content {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -588,10 +572,8 @@ main.intro .container {
     text-align: left;
 }
 
-/* Título */
-.feedwind-wrapper .fw-item-title,
-.feedwind-wrapper .fw-article-title,
-.feedwind-wrapper [class*="title"] {
+/* Título de la noticia */
+.feedwind-wrapper .fw-item-title {
     font-size: 1rem;
     font-weight: 700;
     color: white;
@@ -605,9 +587,7 @@ main.intro .container {
 }
 
 /* Fuente / fecha */
-.feedwind-wrapper .fw-item-source,
-.feedwind-wrapper .fw-article-source,
-.feedwind-wrapper [class*="source"] {
+.feedwind-wrapper .fw-item-source {
     font-size: 0.75rem;
     opacity: 0.85;
     color: white;
@@ -616,31 +596,7 @@ main.intro .container {
     gap: 6px;
 }
 
-/* Icono de fuente (opcional) */
-.feedwind-wrapper .fw-item-source::before {
-    content: "📰";
-    font-size: 0.7rem;
-}
-.feedwind-wrapper .fw-custom-track {
-    display: flex;
-    gap: 24px;
-    overflow-x: auto;
-    padding: 0 20px;
-}
-.feedwind-wrapper .fw-custom-item {
-    min-width: 280px;
-    width: 280px;
-    height: 220px;
-    border-radius: 24px;
-    overflow: hidden;
-    position: relative;
-    flex-shrink: 0;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(4px);
-    transition: transform 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-/* Responsive móvil */
+/* Ajuste para móvil */
 @media only screen and (max-width: 767px) {
     .feedwind-wrapper {
         padding: 15px 0;
@@ -650,88 +606,17 @@ main.intro .container {
         gap: 16px;
         padding: 0 12px;
     }
-    .feedwind-wrapper .fw-item,
-    .feedwind-wrapper .fw-article,
-    .feedwind-wrapper [class*="item"] {
+    .feedwind-wrapper .fw-item {
         min-width: 240px;
         width: 240px;
         height: 190px;
     }
-    .feedwind-wrapper .fw-item-title,
-    .feedwind-wrapper .fw-article-title,
-    .feedwind-wrapper [class*="title"] {
+    .feedwind-wrapper .fw-item-title {
         font-size: 0.9rem;
     }
-}
-/* Fuerza estilo frutiger aero sobre todo el contenido de Feedwind */
-.feedwind-wrapper * {
-    box-sizing: border-box;
-}
-
-.feedwind-wrapper .feedwind > div,
-.feedwind-wrapper [class*="item"] {
-    min-width: 260px;
-    width: 260px;
-    height: 200px;
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    flex-shrink: 0;
-    transition: transform 0.3s;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(4px);
-    margin: 0 8px;
-}
-
-.feedwind-wrapper [class*="item"]:hover {
-    transform: scale(1.02);
-}
-
-.feedwind-wrapper [class*="item"] img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}
-
-.feedwind-wrapper [class*="item"] a {
-    display: block;
-    height: 100%;
-    text-decoration: none;
-}
-
-.feedwind-wrapper [class*="title"] {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 15px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.7));
-    color: white;
-    font-size: 0.9rem;
-    font-weight: bold;
-    z-index: 1;
-}
-
-.feedwind-wrapper [class*="source"] {
-    display: none;
-}
-
-/* Contenedor del carrusel */
-.feedwind-wrapper [class*="items"] {
-    display: flex;
-    overflow-x: auto;
-    gap: 15px;
-    padding: 10px;
-    scroll-behavior: smooth;
-}
-
-/* Ajuste en móvil */
-@media (max-width: 767px) {
-    .feedwind-wrapper [class*="item"] {
-        min-width: 220px;
-        width: 220px;
-        height: 170px;
+    #news-ticker-title {
+        margin-left: 12px;
+        font-size: 1.2rem;
+        padding: 6px 18px;
     }
 }
