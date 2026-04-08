@@ -715,27 +715,27 @@ main.intro .container {
 /* Título */
 .feedwind-wrapper [class*="title"],
 .feedwind-wrapper .fw-item-title {
-    font-size: 1rem !important;
+    font-size: 1rem 
     font-weight: 700 !important;
-    color: white !important;
-    margin: 0 0 6px 0 !important;
-    line-height: 1.3 !important;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
+    color: white 
+    margin: 0 0 6px 0 
+    line-height: 1.3 
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3) 
+    display: -webkit-box 
+    -webkit-line-clamp: 2 
+    -webkit-box-orient: vertical 
     overflow: hidden !important;
 }
 
 /* Fuente / fecha */
 .feedwind-wrapper [class*="source"],
 .feedwind-wrapper .fw-item-source {
-    font-size: 0.75rem !important;
-    opacity: 0.85 !important;
-    color: white !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important;
+    font-size: 0.75rem 
+    opacity: 0.85 
+    color: white 
+    display: flex 
+    align-items: center 
+    gap: 6px 
 }
 
 /* Ajuste móvil */
