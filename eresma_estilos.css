@@ -462,19 +462,25 @@ main.intro .container {
 ================================ */
 
 .feedwind-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 30px auto;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    border-radius: 28px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
-    padding: 20px 0;
-    overflow: hidden;
-    overflow-x: auto;
-    width: 100%;
+   width: 100%;
+   max-width: 1200px;
+   margin: 30px auto;
+   padding: 20px;
+   background: rgba(255, 255, 255, 0.1);
+   backdrop-filter: blur(12px);
+   border-radius: 28px;
+   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+   overflow: hidden;
 }
-
+.feedwind-wrapper > div {
+    overflow: hidden;
+    border-radius: 20px;
+}
+.feedwind-wrapper iframe {
+    width: 100% !important;
+    display: block;
+    border-radius: 20px;
+}
 /* Título */
 #news-ticker-title {
     font-size: 1.4rem;
@@ -482,7 +488,9 @@ main.intro .container {
     letter-spacing: 1px;
     color: white;
     padding: 8px 24px;
-    margin: 0 0 20px 20px;
+    display: inline-block;
+    margin: 0 auto 20px auto;
+    text-align: center;
     border-radius: 40px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     width: fit-content;
