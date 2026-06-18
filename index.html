@@ -38,175 +38,647 @@
     <main class="intro">
     <div class="container">
     <div id="widgets-container"></div>
-<!-- Widget Feedwind estilizado -->
-<div class="feedwind-wrapper">
-    <div id="news-ticker-title">📰 INFORMACIÓN FÁCIL</div>
-    <!-- start feedwind code --> <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Cargando..." data-fw-param="174041/"></script> <!-- end feedwind code -->
-<script>
-(function() {
-    // Función para aplicar estilos a los elementos de Feedwind
-    function applyFeedwindStyles() {
-        const wrapper = document.querySelector('.feedwind-wrapper');
-        if (!wrapper) return false;
+<!-- =========================
+     GOOGLE NEWS TICKER FACILE
+     PEGAR Y FUNCIONAR
+========================= -->
+<section id="facile-news-widget" class="facile-news-shell">
+  <div class="facile-news-title-wrap">
+    <div class="facile-news-title">📰 INFORMACIÓN FÁCIL</div>
+  </div>
 
-        // Buscar el contenedor de los items (acepta varias clases posibles)
-        let track = wrapper.querySelector('[class*="items"]') || 
-                    wrapper.querySelector('.fw-items') || 
-                    wrapper.querySelector('[class*="content"]');
-        if (!track) return false;
+  <div id="facile-news-root" class="facile-news-root" aria-live="polite">
+    <div class="facile-news-loading">Cargando noticias...</div>
+  </div>
+</section>
 
-        // Forzar estilos al track
-        track.style.display = 'flex';
-        track.style.flexDirection = 'row';
-        track.style.flexWrap = 'nowrap';
-        track.style.gap = '16px';
-        track.style.overflowX = 'auto';
-        track.style.overflowY = 'hidden';
-        track.style.padding = '0 12px';
-        track.style.scrollBehavior = 'smooth';
+<style>
+  #facile-news-widget.facile-news-shell{
+    width:100%;
+    max-width:1200px;
+    margin:24px auto;
+    padding:26px 18px 30px;
+    box-sizing:border-box;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(12px);
+    border-radius:42px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.16);
+  }
 
-        // Obtener todos los items (noticias)
-        let items = track.children;
-        if (items.length === 0) return false;
+  #facile-news-widget .facile-news-title-wrap{
+    text-align:center;
+    margin-bottom:24px;
+  }
 
-        for (let item of items) {
-            // Aplicar estilos de tarjeta
-            item.style.flex = '0 0 auto';
-            item.style.width = '240px';
-            item.style.minWidth = '240px';
-            item.style.height = '190px';
-            item.style.borderRadius = '24px';
-            item.style.overflow = 'hidden';
-            item.style.position = 'relative';
-            item.style.background = 'rgba(0,0,0,0.3)';
-            item.style.backdropFilter = 'blur(4px)';
-            item.style.transition = 'transform 0.3s, box-shadow 0.3s';
-            item.style.cursor = 'pointer';
+  #facile-news-widget .facile-news-title{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:14px 30px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#4a88f7,#08a700);
+    color:#fff;
+    font-size:2rem;
+    font-weight:700;
+    letter-spacing:1px;
+    box-shadow:0 10px 24px rgba(0,0,0,0.18);
+  }
 
-            // Hover efectos (inline)
-            item.onmouseenter = () => {
-                item.style.transform = 'scale(1.03)';
-                item.style.boxShadow = '0 15px 30px rgba(0,0,0,0.3)';
-                let img = item.querySelector('img');
-                if (img) img.style.transform = 'scale(1.1)';
-            };
-            item.onmouseleave = () => {
-                item.style.transform = 'scale(1)';
-                item.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
-                let img = item.querySelector('img');
-                if (img) img.style.transform = 'scale(1)';
-            };
+  #facile-news-widget .facile-news-root{
+    min-height:360px;
+  }
 
-            // Imagen de fondo
-            let img = item.querySelector('img');
-            if (img) {
-                img.style.position = 'absolute';
-                img.style.top = '0';
-                img.style.left = '0';
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                img.style.zIndex = '0';
-                img.style.transition = 'transform 0.5s';
-            }
+  #facile-news-widget .facile-news-loading,
+  #facile-news-widget .facile-news-error,
+  #facile-news-widget .facile-news-empty{
+    min-height:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+    padding:20px;
+    font-size:1.08rem;
+  }
 
-            // Añadir overlay degradado si no existe
-            if (!item.querySelector('.custom-overlay')) {
-                let overlay = document.createElement('div');
-                overlay.className = 'custom-overlay';
-                overlay.style.position = 'absolute';
-                overlay.style.bottom = '0';
-                overlay.style.left = '0';
-                overlay.style.width = '100%';
-                overlay.style.height = '70%';
-                overlay.style.background = 'linear-gradient(180deg, transparent, rgba(0,0,0,0.7))';
-                overlay.style.zIndex = '1';
-                overlay.style.pointerEvents = 'none';
-                item.appendChild(overlay);
-            }
+  #facile-news-widget .facile-news-stage{
+    width:100%;
+  }
 
-            // Contenedor del texto
-            let contentDiv = item.querySelector('[class*="content"]') || 
-                            item.querySelector('.fw-item-content') || 
-                            (item.children.length > 1 ? item.children[1] : null);
-            if (contentDiv) {
-                contentDiv.style.position = 'absolute';
-                contentDiv.style.bottom = '0';
-                contentDiv.style.left = '0';
-                contentDiv.style.right = '0';
-                contentDiv.style.padding = '14px';
-                contentDiv.style.zIndex = '2';
-                contentDiv.style.textAlign = 'left';
-            } else {
-                // Si no hay contenedor, buscar título y fuente y envolverlos
-                let title = item.querySelector('[class*="title"]');
-                let source = item.querySelector('[class*="source"]');
-                if (title) {
-                    let newDiv = document.createElement('div');
-                    newDiv.style.position = 'absolute';
-                    newDiv.style.bottom = '0';
-                    newDiv.style.left = '0';
-                    newDiv.style.right = '0';
-                    newDiv.style.padding = '16px';
-                    newDiv.style.zIndex = '2';
-                    item.appendChild(newDiv);
-                    newDiv.appendChild(title);
-                    if (source) newDiv.appendChild(source);
-                    contentDiv = newDiv;
-                }
-            }
+  #facile-news-widget .facile-news-card{
+    width:100%;
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:18px;
+    align-items:stretch;
+    background:rgba(255,255,255,0.94);
+    border-radius:28px;
+    padding:18px;
+    box-sizing:border-box;
+    box-shadow:0 8px 24px rgba(0,0,0,0.12);
+    overflow:hidden;
+    animation:facileNewsFade .35s ease;
+  }
 
-            // Estilos del título
-            let titleElem = item.querySelector('[class*="title"]');
-            if (titleElem) {
-                titleElem.style.fontSize = '0.9rem';
-                titleElem.style.fontWeight = '700';
-                titleElem.style.color = 'white';
-                titleElem.style.margin = '0 0 6px 0';
-                titleElem.style.lineHeight = '1.3';
-                titleElem.style.textShadow = '0 1px 2px rgba(0,0,0,0.3)';
-                titleElem.style.display = '-webkit-box';
-                titleElem.style.webkitLineClamp = '2';
-                titleElem.style.webkitBoxOrient = 'vertical';
-                titleElem.style.overflow = 'hidden';
-            }
+  #facile-news-widget .facile-news-media{
+    min-height:260px;
+    width:100%;
+    border-radius:22px;
+    overflow:hidden;
+    background:linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.14));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#666;
+    font-weight:700;
+  }
 
-            // Estilos de la fuente
-            let sourceElem = item.querySelector('[class*="source"]');
-            if (sourceElem) {
-                sourceElem.style.fontSize = '0.75rem';
-                sourceElem.style.opacity = '0.85';
-                sourceElem.style.color = 'white';
-                sourceElem.style.display = 'flex';
-                sourceElem.style.alignItems = 'center';
-                sourceElem.style.gap = '6px';
-            }
-        }
-        return true;
+  #facile-news-widget .facile-news-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  #facile-news-widget .facile-news-content{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+
+  #facile-news-widget .facile-news-headline{
+    margin:0 0 12px 0;
+    font-size:1.95rem;
+    line-height:1.22;
+    color:#9a5a14;
+    font-weight:700;
+    word-break:break-word;
+  }
+
+  #facile-news-widget .facile-news-summary{
+    margin:0 0 18px 0;
+    color:#262626;
+    font-size:1rem;
+    line-height:1.55;
+  }
+
+  #facile-news-widget .facile-news-footer{
+    margin-top:auto;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  #facile-news-widget .facile-news-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:center;
+    color:#4f4f4f;
+    font-size:0.95rem;
+  }
+
+  #facile-news-widget .facile-news-source{
+    font-weight:700;
+  }
+
+  #facile-news-widget .facile-news-date{
+    color:#2550ff;
+    font-weight:600;
+  }
+
+  #facile-news-widget .facile-news-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+  }
+
+  #facile-news-widget .facile-news-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:12px;
+    padding:10px 14px;
+    text-decoration:none;
+    font-weight:700;
+    cursor:pointer;
+    transition:transform .2s ease, opacity .2s ease;
+  }
+
+  #facile-news-widget .facile-news-button:hover{
+    transform:translateY(-1px);
+    opacity:.97;
+  }
+
+  #facile-news-widget .facile-news-button.primary{
+    color:white;
+    background:linear-gradient(90deg,#4a88f7,#08a700);
+    box-shadow:0 8px 18px rgba(0,0,0,0.12);
+  }
+
+  #facile-news-widget .facile-news-button.secondary{
+    background:rgba(74,136,247,0.12);
+    color:#244ab2;
+  }
+
+  #facile-news-widget .facile-news-nav{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:16px;
+    flex-wrap:wrap;
+  }
+
+  #facile-news-widget .facile-news-arrow{
+    width:42px;
+    height:42px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    background:rgba(255,255,255,0.24);
+    color:white;
+    font-size:1.15rem;
+    backdrop-filter:blur(8px);
+    transition:transform .2s ease, background .2s ease;
+  }
+
+  #facile-news-widget .facile-news-arrow:hover{
+    transform:scale(1.05);
+    background:rgba(255,255,255,0.32);
+  }
+
+  #facile-news-widget .facile-news-dots{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  #facile-news-widget .facile-news-dot{
+    width:10px;
+    height:10px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    background:rgba(255,255,255,0.48);
+    transition:transform .2s ease, background .2s ease;
+  }
+
+  #facile-news-widget .facile-news-dot.active{
+    background:white;
+    transform:scale(1.18);
+  }
+
+  @keyframes facileNewsFade{
+    from{opacity:0; transform:translateY(6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  @media only screen and (max-width:1024px){
+    #facile-news-widget .facile-news-card{
+      grid-template-columns:300px 1fr;
+    }
+    #facile-news-widget .facile-news-headline{
+      font-size:1.55rem;
+    }
+  }
+
+  @media only screen and (max-width:767px){
+    #facile-news-widget.facile-news-shell{
+      padding:20px 14px 24px;
+      border-radius:28px;
     }
 
-    // Intentar aplicar estilos varias veces (por si Feedwind tarda en cargar)
-    let attempts = 0;
-    const maxAttempts = 20;
-    const interval = setInterval(() => {
-        if (applyFeedwindStyles()) {
-            clearInterval(interval);
-        } else {
-            attempts++;
-            if (attempts >= maxAttempts) clearInterval(interval);
-        }
-    }, 500);
+    #facile-news-widget .facile-news-title{
+      font-size:1.25rem;
+      padding:12px 20px;
+      max-width:92%;
+    }
 
-    // También usar MutationObserver por si el contenido cambia después
-    const observer = new MutationObserver(() => {
-        if (applyFeedwindStyles()) {
-            observer.disconnect();
-        }
+    #facile-news-widget .facile-news-root{
+      min-height:410px;
+    }
+
+    #facile-news-widget .facile-news-card{
+      grid-template-columns:1fr;
+      gap:14px;
+      padding:14px;
+      border-radius:22px;
+    }
+
+    #facile-news-widget .facile-news-media{
+      min-height:200px;
+    }
+
+    #facile-news-widget .facile-news-headline{
+      font-size:1.16rem;
+      margin-bottom:10px;
+    }
+
+    #facile-news-widget .facile-news-summary{
+      font-size:0.98rem;
+    }
+
+    #facile-news-widget .facile-news-meta{
+      font-size:0.9rem;
+      gap:8px;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =========================
+     CONFIGURACIÓN
+     - "" = portada general de Google Noticias España
+     - "economía España" = búsqueda concreta
+  ========================= */
+  const NEWS_QUERY = "";
+  const NEWS_LIMIT = 8;
+  const AUTOPLAY = true;
+  const AUTOPLAY_MS = 8000;
+
+  const GOOGLE_NEWS_RSS = NEWS_QUERY
+    ? "https://news.google.com/rss/search?q=" + encodeURIComponent(NEWS_QUERY) + "&hl=es&gl=ES&ceid=ES:es"
+    : "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
+
+  const RSS2JSON_URL =
+    "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(GOOGLE_NEWS_RSS);
+
+  const root = document.getElementById("facile-news-root");
+  if (!root) return;
+
+  function safeUrl(value, fallback) {
+    const fb = fallback || "about:blank";
+    try {
+      if (!value || typeof value !== "string") return fb;
+      const url = new URL(value, window.location.href);
+      if (url.protocol === "http:" || url.protocol === "https:" || url.protocol === "about:") {
+        return url.href;
+      }
+      return fb;
+    } catch {
+      return fb;
+    }
+  }
+
+  function stripTags(html) {
+    const div = document.createElement("div");
+    div.innerHTML = html || "";
+    return (div.textContent || div.innerText || "").replace(/\s+/g, " ").trim();
+  }
+
+  function truncate(text, max) {
+    const t = (text || "").trim().replace(/\s+/g, " ");
+    return t.length > max ? t.slice(0, max).trim() + "…" : t;
+  }
+
+  function formatDate(dateString) {
+    try {
+      const date = new Date(dateString);
+      if (Number.isNaN(date.getTime())) return "";
+      return new Intl.DateTimeFormat("es-ES", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(date);
+    } catch {
+      return "";
+    }
+  }
+
+  function extractSource(title) {
+    if (!title) return "Google Noticias";
+    const parts = title.split(" - ");
+    if (parts.length > 1) return parts[parts.length - 1].trim() || "Google Noticias";
+    return "Google Noticias";
+  }
+
+  function extractCleanTitle(title) {
+    if (!title) return "Titular no disponible";
+    const parts = title.split(" - ");
+    if (parts.length > 1) {
+      parts.pop();
+      const clean = parts.join(" - ").trim();
+      return clean || title;
+    }
+    return title;
+  }
+
+  function extractImage(item) {
+    if (item.thumbnail) return item.thumbnail;
+
+    if (Array.isArray(item.enclosure) && item.enclosure.length && item.enclosure[0] && item.enclosure[0].link) {
+      return item.enclosure[0].link;
+    }
+
+    if (item.enclosure && item.enclosure.link) {
+      return item.enclosure.link;
+    }
+
+    const html = item.description || item.content || "";
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    const img = div.querySelector("img");
+    if (img && img.src) return img.src;
+
+    return "";
+  }
+
+  function normalizeItems(items) {
+    return (items || [])
+      .slice(0, NEWS_LIMIT)
+      .map(function (item) {
+        return {
+          title: extractCleanTitle(item.title || ""),
+          source: extractSource(item.title || ""),
+          summary: truncate(stripTags(item.description || item.content || ""), 360),
+          image: safeUrl(extractImage(item), ""),
+          link: safeUrl(item.link, "about:blank"),
+          pubDate: item.pubDate || ""
+        };
+      })
+      .filter(function (item) {
+        return item.title && item.link;
+      });
+  }
+
+  function createEl(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (typeof text === "string") el.textContent = text;
+    return el;
+  }
+
+  function clearNode(node) {
+    while (node.firstChild) node.removeChild(node.firstChild);
+  }
+
+  function renderState(className, text) {
+    clearNode(root);
+    root.appendChild(createEl("div", className, text));
+  }
+
+  function buildCard(item) {
+    const card = createEl("article", "facile-news-card");
+
+    const media = createEl("div", "facile-news-media");
+    if (item.image) {
+      const img = document.createElement("img");
+      img.src = item.image;
+      img.alt = item.title ? "Imagen de la noticia: " + item.title : "Imagen de noticia";
+      img.loading = "lazy";
+      img.referrerPolicy = "no-referrer";
+      img.onerror = function () {
+        media.innerHTML = "Sin imagen";
+      };
+      media.appendChild(img);
+    } else {
+      media.textContent = "Sin imagen";
+    }
+
+    const content = createEl("div", "facile-news-content");
+    const headline = createEl("h3", "facile-news-headline", item.title);
+    const summary = createEl("p", "facile-news-summary", item.summary || "");
+    const footer = createEl("div", "facile-news-footer");
+
+    const actions = createEl("div", "facile-news-actions");
+
+    const readBtn = document.createElement("a");
+    readBtn.className = "facile-news-button primary";
+    readBtn.href = safeUrl(item.link, "about:blank");
+    readBtn.target = "_blank";
+    readBtn.rel = "noopener noreferrer";
+    readBtn.textContent = "Descubrir más";
+
+    const blankBtn = document.createElement("a");
+    blankBtn.className = "facile-news-button secondary";
+    blankBtn.href = "about:blank";
+    blankBtn.target = "_blank";
+    blankBtn.rel = "noopener noreferrer";
+    blankBtn.textContent = "Abrir en blanco";
+
+    actions.appendChild(readBtn);
+    actions.appendChild(blankBtn);
+
+    const meta = createEl("div", "facile-news-meta");
+    meta.appendChild(createEl("span", "facile-news-source", item.source || "Google Noticias"));
+
+    const dateText = formatDate(item.pubDate);
+    if (dateText) meta.appendChild(createEl("span", "facile-news-date", dateText));
+
+    footer.appendChild(actions);
+    footer.appendChild(meta);
+
+    content.appendChild(headline);
+    content.appendChild(summary);
+    content.appendChild(footer);
+
+    card.appendChild(media);
+    card.appendChild(content);
+
+    return card;
+  }
+
+  function mountTicker(items) {
+    let index = 0;
+    let timer = null;
+
+    clearNode(root);
+
+    const stage = createEl("div", "facile-news-stage");
+    const nav = createEl("div", "facile-news-nav");
+    const prev = createEl("button", "facile-news-arrow", "←");
+    const next = createEl("button", "facile-news-arrow", "→");
+    const dots = createEl("div", "facile-news-dots");
+
+    prev.type = "button";
+    next.type = "button";
+    prev.setAttribute("aria-label", "Noticia anterior");
+    next.setAttribute("aria-label", "Noticia siguiente");
+
+    items.forEach(function (_, i) {
+      const dot = createEl("button", "facile-news-dot");
+      dot.type = "button";
+      dot.setAttribute("aria-label", "Ir a la noticia " + (i + 1));
+      dot.addEventListener("click", function () {
+        render(i);
+        restartAuto();
+      });
+      dots.appendChild(dot);
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+
+    function render(i) {
+      index = (i + items.length) % items.length;
+      clearNode(stage);
+      stage.appendChild(buildCard(items[index]));
+
+      Array.from(dots.children).forEach(function (dot, pos) {
+        dot.classList.toggle("active", pos === index);
+      });
+    }
+
+    function nextItem() {
+      render(index + 1);
+    }
+
+    function prevItem() {
+      render(index - 1);
+    }
+
+    function stopAuto() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function startAuto() {
+      stopAuto();
+      if (!AUTOPLAY || items.length <= 1) return;
+      timer = setInterval(nextItem, AUTOPLAY_MS);
+    }
+
+    function restartAuto() {
+      stopAuto();
+      startAuto();
+    }
+
+    prev.addEventListener("click", function () {
+      prevItem();
+      restartAuto();
+    });
+
+    next.addEventListener("click", function () {
+      nextItem();
+      restartAuto();
+    });
+
+    root.addEventListener("mouseenter", stopAuto);
+    root.addEventListener("mouseleave", startAuto);
+    root.addEventListener("focusin", stopAuto);
+    root.addEventListener("focusout", startAuto);
+
+    nav.appendChild(prev);
+    nav.appendChild(dots);
+    nav.appendChild(next);
+
+    root.appendChild(stage);
+    root.appendChild(nav);
+
+    render(0);
+    startAuto();
+  }
+
+  function loadGoogleNewsViaJsonp() {
+    renderState("facile-news-loading", "Cargando noticias...");
+
+    const callbackName = "__facileNewsJSONP_" + Math.random().toString(36).slice(2);
+    const script = document.createElement("script");
+    let cleaned = false;
+
+    function cleanup() {
+      if (cleaned) return;
+      cleaned = true;
+      if (script.parentNode) script.parentNode.removeChild(script);
+      try { delete window[callbackName]; } catch(e) { window[callbackName] = undefined; }
+    }
+
+    const timeout = setTimeout(function () {
+      cleanup();
+      renderState("facile-news-error", "No se pudieron cargar las noticias.");
+    }, 12000);
+
+    window[callbackName] = function (data) {
+      clearTimeout(timeout);
+      cleanup();
+
+      try {
+        if (!data || data.status !== "ok" || !Array.isArray(data.items)) {
+          renderState("facile-news-error", "Respuesta inválida del servicio.");
+          return;
+        }
+
+        const items = normalizeItems(data.items);
+
+        if (!items.length) {
+          renderState("facile-news-empty", "No hay noticias disponibles.");
+          return;
+        }
+
+        mountTicker(items);
+      } catch (err) {
+        console.error("[FacileNews]", err);
+        renderState("facile-news-error", "Error procesando noticias.");
+      }
+    };
+
+    script.src = RSS2JSON_URL + "&callback=" + encodeURIComponent(callbackName);
+    script.async = true;
+    script.onerror = function () {
+      clearTimeout(timeout);
+      cleanup();
+      renderState("facile-news-error", "No se pudo conectar al servicio de noticias.");
+    };
+
+    document.head.appendChild(script);
+  }
+
+  loadGoogleNewsViaJsonp();
 })();
 </script>
-</div>
+<!-- =========================
+     FIN GOOGLE NEWS TICKER
+========================= -->
 <!-- TradingView Widget BEGIN -->
 <div class="widget-box ticker-widget" style="margin: 20px auto; max-width:1100px;">
  <div class="tradingview-widget-container">
