@@ -458,304 +458,186 @@ main.intro .container {
     }
 }
 /* ===============================
-   FEEDWIND - ESTILO UNIFICADO (PC + MÓVIL)
+   FEEDWIND — MISMO ESTILO EN PC Y MÓVIL
 ================================ */
 
-.feedwind-wrapper {
-   width: 100%;
-   max-width: 1200px;
-   margin: 30px auto;
-   padding: 20px;
-   background: rgba(255, 255, 255, 0.1);
-   backdrop-filter: blur(12px);
-   border-radius: 28px;
-   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-   overflow: hidden;
-}
-.feedwind-wrapper > div {
-    overflow: hidden;
-    border-radius: 20px;
-}
-.feedwind-wrapper iframe {
-    width: 100% !important;
-    display: block;
-    border-radius: 20px;
-}
-/* Título */
-#news-ticker-title {
-    font-size: 1.4rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: white;
-    padding: 8px 24px;
-    display: inline-block;
-    margin: 0 auto 20px auto;
-    text-align: center;
-    border-radius: 40px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    width: fit-content;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    backdrop-filter: blur(4px);
+:root{
+  --feed-card-width: 240px;
+  --feed-card-height: 190px;
+  --feed-gap: 16px;
+  --feed-padding-x: 12px;
+  --feed-title-size: 0.9rem;
+  --feed-wrapper-radius: 28px;
+  --feed-card-radius: 24px;
 }
 
-/* Contenedor del carrusel (Feedwind genera .fw-items) */
-.feedwind-wrapper .fw-items {
-    display: flex;
-    gap: 24px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 0 20px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color) rgba(255,255,255,0.2);
+.feedwind-wrapper{
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 15px 0;
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(12px);
+  border-radius: var(--feed-wrapper-radius);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  overflow-x: auto;
+  overflow-y: hidden;
+  box-sizing: border-box;
 }
 
-/* Scrollbar estilizada */
-.feedwind-wrapper .fw-items::-webkit-scrollbar {
-    height: 6px;
-}
-.feedwind-wrapper .fw-items::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.2);
-    border-radius: 10px;
-}
-.feedwind-wrapper .fw-items::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 10px;
+.feedwind-wrapper > div{
+  overflow: hidden;
+  border-radius: 20px;
 }
 
-/* Cada noticia (tarjeta) */
-.feedwind-wrapper .fw-item {
-    min-width: 280px;
-    width: 280px;
-    height: 220px;
-    border-radius: 24px;
-    overflow: hidden;
-    position: relative;
-    flex-shrink: 0;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(4px);
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+.feedwind-wrapper iframe{
+  width: 100% !important;
+  display: block;
+  border-radius: 20px;
 }
 
-.feedwind-wrapper .fw-item:hover {
-    transform: scale(1.03);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+/* título del widget */
+#news-ticker-title{
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: white;
+  padding: 6px 18px;
+  display: inline-block;
+  margin: 0 0 16px 12px;
+  text-align: center;
+  border-radius: 40px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  width: fit-content;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  backdrop-filter: blur(4px);
 }
 
-/* Imagen de fondo */
-.feedwind-wrapper .fw-item img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    transition: transform 0.5s;
-}
-
-.feedwind-wrapper .fw-item:hover img {
-    transform: scale(1.1);
-}
-
-/* Overlay oscuro (si Feedwind no lo incluye, lo añadimos con pseudo-elemento) */
-.feedwind-wrapper .fw-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 70%;
-    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.7));
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Contenedor del texto */
-.feedwind-wrapper .fw-item-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px;
-    z-index: 2;
-    text-align: left;
-}
-
-/* Título de la noticia */
-.feedwind-wrapper .fw-item-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: white;
-    margin: 0 0 6px 0;
-    line-height: 1.3;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-/* Fuente / fecha */
-.feedwind-wrapper .fw-item-source {
-    font-size: 0.75rem;
-    opacity: 0.85;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-/* Ajuste para móvil */
-@media only screen and (max-width: 767px) {
-    .feedwind-wrapper {
-        padding: 15px 0;
-        margin-bottom: 20px;
-    }
-    .feedwind-wrapper .fw-items {
-        gap: 16px;
-        padding: 0 12px;
-    }
-    .feedwind-wrapper .fw-item {
-        min-width: 240px;
-        width: 240px;
-        height: 190px;
-    }
-    .feedwind-wrapper .fw-item-title {
-        font-size: 0.9rem;
-    }
-    #news-ticker-title {
-        margin-left: 12px;
-        font-size: 1.2rem;
-        padding: 6px 18px;
-    }
-}
-/* ===============================
-   FEEDWIND – CARGA OBLIGATORIA HORIZONTAL
-================================ */
-
-.feedwind-wrapper {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    position: relative;
-}
-
-/* El contenedor de los items debe ser flex horizontal */
+/* Track horizontal */
 .feedwind-wrapper [class*="items"],
 .feedwind-wrapper .fw-items,
-.feedwind-wrapper .fw-content {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    gap: 20px !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    padding: 10px 20px !important;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
+.feedwind-wrapper .fw-content{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: var(--feed-gap) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 0 var(--feed-padding-x) !important;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) rgba(255,255,255,0.2);
 }
 
-/* Cada tarjeta de noticia */
+.feedwind-wrapper [class*="items"]::-webkit-scrollbar,
+.feedwind-wrapper .fw-items::-webkit-scrollbar,
+.feedwind-wrapper .fw-content::-webkit-scrollbar{
+  height: 6px;
+}
+
+.feedwind-wrapper [class*="items"]::-webkit-scrollbar-track,
+.feedwind-wrapper .fw-items::-webkit-scrollbar-track,
+.feedwind-wrapper .fw-content::-webkit-scrollbar-track{
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+}
+
+.feedwind-wrapper [class*="items"]::-webkit-scrollbar-thumb,
+.feedwind-wrapper .fw-items::-webkit-scrollbar-thumb,
+.feedwind-wrapper .fw-content::-webkit-scrollbar-thumb{
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+/* Tarjetas */
 .feedwind-wrapper [class*="item"],
-.feedwind-wrapper .fw-item {
-    flex: 0 0 auto !important;
-    width: 280px !important;
-    min-width: 280px !important;
-    height: 220px !important;
-    border-radius: 24px !important;
-    overflow: hidden !important;
-    position: relative !important;
-    background: rgba(0,0,0,0.3) !important;
-    backdrop-filter: blur(4px) !important;
-    transition: transform 0.3s, box-shadow 0.3s !important;
+.feedwind-wrapper .fw-item{
+  flex: 0 0 auto !important;
+  width: var(--feed-card-width) !important;
+  min-width: var(--feed-card-width) !important;
+  height: var(--feed-card-height) !important;
+  border-radius: var(--feed-card-radius) !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background: rgba(0,0,0,0.3) !important;
+  backdrop-filter: blur(4px) !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .feedwind-wrapper [class*="item"]:hover,
-.feedwind-wrapper .fw-item:hover {
-    transform: scale(1.03);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+.feedwind-wrapper .fw-item:hover{
+  transform: scale(1.03);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3) !important;
 }
 
-/* Imagen de fondo */
+/* Imagen */
 .feedwind-wrapper [class*="item"] img,
-.feedwind-wrapper .fw-item img {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    z-index: 0 !important;
-    transition: transform 0.5s !important;
+.feedwind-wrapper .fw-item img{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: 0 !important;
+  transition: transform 0.5s ease !important;
 }
 
 .feedwind-wrapper [class*="item"]:hover img,
-.feedwind-wrapper .fw-item:hover img {
-    transform: scale(1.1);
+.feedwind-wrapper .fw-item:hover img{
+  transform: scale(1.1);
 }
 
-/* Overlay degradado */
+/* Overlay */
 .feedwind-wrapper [class*="item"]::after,
-.feedwind-wrapper .fw-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 70%;
-    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.7));
-    z-index: 1;
-    pointer-events: none;
+.feedwind-wrapper .fw-item::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70%;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.72));
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* Contenedor del texto */
+/* Contenido textual */
 .feedwind-wrapper [class*="item"] > div:not(:first-child),
-.feedwind-wrapper .fw-item > div {
-    position: absolute !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    padding: 16px !important;
-    z-index: 2 !important;
+.feedwind-wrapper .fw-item-content,
+.feedwind-wrapper .fw-item > div{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  padding: 14px !important;
+  z-index: 2 !important;
+  text-align: left !important;
 }
 
 /* Título */
 .feedwind-wrapper [class*="title"],
-.feedwind-wrapper .fw-item-title {
-    font-size: 1rem 
-    font-weight: 700 !important;
-    color: white 
-    margin: 0 0 6px 0 
-    line-height: 1.3 
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3) 
-    display: -webkit-box 
-    -webkit-line-clamp: 2 
-    -webkit-box-orient: vertical 
-    overflow: hidden !important;
+.feedwind-wrapper .fw-item-title{
+  font-size: var(--feed-title-size) !important;
+  font-weight: 700 !important;
+  color: white !important;
+  margin: 0 0 6px 0 !important;
+  line-height: 1.3 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
 }
 
 /* Fuente / fecha */
 .feedwind-wrapper [class*="source"],
-.feedwind-wrapper .fw-item-source {
-    font-size: 0.75rem 
-    opacity: 0.85 
-    color: white 
-    display: flex 
-    align-items: center 
-    gap: 6px 
-}
-
-/* Ajuste móvil */
-@media only screen and (max-width: 767px) {
-    .feedwind-wrapper [class*="item"],
-    .feedwind-wrapper .fw-item {
-        width: 240px !important;
-        min-width: 240px !important;
-        height: 190px !important;
-    }
-    .feedwind-wrapper [class*="title"],
-    .feedwind-wrapper .fw-item-title {
-        font-size: 0.9rem !important;
-    }
+.feedwind-wrapper .fw-item-source{
+  font-size: 0.75rem !important;
+  opacity: 0.85 !important;
+  color: white !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
 }
