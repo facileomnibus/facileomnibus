@@ -487,11 +487,10 @@
     const variants = new Set([host]);
 
     if (parts.length >= 2) {
-      variants.add(parts.slice(-2).join(".")); // ejemplo: elmundo.es
+      variants.add(parts.slice(-2).join("."));   /* ejemplo: elmundo.es */
     }
-
     if (parts.length >= 3) {
-      variants.add(parts.slice(-3).join(".")); // ejemplo: elpais.com.uy
+      variants.add(parts.slice(-3).join("."));   /* ejemplo: elpais.com.uy */
     }
 
     return Array.from(variants);
@@ -506,7 +505,7 @@
   function truncate(text, max) {
     const t = (text || "").trim().replace(/\s+/g, " ");
     return t.length > max ? t.slice(0, max).trim() + "…" : t;
-  }
+    }
 
   function formatDate(dateString) {
     try {
@@ -524,22 +523,121 @@
     }
   }
 
+  function normalizeText(text) {
+    return (text || "")
+      .toString()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/&amp;/g, "and")
+      .replace(/[^a-z0-9]/g, "");
+  }
+
+  function getInitials(text) {
+    const clean = (text || "").replace(/[^\p{L}\p{N}\s]/gu, " ").trim();
+    if (!clean) return "NP";
+    const parts = clean.split(/\s+/).filter(Boolean);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+
+  /* ==========================================
+     EXTRAER MEDIO Y TITULAR CORRECTOS
+     CASO CLAVE:
+     "Titular - El País - Google News"
+  ========================================== */
+  function splitTitleParts(title) {
+    return (title || "")
+      .split(" - ")
+      .map(function (part) { return part.trim(); })
+      .filter(Boolean);
+  }
+
   function extractSource(title) {
-    if (!title) return "Google Noticias";
-    const parts = title.split(" - ");
-    if (parts.length > 1) return parts[parts.length - 1].trim() || "Google Noticias";
+    const parts = splitTitleParts(title);
+    if (!parts.length) return "Google Noticias";
+
+    const last = normalizeText(parts[parts.length - 1]);
+
+    if (last === "googlenews" || last === "google") {
+      if (parts.length >= 2) {
+        return parts[parts.length - 2];
+      }
+      return "Google Noticias";
+    }
+
+    if (parts.length >= 2) {
+      return parts[parts.length - 1];
+    }
+
     return "Google Noticias";
   }
 
   function extractCleanTitle(title) {
-    if (!title) return "Titular no disponible";
-    const parts = title.split(" - ");
-    if (parts.length > 1) {
-      parts.pop();
-      const clean = parts.join(" - ").trim();
-      return clean || title;
+    const parts = splitTitleParts(title);
+    if (!parts.length) return "Titular no disponible";
+
+    const last = normalizeText(parts[parts.length - 1]);
+
+    if (last === "googlenews" || last === "google") {
+      if (parts.length >= 3) {
+        return parts.slice(0, -2).join(" - ").trim() || title;
+      }
+      if (parts.length >= 2) {
+        return parts[0];
+      }
+      return title;
     }
+
+    if (parts.length >= 2) {
+      return parts.slice(0, -1).join(" - ").trim() || title;
+    }
+
     return title;
+  }
+
+  /* ==========================================
+     EXTRAER URL REAL DEL MEDIO
+     - si item.link es news.google.com,
+       intentamos sacar la URL real desde description/content
+  ========================================== */
+  function extractRealPublisherUrl(item) {
+    const directLink = safeUrl(item.link || "", "");
+    const directHost = getHost(directLink);
+
+    if (directLink && directHost && !directHost.includes("news.google.com")) {
+      return directLink;
+    }
+
+    const html = item.description || item.content || "";
+    if (!html) return directLink || "";
+
+    const div = document.createElement("div");
+    div.innerHTML = html;
+
+    const anchors = Array.from(div.querySelectorAll("a[href]"));
+    for (const a of anchors) {
+      const href = safeUrl(a.getAttribute("href"), "");
+      const host = getHost(href);
+      if (!href) continue;
+      if (host && !host.includes("news.google.com")) {
+        return href;
+      }
+    }
+
+    /* fallback por regex */
+    const regex = /https?:\/\/[^\s"'<>]+/gi;
+    const matches = html.match(regex) || [];
+    for (const raw of matches) {
+      const href = safeUrl(raw, "");
+      const host = getHost(href);
+      if (!href) continue;
+      if (host && !host.includes("news.google.com")) {
+        return href;
+      }
+    }
+
+    return directLink || "";
   }
 
   function extractImage(item) {
@@ -566,24 +664,10 @@
     return "";
   }
 
-  function normalizeText(text) {
-    return (text || "")
-      .toString()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/&amp;/g, "and")
-      .replace(/[^a-z0-9]/g, "");
-  }
-
-  function getInitials(text) {
-    const clean = (text || "").replace(/[^\p{L}\p{N}\s]/gu, " ").trim();
-    if (!clean) return "NP";
-    const parts = clean.split(/\s+/).filter(Boolean);
-    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-    return (parts[0][0] + parts[1][0]).toUpperCase();
-  }
-
+  /* ==========================================
+     CATÁLOGO DE LOGOS DE TU PROPIA PÁGINA
+     SOLO .logo img
+  ========================================== */
   function buildPublisherCatalog() {
     const catalog = [];
     const logoImages = document.querySelectorAll('.logo img');
@@ -595,24 +679,23 @@
       const href = parentLink ? (parentLink.getAttribute('href') || '') : '';
       const host = getHost(href);
 
-      if (src) {
-        catalog.push({
-          src: src,
-          alt: alt,
-          altNorm: normalizeText(alt),
-          href: href,
-          host: host,
-          hostVariants: hostVariants(host),
-          srcNorm: normalizeText(src.split('/').pop() || src)
-        });
-      }
+      if (!src) return;
+
+      catalog.push({
+        src: src,
+        alt: alt,
+        altNorm: normalizeText(alt),
+        href: href,
+        host: host,
+        hostVariants: hostVariants(host),
+        srcNorm: normalizeText(src.split('/').pop() || src)
+      });
     });
 
     return catalog;
   }
 
   const SOURCE_ALIASES = {
-    "google noticias": ["googlenews", "google"],
     "la razon": ["larazon", "la razon"],
     "el pais": ["elpais", "el pais"],
     "el mundo": ["elmundo", "el mundo"],
@@ -653,11 +736,11 @@
     const articleHost = getHost(articleLink);
     const articleVariants = hostVariants(articleHost);
 
-    /* 1) PRIMERO: matching por dominio real del artículo */
+    /* 1) PRIORIDAD ABSOLUTA: dominio real del artículo */
     if (articleVariants.length) {
       const exactHostMatch = publisherCatalog.find(function (item) {
-        return articleVariants.some(function (variant) {
-          return item.hostVariants.includes(variant);
+        return item.hostVariants.some(function (variant) {
+          return articleVariants.includes(variant);
         });
       });
 
@@ -668,7 +751,9 @@
 
     /* 2) SI FALLA: matching por nombre del medio */
     const sourceNorm = normalizeText(sourceName);
-    if (!sourceNorm) return null;
+    if (!sourceNorm || sourceNorm === "googlenews" || sourceNorm === "google") {
+      return null;
+    }
 
     const candidates = new Set([sourceName, sourceNorm]);
 
@@ -684,6 +769,14 @@
     let bestScore = 0;
 
     publisherCatalog.forEach(function (logoItem) {
+      /* no queremos coger Google si la noticia no es Google */
+      const isGoogleLogo =
+        logoItem.host.includes("google.") ||
+        logoItem.altNorm.includes("google") ||
+        logoItem.srcNorm.includes("google");
+
+      if (isGoogleLogo) return;
+
       let score = 0;
 
       candidateKeys.forEach(function (key) {
@@ -935,9 +1028,11 @@
         const title = extractCleanTitle(item.title || "");
         const source = extractSource(item.title || "");
         const summary = truncate(stripTags(item.description || item.content || ""), 250);
-        const link = safeUrl(item.link, "about:blank");
+
+        const realLink = extractRealPublisherUrl(item);
+        const displayLink = safeUrl(realLink || item.link || "", "about:blank");
         const image = safeUrl(extractImage(item), "");
-        const sourceIcon = resolvePublisherLogo(source, link, publisherCatalog);
+        const sourceIcon = resolvePublisherLogo(source, displayLink, publisherCatalog);
 
         return {
           title: title,
@@ -945,7 +1040,7 @@
           summary: summary,
           image: image,
           sourceIcon: sourceIcon,
-          link: link,
+          link: displayLink,
           pubDate: item.pubDate || ""
         };
       })
@@ -1030,6 +1125,7 @@
   }
 })();
 </script>
+``
 <!-- =========================
      FIN GOOGLE NEWS TICKER
 ========================= -->
