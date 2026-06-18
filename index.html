@@ -59,10 +59,10 @@
         track.style.display = 'flex';
         track.style.flexDirection = 'row';
         track.style.flexWrap = 'nowrap';
-        track.style.gap = '20px';
+        track.style.gap = '16px';
         track.style.overflowX = 'auto';
         track.style.overflowY = 'hidden';
-        track.style.padding = '10px 20px';
+        track.style.padding = '0 12px';
         track.style.scrollBehavior = 'smooth';
 
         // Obtener todos los items (noticias)
@@ -72,9 +72,9 @@
         for (let item of items) {
             // Aplicar estilos de tarjeta
             item.style.flex = '0 0 auto';
-            item.style.width = '280px';
-            item.style.minWidth = '280px';
-            item.style.height = '220px';
+            item.style.width = '240px';
+            item.style.minWidth = '240px';
+            item.style.height = '190px';
             item.style.borderRadius = '24px';
             item.style.overflow = 'hidden';
             item.style.position = 'relative';
@@ -134,7 +134,7 @@
                 contentDiv.style.bottom = '0';
                 contentDiv.style.left = '0';
                 contentDiv.style.right = '0';
-                contentDiv.style.padding = '16px';
+                contentDiv.style.padding = '14px';
                 contentDiv.style.zIndex = '2';
                 contentDiv.style.textAlign = 'left';
             } else {
@@ -159,7 +159,7 @@
             // Estilos del título
             let titleElem = item.querySelector('[class*="title"]');
             if (titleElem) {
-                titleElem.style.fontSize = '1rem';
+                titleElem.style.fontSize = '0.9rem';
                 titleElem.style.fontWeight = '700';
                 titleElem.style.color = 'white';
                 titleElem.style.margin = '0 0 6px 0';
