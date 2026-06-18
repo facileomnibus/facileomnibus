@@ -55,10 +55,9 @@
   #facile-news-widget{
     --facile-widget-pill-text:#ffffff;
     --facile-widget-headline:#ffffff;
-    --facile-widget-summary:#111111;
-    --facile-widget-meta:#111111;
+    --facile-widget-summary:#18212b;
+    --facile-widget-meta:#21303f;
     --facile-widget-date:var(--secondary-color, #0b57d0);
-    --facile-widget-card-bg:rgba(255,255,255,0.95);
     --facile-widget-shell-bg:var(--glass-bg, rgba(255,255,255,0.12));
     --facile-widget-gradient:linear-gradient(
       90deg,
@@ -67,6 +66,7 @@
     );
   }
 
+  /* CONTENEDOR GENERAL */
   #facile-news-widget.facile-news-shell{
     width:100%;
     max-width:1180px;
@@ -79,6 +79,7 @@
     box-shadow:0 14px 28px rgba(0,0,0,0.14);
   }
 
+  /* TÍTULO */
   #facile-news-widget .facile-news-title-wrap{
     text-align:center;
     margin-bottom:16px;
@@ -100,6 +101,7 @@
     text-align:center;
   }
 
+  /* ESTADOS */
   #facile-news-widget .facile-news-root{
     min-height:250px;
   }
@@ -117,6 +119,7 @@
     font-size:1rem;
   }
 
+  /* TARJETA */
   #facile-news-widget .facile-news-stage{
     width:100%;
   }
@@ -127,7 +130,10 @@
     grid-template-columns:240px 1fr;
     gap:14px;
     align-items:stretch;
-    background:var(--facile-widget-card-bg);
+    background:rgba(255,255,255,0.62);
+    background:color-mix(in srgb, var(--glass-bg, rgba(255,255,255,0.16)) 65%, white 35%);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.24);
     border-radius:22px;
     padding:14px;
     box-sizing:border-box;
@@ -136,6 +142,7 @@
     animation:facileNewsFade .28s ease;
   }
 
+  /* MEDIA */
   #facile-news-widget .facile-news-media{
     min-height:180px;
     width:100%;
@@ -155,6 +162,7 @@
     display:block;
   }
 
+  /* FALLBACK CUANDO NO HAY IMAGEN */
   #facile-news-widget .facile-news-media.facile-news-fallback{
     background:var(--facile-widget-gradient);
     color:#ffffff;
@@ -198,12 +206,14 @@
     text-shadow:0 1px 2px rgba(0,0,0,0.18);
   }
 
+  /* CONTENIDO */
   #facile-news-widget .facile-news-content{
     display:flex;
     flex-direction:column;
     min-width:0;
   }
 
+  /* TITULAR BLANCO */
   #facile-news-widget .facile-news-headline{
     margin:0 0 10px 0;
     display:inline-block;
@@ -220,6 +230,7 @@
     box-shadow:0 6px 14px rgba(0,0,0,0.10);
   }
 
+  /* RESUMEN / SUBTÍTULOS */
   #facile-news-widget .facile-news-summary{
     margin:0 0 12px 0;
     color:var(--facile-widget-summary);
@@ -234,6 +245,7 @@
     gap:8px;
   }
 
+  /* METADATOS */
   #facile-news-widget .facile-news-meta{
     display:flex;
     flex-wrap:wrap;
@@ -243,6 +255,7 @@
     font-size:.90rem;
   }
 
+  /* MEDIO */
   #facile-news-widget .facile-news-source-wrap{
     display:inline-flex;
     align-items:center;
@@ -282,11 +295,13 @@
     word-break:break-word;
   }
 
+  /* FECHA */
   #facile-news-widget .facile-news-date{
     color:var(--facile-widget-date);
     font-weight:700;
   }
 
+  /* BOTÓN */
   #facile-news-widget .facile-news-actions{
     display:flex;
     flex-wrap:wrap;
@@ -319,6 +334,7 @@
     box-shadow:0 6px 14px rgba(0,0,0,0.10);
   }
 
+  /* NAVEGACIÓN */
   #facile-news-widget .facile-news-nav{
     display:flex;
     justify-content:center;
@@ -457,6 +473,30 @@
     }
   }
 
+  function getHost(url) {
+    try {
+      return new URL(url, window.location.href).hostname.replace(/^www\./, "").toLowerCase();
+    } catch {
+      return "";
+    }
+  }
+
+  function hostVariants(host) {
+    if (!host) return [];
+    const parts = host.split(".").filter(Boolean);
+    const variants = new Set([host]);
+
+    if (parts.length >= 2) {
+      variants.add(parts.slice(-2).join(".")); // ejemplo: elmundo.es
+    }
+
+    if (parts.length >= 3) {
+      variants.add(parts.slice(-3).join(".")); // ejemplo: elpais.com.uy
+    }
+
+    return Array.from(variants);
+  }
+
   function stripTags(html) {
     const div = document.createElement("div");
     div.innerHTML = html || "";
@@ -551,15 +591,9 @@
     logoImages.forEach(function (img) {
       const src = img.getAttribute('src') || '';
       const alt = img.getAttribute('alt') || '';
-      const parent = img.closest('.logo');
-      const href = parent && parent.getAttribute ? (parent.getAttribute('href') || '') : '';
-
-      let host = '';
-      try {
-        if (href) {
-          host = new URL(href, window.location.href).hostname.replace(/^www\./, '');
-        }
-      } catch (e) {}
+      const parentLink = img.closest('a[href]');
+      const href = parentLink ? (parentLink.getAttribute('href') || '') : '';
+      const host = getHost(href);
 
       if (src) {
         catalog.push({
@@ -568,7 +602,7 @@
           altNorm: normalizeText(alt),
           href: href,
           host: host,
-          hostNorm: normalizeText(host),
+          hostVariants: hostVariants(host),
           srcNorm: normalizeText(src.split('/').pop() || src)
         });
       }
@@ -615,40 +649,28 @@
     "clarin": ["clarin"]
   };
 
-  function scoreLogoMatch(logoItem, candidateKeys) {
-    let score = 0;
+  function resolvePublisherLogo(sourceName, articleLink, publisherCatalog) {
+    const articleHost = getHost(articleLink);
+    const articleVariants = hostVariants(articleHost);
 
-    const altNorm = logoItem.altNorm || "";
-    const hostNorm = logoItem.hostNorm || "";
-    const srcNorm = logoItem.srcNorm || "";
+    /* 1) PRIMERO: matching por dominio real del artículo */
+    if (articleVariants.length) {
+      const exactHostMatch = publisherCatalog.find(function (item) {
+        return articleVariants.some(function (variant) {
+          return item.hostVariants.includes(variant);
+        });
+      });
 
-    candidateKeys.forEach(function (key) {
-      const keyNorm = normalizeText(key);
-      if (!keyNorm) return;
+      if (exactHostMatch && exactHostMatch.src) {
+        return exactHostMatch.src;
+      }
+    }
 
-      if (altNorm === keyNorm) score += 120;
-      if (hostNorm === keyNorm) score += 110;
-      if (srcNorm === keyNorm) score += 110;
-
-      if (altNorm.includes(keyNorm)) score += 60;
-      if (hostNorm.includes(keyNorm)) score += 55;
-      if (srcNorm.includes(keyNorm)) score += 55;
-
-      if (keyNorm.includes(altNorm) && altNorm) score += 30;
-      if (keyNorm.includes(hostNorm) && hostNorm) score += 25;
-      if (keyNorm.includes(srcNorm) && srcNorm) score += 25;
-    });
-
-    return score;
-  }
-
-  function resolvePublisherLogo(sourceName, publisherCatalog) {
+    /* 2) SI FALLA: matching por nombre del medio */
     const sourceNorm = normalizeText(sourceName);
-    if (!sourceNorm || !publisherCatalog.length) return null;
+    if (!sourceNorm) return null;
 
-    const candidates = new Set();
-    candidates.add(sourceName);
-    candidates.add(sourceNorm);
+    const candidates = new Set([sourceName, sourceNorm]);
 
     if (SOURCE_ALIASES[sourceNorm]) {
       SOURCE_ALIASES[sourceNorm].forEach(function (alias) {
@@ -662,7 +684,21 @@
     let bestScore = 0;
 
     publisherCatalog.forEach(function (logoItem) {
-      const score = scoreLogoMatch(logoItem, candidateKeys);
+      let score = 0;
+
+      candidateKeys.forEach(function (key) {
+        const keyNorm = normalizeText(key);
+        if (!keyNorm) return;
+
+        if (logoItem.altNorm === keyNorm) score += 120;
+        if (logoItem.srcNorm === keyNorm) score += 90;
+
+        if (logoItem.altNorm.includes(keyNorm)) score += 60;
+        if (logoItem.srcNorm.includes(keyNorm)) score += 45;
+
+        if (keyNorm.includes(logoItem.altNorm) && logoItem.altNorm) score += 25;
+      });
+
       if (score > bestScore) {
         bestScore = score;
         bestItem = logoItem;
@@ -901,7 +937,7 @@
         const summary = truncate(stripTags(item.description || item.content || ""), 250);
         const link = safeUrl(item.link, "about:blank");
         const image = safeUrl(extractImage(item), "");
-        const sourceIcon = resolvePublisherLogo(source, publisherCatalog);
+        const sourceIcon = resolvePublisherLogo(source, link, publisherCatalog);
 
         return {
           title: title,
