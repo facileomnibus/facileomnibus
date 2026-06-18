@@ -39,8 +39,8 @@
     <div class="container">
     <div id="widgets-container"></div>
 <!-- =========================
-     GOOGLE NEWS TICKER FACILE
-     VERSIÓN COMPACTA FINAL
+     TICKER FACILE
+     VERSIÓN FINAL
 ========================= -->
 <section id="facile-news-widget" class="facile-news-shell">
   <div class="facile-news-title-wrap">
@@ -57,11 +57,11 @@
      VARIABLES DEL WIDGET
   ========================================== */
   #facile-news-widget{
-    --facile-widget-pill-text: #ffffff;                 /* título del widget siempre blanco */
+    --facile-widget-pill-text: #ffffff;                 /* título del widget blanco */
     --facile-widget-headline: #ffffff;                 /* titulares noticia en blanco */
     --facile-widget-summary: #111111;                  /* subtítulos / resumen en negro */
-    --facile-widget-meta: #111111;                     /* fuente / metadatos en negro */
-    --facile-widget-date: var(--secondary-color, #0b57d0); /* cambia con cada tema */
+    --facile-widget-meta: #111111;                     /* metadatos en negro */
+    --facile-widget-date: var(--secondary-color, #0b57d0); /* cambia con el tema */
     --facile-widget-card-bg: rgba(255,255,255,0.95);
     --facile-widget-shell-bg: var(--glass-bg, rgba(255,255,255,0.12));
     --facile-widget-gradient: linear-gradient(
@@ -84,7 +84,7 @@
     box-shadow:0 14px 28px rgba(0,0,0,0.14);
   }
 
-  /* título superior */
+  /* título del widget */
   #facile-news-widget .facile-news-title-wrap{
     text-align:center;
     margin-bottom:16px;
@@ -124,7 +124,7 @@
     font-size:1rem;
   }
 
-  /* tarjeta principal */
+  /* tarjeta */
   #facile-news-widget .facile-news-stage{
     width:100%;
   }
@@ -215,7 +215,7 @@
     min-width:0;
   }
 
-  /* titular de noticia: BLANCO */
+  /* titular noticia blanco */
   #facile-news-widget .facile-news-headline{
     margin:0 0 10px 0;
     display:inline-block;
@@ -232,7 +232,7 @@
     box-shadow:0 6px 14px rgba(0,0,0,0.10);
   }
 
-  /* resumen / subtítulos: negro */
+  /* resumen / subtítulos negros */
   #facile-news-widget .facile-news-summary{
     margin:0 0 12px 0;
     color:var(--facile-widget-summary);
@@ -257,7 +257,7 @@
     font-size:.90rem;
   }
 
-  /* bloque del medio/publicadora */
+  /* medio/publicadora */
   #facile-news-widget .facile-news-source-wrap{
     display:inline-flex;
     align-items:center;
@@ -297,13 +297,13 @@
     word-break:break-word;
   }
 
-  /* fecha: cambia automáticamente con el tema */
+  /* fecha con color del tema */
   #facile-news-widget .facile-news-date{
     color:var(--facile-widget-date);
     font-weight:700;
   }
 
-  /* acciones */
+  /* botón */
   #facile-news-widget .facile-news-actions{
     display:flex;
     flex-wrap:wrap;
@@ -570,6 +570,7 @@
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
+      .replace(/&amp;/g, "and")
       .replace(/[^a-z0-9]/g, "");
   }
 
@@ -582,34 +583,39 @@
   }
 
   /* ==========================================
-     CATÁLOGO DE ICONOS DE MEDIOS DESDE TU PROPIA PÁGINA
-     - intenta reutilizar los logos ya presentes en <a class="logo"><img ...>
+     CATÁLOGO DE LOGOS YA CARGADOS EN TU PÁGINA
+     Busca exactamente:
+     .logo > img
   ========================================== */
   function buildPublisherCatalog() {
     const catalog = [];
-    const anchors = document.querySelectorAll('a.logo');
+    const logoImages = document.querySelectorAll('.logo img');
 
-    anchors.forEach(function (anchor) {
-      const img = anchor.querySelector('img');
-      if (!img) return;
-
-      const href = anchor.getAttribute('href') || '';
-      const alt = img.getAttribute('alt') || '';
+    logoImages.forEach(function (img) {
       const src = img.getAttribute('src') || '';
+      const alt = img.getAttribute('alt') || '';
+      const parent = img.closest('.logo');
+      const href = parent && parent.getAttribute ? (parent.getAttribute('href') || '') : '';
 
       let host = '';
       try {
-        host = new URL(href, window.location.href).hostname.replace(/^www\./, '');
+        if (href) {
+          host = new URL(href, window.location.href).hostname.replace(/^www\./, '');
+        }
       } catch (e) {}
 
-      catalog.push({
-        href: href,
-        host: host,
+      const record = {
+        src: src,
         alt: alt,
         altNorm: normalizeText(alt),
-        hostNorm: normalizeText(host),
-        src: src
-      });
+        href: href,
+        host: host,
+        hostNorm: normalizeText(host)
+      };
+
+      if (record.src) {
+        catalog.push(record);
+      }
     });
 
     return catalog;
@@ -618,81 +624,99 @@
   const publisherCatalog = buildPublisherCatalog();
 
   /* ==========================================
-     MAPEO BÁSICO FUENTE -> DOMINIO
-     (para mejorar el matching cuando el nombre del medio
-      no coincide exactamente con el alt del logo)
+     Alias para hacer mejor matching con tus logos
   ========================================== */
-  const SOURCE_DOMAIN_MAP = {
-    "la razon": "larazon.es",
-    "el pais": "elpais.com",
-    "el mundo": "elmundo.es",
-    "abc": "abc.es",
-    "20 minutos": "20minutos.es",
-    "okdiario": "okdiario.com",
-    "el espanol": "elespanol.com",
-    "libertad digital": "libertaddigital.com",
-    "periodista digital": "periodistadigital.com",
-    "el debate": "eldebate.com",
-    "the objective": "theobjective.com",
-    "efe": "efe.com",
-    "europa press": "europapress.es",
-    "infobae": "infobae.com",
-    "huffington post": "huffingtonpost.es",
-    "eldiario.es": "eldiario.es",
-    "publico": "publico.es",
-    "el confidencial": "elconfidencial.com",
-    "vozpopuli": "vozpopuli.com",
-    "expansion": "expansion.com",
-    "el economista": "eleconomista.es",
-    "marca": "marca.com",
-    "as": "as.com",
-    "mundo deportivo": "mundodeportivo.com",
-    "sport": "sport.es",
-    "la voz de galicia": "lavozdegalicia.es",
-    "la vanguardia": "lavanguardia.com",
-    "new york times": "nytimes.com",
-    "the guardian": "theguardian.com",
-    "washington post": "washingtonpost.com",
-    "le monde": "lemonde.fr",
-    "spiegel": "spiegel.de",
-    "corriere della sera": "corriere.it",
-    "clarin": "clarin.com"
+  const SOURCE_ALIASES = {
+    "google noticias": ["googlenews", "google"],
+    "la razon": ["larazon", "la razon"],
+    "el pais": ["elpais", "el pais"],
+    "el mundo": ["elmundo", "el mundo"],
+    "abc": ["abc"],
+    "20 minutos": ["20minutos", "20 minutos"],
+    "okdiario": ["okdiario"],
+    "el espanol": ["elespanol", "elespañol", "el espanol"],
+    "libertad digital": ["libertaddigital", "libertad digital"],
+    "periodista digital": ["periodistadigital", "periodista digital"],
+    "el debate": ["eldebate", "el debate"],
+    "the objective": ["theobjective", "the objective"],
+    "efe": ["efe"],
+    "europa press": ["europapress", "europa press"],
+    "infobae": ["infobae"],
+    "huffington post": ["huffingtonpost", "huffpost", "huffington post"],
+    "eldiarioes": ["eldiario", "eldiarioes", "eldiario.es"],
+    "publico": ["publico"],
+    "el confidencial": ["elconfidencial", "el confidencial"],
+    "vozpopuli": ["vozpopuli"],
+    "expansion": ["expansion"],
+    "eleconomista": ["eleconomista", "el economista"],
+    "marca": ["marca"],
+    "as": ["as"],
+    "mundo deportivo": ["mundodeportivo", "mundo deportivo"],
+    "sport": ["sport"],
+    "la voz de galicia": ["lavozdegalicia", "la voz de galicia"],
+    "la vanguardia": ["lavanguardia", "la vanguardia"],
+    "new york times": ["nytimes", "newyorktimes", "new york times"],
+    "the guardian": ["theguardian", "guardian", "the guardian"],
+    "washington post": ["washingtonpost", "washington post"],
+    "le monde": ["lemonde", "le monde"],
+    "spiegel": ["spiegel"],
+    "corriere della sera": ["corriere", "corrieredellasera", "corriere della sera"],
+    "clarin": ["clarin"]
   };
 
-  function resolvePublisherLogo(sourceName) {
-    const srcNorm = normalizeText(sourceName);
-    if (!srcNorm) return null;
+  function scoreLogoMatch(sourceName, logoItem, candidateKeys) {
+    let score = 0;
 
-    // 1) Intento por alt/logo ya existente en tu página
-    let found = publisherCatalog.find(function (item) {
-      return item.altNorm && (
-        item.altNorm === srcNorm ||
-        item.altNorm.includes(srcNorm) ||
-        srcNorm.includes(item.altNorm)
-      );
+    const altNorm = logoItem.altNorm || "";
+    const hostNorm = logoItem.hostNorm || "";
+
+    candidateKeys.forEach(function (key) {
+      const keyNorm = normalizeText(key);
+      if (!keyNorm) return;
+
+      if (altNorm === keyNorm) score += 120;
+      if (hostNorm === keyNorm) score += 110;
+
+      if (altNorm.includes(keyNorm)) score += 60;
+      if (hostNorm.includes(keyNorm)) score += 55;
+
+      if (keyNorm.includes(altNorm) && altNorm) score += 30;
+      if (keyNorm.includes(hostNorm) && hostNorm) score += 25;
     });
-    if (found && found.src) return found.src;
 
-    // 2) Intento por dominio mapeado manualmente
-    const mappedDomain = SOURCE_DOMAIN_MAP[srcNorm];
-    if (mappedDomain) {
-      found = publisherCatalog.find(function (item) {
-        return item.hostNorm && (
-          item.hostNorm === normalizeText(mappedDomain) ||
-          item.host.includes(mappedDomain)
-        );
+    return score;
+  }
+
+  function resolvePublisherLogo(sourceName) {
+    const sourceNorm = normalizeText(sourceName);
+    if (!sourceNorm) return null;
+
+    const candidates = new Set();
+    candidates.add(sourceName);
+    candidates.add(sourceNorm);
+
+    if (SOURCE_ALIASES[sourceNorm]) {
+      SOURCE_ALIASES[sourceNorm].forEach(function (alias) {
+        candidates.add(alias);
       });
-      if (found && found.src) return found.src;
     }
 
-    // 3) Intento flexible por hostname
-    found = publisherCatalog.find(function (item) {
-      return item.hostNorm && (
-        item.hostNorm.includes(srcNorm) ||
-        srcNorm.includes(item.hostNorm)
-      );
+    const candidateKeys = Array.from(candidates);
+
+    let bestItem = null;
+    let bestScore = 0;
+
+    publisherCatalog.forEach(function (logoItem) {
+      const score = scoreLogoMatch(sourceName, logoItem, candidateKeys);
+      if (score > bestScore) {
+        bestScore = score;
+        bestItem = logoItem;
+      }
     });
-    if (found && found.src) return found.src;
+
+    if (bestItem && bestItem.src) {
+      return bestItem.src;
+    }
 
     return null;
   }
@@ -739,6 +763,10 @@
     root.appendChild(createEl("div", className, text));
   }
 
+  function buildSourceBadge(sourceName) {
+    return createEl("span", "facile-news-source-badge", getInitials(sourceName || "NP"));
+  }
+
   function buildSourceMeta(item) {
     const wrap = createEl("span", "facile-news-source-wrap");
 
@@ -759,10 +787,6 @@
 
     wrap.appendChild(createEl("span", "facile-news-source", item.source || "Google Noticias"));
     return wrap;
-  }
-
-  function buildSourceBadge(sourceName) {
-    return createEl("span", "facile-news-source-badge", getInitials(sourceName || "NP"));
   }
 
   function buildFallbackMedia(item) {
