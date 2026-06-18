@@ -59,10 +59,11 @@
     margin:24px auto;
     padding:26px 18px 30px;
     box-sizing:border-box;
-    background:rgba(255,255,255,0.12);
+    background:var(--glass-bg, rgba(255,255,255,0.12));
     backdrop-filter:blur(12px);
     border-radius:42px;
     box-shadow:0 20px 40px rgba(0,0,0,0.16);
+    color:var(--text-dark, #262626);
   }
 
   #facile-news-widget .facile-news-title-wrap{
@@ -77,8 +78,8 @@
     gap:10px;
     padding:14px 30px;
     border-radius:999px;
-    background:linear-gradient(90deg,#4a88f7,#08a700);
-    color:#fff;
+    background:linear-gradient(90deg, var(--primary-color, #4a88f7), var(--secondary-color, #08a700));
+    color:var(--text-color, #ffffff);
     font-size:2rem;
     font-weight:700;
     letter-spacing:1px;
@@ -97,7 +98,7 @@
     align-items:center;
     justify-content:center;
     text-align:center;
-    color:white;
+    color:var(--text-color, white);
     padding:20px;
     font-size:1.08rem;
   }
@@ -112,7 +113,7 @@
     grid-template-columns:360px 1fr;
     gap:18px;
     align-items:stretch;
-    background:rgba(255,255,255,0.94);
+    background:rgba(255,255,255,0.92);
     border-radius:28px;
     padding:18px;
     box-sizing:border-box;
@@ -126,12 +127,11 @@
     width:100%;
     border-radius:22px;
     overflow:hidden;
-    background:linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.14));
+    background:linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#666;
-    font-weight:700;
+    position:relative;
   }
 
   #facile-news-widget .facile-news-media img{
@@ -139,6 +139,35 @@
     height:100%;
     object-fit:cover;
     display:block;
+  }
+
+  #facile-news-widget .facile-news-media.facile-news-fallback{
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--primary-color, #4a88f7) 78%, white), color-mix(in srgb, var(--secondary-color, #08a700) 72%, white));
+    color:white;
+    flex-direction:column;
+    gap:14px;
+    text-align:center;
+    padding:18px;
+    box-sizing:border-box;
+  }
+
+  #facile-news-widget .facile-news-fallback-icon{
+    width:64px;
+    height:64px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(6px);
+    padding:8px;
+    box-sizing:border-box;
+    object-fit:contain;
+  }
+
+  #facile-news-widget .facile-news-fallback-text{
+    font-size:1rem;
+    font-weight:700;
+    line-height:1.35;
+    text-shadow:0 1px 2px rgba(0,0,0,0.18);
   }
 
   #facile-news-widget .facile-news-content{
@@ -151,14 +180,14 @@
     margin:0 0 12px 0;
     font-size:1.95rem;
     line-height:1.22;
-    color:#9a5a14;
+    color:var(--text-dark, #262626); /* adiós al marrón */
     font-weight:700;
     word-break:break-word;
   }
 
   #facile-news-widget .facile-news-summary{
     margin:0 0 18px 0;
-    color:#262626;
+    color:var(--text-dark, #262626);
     font-size:1rem;
     line-height:1.55;
   }
@@ -175,7 +204,7 @@
     flex-wrap:wrap;
     gap:14px;
     align-items:center;
-    color:#4f4f4f;
+    color:var(--text-dark, #4f4f4f);
     font-size:0.95rem;
   }
 
@@ -184,7 +213,7 @@
   }
 
   #facile-news-widget .facile-news-date{
-    color:#2550ff;
+    color:var(--primary-color, #2550ff);
     font-weight:600;
   }
 
@@ -214,14 +243,9 @@
   }
 
   #facile-news-widget .facile-news-button.primary{
-    color:white;
-    background:linear-gradient(90deg,#4a88f7,#08a700);
+    color:var(--text-color, white);
+    background:linear-gradient(90deg, var(--primary-color, #4a88f7), var(--secondary-color, #08a700));
     box-shadow:0 8px 18px rgba(0,0,0,0.12);
-  }
-
-  #facile-news-widget .facile-news-button.secondary{
-    background:rgba(74,136,247,0.12);
-    color:#244ab2;
   }
 
   #facile-news-widget .facile-news-nav{
@@ -239,8 +263,8 @@
     border-radius:999px;
     border:none;
     cursor:pointer;
-    background:rgba(255,255,255,0.24);
-    color:white;
+    background:var(--glass-bg, rgba(255,255,255,0.24));
+    color:var(--text-color, white);
     font-size:1.15rem;
     backdrop-filter:blur(8px);
     transition:transform .2s ease, background .2s ease;
@@ -270,7 +294,7 @@
   }
 
   #facile-news-widget .facile-news-dot.active{
-    background:white;
+    background:var(--text-color, white);
     transform:scale(1.18);
   }
 
@@ -369,6 +393,20 @@
     }
   }
 
+  function getHostname(url) {
+    try {
+      return new URL(url).hostname.replace(/^www\./, "");
+    } catch {
+      return "";
+    }
+  }
+
+  function getFaviconUrl(link) {
+    const hostname = getHostname(link);
+    if (!hostname) return "";
+    return "https://www.google.com/s2/favicons?sz=128&domain=" + encodeURIComponent(hostname);
+  }
+
   function stripTags(html) {
     const div = document.createElement("div");
     div.innerHTML = html || "";
@@ -431,6 +469,12 @@
     const img = div.querySelector("img");
     if (img && img.src) return img.src;
 
+    // Intento adicional: buscar urls de imagen dentro del contenido HTML
+    const htmlText = html || "";
+    const regex = /(https?:\/\/[^"' )]+?\.(?:jpg|jpeg|png|webp|gif))/i;
+    const match = htmlText.match(regex);
+    if (match && match[1]) return match[1];
+
     return "";
   }
 
@@ -438,12 +482,20 @@
     return (items || [])
       .slice(0, NEWS_LIMIT)
       .map(function (item) {
+        const title = extractCleanTitle(item.title || "");
+        const source = extractSource(item.title || "");
+        const summary = truncate(stripTags(item.description || item.content || ""), 360);
+        const link = safeUrl(item.link, "about:blank");
+        const image = safeUrl(extractImage(item), "");
+        const favicon = safeUrl(getFaviconUrl(link), "");
+
         return {
-          title: extractCleanTitle(item.title || ""),
-          source: extractSource(item.title || ""),
-          summary: truncate(stripTags(item.description || item.content || ""), 360),
-          image: safeUrl(extractImage(item), ""),
-          link: safeUrl(item.link, "about:blank"),
+          title: title,
+          source: source,
+          summary: summary,
+          image: image,
+          favicon: favicon,
+          link: link,
           pubDate: item.pubDate || ""
         };
       })
@@ -468,10 +520,9 @@
     root.appendChild(createEl("div", className, text));
   }
 
-  function buildCard(item) {
-    const card = createEl("article", "facile-news-card");
-
+  function buildMedia(item) {
     const media = createEl("div", "facile-news-media");
+
     if (item.image) {
       const img = document.createElement("img");
       img.src = item.image;
@@ -479,12 +530,44 @@
       img.loading = "lazy";
       img.referrerPolicy = "no-referrer";
       img.onerror = function () {
-        media.innerHTML = "Sin imagen";
+        media.replaceWith(buildFallbackMedia(item));
       };
       media.appendChild(img);
-    } else {
-      media.textContent = "Sin imagen";
+      return media;
     }
+
+    return buildFallbackMedia(item);
+  }
+
+  function buildFallbackMedia(item) {
+    const media = createEl("div", "facile-news-media facile-news-fallback");
+
+    if (item.favicon) {
+      const icon = document.createElement("img");
+      icon.className = "facile-news-fallback-icon";
+      icon.src = item.favicon;
+      icon.alt = item.source ? "Icono del medio " + item.source : "Icono del medio";
+      icon.loading = "lazy";
+      icon.referrerPolicy = "no-referrer";
+      icon.onerror = function () {
+        icon.remove();
+      };
+      media.appendChild(icon);
+    }
+
+    const text = createEl(
+      "div",
+      "facile-news-fallback-text",
+      item.source ? item.source : "Google Noticias"
+    );
+    media.appendChild(text);
+
+    return media;
+  }
+
+  function buildCard(item) {
+    const card = createEl("article", "facile-news-card");
+    const media = buildMedia(item);
 
     const content = createEl("div", "facile-news-content");
     const headline = createEl("h3", "facile-news-headline", item.title);
@@ -500,15 +583,7 @@
     readBtn.rel = "noopener noreferrer";
     readBtn.textContent = "Descubrir más";
 
-    const blankBtn = document.createElement("a");
-    blankBtn.className = "facile-news-button secondary";
-    blankBtn.href = "about:blank";
-    blankBtn.target = "_blank";
-    blankBtn.rel = "noopener noreferrer";
-    blankBtn.textContent = "Abrir en blanco";
-
     actions.appendChild(readBtn);
-    actions.appendChild(blankBtn);
 
     const meta = createEl("div", "facile-news-meta");
     meta.appendChild(createEl("span", "facile-news-source", item.source || "Google Noticias"));
