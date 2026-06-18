@@ -40,7 +40,7 @@
     <div id="widgets-container"></div>
 <!-- =========================
      GOOGLE NEWS TICKER FACILE
-     PEGAR Y FUNCIONAR
+     VERSIÓN FINAL MEJORADA
 ========================= -->
 <section id="facile-news-widget" class="facile-news-shell">
   <div class="facile-news-title-wrap">
@@ -53,19 +53,36 @@
 </section>
 
 <style>
+  /* ==========================================
+     VARIABLES DEL WIDGET
+     - Título del widget: SIEMPRE BLANCO
+     - Titulares / subtítulos / meta: SIEMPRE NEGRO
+  ========================================== */
+  #facile-news-widget{
+    --facile-widget-pill-text: #ffffff;
+    --facile-widget-headline: #111111;
+    --facile-widget-summary: #111111;
+    --facile-widget-meta: #111111;
+    --facile-widget-date: #0b57d0;
+    --facile-widget-card-bg: rgba(255,255,255,0.94);
+    --facile-widget-shell-bg: var(--glass-bg, rgba(255,255,255,0.12));
+    --facile-widget-gradient: linear-gradient(90deg, var(--primary-color, #4a88f7), var(--secondary-color, #08a700));
+  }
+
+  /* contenedor general */
   #facile-news-widget.facile-news-shell{
     width:100%;
     max-width:1200px;
     margin:24px auto;
     padding:26px 18px 30px;
     box-sizing:border-box;
-    background:var(--glass-bg, rgba(255,255,255,0.12));
+    background:var(--facile-widget-shell-bg);
     backdrop-filter:blur(12px);
     border-radius:42px;
     box-shadow:0 20px 40px rgba(0,0,0,0.16);
-    color:var(--text-dark, #262626);
   }
 
+  /* título */
   #facile-news-widget .facile-news-title-wrap{
     text-align:center;
     margin-bottom:24px;
@@ -78,14 +95,16 @@
     gap:10px;
     padding:14px 30px;
     border-radius:999px;
-    background:linear-gradient(90deg, var(--primary-color, #4a88f7), var(--secondary-color, #08a700));
-    color:var(--text-color, #ffffff);
+    background:var(--facile-widget-gradient);
+    color:var(--facile-widget-pill-text);
     font-size:2rem;
     font-weight:700;
     letter-spacing:1px;
     box-shadow:0 10px 24px rgba(0,0,0,0.18);
+    text-align:center;
   }
 
+  /* estados */
   #facile-news-widget .facile-news-root{
     min-height:360px;
   }
@@ -98,11 +117,12 @@
     align-items:center;
     justify-content:center;
     text-align:center;
-    color:var(--text-color, white);
+    color:var(--text-color, #ffffff);
     padding:20px;
     font-size:1.08rem;
   }
 
+  /* tarjeta */
   #facile-news-widget .facile-news-stage{
     width:100%;
   }
@@ -113,7 +133,7 @@
     grid-template-columns:360px 1fr;
     gap:18px;
     align-items:stretch;
-    background:rgba(255,255,255,0.92);
+    background:var(--facile-widget-card-bg);
     border-radius:28px;
     padding:18px;
     box-sizing:border-box;
@@ -122,6 +142,7 @@
     animation:facileNewsFade .35s ease;
   }
 
+  /* media */
   #facile-news-widget .facile-news-media{
     min-height:260px;
     width:100%;
@@ -141,10 +162,14 @@
     display:block;
   }
 
+  /* fallback de imagen */
   #facile-news-widget .facile-news-media.facile-news-fallback{
-    background:
-      linear-gradient(135deg, color-mix(in srgb, var(--primary-color, #4a88f7) 78%, white), color-mix(in srgb, var(--secondary-color, #08a700) 72%, white));
-    color:white;
+    background:linear-gradient(
+      135deg,
+      rgba(74,136,247,0.82),
+      rgba(8,167,0,0.82)
+    );
+    color:#ffffff;
     flex-direction:column;
     gap:14px;
     text-align:center;
@@ -170,24 +195,27 @@
     text-shadow:0 1px 2px rgba(0,0,0,0.18);
   }
 
+  /* contenido */
   #facile-news-widget .facile-news-content{
     display:flex;
     flex-direction:column;
     min-width:0;
   }
 
+  /* titular de la noticia: NEGRO en todos los temas */
   #facile-news-widget .facile-news-headline{
     margin:0 0 12px 0;
     font-size:1.95rem;
     line-height:1.22;
-    color:var(--text-dark, #262626); /* adiós al marrón */
+    color:var(--facile-widget-headline);
     font-weight:700;
     word-break:break-word;
   }
 
+  /* resumen / subtítulos: NEGRO en todos los temas */
   #facile-news-widget .facile-news-summary{
     margin:0 0 18px 0;
-    color:var(--text-dark, #262626);
+    color:var(--facile-widget-summary);
     font-size:1rem;
     line-height:1.55;
   }
@@ -199,24 +227,27 @@
     gap:10px;
   }
 
+  /* metadatos: NEGRO en todos los temas */
   #facile-news-widget .facile-news-meta{
     display:flex;
     flex-wrap:wrap;
     gap:14px;
     align-items:center;
-    color:var(--text-dark, #4f4f4f);
+    color:var(--facile-widget-meta);
     font-size:0.95rem;
   }
 
   #facile-news-widget .facile-news-source{
     font-weight:700;
+    color:var(--facile-widget-meta);
   }
 
   #facile-news-widget .facile-news-date{
-    color:var(--primary-color, #2550ff);
+    color:var(--facile-widget-date);
     font-weight:600;
   }
 
+  /* acciones */
   #facile-news-widget .facile-news-actions{
     display:flex;
     flex-wrap:wrap;
@@ -243,11 +274,12 @@
   }
 
   #facile-news-widget .facile-news-button.primary{
-    color:var(--text-color, white);
-    background:linear-gradient(90deg, var(--primary-color, #4a88f7), var(--secondary-color, #08a700));
+    color:#ffffff;
+    background:var(--facile-widget-gradient);
     box-shadow:0 8px 18px rgba(0,0,0,0.12);
   }
 
+  /* navegación */
   #facile-news-widget .facile-news-nav{
     display:flex;
     justify-content:center;
@@ -264,7 +296,7 @@
     border:none;
     cursor:pointer;
     background:var(--glass-bg, rgba(255,255,255,0.24));
-    color:var(--text-color, white);
+    color:#ffffff;
     font-size:1.15rem;
     backdrop-filter:blur(8px);
     transition:transform .2s ease, background .2s ease;
@@ -294,7 +326,7 @@
   }
 
   #facile-news-widget .facile-news-dot.active{
-    background:var(--text-color, white);
+    background:#ffffff;
     transform:scale(1.18);
   }
 
@@ -303,15 +335,18 @@
     to{opacity:1; transform:translateY(0);}
   }
 
+  /* responsive tablet */
   @media only screen and (max-width:1024px){
     #facile-news-widget .facile-news-card{
       grid-template-columns:300px 1fr;
     }
+
     #facile-news-widget .facile-news-headline{
       font-size:1.55rem;
     }
   }
 
+  /* responsive móvil */
   @media only screen and (max-width:767px){
     #facile-news-widget.facile-news-shell{
       padding:20px 14px 24px;
@@ -362,7 +397,10 @@
   /* =========================
      CONFIGURACIÓN
      - "" = portada general de Google Noticias España
-     - "economía España" = búsqueda concreta
+     - Puedes cambiarlo por:
+       "economía España"
+       "tecnología"
+       "deportes España"
   ========================= */
   const NEWS_QUERY = "";
   const NEWS_LIMIT = 8;
@@ -469,10 +507,8 @@
     const img = div.querySelector("img");
     if (img && img.src) return img.src;
 
-    // Intento adicional: buscar urls de imagen dentro del contenido HTML
-    const htmlText = html || "";
     const regex = /(https?:\/\/[^"' )]+?\.(?:jpg|jpeg|png|webp|gif))/i;
-    const match = htmlText.match(regex);
+    const match = html.match(regex);
     if (match && match[1]) return match[1];
 
     return "";
@@ -520,25 +556,6 @@
     root.appendChild(createEl("div", className, text));
   }
 
-  function buildMedia(item) {
-    const media = createEl("div", "facile-news-media");
-
-    if (item.image) {
-      const img = document.createElement("img");
-      img.src = item.image;
-      img.alt = item.title ? "Imagen de la noticia: " + item.title : "Imagen de noticia";
-      img.loading = "lazy";
-      img.referrerPolicy = "no-referrer";
-      img.onerror = function () {
-        media.replaceWith(buildFallbackMedia(item));
-      };
-      media.appendChild(img);
-      return media;
-    }
-
-    return buildFallbackMedia(item);
-  }
-
   function buildFallbackMedia(item) {
     const media = createEl("div", "facile-news-media facile-news-fallback");
 
@@ -562,6 +579,25 @@
     );
     media.appendChild(text);
 
+    return media;
+  }
+
+  function buildMedia(item) {
+    if (!item.image) {
+      return buildFallbackMedia(item);
+    }
+
+    const media = createEl("div", "facile-news-media");
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = item.title ? "Imagen de la noticia: " + item.title : "Imagen de noticia";
+    img.loading = "lazy";
+    img.referrerPolicy = "no-referrer";
+    img.onerror = function () {
+      media.replaceWith(buildFallbackMedia(item));
+    };
+
+    media.appendChild(img);
     return media;
   }
 
@@ -589,7 +625,9 @@
     meta.appendChild(createEl("span", "facile-news-source", item.source || "Google Noticias"));
 
     const dateText = formatDate(item.pubDate);
-    if (dateText) meta.appendChild(createEl("span", "facile-news-date", dateText));
+    if (dateText) {
+      meta.appendChild(createEl("span", "facile-news-date", dateText));
+    }
 
     footer.appendChild(actions);
     footer.appendChild(meta);
