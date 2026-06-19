@@ -39,7 +39,8 @@
     <div class="container">
     <div id="widgets-container"></div>
 <!-- =========================
-     TICKER FACILE
+    TICKER FACILE
+    VERSIÓN ESTABLE
 ========================= -->
 <section id="facile-news-widget" class="facile-news-shell">
   <div class="facile-news-title-wrap">
@@ -473,29 +474,6 @@
     }
   }
 
-  function getHost(url) {
-    try {
-      return new URL(url, window.location.href).hostname.replace(/^www\./, "").toLowerCase();
-    } catch {
-      return "";
-    }
-  }
-
-  function hostVariants(host) {
-    if (!host) return [];
-    const parts = host.split(".").filter(Boolean);
-    const variants = new Set([host]);
-
-    if (parts.length >= 2) {
-      variants.add(parts.slice(-2).join("."));   /* ejemplo: elmundo.es */
-    }
-    if (parts.length >= 3) {
-      variants.add(parts.slice(-3).join("."));   /* ejemplo: elpais.com.uy */
-    }
-
-    return Array.from(variants);
-  }
-
   function stripTags(html) {
     const div = document.createElement("div");
     div.innerHTML = html || "";
@@ -505,7 +483,7 @@
   function truncate(text, max) {
     const t = (text || "").trim().replace(/\s+/g, " ");
     return t.length > max ? t.slice(0, max).trim() + "…" : t;
-    }
+  }
 
   function formatDate(dateString) {
     try {
@@ -541,11 +519,6 @@
     return (parts[0][0] + parts[1][0]).toUpperCase();
   }
 
-  /* ==========================================
-     EXTRAER MEDIO Y TITULAR CORRECTOS
-     CASO CLAVE:
-     "Titular - El País - Google News"
-  ========================================== */
   function splitTitleParts(title) {
     return (title || "")
       .split(" - ")
@@ -559,6 +532,7 @@
 
     const last = normalizeText(parts[parts.length - 1]);
 
+    /* si acaba en Google News, cogemos el penúltimo */
     if (last === "googlenews" || last === "google") {
       if (parts.length >= 2) {
         return parts[parts.length - 2];
@@ -596,50 +570,6 @@
     return title;
   }
 
-  /* ==========================================
-     EXTRAER URL REAL DEL MEDIO
-     - si item.link es news.google.com,
-       intentamos sacar la URL real desde description/content
-  ========================================== */
-  function extractRealPublisherUrl(item) {
-    const directLink = safeUrl(item.link || "", "");
-    const directHost = getHost(directLink);
-
-    if (directLink && directHost && !directHost.includes("news.google.com")) {
-      return directLink;
-    }
-
-    const html = item.description || item.content || "";
-    if (!html) return directLink || "";
-
-    const div = document.createElement("div");
-    div.innerHTML = html;
-
-    const anchors = Array.from(div.querySelectorAll("a[href]"));
-    for (const a of anchors) {
-      const href = safeUrl(a.getAttribute("href"), "");
-      const host = getHost(href);
-      if (!href) continue;
-      if (host && !host.includes("news.google.com")) {
-        return href;
-      }
-    }
-
-    /* fallback por regex */
-    const regex = /https?:\/\/[^\s"'<>]+/gi;
-    const matches = html.match(regex) || [];
-    for (const raw of matches) {
-      const href = safeUrl(raw, "");
-      const host = getHost(href);
-      if (!href) continue;
-      if (host && !host.includes("news.google.com")) {
-        return href;
-      }
-    }
-
-    return directLink || "";
-  }
-
   function extractImage(item) {
     if (item.thumbnail) return item.thumbnail;
 
@@ -665,7 +595,7 @@
   }
 
   /* ==========================================
-     CATÁLOGO DE LOGOS DE TU PROPIA PÁGINA
+     CATÁLOGO DE LOGOS DE TU PÁGINA
      SOLO .logo img
   ========================================== */
   function buildPublisherCatalog() {
@@ -677,7 +607,6 @@
       const alt = img.getAttribute('alt') || '';
       const parentLink = img.closest('a[href]');
       const href = parentLink ? (parentLink.getAttribute('href') || '') : '';
-      const host = getHost(href);
 
       if (!src) return;
 
@@ -686,8 +615,6 @@
         alt: alt,
         altNorm: normalizeText(alt),
         href: href,
-        host: host,
-        hostVariants: hostVariants(host),
         srcNorm: normalizeText(src.split('/').pop() || src)
       });
     });
@@ -695,6 +622,10 @@
     return catalog;
   }
 
+  /* ==========================================
+     ALIASES DE MEDIOS
+     (versión que funcionaba "en condiciones")
+  ========================================== */
   const SOURCE_ALIASES = {
     "la razon": ["larazon", "la razon"],
     "el pais": ["elpais", "el pais"],
@@ -732,30 +663,15 @@
     "clarin": ["clarin"]
   };
 
-  function resolvePublisherLogo(sourceName, articleLink, publisherCatalog) {
-    const articleHost = getHost(articleLink);
-    const articleVariants = hostVariants(articleHost);
-
-    /* 1) PRIORIDAD ABSOLUTA: dominio real del artículo */
-    if (articleVariants.length) {
-      const exactHostMatch = publisherCatalog.find(function (item) {
-        return item.hostVariants.some(function (variant) {
-          return articleVariants.includes(variant);
-        });
-      });
-
-      if (exactHostMatch && exactHostMatch.src) {
-        return exactHostMatch.src;
-      }
-    }
-
-    /* 2) SI FALLA: matching por nombre del medio */
+  function resolvePublisherLogo(sourceName, publisherCatalog) {
     const sourceNorm = normalizeText(sourceName);
     if (!sourceNorm || sourceNorm === "googlenews" || sourceNorm === "google") {
       return null;
     }
 
-    const candidates = new Set([sourceName, sourceNorm]);
+    const candidates = new Set();
+    candidates.add(sourceName);
+    candidates.add(sourceNorm);
 
     if (SOURCE_ALIASES[sourceNorm]) {
       SOURCE_ALIASES[sourceNorm].forEach(function (alias) {
@@ -769,9 +685,7 @@
     let bestScore = 0;
 
     publisherCatalog.forEach(function (logoItem) {
-      /* no queremos coger Google si la noticia no es Google */
       const isGoogleLogo =
-        logoItem.host.includes("google.") ||
         logoItem.altNorm.includes("google") ||
         logoItem.srcNorm.includes("google");
 
@@ -1028,11 +942,9 @@
         const title = extractCleanTitle(item.title || "");
         const source = extractSource(item.title || "");
         const summary = truncate(stripTags(item.description || item.content || ""), 250);
-
-        const realLink = extractRealPublisherUrl(item);
-        const displayLink = safeUrl(realLink || item.link || "", "about:blank");
+        const link = safeUrl(item.link, "about:blank");
         const image = safeUrl(extractImage(item), "");
-        const sourceIcon = resolvePublisherLogo(source, displayLink, publisherCatalog);
+        const sourceIcon = resolvePublisherLogo(source, publisherCatalog);
 
         return {
           title: title,
@@ -1040,7 +952,7 @@
           summary: summary,
           image: image,
           sourceIcon: sourceIcon,
-          link: displayLink,
+          link: link,
           pubDate: item.pubDate || ""
         };
       })
@@ -1125,7 +1037,6 @@
   }
 })();
 </script>
-``
 <!-- =========================
      FIN GOOGLE NEWS TICKER
 ========================= -->
