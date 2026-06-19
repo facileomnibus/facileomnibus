@@ -419,53 +419,99 @@
   }
 
   @media only screen and (max-width:767px){
-    #facile-news-widget.facile-news-shell{
-      padding:14px 10px 16px;
-      border-radius:22px;
-      margin:12px auto;
-    }
-
-    #facile-news-widget .facile-news-title{
-      font-size:1.05rem;
-      padding:9px 16px;
-      max-width:95%;
-    }
-
-    #facile-news-widget .facile-news-root{
-      min-height:290px;
-    }
-
-    #facile-news-widget .facile-news-card{
-      grid-template-columns:1fr;
-      gap:10px;
-      padding:10px;
-      border-radius:16px;
-    }
-
-    #facile-news-widget .facile-news-media{
-      min-height:165px;
-    }
-
-    #facile-news-widget .facile-news-headline{
-      font-size:.95rem;
-      margin-bottom:7px;
-    }
-
-    #facile-news-widget .facile-news-summary{
-      font-size:.88rem;
-      -webkit-line-clamp:5;
-    }
-
-    #facile-news-widget .facile-news-meta{
-      font-size:.82rem;
-      gap:7px;
-    }
-
-    #facile-news-widget .facile-news-button{
-      font-size:.82rem;
-      padding:7px 9px;
-    }
+  #facile-news-widget.facile-news-shell{
+    padding:14px 10px 16px;
+    border-radius:22px;
+    margin:12px auto;
   }
+
+  #facile-news-widget .facile-news-title{
+    font-size:1.05rem;
+    padding:9px 16px;
+    max-width:95%;
+  }
+
+  #facile-news-widget .facile-news-root{
+    min-height:290px;
+  }
+
+  #facile-news-widget .facile-news-card{
+    grid-template-columns:1fr;
+    gap:10px;
+    padding:10px;
+    border-radius:16px;
+  }
+
+  #facile-news-widget .facile-news-media{
+    min-height:165px;
+  }
+
+  #facile-news-widget .facile-news-headline{
+    font-size:.95rem;
+    margin-bottom:7px;
+  }
+
+  #facile-news-widget .facile-news-summary{
+    font-size:.88rem;
+    -webkit-line-clamp:5;
+  }
+
+  #facile-news-widget .facile-news-meta{
+    font-size:.82rem;
+    gap:7px;
+  }
+
+  #facile-news-widget .facile-news-button{
+    font-size:.82rem;
+    padding:7px 9px;
+  }
+
+  /* =========================
+     LOGOS MÁS PEQUEÑOS EN MÓVIL
+  ========================= */
+
+  /* logo pequeño junto al nombre del medio */
+  #facile-news-widget .facile-news-source-icon{
+    width:16px;
+    height:16px;
+    border-radius:4px;
+    padding:1px;
+  }
+
+  /* badge fallback pequeño junto al nombre del medio */
+  #facile-news-widget .facile-news-source-badge{
+    width:16px;
+    height:16px;
+    border-radius:4px;
+    font-size:.52rem;
+  }
+
+  /* separación más compacta entre logo y texto */
+  #facile-news-widget .facile-news-source-wrap{
+    gap:5px;
+  }
+
+  /* logo grande de fallback (cuando no hay imagen) */
+  #facile-news-widget .facile-news-fallback-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    padding:5px;
+  }
+
+  /* badge grande de fallback */
+  #facile-news-widget .facile-news-fallback-badge{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    font-size:.78rem;
+  }
+
+  #facile-news-widget .facile-news-fallback-text{
+    font-size:.82rem;
+    line-height:1.2;
+  }
+}
 </style>
 
 <script>
@@ -845,8 +891,8 @@
     shareBtn.href = buildShareUrl(item);
     shareBtn.target = "_blank";
     shareBtn.rel = "noopener noreferrer";
-    shareBtn.textContent = "Compartir en X";
-    shareBtn.title = "Compartir noticia en X / Twitter";
+    shareBtn.textContent = "Compartir en X/Twitter";
+    shareBtn.title = "Compartir noticia en X/Twitter";
 
     actions.appendChild(readBtn);
     actions.appendChild(shareBtn);
