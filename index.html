@@ -155,7 +155,8 @@
     position:relative;
   }
 
-  #facile-news-widget .facile-news-media img{
+  /* SOLO la imagen principal llena el contenedor */
+  #facile-news-widget .facile-news-media img:not(.facile-news-fallback-icon){
     width:100%;
     height:100%;
     object-fit:cover;
@@ -182,6 +183,9 @@
     padding:6px;
     box-sizing:border-box;
     object-fit:contain;
+    display:block;
+    flex:0 0 auto;
+    margin:0 auto;
   }
 
   #facile-news-widget .facile-news-fallback-badge{
@@ -197,6 +201,8 @@
     font-size:.92rem;
     color:#ffffff;
     letter-spacing:.5px;
+    flex:0 0 auto;
+    margin:0 auto;
   }
 
   #facile-news-widget .facile-news-fallback-text{
@@ -419,99 +425,97 @@
   }
 
   @media only screen and (max-width:767px){
-  #facile-news-widget.facile-news-shell{
-    padding:14px 10px 16px;
-    border-radius:22px;
-    margin:12px auto;
-  }
+    #facile-news-widget.facile-news-shell{
+      padding:14px 10px 16px;
+      border-radius:22px;
+      margin:12px auto;
+    }
 
-  #facile-news-widget .facile-news-title{
-    font-size:1.05rem;
-    padding:9px 16px;
-    max-width:95%;
-  }
+    #facile-news-widget .facile-news-title{
+      font-size:1.05rem;
+      padding:9px 16px;
+      max-width:95%;
+    }
 
-  #facile-news-widget .facile-news-root{
-    min-height:290px;
-  }
+    #facile-news-widget .facile-news-root{
+      min-height:290px;
+    }
 
-  #facile-news-widget .facile-news-card{
-    grid-template-columns:1fr;
-    gap:10px;
-    padding:10px;
-    border-radius:16px;
-  }
+    #facile-news-widget .facile-news-card{
+      grid-template-columns:1fr;
+      gap:10px;
+      padding:10px;
+      border-radius:16px;
+    }
 
-  #facile-news-widget .facile-news-media{
-    min-height:165px;
-  }
+    #facile-news-widget .facile-news-media{
+      min-height:165px;
+    }
 
-  #facile-news-widget .facile-news-headline{
-    font-size:.95rem;
-    margin-bottom:7px;
-  }
+    #facile-news-widget .facile-news-headline{
+      font-size:.95rem;
+      margin-bottom:7px;
+    }
 
-  #facile-news-widget .facile-news-summary{
-    font-size:.88rem;
-    -webkit-line-clamp:5;
-  }
+    #facile-news-widget .facile-news-summary{
+      font-size:.88rem;
+      -webkit-line-clamp:5;
+    }
 
-  #facile-news-widget .facile-news-meta{
-    font-size:.82rem;
-    gap:7px;
-  }
+    #facile-news-widget .facile-news-meta{
+      font-size:.82rem;
+      gap:7px;
+    }
 
-  #facile-news-widget .facile-news-button{
-    font-size:.82rem;
-    padding:7px 9px;
-  }
+    #facile-news-widget .facile-news-button{
+      font-size:.82rem;
+      padding:7px 9px;
+    }
 
-  /* =========================
-     LOGOS MÁS PEQUEÑOS EN MÓVIL
-  ========================= */
+    /* LOGOS MÁS PEQUEÑOS EN MÓVIL */
+    #facile-news-widget .facile-news-source-icon{
+      width:14px;
+      height:14px;
+      border-radius:4px;
+      padding:1px;
+    }
 
-  /* logo pequeño junto al nombre del medio */
-  #facile-news-widget .facile-news-source-icon{
-    width:14px;
-    height:14px;
-    border-radius:4px;
-    padding:1px;
-  }
+    #facile-news-widget .facile-news-source-badge{
+      width:14px;
+      height:14px;
+      border-radius:4px;
+      font-size:.48rem;
+    }
 
-  /* badge fallback pequeño junto al nombre del medio */
-  #facile-news-widget .facile-news-source-badge{
-    width:14px;
-    height:14px;
-    border-radius:4px;
-    font-size:.52rem;
-  }
+    #facile-news-widget .facile-news-source-wrap{
+      gap:4px;
+    }
 
-  /* separación más compacta entre logo y texto */
-  #facile-news-widget .facile-news-source-wrap{
-    gap:5px;
-  }
+    /* ICONO GRANDE DEL FALLBACK MUCHO MÁS PEQUEÑO */
+    #facile-news-widget .facile-news-fallback-icon{
+      width:30px !important;
+      height:30px !important;
+      border-radius:8px;
+      padding:4px;
+      object-fit:contain !important;
+      flex:0 0 auto;
+      margin:0 auto;
+    }
 
-  /* logo grande de fallback (cuando no hay imagen) */
-  #facile-news-widget .facile-news-fallback-icon{
-    width:38px;
-    height:38px;
-    border-radius:10px;
-    padding:5px;
-  }
+    #facile-news-widget .facile-news-fallback-badge{
+      width:30px !important;
+      height:30px !important;
+      border-radius:8px;
+      font-size:.68rem;
+      flex:0 0 auto;
+      margin:0 auto;
+    }
 
-  /* badge grande de fallback */
-  #facile-news-widget .facile-news-fallback-badge{
-    width:38px;
-    height:38px;
-    border-radius:10px;
-    font-size:.78rem;
+    #facile-news-widget .facile-news-fallback-text{
+      font-size:.76rem;
+      line-height:1.15;
+    }
   }
-
-  #facile-news-widget .facile-news-fallback-text{
-    font-size:.82rem;
-    line-height:1.2;
-  }
-}
 </style>
 
 <script>
@@ -891,8 +895,8 @@
     shareBtn.href = buildShareUrl(item);
     shareBtn.target = "_blank";
     shareBtn.rel = "noopener noreferrer";
-    shareBtn.textContent = "Compartir en X/Twitter";
-    shareBtn.title = "Compartir noticia en X/Twitter";
+    shareBtn.textContent = "Compartir en X";
+    shareBtn.title = "Compartir noticia en X / Twitter";
 
     actions.appendChild(readBtn);
     actions.appendChild(shareBtn);
