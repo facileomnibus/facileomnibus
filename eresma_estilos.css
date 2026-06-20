@@ -462,18 +462,21 @@ main.intro .container {
 ========================================== */
 @media only screen and (min-width: 768px) {
 
-  /* Caja general: mantenemos ancho/proporción del escritorio */
+  /* Caja exterior: mismo espíritu glass que noticias */
   #weather-widget.weather-widget{
     width: min(100%, 1040px) !important;
     margin: 20px auto !important;
-    padding: 20px 20px 18px !important;
-    border-radius: 28px !important;
+    padding: 18px 18px 18px !important;
+    border-radius: 30px !important;
     box-sizing: border-box !important;
     text-align: center !important;
     overflow: hidden !important;
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.12) !important;
   }
 
-  /* Bloque principal más compacto y limpio */
+  /* Contenido interior centrado */
   #weather-content{
     max-width: 860px !important;
     margin: 0 auto !important;
@@ -484,31 +487,31 @@ main.intro .container {
     box-sizing: border-box !important;
   }
 
-  /* Ciudad: mismo estilo visual que móvil, pero escalado a escritorio */
+  /* Ciudad: pastilla tipo noticias */
   #weather-content > h3{
     align-self: flex-start !important;
-    margin: 0 0 18px 0 !important;
-    padding: 10px 18px !important;
+    margin: 0 0 14px 0 !important;
+    padding: 10px 20px !important;
     border-radius: 16px !important;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)) !important;
     color: white !important;
-    font-size: 1.2rem !important;
+    font-size: 1.15rem !important;
     line-height: 1 !important;
     font-weight: 700 !important;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.16) !important;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.14) !important;
     width: auto !important;
   }
 
-  /* Icono principal: visual móvil, centrado */
+  /* Icono principal */
   #weather-content > div:nth-of-type(1){
-    font-size: 62px !important;
+    font-size: 64px !important;
     line-height: 1 !important;
-    margin: 4px 0 12px 0 !important;
+    margin: 6px 0 12px 0 !important;
   }
 
-  /* Temperatura principal */
+  /* Temperatura */
   #weather-content > p:nth-of-type(1){
-    font-size: 46px !important;
+    font-size: 48px !important;
     line-height: 1.05 !important;
     margin: 0 0 8px 0 !important;
     color: rgba(255,255,255,0.96) !important;
@@ -518,11 +521,11 @@ main.intro .container {
   /* Viento */
   #weather-content > p:nth-of-type(2){
     font-size: 14px !important;
-    margin: 0 0 20px 0 !important;
+    margin: 0 0 18px 0 !important;
     color: rgba(255,255,255,0.92) !important;
   }
 
-  /* Previsión: mantenemos la distribución de escritorio, pero con look móvil */
+  /* Previsión: compacta y visualmente alineada con noticias */
   #weather-content > div:last-child{
     display: flex !important;
     flex-wrap: wrap !important;
@@ -533,7 +536,7 @@ main.intro .container {
     width: 100% !important;
   }
 
-  /* Tarjetas de días: mismas proporciones aprox. de escritorio pero aspecto móvil */
+  /* Cada día como mini-card glass */
   #weather-content > div:last-child > div{
     flex: 0 0 106px !important;
     width: 106px !important;
@@ -541,13 +544,15 @@ main.intro .container {
     min-height: 102px !important;
     padding: 10px 8px !important;
     border-radius: 16px !important;
-    background: rgba(255,255,255,0.24) !important;
-    backdrop-filter: blur(6px) !important;
+    background: color-mix(in srgb, var(--glass-bg, rgba(255,255,255,0.16)) 65%, white 35%) !important;
+    border: 1px solid rgba(255,255,255,0.20) !important;
+    backdrop-filter: blur(8px) !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.08) !important;
   }
 
   /* Día */
@@ -569,13 +574,13 @@ main.intro .container {
   #weather-content > div:last-child > div > div:nth-child(3){
     font-size: 12px !important;
     font-weight: 500 !important;
-    color: white !important;
+    color: rgba(255,255,255,0.95) !important;
   }
 
-  /* Búsqueda inferior: compacta y centrada */
+  /* Fila de búsqueda: estilo más limpio */
   #weather-widget > div:last-child{
     max-width: 430px !important;
-    margin: 18px auto 2px !important;
+    margin: 16px auto 2px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -583,7 +588,7 @@ main.intro .container {
     flex-wrap: nowrap !important;
   }
 
-  /* Input ciudad */
+  /* Input */
   #city-input{
     flex: 1 1 auto !important;
     min-width: 0 !important;
@@ -598,7 +603,7 @@ main.intro .container {
     box-sizing: border-box !important;
   }
 
-  /* Botón buscar */
+  /* Botón */
   #weather-widget button{
     flex: 0 0 auto !important;
     padding: 10px 14px !important;
