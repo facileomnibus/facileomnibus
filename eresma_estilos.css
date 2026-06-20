@@ -459,8 +459,7 @@ main.intro .container {
     }
 }
 /* ==========================================
-   WEATHER WIDGET — ESCRITORIO ALINEADO CON EL WIDGET DE NOTICIAS
-   Solo visual. No toca HTML ni JS.
+   WEATHER WIDGET
 ========================================== */
 @media only screen and (min-width: 768px) {
 
@@ -476,51 +475,44 @@ main.intro .container {
     background: var(--glass-bg) !important;
     backdrop-filter: blur(12px) !important;
     box-shadow: 0 10px 22px rgba(0,0,0,0.12) !important;
-    position: relative !important;
   }
 
-  /* Zona principal del clima */
+  /* Tarjeta interior real, como en noticias */
   #weather-content{
-    max-width: 900px !important;
+    max-width: 930px !important;
     margin: 0 auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    color: white !important;
+    padding: 18px 20px 20px !important;
     box-sizing: border-box !important;
-    position: relative !important;
-    padding-top: 0 !important;
-    padding-bottom: 18px !important;
-  }
 
-  /* GRAN TARJETA INTERIOR TRANSLÚCIDA */
-  #weather-content::before{
-    content: "" !important;
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    top: 56px !important;
-    width: min(100%, 860px) !important;
-    height: 355px !important;
-    border-radius: 26px !important;
+    display: grid !important;
+    grid-template-columns: 250px 1fr !important;
+    grid-template-areas:
+      "city city"
+      "main forecast";
+    column-gap: 22px !important;
+    row-gap: 18px !important;
+    align-items: center !important;
+
     background: color-mix(in srgb, var(--glass-bg, rgba(255,255,255,0.16)) 65%, white 35%) !important;
     border: 1px solid rgba(255,255,255,0.20) !important;
+    border-radius: 26px !important;
     backdrop-filter: blur(10px) !important;
     box-shadow: 0 8px 18px rgba(0,0,0,0.10) !important;
-    z-index: 0 !important;
-    pointer-events: none !important;
-  }
-
-  /* Todo el contenido por encima de la tarjeta */
-  #weather-content > *{
+    color: white !important;
     position: relative !important;
-    z-index: 1 !important;
   }
 
-  /* Ciudad: pill tipo noticias */
+  /* Desactivamos la pseudo-capa gigante anterior si existiera */
+  #weather-content::before{
+    content: none !important;
+  }
+
+  /* Pastilla ciudad */
   #weather-content > h3{
-    align-self: flex-start !important;
-    margin: 0 0 18px 0 !important;
+    grid-area: city !important;
+    justify-self: start !important;
+    align-self: start !important;
+    margin: 0 !important;
     padding: 10px 20px !important;
     border-radius: 16px !important;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)) !important;
@@ -532,46 +524,66 @@ main.intro .container {
     width: auto !important;
   }
 
-  /* Icono principal */
-  #weather-content > div:nth-of-type(1){
-    font-size: 62px !important;
-    line-height: 1 !important;
-    margin: 28px 0 10px 0 !important;
+  /* Columna izquierda: bloque principal del clima */
+  #weather-content > div:nth-of-type(1),
+  #weather-content > p:nth-of-type(1),
+  #weather-content > p:nth-of-type(2){
+    grid-column: 1 !important;
   }
 
-  /* Temperatura principal */
+  #weather-content > div:nth-of-type(1){
+    justify-self: center !important;
+    align-self: end !important;
+    font-size: 68px !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+  }
+
   #weather-content > p:nth-of-type(1){
+    justify-self: center !important;
+    align-self: center !important;
     font-size: 50px !important;
     line-height: 1.05 !important;
-    margin: 0 0 8px 0 !important;
+    margin: 0 !important;
     color: rgba(255,255,255,0.96) !important;
     font-weight: 400 !important;
   }
 
-  /* Viento */
   #weather-content > p:nth-of-type(2){
+    justify-self: center !important;
+    align-self: start !important;
     font-size: 14px !important;
-    margin: 0 0 28px 0 !important;
+    margin: 0 !important;
     color: rgba(255,255,255,0.92) !important;
   }
 
-  /* Previsión dentro de la misma gran tarjeta */
-  #weather-content > div:last-child{
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 14px !important;
-    margin-top: 0 !important;
-    max-width: 820px !important;
-    width: 100% !important;
+  /* Ajuste vertical del bloque principal */
+  #weather-content > div:nth-of-type(1){
+    transform: translateY(8px) !important;
+  }
+  #weather-content > p:nth-of-type(1){
+    transform: translateY(-2px) !important;
+  }
+  #weather-content > p:nth-of-type(2){
+    transform: translateY(-6px) !important;
   }
 
-  /* Tarjetas de días */
+  /* Columna derecha: previsión */
+  #weather-content > div:last-child{
+    grid-area: forecast !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(96px, 1fr)) !important;
+    gap: 14px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    justify-items: stretch !important;
+    align-items: stretch !important;
+  }
+
+  /* Tarjetas de los días */
   #weather-content > div:last-child > div{
-    flex: 0 0 106px !important;
-    width: 106px !important;
-    min-width: 106px !important;
-    min-height: 104px !important;
+    min-height: 110px !important;
     padding: 10px 8px !important;
     border-radius: 16px !important;
     background: rgba(255,255,255,0.20) !important;
@@ -600,7 +612,7 @@ main.intro .container {
     margin: 0 0 8px 0 !important;
   }
 
-  /* Rango de temperaturas */
+  /* Rango temperaturas */
   #weather-content > div:last-child > div > div:nth-child(3){
     font-size: 12px !important;
     font-weight: 500 !important;
@@ -610,7 +622,7 @@ main.intro .container {
   /* Fila inferior de búsqueda */
   #weather-widget > div:last-child{
     max-width: 430px !important;
-    margin: 12px auto 2px !important;
+    margin: 14px auto 2px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
