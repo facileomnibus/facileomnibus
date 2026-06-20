@@ -460,21 +460,20 @@ main.intro .container {
 /* ==========================================
    WEATHER WIDGET
 ========================================== */
-
 @media only screen and (min-width: 768px) {
 
-  /* Caja general más contenida y elegante */
+  /* Caja general: mantenemos ancho/proporción del escritorio */
   #weather-widget.weather-widget{
     width: min(100%, 1040px) !important;
     margin: 20px auto !important;
-    padding: 26px 22px 22px !important;
-    border-radius: 32px !important;
+    padding: 20px 20px 18px !important;
+    border-radius: 28px !important;
     box-sizing: border-box !important;
     text-align: center !important;
     overflow: hidden !important;
   }
 
-  /* Todo el contenido del clima más centrado y con ancho controlado */
+  /* Bloque principal más compacto y limpio */
   #weather-content{
     max-width: 860px !important;
     margin: 0 auto !important;
@@ -485,62 +484,63 @@ main.intro .container {
     box-sizing: border-box !important;
   }
 
-  /* Badge de ciudad (Segovia, Madrid...) */
+  /* Ciudad: mismo estilo visual que móvil, pero escalado a escritorio */
   #weather-content > h3{
     align-self: flex-start !important;
-    margin: 0 0 22px 0 !important;
-    padding: 14px 28px !important;
-    border-radius: 22px !important;
+    margin: 0 0 18px 0 !important;
+    padding: 10px 18px !important;
+    border-radius: 16px !important;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)) !important;
     color: white !important;
-    font-size: clamp(1.8rem, 3vw, 2.3rem) !important;
+    font-size: 1.2rem !important;
     line-height: 1 !important;
     font-weight: 700 !important;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.18) !important;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.16) !important;
     width: auto !important;
   }
 
-  /* Icono principal */
+  /* Icono principal: visual móvil, centrado */
   #weather-content > div:nth-of-type(1){
-    font-size: 88px !important;
+    font-size: 62px !important;
     line-height: 1 !important;
-    margin: 6px 0 16px 0 !important;
+    margin: 4px 0 12px 0 !important;
   }
 
   /* Temperatura principal */
   #weather-content > p:nth-of-type(1){
-    font-size: 58px !important;
+    font-size: 46px !important;
     line-height: 1.05 !important;
-    margin: 0 0 10px 0 !important;
-    color: white !important;
+    margin: 0 0 8px 0 !important;
+    color: rgba(255,255,255,0.96) !important;
+    font-weight: 400 !important;
   }
 
   /* Viento */
   #weather-content > p:nth-of-type(2){
-    font-size: 16px !important;
-    margin: 0 0 26px 0 !important;
-    color: rgba(255,255,255,0.95) !important;
+    font-size: 14px !important;
+    margin: 0 0 20px 0 !important;
+    color: rgba(255,255,255,0.92) !important;
   }
 
-  /* Contenedor de previsión: en varias filas, no todo en una sola */
+  /* Previsión: mantenemos la distribución de escritorio, pero con look móvil */
   #weather-content > div:last-child{
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
-    gap: 20px !important;
-    margin-top: 6px !important;
+    gap: 14px !important;
+    margin-top: 4px !important;
     max-width: 820px !important;
     width: 100% !important;
   }
 
-  /* Tarjetas de días: más grandes como la versión buena */
+  /* Tarjetas de días: mismas proporciones aprox. de escritorio pero aspecto móvil */
   #weather-content > div:last-child > div{
-    flex: 0 0 182px !important;
-    width: 182px !important;
-    min-width: 182px !important;
-    min-height: 170px !important;
-    padding: 18px 12px !important;
-    border-radius: 22px !important;
+    flex: 0 0 106px !important;
+    width: 106px !important;
+    min-width: 106px !important;
+    min-height: 102px !important;
+    padding: 10px 8px !important;
+    border-radius: 16px !important;
     background: rgba(255,255,255,0.24) !important;
     backdrop-filter: blur(6px) !important;
     box-sizing: border-box !important;
@@ -550,49 +550,49 @@ main.intro .container {
     align-items: center !important;
   }
 
-  /* Nombre del día */
+  /* Día */
   #weather-content > div:last-child > div > div:nth-child(1){
-    font-size: 18px !important;
+    font-size: 12px !important;
     font-weight: 600 !important;
-    margin-bottom: 12px !important;
+    margin-bottom: 8px !important;
     color: white !important;
   }
 
   /* Icono del día */
   #weather-content > div:last-child > div > div:nth-child(2){
-    font-size: 38px !important;
+    font-size: 24px !important;
     line-height: 1 !important;
-    margin: 0 0 12px 0 !important;
+    margin: 0 0 8px 0 !important;
   }
 
-  /* Rango de temperaturas */
+  /* Rango temperatura */
   #weather-content > div:last-child > div > div:nth-child(3){
-    font-size: 16px !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
     color: white !important;
   }
 
-  /* Fila de búsqueda inferior */
+  /* Búsqueda inferior: compacta y centrada */
   #weather-widget > div:last-child{
-    max-width: 560px !important;
-    margin: 26px auto 4px !important;
+    max-width: 430px !important;
+    margin: 18px auto 2px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 14px !important;
+    gap: 10px !important;
     flex-wrap: nowrap !important;
   }
 
-  /* Input de ciudad */
+  /* Input ciudad */
   #city-input{
     flex: 1 1 auto !important;
     min-width: 0 !important;
     width: auto !important;
-    padding: 14px 18px !important;
-    border-radius: 16px !important;
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
     border: none !important;
     outline: none !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     background: rgba(255,255,255,0.88) !important;
     color: #333 !important;
     box-sizing: border-box !important;
@@ -601,15 +601,15 @@ main.intro .container {
   /* Botón buscar */
   #weather-widget button{
     flex: 0 0 auto !important;
-    padding: 14px 20px !important;
+    padding: 10px 14px !important;
     border: none !important;
-    border-radius: 16px !important;
+    border-radius: 12px !important;
     cursor: pointer !important;
     background: #5bd3ff !important;
     color: white !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
     margin-left: 0 !important;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.12) !important;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.10) !important;
   }
 }
