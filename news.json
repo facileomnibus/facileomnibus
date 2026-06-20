@@ -1,0 +1,15 @@
+{
+  "updatedAt": "2026-06-20T12:00:00Z",
+  "source": "google-news-rss",
+  "query": "",
+  "items": [
+    {
+      "title": "Cargando noticias…",
+      "source": "Google Noticias",
+      "summary": "Este archivo se actualizará automáticamente con GitHub Actions.",
+      "image": "",
+      "link": "about:blank",
+      "pubDate": "2026-06-20T12:00:00Z"
+    }
+  ]
+}
