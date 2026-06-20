@@ -459,11 +459,12 @@ main.intro .container {
     }
 }
 /* ==========================================
-   WEATHER WIDGET
+   WEATHER WIDGET — ESCRITORIO ALINEADO CON EL WIDGET DE NOTICIAS
+   Solo visual. No toca HTML ni JS.
 ========================================== */
 @media only screen and (min-width: 768px) {
 
-  /* Caja exterior */
+  /* Caja exterior glass */
   #weather-widget.weather-widget{
     width: min(100%, 1040px) !important;
     margin: 20px auto !important;
@@ -475,11 +476,12 @@ main.intro .container {
     background: var(--glass-bg) !important;
     backdrop-filter: blur(12px) !important;
     box-shadow: 0 10px 22px rgba(0,0,0,0.12) !important;
+    position: relative !important;
   }
 
-  /* Contenido principal */
+  /* Zona principal del clima */
   #weather-content{
-    max-width: 860px !important;
+    max-width: 900px !important;
     margin: 0 auto !important;
     display: flex !important;
     flex-direction: column !important;
@@ -488,33 +490,34 @@ main.intro .container {
     box-sizing: border-box !important;
     position: relative !important;
     padding-top: 0 !important;
+    padding-bottom: 18px !important;
   }
 
-  /* Mini tarjeta interior translúcida detrás de icono+temperatura+viento */
+  /* GRAN TARJETA INTERIOR TRANSLÚCIDA */
   #weather-content::before{
     content: "" !important;
     position: absolute !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     top: 56px !important;
-    width: min(100%, 430px) !important;
-    height: 230px !important;
-    border-radius: 24px !important;
+    width: min(100%, 860px) !important;
+    height: 355px !important;
+    border-radius: 26px !important;
     background: color-mix(in srgb, var(--glass-bg, rgba(255,255,255,0.16)) 65%, white 35%) !important;
-    border: 1px solid rgba(255,255,255,0.22) !important;
+    border: 1px solid rgba(255,255,255,0.20) !important;
     backdrop-filter: blur(10px) !important;
     box-shadow: 0 8px 18px rgba(0,0,0,0.10) !important;
     z-index: 0 !important;
     pointer-events: none !important;
   }
 
-  /* Todo el contenido por encima de la mini tarjeta */
+  /* Todo el contenido por encima de la tarjeta */
   #weather-content > *{
     position: relative !important;
     z-index: 1 !important;
   }
 
-  /* Pastilla de ciudad: look tipo widget noticias */
+  /* Ciudad: pill tipo noticias */
   #weather-content > h3{
     align-self: flex-start !important;
     margin: 0 0 18px 0 !important;
@@ -529,30 +532,30 @@ main.intro .container {
     width: auto !important;
   }
 
-  /* Icono principal dentro de la mini-card */
+  /* Icono principal */
   #weather-content > div:nth-of-type(1){
     font-size: 62px !important;
     line-height: 1 !important;
-    margin: 34px 0 12px 0 !important;
+    margin: 28px 0 10px 0 !important;
   }
 
-  /* Temperatura dentro de la mini-card */
+  /* Temperatura principal */
   #weather-content > p:nth-of-type(1){
-    font-size: 48px !important;
+    font-size: 50px !important;
     line-height: 1.05 !important;
     margin: 0 0 8px 0 !important;
     color: rgba(255,255,255,0.96) !important;
     font-weight: 400 !important;
   }
 
-  /* Viento dentro de la mini-card */
+  /* Viento */
   #weather-content > p:nth-of-type(2){
     font-size: 14px !important;
-    margin: 0 0 38px 0 !important;
+    margin: 0 0 28px 0 !important;
     color: rgba(255,255,255,0.92) !important;
   }
 
-  /* Bloque de previsión: sigue en escritorio, pero visualmente más news-widget */
+  /* Previsión dentro de la misma gran tarjeta */
   #weather-content > div:last-child{
     display: flex !important;
     flex-wrap: wrap !important;
@@ -563,23 +566,23 @@ main.intro .container {
     width: 100% !important;
   }
 
-  /* Tarjetas de días: mini-cards glass */
+  /* Tarjetas de días */
   #weather-content > div:last-child > div{
     flex: 0 0 106px !important;
     width: 106px !important;
     min-width: 106px !important;
-    min-height: 102px !important;
+    min-height: 104px !important;
     padding: 10px 8px !important;
     border-radius: 16px !important;
-    background: color-mix(in srgb, var(--glass-bg, rgba(255,255,255,0.16)) 65%, white 35%) !important;
-    border: 1px solid rgba(255,255,255,0.20) !important;
+    background: rgba(255,255,255,0.20) !important;
+    border: 1px solid rgba(255,255,255,0.16) !important;
     backdrop-filter: blur(8px) !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    box-shadow: 0 5px 14px rgba(0,0,0,0.08) !important;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.06) !important;
   }
 
   /* Día */
@@ -597,17 +600,17 @@ main.intro .container {
     margin: 0 0 8px 0 !important;
   }
 
-  /* Rango de temperatura */
+  /* Rango de temperaturas */
   #weather-content > div:last-child > div > div:nth-child(3){
     font-size: 12px !important;
     font-weight: 500 !important;
     color: rgba(255,255,255,0.95) !important;
   }
 
-  /* Línea inferior de búsqueda */
+  /* Fila inferior de búsqueda */
   #weather-widget > div:last-child{
     max-width: 430px !important;
-    margin: 16px auto 2px !important;
+    margin: 12px auto 2px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -615,7 +618,7 @@ main.intro .container {
     flex-wrap: nowrap !important;
   }
 
-  /* Input ciudad */
+  /* Input */
   #city-input{
     flex: 1 1 auto !important;
     min-width: 0 !important;
@@ -630,7 +633,7 @@ main.intro .container {
     box-sizing: border-box !important;
   }
 
-  /* Botón buscar */
+  /* Botón */
   #weather-widget button{
     flex: 0 0 auto !important;
     padding: 10px 14px !important;
