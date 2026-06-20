@@ -24,6 +24,8 @@ body{
 }
 main.intro{
     flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 /* efecto cristal */
 
@@ -410,9 +412,7 @@ height:auto;
     overflow: hidden !important;
   }
 
-  /* IMPORTANTE:
-     quitamos la reestructuración fuerte del contenido interno
-     para que la página vuelva a como estaba antes */
+  /* IMPORTANTE */
   #weather-content{
     max-width: none !important;
     width: 100% !important;
@@ -706,9 +706,13 @@ section{
 /* ---------- RECUPERAR ESTRUCTURA GENERAL ---------- */
 
 main.intro .container{
+    flex: 1 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+
     max-width: 1400px !important;
-    margin: 20px auto !important;
-    padding: 20px !important;
+    margin: 20px auto 0 !important;
+    padding: 20px 20px 0 !important;
     box-sizing: border-box !important;
 }
 
@@ -904,13 +908,13 @@ footer,
   margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
 
-  /* el footer sigue yéndose al fondo */
+  /* se pega al fondo de la columna */
   margin-top: auto !important;
   margin-bottom: 0 !important;
 
-  /* menos altura vacía y más equilibrio */
-  min-height: 108px !important;
-  padding: 10px 24px !important;
+  /* franja final más compacta */
+  min-height: auto !important;
+  padding: 10px 24px 10px !important;
   box-sizing: border-box !important;
 
   display: flex !important;
@@ -920,10 +924,9 @@ footer,
   text-align: center !important;
   overflow: hidden !important;
 
-  /* EXTERIOR REDONDEADO DE FORMA SUAVE */
+  /* borde exterior redondeado, como en tu dibujo */
   border-radius: 28px 28px 0 0 !important;
 
-  /* fondo adaptado al tema */
   background:
     linear-gradient(
       180deg,
@@ -955,7 +958,7 @@ footer::before,
   opacity: 0.85 !important;
 }
 
-/* caja interior: mismo ancho visual que los bordes del container */
+/* caja interior redondeada con el MISMO ancho visual que el container */
 footer > *,
 .footer > *,
 .site-footer > *{
@@ -982,7 +985,7 @@ footer > *,
   box-shadow: 0 5px 20px rgba(0,0,0,0.15) !important;
 }
 
-/* cualquier caja interior extra queda neutra */
+/* neutraliza cajas internas extra */
 footer > * > *,
 .footer > * > *,
 .site-footer > * > *{
@@ -1066,8 +1069,7 @@ footer h6,
   footer,
   .footer,
   .site-footer{
-    min-height: 92px !important;
-    padding: 10px 16px !important;
+    padding: 8px 16px !important;
     border-radius: 22px 22px 0 0 !important;
   }
 
