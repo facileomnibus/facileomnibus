@@ -900,29 +900,26 @@ footer,
   width: 100vw !important;
   max-width: 100vw !important;
 
-  /* ocupa todo el ancho real */
   margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
-
-  /* esto sí hace que el pie se vaya abajo del todo */
   margin-top: auto !important;
   margin-bottom: 0 !important;
 
-  min-height: 140px !important;
-  padding: 0 24px !important;
+  /* menos altura vacía abajo */
+  min-height: 118px !important;
+  padding: 12px 24px 12px !important;
   box-sizing: border-box !important;
 
   display: flex !important;
   justify-content: center !important;
+
+  /* IMPORTANTE: centrado vertical real, no flotando arriba */
   align-items: center !important;
 
   text-align: center !important;
   overflow: hidden !important;
-
-  /* EXTERIOR RECTO */
   border-radius: 0 !important;
 
-  /* franja completa del pie adaptada al tema */
   background:
     linear-gradient(
       180deg,
@@ -938,7 +935,6 @@ footer,
     0 -6px 18px rgba(0,0,0,0.12),
     inset 0 1px 0 rgba(255,255,255,0.08) !important;
 }
-
 /* brillo suave */
 footer::before,
 .footer::before,
@@ -962,10 +958,11 @@ footer > *,
   position: relative !important;
   z-index: 1 !important;
 
-  width: min(100%, 1400px) !important;
+  /* mismo ancho visual que el container */
+  width: min(calc(100% - 40px), 1400px) !important;
   max-width: 1400px !important;
   margin: 0 auto !important;
-  padding: 18px 24px !important;
+  padding: 16px 24px !important;
   box-sizing: border-box !important;
 
   display: flex !important;
@@ -981,7 +978,6 @@ footer > *,
   border: 1px solid rgba(255,255,255,0.10) !important;
   box-shadow: 0 5px 20px rgba(0,0,0,0.15) !important;
 }
-
 /* cualquier caja interior extra queda neutra */
 footer > * > *,
 .footer > * > *,
