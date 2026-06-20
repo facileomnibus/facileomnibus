@@ -900,16 +900,12 @@ footer,
   width: 100vw !important;
   max-width: 100vw !important;
 
-  /* ocupa todo el ancho real */
   margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
-
-  /* el footer sigue yéndose al fondo */
   margin-top: auto !important;
   margin-bottom: 0 !important;
 
-  /* menos altura vacía y más equilibrio */
-  min-height: 108px !important;
+  min-height: 96px !important;
   padding: 10px 24px !important;
   box-sizing: border-box !important;
 
@@ -920,10 +916,9 @@ footer,
   text-align: center !important;
   overflow: hidden !important;
 
-  /* EXTERIOR REDONDEADO DE FORMA SUAVE */
-  border-radius: 28px 28px 0 0 !important;
+  /* exterior suavemente redondeado */
+  border-radius: 26px 26px 0 0 !important;
 
-  /* fondo adaptado al tema */
   background:
     linear-gradient(
       180deg,
@@ -955,17 +950,17 @@ footer::before,
   opacity: 0.85 !important;
 }
 
-/* caja interior: mismo ancho visual que los bordes del container */
-footer > *,
-.footer > *,
-.site-footer > *{
+/* caja interior del footer */
+footer .footer-inner,
+.footer .footer-inner,
+.site-footer .footer-inner{
   position: relative !important;
   z-index: 1 !important;
 
   width: min(calc(100% - 40px), 1400px) !important;
   max-width: 1400px !important;
   margin: 0 auto !important;
-  padding: 14px 24px !important;
+  padding: 12px 24px !important;
   box-sizing: border-box !important;
 
   display: flex !important;
@@ -977,47 +972,14 @@ footer > *,
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
 
-  border-radius: 24px !important;
+  border-radius: 22px !important;
   border: 1px solid rgba(255,255,255,0.10) !important;
   box-shadow: 0 5px 20px rgba(0,0,0,0.15) !important;
 }
 
-/* cualquier caja interior extra queda neutra */
-footer > * > *,
-.footer > * > *,
-.site-footer > * > *{
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 auto !important;
-  padding: 0 !important;
-
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-
-  text-align: center !important;
-}
-
-/* texto */
-footer p,
-footer span,
-footer small,
-footer strong,
-footer a,
-footer div,
-.footer p,
-.footer span,
-.footer small,
-.footer strong,
-.footer a,
-.footer div,
-.site-footer p,
-.site-footer span,
-.site-footer small,
-.site-footer strong,
-.site-footer a,
-.site-footer div{
+footer .footer-inner p,
+.footer .footer-inner p,
+.site-footer .footer-inner p{
   margin: 0 !important;
   padding: 0 !important;
   color: color-mix(in srgb, var(--text-color) 90%, white 10%) !important;
@@ -1030,73 +992,27 @@ footer div,
   white-space: normal !important;
 }
 
-/* headings dentro del footer */
-footer h1,
-footer h2,
-footer h3,
-footer h4,
-footer h5,
-footer h6,
-.footer h1,
-.footer h2,
-.footer h3,
-.footer h4,
-.footer h5,
-.footer h6,
-.site-footer h1,
-.site-footer h2,
-.site-footer h3,
-.site-footer h4,
-.site-footer h5,
-.site-footer h6{
-  margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-  width: auto !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  color: color-mix(in srgb, var(--text-color) 90%, white 10%) !important;
-  font-size: clamp(1rem, 1vw, 1.18rem) !important;
-  line-height: 1.35 !important;
-  font-weight: 700 !important;
-}
-
 /* móvil */
 @media only screen and (max-width: 767px){
   footer,
   .footer,
   .site-footer{
-    min-height: 92px !important;
-    padding: 10px 16px !important;
+    min-height: 84px !important;
+    padding: 8px 16px !important;
     border-radius: 22px 22px 0 0 !important;
   }
 
-  footer > *,
-  .footer > *,
-  .site-footer > *{
+  footer .footer-inner,
+  .footer .footer-inner,
+  .site-footer .footer-inner{
     width: min(calc(100% - 20px), 96%) !important;
-    padding: 12px 14px !important;
+    padding: 10px 14px !important;
     border-radius: 18px !important;
   }
 
-  footer p,
-  footer span,
-  footer small,
-  footer strong,
-  footer a,
-  footer div,
-  .footer p,
-  .footer span,
-  .footer small,
-  .footer strong,
-  .footer a,
-  .footer div,
-  .site-footer p,
-  .site-footer span,
-  .site-footer small,
-  .site-footer strong,
-  .site-footer a,
-  .site-footer div{
+  footer .footer-inner p,
+  .footer .footer-inner p,
+  .site-footer .footer-inner p{
     font-size: 0.95rem !important;
     line-height: 1.3 !important;
   }
