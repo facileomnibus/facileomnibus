@@ -263,33 +263,6 @@ height:auto;
     text-align:center;
 }
 /* ===============================
-   FIX GLOBAL DESBORDAMIENTO + CLIMA
-================================ */
-
-/* evita cualquier scroll lateral */
-html, body {
-    overflow-x: clip;
-}
-
-/* todos los contenedores centrados */
-.container,
-section,
-.main,
-.widgets-bar {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* móvil ultra-fix */
-@media only screen and (max-width:767px){
-
-    /* esto elimina el desplazamiento fantasma */
-    body {
-        position: relative;
-    }
-}
-/* ===============================
    FIX FINAL: WIDGET CLIMA CENTRADO 100%
 ================================ */
 
@@ -416,46 +389,6 @@ section,
 @media only screen and (max-width:767px){
     :root{
         --header-height: 110px;
-    }
-}
-/* ===============================
-   UNIFICAR WIDGETS DENTRO DEL CONTAINER
-================================ */
-
-/* Contenedor principal que centra todo */
-main.intro .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Todos los widgets heredan el ancho del contenedor */
-#widgets-container,
-#news-ticker-container,
-.ticker-widget {
-    width: 100%;
-    margin: 20px auto;
-    box-sizing: border-box;
-}
-.weather-widget {
-    width: 100%;
-    margin: 20px auto;
-    box-sizing: border-box;
-}
-/* Responsive: en móvil, el contenedor se adapta */
-@media only screen and (max-width: 767px) {
-    main.intro .container {
-        padding: 0 15px;
-    }
-    
-    /* Ajuste para el ticker de noticias */
-    #news-ticker-container {
-        padding: 10px 0;
-    }
-    
-    .news-item {
-        min-width: 260px;
-        height: 140px;
     }
 }
 /* ==========================================
@@ -783,5 +716,222 @@ footer a{
     padding: 14px 16px;
     border-radius: 18px;
     font-size: 0.95rem;
+  }
+}
+/* ==========================================
+   PARCHE LIMPIO
+========================================== */
+
+/* ---------- RECUPERAR ESTRUCTURA GENERAL ---------- */
+
+main.intro .container{
+    max-width: 1400px !important;
+    margin: 20px auto !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+
+#widgets-container{
+    margin-top: 0 !important;
+    margin-bottom: 10px !important;
+}
+
+/* mantenemos las secciones normales, no deformadas */
+section{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:flex-start;
+}
+
+/* ---------- FOOTER MÁS NORMAL ---------- */
+footer{
+    max-width: 1400px !important;
+    margin: 24px auto 18px !important;
+    padding: 14px 18px !important;
+    border-radius: 18px !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+}
+
+/* si el footer usa contenedores internos */
+footer > div,
+footer > p,
+footer > small,
+footer > span{
+    margin: 0 auto !important;
+}
+
+/* ---------- WIDGET DEL TIEMPO: SOLO RETOQUE VISUAL Y LEGIBILIDAD ---------- */
+
+@media only screen and (min-width: 768px) {
+  #weather-widget.weather-widget{
+    width: 100% !important;
+    max-width: 1040px !important;
+    margin: 20px auto !important;
+    padding: 20px !important;
+    border-radius: 22px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  /* quitamos cualquier reestructuración extraña y volvemos a un flujo uniforme */
+  #weather-content{
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    position: static !important;
+    text-align: center !important;
+  }
+
+  #weather-content::before,
+  #weather-content::after{
+    content: none !important;
+    display: none !important;
+  }
+
+  /* ciudad */
+  #weather-content > h3{
+    display: inline-block !important;
+    margin: 6px 0 18px 0 !important;
+    padding: 10px 20px !important;
+    border-radius: 16px !important;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)) !important;
+    color: #ffffff !important;
+    font-size: 1.15rem !important;
+    line-height: 1 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.14) !important;
+    width: auto !important;
+  }
+
+  /* icono */
+  #weather-content > div:nth-of-type(1){
+    font-size: 70px !important;
+    line-height: 1 !important;
+    margin: 8px 0 14px 0 !important;
+    color: #ffffff !important;
+  }
+
+  /* temperatura principal — ahora legible */
+  #weather-content > p:nth-of-type(1){
+    font-size: 50px !important;
+    line-height: 1.05 !important;
+    margin: 0 0 10px 0 !important;
+    color: var(--text-dark) !important;
+    font-weight: 500 !important;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.18) !important;
+  }
+
+  /* viento — ahora legible */
+  #weather-content > p:nth-of-type(2){
+    font-size: 15px !important;
+    margin: 0 0 22px 0 !important;
+    color: color-mix(in srgb, var(--text-dark) 78%, white 22%) !important;
+    font-weight: 600 !important;
+  }
+
+  /* previsión */
+  #weather-content > div:last-child{
+    display: flex !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    margin: 12px auto 0 !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    max-width: 820px !important;
+  }
+
+  #weather-content > div:last-child > div{
+    background: rgba(255,255,255,0.25) !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    padding: 12px 10px !important;
+    border-radius: 16px !important;
+    min-width: 90px !important;
+    backdrop-filter: blur(6px) !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06) !important;
+  }
+
+  /* día */
+  #weather-content > div:last-child > div > div:nth-child(1){
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    margin-bottom: 8px !important;
+    color: color-mix(in srgb, var(--text-dark) 75%, white 25%) !important;
+  }
+
+  /* icono del día */
+  #weather-content > div:last-child > div > div:nth-child(2){
+    font-size: 24px !important;
+    line-height: 1 !important;
+    margin: 0 0 8px 0 !important;
+  }
+
+  /* temperaturas de previsión */
+  #weather-content > div:last-child > div > div:nth-child(3){
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: color-mix(in srgb, var(--text-dark) 78%, white 22%) !important;
+  }
+
+  /* buscador */
+  #weather-widget > div:last-child{
+    max-width: 430px !important;
+    margin: 18px auto 2px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: nowrap !important;
+  }
+
+  #city-input{
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    border: none !important;
+    outline: none !important;
+    font-size: 14px !important;
+    background: rgba(255,255,255,0.88) !important;
+    color: #333 !important;
+    box-sizing: border-box !important;
+  }
+
+  #city-input::placeholder{
+    color: #666 !important;
+  }
+
+  #weather-widget button{
+    flex: 0 0 auto !important;
+    padding: 10px 14px !important;
+    border: none !important;
+    border-radius: 12px !important;
+    cursor: pointer !important;
+    background: #5bd3ff !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin-left: 0 !important;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.10) !important;
+  }
+}
+
+/* móvil: no tocamos apenas estructura */
+@media only screen and (max-width: 767px){
+  footer{
+    margin: 18px auto 16px !important;
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
   }
 }
