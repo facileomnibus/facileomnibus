@@ -903,31 +903,30 @@ section{
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 
-    padding: 12px 18px 16px !important;
+    padding: 10px 16px 14px !important;
     box-sizing: border-box !important;
 
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
 
-    /* Curvas exteriores suaves */
-    border-radius: 0 0 26px 26px !important;
+    border-radius: 0 0 24px 24px !important;
+    overflow: visible !important;
 
-    /* conservamos el lenguaje visual actual */
     background:
       linear-gradient(
         180deg,
-        color-mix(in srgb, var(--primary-color) 18%, rgba(255,255,255,0.05) 82%),
-        color-mix(in srgb, var(--secondary-color) 18%, rgba(255,255,255,0.05) 82%)
+        color-mix(in srgb, var(--primary-color) 14%, rgba(255,255,255,0.05) 86%),
+        color-mix(in srgb, var(--secondary-color) 14%, rgba(255,255,255,0.05) 86%)
       ) !important;
 
-    backdrop-filter: blur(12px) saturate(1.05) !important;
-    -webkit-backdrop-filter: blur(12px) saturate(1.05) !important;
+    backdrop-filter: blur(10px) saturate(1.03) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(1.03) !important;
 
     border-bottom: 1px solid rgba(255,255,255,0.10) !important;
     box-shadow:
-      0 6px 18px rgba(0,0,0,0.12),
-      inset 0 -1px 0 rgba(255,255,255,0.08) !important;
+      0 6px 18px rgba(0,0,0,0.10),
+      inset 0 -1px 0 rgba(255,255,255,0.06) !important;
 }
 
 /* brillo suave */
@@ -936,22 +935,22 @@ section{
     position: absolute !important;
     inset: 0 !important;
     pointer-events: none !important;
-
     background:
-      radial-gradient(circle at 18% 50%, rgba(255,255,255,0.06), transparent 28%),
+      radial-gradient(circle at 18% 50%, rgba(255,255,255,0.05), transparent 28%),
       radial-gradient(circle at 82% 50%, rgba(255,255,255,0.04), transparent 30%);
-    opacity: 0.85 !important;
+    opacity: 0.8 !important;
 }
 
-/* Caja interior del header sin tocar la estructura actual */
+/* Caja interior del header */
 .header .container.logo-nav-container{
     position: relative !important;
     z-index: 1 !important;
 
-    width: min(calc(100% - 40px), 1400px) !important;
+    width: min(calc(100% - 24px), 1400px) !important;
     max-width: 1400px !important;
+
     margin: 0 auto !important;
-    padding: 16px 24px !important;
+    padding: 14px 22px !important;
     box-sizing: border-box !important;
 
     display: flex !important;
@@ -960,14 +959,13 @@ section{
     gap: 22px !important;
     flex-wrap: nowrap !important;
 
-    /* caja glass interior */
     background: var(--glass-bg) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
 
     border-radius: 22px !important;
     border: 1px solid rgba(255,255,255,0.10) !important;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.12) !important;
 }
 
 /* Logo */
@@ -975,9 +973,9 @@ section{
     display: inline-flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    text-decoration: none !important;
-    flex: 0 0 auto !important;
+    flex: 0 1 auto !important;
     min-width: 0 !important;
+    text-decoration: none !important;
 }
 
 .header .logo img{
@@ -992,28 +990,29 @@ section{
 
 /* Navegación escritorio */
 .header .navigation{
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
     margin-left: auto !important;
-    flex: 0 1 auto !important;
 }
 
 .header .navigation ul{
     display: flex !important;
-    align-items: center !important;
     justify-content: flex-end !important;
+    align-items: center !important;
     gap: 30px !important;
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
-
+    width: 100% !important;
     background: transparent !important;
     opacity: 1 !important;
     transform: none !important;
     max-width: none !important;
-    width: auto !important;
 }
 
 .header .navigation ul li{
     margin: 0 !important;
+    flex: 0 1 auto !important;
 }
 
 .header .navigation a{
@@ -1030,13 +1029,13 @@ section{
     color: #ffffff !important;
 }
 
-/* Icono de menú */
+/* Icono menú */
 .header .menu-icon{
     display: none !important;
     flex: 0 0 auto !important;
+    margin-left: auto !important;
     cursor: pointer !important;
     padding: 0 !important;
-    margin-left: auto !important;
 }
 
 .header .menu-icon img{
@@ -1046,23 +1045,62 @@ section{
     object-fit: contain !important;
 }
 
-/* Móvil / tablet pequeña */
-@media only screen and (max-width: 767px){
-    .header{
-        padding: 10px 12px 12px !important;
-        border-radius: 0 0 20px 20px !important;
-    }
-
+/* PORTÁTIL / TABLET HORIZONTAL */
+@media only screen and (max-width: 1250px){
     .header .container.logo-nav-container{
-        width: min(calc(100% - 10px), 95%) !important;
-        padding: 12px 14px !important;
-        border-radius: 16px !important;
-        flex-wrap: wrap !important;
-        gap: 12px !important;
+        padding: 12px 18px !important;
+        gap: 16px !important;
     }
 
     .header .logo img{
-        width: min(170px, 100%) !important;
+        width: min(190px, 100%) !important;
+    }
+
+    .header .navigation ul{
+        gap: 18px !important;
+    }
+
+    .header .navigation a{
+        font-size: 0.95rem !important;
+    }
+}
+
+/* TABLET MÁS ESTRECHA */
+@media only screen and (max-width: 980px){
+    .header .navigation ul{
+        gap: 14px !important;
+    }
+
+    .header .navigation a{
+        font-size: 0.90rem !important;
+    }
+}
+
+/* MÓVIL */
+@media only screen and (max-width: 767px){
+    .header{
+        padding: 8px 10px 12px !important;
+        border-radius: 0 0 18px 18px !important;
+    }
+
+    .header .container.logo-nav-container{
+        width: min(calc(100% - 8px), 96%) !important;
+        margin: 0 auto !important;
+        padding: 12px 14px !important;
+        border-radius: 18px !important;
+
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        align-items: center !important;
+        gap: 10px 12px !important;
+    }
+
+    .header .logo{
+        min-width: 0 !important;
+    }
+
+    .header .logo img{
+        width: min(165px, 100%) !important;
     }
 
     .header .menu-icon{
@@ -1072,9 +1110,10 @@ section{
     }
 
     .header .navigation{
+        grid-column: 1 / -1 !important;
         width: 100% !important;
         margin-left: 0 !important;
-        flex: 1 0 100% !important;
+        min-width: 0 !important;
     }
 
     .header .navigation ul{
@@ -1109,7 +1148,7 @@ section{
         width: 100% !important;
         padding: 8px 10px !important;
         border-radius: 10px !important;
-        font-size: 0.96rem !important;
+        font-size: 0.95rem !important;
         white-space: normal !important;
     }
 }
