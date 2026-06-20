@@ -629,3 +629,159 @@ main.intro .container {
     box-shadow: 0 5px 12px rgba(0,0,0,0.10) !important;
   }
 }
+/* ==========================================
+   PARCHE FINAL
+========================================== */
+
+/* ---------- ESTRUCTURA GENERAL DE LA PÁGINA ---------- */
+
+main.intro{
+  padding: 18px 0 34px;
+}
+
+main.intro .container{
+  max-width: 1320px;
+  margin: 18px auto 26px;
+  padding: 0 28px 28px;
+  box-sizing: border-box;
+}
+
+/* zona superior de widgets */
+#widgets-container{
+  margin-top: 0 !important;
+  margin-bottom: 24px !important;
+}
+
+/* títulos de bloques (Streaming, Música, etc.) */
+main.intro .container > h3{
+  margin: 28px 0 14px;
+}
+
+main.intro .container > h3:first-of-type{
+  margin-top: 14px;
+}
+
+/* cada bloque de iconos recupera separación y respiración */
+main.intro .container > section{
+  margin: 0 0 28px;
+  align-items: flex-start;
+}
+
+/* último bloque antes del pie */
+main.intro .container > section:last-of-type{
+  margin-bottom: 18px;
+}
+
+/* layout general de secciones */
+section{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 14px;
+  align-items:flex-start;
+}
+
+/* los logos no deben deformar el layout */
+.logo{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.logo img{
+  display:block;
+}
+
+/* ---------- FOOTER MÁS AGRADABLE ---------- */
+footer{
+  max-width: 1320px;
+  margin: 26px auto 24px;
+  padding: 16px 24px;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--glass-bg, rgba(255,255,255,0.16)) 55%, rgba(160,110,45,0.55) 45%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  text-align: center;
+  color: rgba(255,255,255,0.96);
+  box-sizing: border-box;
+}
+
+footer,
+footer p,
+footer span,
+footer small,
+footer a{
+  color: rgba(255,255,255,0.96) !important;
+  text-decoration: none;
+}
+
+/* ---------- WIDGET DEL TIEMPO: SOLO LEGIBILIDAD ---------- */
+/* No cambia su estructura, solo el contraste del texto */
+
+.weather-widget{
+  color: var(--text-dark);
+}
+
+/* temperatura principal más visible en todos los temas */
+#weather-content > p:nth-of-type(1){
+  color: color-mix(in srgb, var(--text-dark) 82%, white 18%) !important;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.18) !important;
+}
+
+/* viento más legible */
+#weather-content > p:nth-of-type(2){
+  color: color-mix(in srgb, var(--text-dark) 76%, white 24%) !important;
+  font-weight: 600 !important;
+}
+
+/* día de la semana en previsión */
+#weather-content > div:last-child > div > div:nth-child(1){
+  color: color-mix(in srgb, var(--text-dark) 75%, white 25%) !important;
+  font-weight: 700 !important;
+}
+
+/* temperatura de la previsión */
+#weather-content > div:last-child > div > div:nth-child(3){
+  color: color-mix(in srgb, var(--text-dark) 78%, white 22%) !important;
+  font-weight: 700 !important;
+}
+
+/* input del tiempo más limpio */
+#city-input{
+  color: #333 !important;
+}
+
+#city-input::placeholder{
+  color: #666 !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media only screen and (max-width: 767px){
+  main.intro{
+    padding: 10px 0 22px;
+  }
+
+  main.intro .container{
+    padding: 0 15px 20px;
+    margin: 10px auto 18px;
+  }
+
+  #widgets-container{
+    margin-bottom: 18px !important;
+  }
+
+  main.intro .container > h3{
+    margin: 22px 0 12px;
+  }
+
+  main.intro .container > section{
+    margin: 0 0 22px;
+    gap: 10px 12px;
+  }
+
+  footer{
+    margin: 18px auto 16px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+  }
+}
