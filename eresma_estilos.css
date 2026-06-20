@@ -19,8 +19,12 @@ body{
     background-attachment: fixed;
     min-height:100vh;
     color: var(--text-dark);
+    display:flex;
+    flex-direction:column;
 }
-
+main.intro{
+    flex: 1 0 auto;
+}
 /* efecto cristal */
 
 .container{
@@ -897,43 +901,45 @@ footer,
   width: 100vw !important;
   max-width: 100vw !important;
 
-  /* rompe el ancho del contenedor central */
+  /* ocupa todo el ancho real */
   margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
   margin-top: 24px !important;
   margin-bottom: 0 !important;
 
-  /* esta altura hace que el footer sea de verdad una franja final */
-  min-height: 120px !important;
-  padding: 0 24px !important;
+  /* hace que el footer llene mejor la parte final */
+  min-height: 150px !important;
+  padding: 22px 26px 28px !important;
   box-sizing: border-box !important;
 
   display: flex !important;
   justify-content: center !important;
-  align-items: center !important;
+  align-items: flex-start !important;
 
   text-align: center !important;
   overflow: hidden !important;
-  border-radius: 0 !important;
 
-  /* TODO el pie usa el color del tema */
+  /* IMPORTANTE: vuelve el diseño redondeado */
+  border-radius: 26px 26px 0 0 !important;
+
+  /* fondo adaptado al tema */
   background:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--primary-color) 20%, rgba(255,255,255,0.06) 80%),
-      color-mix(in srgb, var(--secondary-color) 20%, rgba(255,255,255,0.06) 80%)
+      color-mix(in srgb, var(--primary-color) 22%, rgba(255,255,255,0.06) 78%),
+      color-mix(in srgb, var(--secondary-color) 22%, rgba(255,255,255,0.06) 78%)
     ) !important;
 
   backdrop-filter: blur(12px) saturate(1.05) !important;
   -webkit-backdrop-filter: blur(12px) saturate(1.05) !important;
 
-  border-top: 1px solid rgba(255,255,255,0.10) !important;
+  border-top: 1px solid rgba(255,255,255,0.12) !important;
   box-shadow:
-    0 -6px 18px rgba(0,0,0,0.12),
+    0 -8px 20px rgba(0,0,0,0.14),
     inset 0 1px 0 rgba(255,255,255,0.08) !important;
 }
 
-/* brillo sutil */
+/* brillo suave */
 footer::before,
 .footer::before,
 .site-footer::before{
@@ -948,7 +954,7 @@ footer::before,
   opacity: 0.85 !important;
 }
 
-/* el contenido del footer NO crea una barra interior aparte */
+/* contenido interior centrado SIN barra/caja separada */
 footer > *,
 .footer > *,
 .site-footer > *{
@@ -956,7 +962,7 @@ footer > *,
   z-index: 1 !important;
 
   width: 100% !important;
-  max-width: 100% !important;
+  max-width: 1400px !important;
   margin: 0 auto !important;
   padding: 0 !important;
   box-sizing: border-box !important;
@@ -972,7 +978,7 @@ footer > *,
   text-align: center !important;
 }
 
-/* cualquier segunda caja interior queda neutralizada */
+/* cualquier caja interna queda neutralizada */
 footer > * > *,
 .footer > * > *,
 .site-footer > * > *{
@@ -980,16 +986,14 @@ footer > * > *,
   max-width: 100% !important;
   margin: 0 auto !important;
   padding: 0 !important;
-
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   border-radius: 0 !important;
-
   text-align: center !important;
 }
 
-/* texto del footer */
+/* texto */
 footer p,
 footer span,
 footer small,
@@ -1056,9 +1060,10 @@ footer h6,
   footer,
   .footer,
   .site-footer{
-    min-height: 92px !important;
-    padding: 0 16px !important;
+    min-height: 100px !important;
+    padding: 18px 16px 20px !important;
     margin-top: 18px !important;
+    border-radius: 20px 20px 0 0 !important;
   }
 
   footer p,
