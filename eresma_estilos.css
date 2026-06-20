@@ -904,12 +904,12 @@ footer,
   margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
 
-  /* ESTO HACE QUE SE HUNDA AL FINAL */
+  /* esto sí hace que el pie se vaya abajo del todo */
   margin-top: auto !important;
   margin-bottom: 0 !important;
 
-  min-height: 150px !important;
-  padding: 22px 24px 18px !important;
+  min-height: 140px !important;
+  padding: 0 24px !important;
   box-sizing: border-box !important;
 
   display: flex !important;
@@ -919,8 +919,7 @@ footer,
   text-align: center !important;
   overflow: hidden !important;
 
-  /* IMPORTANTE:
-     EXTERIOR SIN REDONDEAR */
+  /* EXTERIOR RECTO */
   border-radius: 0 !important;
 
   /* franja completa del pie adaptada al tema */
@@ -955,15 +954,16 @@ footer::before,
   opacity: 0.85 !important;
 }
 
-/* CAJA INTERIOR REDONDEADA */
+/* CAJA INTERIOR REDONDEADA
+   con el mismo ancho visual que el container */
 footer > *,
 .footer > *,
 .site-footer > *{
   position: relative !important;
   z-index: 1 !important;
 
-  width: min(100%, 1120px) !important;
-  max-width: 1120px !important;
+  width: min(100%, 1400px) !important;
+  max-width: 1400px !important;
   margin: 0 auto !important;
   padding: 18px 24px !important;
   box-sizing: border-box !important;
@@ -982,7 +982,7 @@ footer > *,
   box-shadow: 0 5px 20px rgba(0,0,0,0.15) !important;
 }
 
-/* cualquier caja interna extra queda neutra */
+/* cualquier caja interior extra queda neutra */
 footer > * > *,
 .footer > * > *,
 .site-footer > * > *{
@@ -1067,7 +1067,7 @@ footer h6,
   .footer,
   .site-footer{
     min-height: 100px !important;
-    padding: 14px 16px 16px !important;
+    padding: 0 16px !important;
   }
 
   footer > *,
