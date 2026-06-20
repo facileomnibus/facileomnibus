@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
 
       - name: Generate news.json
-        run: python scripts/update_google_news.py
+        run: python scripts/update_facile_news.py
 
       - name: Commit updated news.json
         run: |
