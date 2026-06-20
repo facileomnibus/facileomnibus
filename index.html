@@ -522,10 +522,10 @@
 (function () {
   "use strict";
 
-  const NEWS_QUERY = "";
-  const NEWS_LIMIT = 8;
+  const NEWS_JSON_URL = "./news.json";
   const AUTOPLAY = true;
   const AUTOPLAY_MS = 8000;
+  const CACHE_KEY = "facile-news-cache-v1";
 
   function safeUrl(value, fallback) {
     const fb = fallback || "about:blank";
@@ -538,33 +538,6 @@
       return fb;
     } catch {
       return fb;
-    }
-  }
-
-  function stripTags(html) {
-    const div = document.createElement("div");
-    div.innerHTML = html || "";
-    return (div.textContent || div.innerText || "").replace(/\s+/g, " ").trim();
-  }
-
-  function truncate(text, max) {
-    const t = (text || "").trim().replace(/\s+/g, " ");
-    return t.length > max ? t.slice(0, max).trim() + "…" : t;
-  }
-
-  function formatDate(dateString) {
-    try {
-      const date = new Date(dateString);
-      if (Number.isNaN(date.getTime())) return "";
-      return new Intl.DateTimeFormat("es-ES", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit"
-      }).format(date);
-    } catch {
-      return "";
     }
   }
 
@@ -586,89 +559,31 @@
     return (parts[0][0] + parts[1][0]).toUpperCase();
   }
 
-  function splitTitleParts(title) {
-    return (title || "")
-      .split(" - ")
-      .map(function (part) { return part.trim(); })
-      .filter(Boolean);
-  }
-
-  function extractSource(title) {
-    const parts = splitTitleParts(title);
-    if (!parts.length) return "Google Noticias";
-
-    const last = normalizeText(parts[parts.length - 1]);
-
-    if (last === "googlenews" || last === "google") {
-      if (parts.length >= 2) {
-        return parts[parts.length - 2];
-      }
-      return "Google Noticias";
+  function formatDate(dateString) {
+    try {
+      const date = new Date(dateString);
+      if (Number.isNaN(date.getTime())) return "";
+      return new Intl.DateTimeFormat("es-ES", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(date);
+    } catch {
+      return "";
     }
-
-    if (parts.length >= 2) {
-      return parts[parts.length - 1];
-    }
-
-    return "Google Noticias";
-  }
-
-  function extractCleanTitle(title) {
-    const parts = splitTitleParts(title);
-    if (!parts.length) return "Titular no disponible";
-
-    const last = normalizeText(parts[parts.length - 1]);
-
-    if (last === "googlenews" || last === "google") {
-      if (parts.length >= 3) {
-        return parts.slice(0, -2).join(" - ").trim() || title;
-      }
-      if (parts.length >= 2) {
-        return parts[0];
-      }
-      return title;
-    }
-
-    if (parts.length >= 2) {
-      return parts.slice(0, -1).join(" - ").trim() || title;
-    }
-
-    return title;
-  }
-
-  function extractImage(item) {
-    if (item.thumbnail) return item.thumbnail;
-
-    if (Array.isArray(item.enclosure) && item.enclosure.length && item.enclosure[0] && item.enclosure[0].link) {
-      return item.enclosure[0].link;
-    }
-
-    if (item.enclosure && item.enclosure.link) {
-      return item.enclosure.link;
-    }
-
-    const html = item.description || item.content || "";
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    const img = div.querySelector("img");
-    if (img && img.src) return img.src;
-
-    const regex = /(https?:\/\/[^"' )]+?\.(?:jpg|jpeg|png|webp|gif))/i;
-    const match = html.match(regex);
-    if (match && match[1]) return match[1];
-
-    return "";
   }
 
   function buildPublisherCatalog() {
     const catalog = [];
-    const logoImages = document.querySelectorAll('.logo img');
+    const logoImages = document.querySelectorAll(".logo img");
 
     logoImages.forEach(function (img) {
-      const src = img.getAttribute('src') || '';
-      const alt = img.getAttribute('alt') || '';
-      const parentLink = img.closest('a[href]');
-      const href = parentLink ? (parentLink.getAttribute('href') || '') : '';
+      const src = img.getAttribute("src") || "";
+      const alt = img.getAttribute("alt") || "";
+      const parentLink = img.closest("a[href]");
+      const href = parentLink ? (parentLink.getAttribute("href") || "") : "";
 
       if (!src) return;
 
@@ -677,7 +592,7 @@
         alt: alt,
         altNorm: normalizeText(alt),
         href: href,
-        srcNorm: normalizeText(src.split('/').pop() || src)
+        srcNorm: normalizeText(src.split("/").pop() || src)
       });
     });
 
@@ -770,11 +685,7 @@
       }
     });
 
-    if (bestItem && bestItem.src) {
-      return bestItem.src;
-    }
-
-    return null;
+    return bestItem && bestItem.src ? bestItem.src : null;
   }
 
   function buildShareUrl(item) {
@@ -895,8 +806,8 @@
     shareBtn.href = buildShareUrl(item);
     shareBtn.target = "_blank";
     shareBtn.rel = "noopener noreferrer";
-    shareBtn.textContent = "Compartir en Twitter / X";
-    shareBtn.title = "Compartir noticia en Twitter / X";
+    shareBtn.textContent = "Compartir en X";
+    shareBtn.title = "Compartir noticia en X / Twitter";
 
     actions.appendChild(readBtn);
     actions.appendChild(shareBtn);
@@ -986,6 +897,11 @@
       startAuto();
     }
 
+    root.addEventListener("mouseenter", stopAuto);
+    root.addEventListener("mouseleave", startAuto);
+    root.addEventListener("focusin", stopAuto);
+    root.addEventListener("focusout", startAuto);
+
     prev.addEventListener("click", function () {
       prevItem();
       restartAuto();
@@ -995,11 +911,6 @@
       nextItem();
       restartAuto();
     });
-
-    root.addEventListener("mouseenter", stopAuto);
-    root.addEventListener("mouseleave", startAuto);
-    root.addEventListener("focusin", stopAuto);
-    root.addEventListener("focusout", startAuto);
 
     nav.appendChild(prev);
     nav.appendChild(dots);
@@ -1014,22 +925,16 @@
 
   function normalizeItems(items, publisherCatalog) {
     return (items || [])
-      .slice(0, NEWS_LIMIT)
       .map(function (item) {
-        const title = extractCleanTitle(item.title || "");
-        const source = extractSource(item.title || "");
-        const summary = truncate(stripTags(item.description || item.content || ""), 220);
-        const link = safeUrl(item.link, "about:blank");
-        const image = safeUrl(extractImage(item), "");
-        const sourceIcon = resolvePublisherLogo(source, publisherCatalog);
+        const sourceIcon = resolvePublisherLogo(item.source, publisherCatalog);
 
         return {
-          title: title,
-          source: source,
-          summary: summary,
-          image: image,
+          title: item.title || "Titular no disponible",
+          source: item.source || "Google Noticias",
+          summary: item.summary || "",
+          image: safeUrl(item.image || "", ""),
           sourceIcon: sourceIcon,
-          link: link,
+          link: safeUrl(item.link || "", "about:blank"),
           pubDate: item.pubDate || ""
         };
       })
@@ -1038,73 +943,80 @@
       });
   }
 
-  function loadGoogleNewsViaJsonp(root, publisherCatalog) {
-    renderState(root, "facile-news-loading", "Cargando noticias...");
-
-    const GOOGLE_NEWS_RSS = NEWS_QUERY
-      ? "https://news.google.com/rss/search?q=" + encodeURIComponent(NEWS_QUERY) + "&hl=es&gl=ES&ceid=ES:es"
-      : "https://news.google.com/rss?hl=es&gl=ES&ceid=ES:es";
-
-    const RSS2JSON_URL =
-      "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(GOOGLE_NEWS_RSS);
-
-    const callbackName = "__facileNewsJSONP_" + Math.random().toString(36).slice(2);
-    const script = document.createElement("script");
-    let cleaned = false;
-
-    function cleanup() {
-      if (cleaned) return;
-      cleaned = true;
-      if (script.parentNode) script.parentNode.removeChild(script);
-      try { delete window[callbackName]; } catch(e) { window[callbackName] = undefined; }
-    }
-
-    const timeout = setTimeout(function () {
-      cleanup();
-      renderState(root, "facile-news-error", "No se pudieron cargar las noticias.");
-    }, 12000);
-
-    window[callbackName] = function (data) {
-      clearTimeout(timeout);
-      cleanup();
-
-      try {
-        if (!data || data.status !== "ok" || !Array.isArray(data.items)) {
-          renderState(root, "facile-news-error", "Respuesta inválida del servicio.");
-          return;
-        }
-
-        const items = normalizeItems(data.items, publisherCatalog);
-
-        if (!items.length) {
-          renderState(root, "facile-news-empty", "No hay noticias disponibles.");
-          return;
-        }
-
-        mountTicker(root, items);
-      } catch (err) {
-        console.error("[FacileNews]", err);
-        renderState(root, "facile-news-error", "Error procesando noticias.");
-      }
-    };
-
-    script.src = RSS2JSON_URL + "&callback=" + encodeURIComponent(callbackName);
-    script.async = true;
-    script.onerror = function () {
-      clearTimeout(timeout);
-      cleanup();
-      renderState(root, "facile-news-error", "No se pudo conectar al servicio de noticias.");
-    };
-
-    document.head.appendChild(script);
+  function saveCache(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    } catch (_) {}
   }
 
-  function initFacileNewsWidget() {
+  function loadCache() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  async function fetchNewsJson(timeoutMs) {
+    const controller = new AbortController();
+    const timer = setTimeout(function () {
+      controller.abort();
+    }, timeoutMs);
+
+    try {
+      const response = await fetch(NEWS_JSON_URL + "?v=" + Date.now(), {
+        cache: "no-store",
+        signal: controller.signal
+      });
+
+      if (!response.ok) {
+        throw new Error("HTTP " + response.status);
+      }
+
+      const data = await response.json();
+      return data;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function initFacileNewsWidget() {
     const root = document.getElementById("facile-news-root");
     if (!root) return;
 
     const publisherCatalog = buildPublisherCatalog();
-    loadGoogleNewsViaJsonp(root, publisherCatalog);
+
+    try {
+      renderState(root, "facile-news-loading", "Cargando noticias...");
+      const data = await fetchNewsJson(8000);
+
+      if (!data || !Array.isArray(data.items) || !data.items.length) {
+        throw new Error("news.json vacío o inválido");
+      }
+
+      saveCache(data);
+
+      const items = normalizeItems(data.items, publisherCatalog);
+      if (!items.length) {
+        renderState(root, "facile-news-empty", "No hay noticias disponibles.");
+        return;
+      }
+
+      mountTicker(root, items);
+    } catch (error) {
+      const cached = loadCache();
+
+      if (cached && Array.isArray(cached.items) && cached.items.length) {
+        const items = normalizeItems(cached.items, publisherCatalog);
+        mountTicker(root, items);
+        console.warn("[FacileNews] usando caché local:", error);
+        return;
+      }
+
+      console.error("[FacileNews]", error);
+      renderState(root, "facile-news-error", "No se pudieron cargar las noticias.");
+    }
   }
 
   if (document.readyState === "loading") {
