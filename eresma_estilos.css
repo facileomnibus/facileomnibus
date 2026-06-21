@@ -46,6 +46,9 @@ main.intro{
     position:sticky !important;
     top:0;
     z-index:1000;
+    border-radius: 0 0 24px 24px;
+    overflow: hidden;
+
 }
 
 .navigation ul{
@@ -153,6 +156,7 @@ section{
 
 .header{
     padding:1rem 0;
+    border-radius: 0 0 18px 18px;
 }
 
 .logo{
@@ -410,9 +414,7 @@ height:auto;
     overflow: hidden !important;
   }
 
-  /* IMPORTANTE:
-     quitamos la reestructuración fuerte del contenido interno
-     para que la página vuelva a como estaba antes */
+  /* IMPORTANTE */
   #weather-content{
     max-width: none !important;
     width: 100% !important;
