@@ -11,11 +11,28 @@
   --glass-bg: rgba(255,255,255,0.15);
   --custom-background: none;
   --menu-mobile-panel-bg: color-mix(in srgb, var(--glass-bg) 82%, rgba(255,255,255,0.18) 18%);
-  --menu-mobile-panel-open-bg: color-mix(in srgb, var(--secondary-color) 30%, var(--glass-bg) 70%);
+  --menu-mobile-panel-open-bg: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--secondary-color) 34%, rgba(255,255,255,0.16) 66%),
+    color-mix(in srgb, var(--secondary-color) 52%, var(--glass-bg) 48%)
+  );
+
   --menu-mobile-item-bg: color-mix(in srgb, rgba(255,255,255,0.62) 68%, var(--glass-bg) 32%);
-  --menu-mobile-item-hover-bg: color-mix(in srgb, var(--secondary-color) 42%, rgba(255,255,255,0.18) 58%);
+  --menu-mobile-item-hover-bg: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--secondary-color) 46%, rgba(255,255,255,0.18) 54%),
+    color-mix(in srgb, var(--secondary-color) 66%, var(--glass-bg) 34%)
+  );
+
   --menu-link-bg: color-mix(in srgb, var(--glass-bg) 76%, rgba(255,255,255,0.08) 24%);
-  --menu-link-active-bg: color-mix(in srgb, var(--secondary-color) 38%, rgba(255,255,255,0.14) 62%);
+  --menu-link-active-bg: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--secondary-color) 40%, rgba(255,255,255,0.16) 60%),
+    color-mix(in srgb, var(--secondary-color) 58%, var(--glass-bg) 42%)
+  );
+
+  --menu-link-shadow: 0 4px 14px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.10) 76%);
+  --menu-link-shadow-hover: 0 6px 18px color-mix(in srgb, var(--secondary-color) 34%, rgba(0,0,0,0.12) 66%);
 }
 html,
 body{
@@ -70,20 +87,24 @@ main.intro{
 
 .navigation a{
     color: var(--text-color);
-    font-weight:600;
-    text-decoration:none;
-    transition: 0.25s ease;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.22s ease;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: 9px 14px;
     border-radius: 999px;
 
     background: var(--menu-link-bg);
-    outline: none;
-    box-shadow: none;
-    -webkit-tap-highlight-color: transparent;
     border: 1px solid rgba(255,255,255,0.10);
+    outline: none;
+    box-shadow: var(--menu-link-shadow);
+    -webkit-tap-highlight-color: transparent;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .navigation a:hover,
@@ -92,8 +113,9 @@ main.intro{
     background: var(--menu-link-active-bg);
     color: #ffffff;
     outline: none;
-    box-shadow: none;
-    border-color: rgba(255,255,255,0.16);
+    border-color: rgba(255,255,255,0.18);
+    box-shadow: var(--menu-link-shadow-hover);
+    transform: translateY(-1px);
 }
 
 /* iconos noticias */
@@ -231,6 +253,8 @@ section{
     backdrop-filter:blur(10px);
     border-radius:10px;
     padding:10px;
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--secondary-color) 20%, rgba(0,0,0,0.12) 80%);
 }
 
 /* enlaces verticales */
@@ -242,14 +266,18 @@ section{
 
 .navigation ul li a{
     display:block;
-    padding: 0.5rem 0;
-    transition: all 0.2s ease;
-    border-radius: 5px;
+    padding: 0.75rem 0.85rem;
+    transition: all 0.22s ease;
+    border-radius: 12px;
+
     background: var(--menu-mobile-item-bg);
-    outline: none;
-    box-shadow: none;
-    -webkit-tap-highlight-color: transparent;
     border: 1px solid rgba(255,255,255,0.10);
+    outline: none;
+    box-shadow: var(--menu-link-shadow);
+    -webkit-tap-highlight-color: transparent;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .navigation ul li a:hover,
@@ -258,8 +286,9 @@ section{
         background: var(--menu-mobile-item-hover-bg);
         color: white;
         outline: none;
-        box-shadow: none;
-        border-color: rgba(255,255,255,0.16);
+        border-color: rgba(255,255,255,0.18);
+        box-shadow: var(--menu-link-shadow-hover);
+        transform: translateY(-1px);
 }
 
 /* widgets responsive */
@@ -333,6 +362,10 @@ height:auto;
     /* alineación interna */
     align-items:center;
     text-align:center;
+   
+   /* panel móvil abierto */
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--secondary-color) 20%, rgba(0,0,0,0.12) 80%);
 }
 
 /* centrar elementos del menú */
