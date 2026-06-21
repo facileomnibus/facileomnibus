@@ -11,7 +11,11 @@
   --glass-bg: rgba(255,255,255,0.15);
   --custom-background: none;
 }
-
+html,
+body{
+    max-width: 100%;
+    overflow-x: hidden;
+}
 body{
     margin:0;
     font-family: "Segoe UI", Arial, sans-serif;
@@ -21,6 +25,7 @@ body{
     color: var(--text-dark);
     display:flex;
     flex-direction:column;
+    overflow-x:hidden;
 }
 main.intro{
     flex: 1 0 auto;
