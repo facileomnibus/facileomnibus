@@ -10,24 +10,12 @@
   --text-dark: #333;
   --glass-bg: rgba(255,255,255,0.15);
   --custom-background: none;
-  --menu-mobile-panel-bg: color-mix(in srgb, var(--glass-bg) 78%, rgba(255,255,255,0.18) 22%);
-  --menu-mobile-panel-open-bg: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--primary-color) 78%, rgba(255,255,255,0.12) 22%),
-    color-mix(in srgb, var(--secondary-color) 78%, rgba(255,255,255,0.12) 22%)
-  );
-  --menu-mobile-item-bg: color-mix(in srgb, rgba(255,255,255,0.70) 78%, var(--glass-bg) 22%);
-  --menu-mobile-item-hover-bg: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--primary-color) 84%, white 16%),
-    color-mix(in srgb, var(--secondary-color) 84%, white 16%)
-  );
-  --menu-link-bg: color-mix(in srgb, var(--glass-bg) 74%, rgba(255,255,255,0.08) 26%);
-  --menu-link-active-bg: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--primary-color) 78%, rgba(255,255,255,0.12) 22%),
-    color-mix(in srgb, var(--secondary-color) 78%, rgba(255,255,255,0.12) 22%)
-  );
+  --menu-mobile-panel-bg: color-mix(in srgb, var(--glass-bg) 82%, rgba(255,255,255,0.18) 18%);
+  --menu-mobile-panel-open-bg: color-mix(in srgb, var(--secondary-color) 30%, var(--glass-bg) 70%);
+  --menu-mobile-item-bg: color-mix(in srgb, rgba(255,255,255,0.62) 68%, var(--glass-bg) 32%);
+  --menu-mobile-item-hover-bg: color-mix(in srgb, var(--secondary-color) 42%, rgba(255,255,255,0.18) 58%);
+  --menu-link-bg: color-mix(in srgb, var(--glass-bg) 76%, rgba(255,255,255,0.08) 24%);
+  --menu-link-active-bg: color-mix(in srgb, var(--secondary-color) 38%, rgba(255,255,255,0.14) 62%);
 }
 html,
 body{
@@ -85,17 +73,17 @@ main.intro{
     font-weight:600;
     text-decoration:none;
     transition: 0.25s ease;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 8px 12px;
     border-radius: 999px;
 
-    background: transparent;
+    background: var(--menu-link-bg);
     outline: none;
     box-shadow: none;
     -webkit-tap-highlight-color: transparent;
+    border: 1px solid rgba(255,255,255,0.10);
 }
 
 .navigation a:hover,
@@ -105,6 +93,7 @@ main.intro{
     color: #ffffff;
     outline: none;
     box-shadow: none;
+    border-color: rgba(255,255,255,0.16);
 }
 
 /* iconos noticias */
@@ -260,6 +249,7 @@ section{
     outline: none;
     box-shadow: none;
     -webkit-tap-highlight-color: transparent;
+    border: 1px solid rgba(255,255,255,0.10);
 }
 
 .navigation ul li a:hover,
@@ -269,7 +259,9 @@ section{
         color: white;
         outline: none;
         box-shadow: none;
+        border-color: rgba(255,255,255,0.16);
 }
+
 /* widgets responsive */
 .widgets-bar{
     display: flex !important;
