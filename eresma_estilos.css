@@ -581,7 +581,7 @@ height:auto;
 /* ---------- ESTRUCTURA GENERAL DE LA PÁGINA ---------- */
 
 main.intro{
-  padding: 220px 0 34px;
+  padding: 240px 0 34px;
 }
 
 main.intro .container{
@@ -679,7 +679,7 @@ section{
 /* ---------- RESPONSIVE ---------- */
 @media only screen and (max-width: 767px){
   main.intro{
-    padding: 200px 0 22px;
+    padding: 220px 0 22px;
   }
 
   main.intro .container{
