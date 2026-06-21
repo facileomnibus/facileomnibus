@@ -903,42 +903,29 @@ section{
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 
-    padding: 10px 16px 14px !important;
+    padding: 8px 16px 12px !important;
     box-sizing: border-box !important;
 
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
 
-    border-radius: 0 0 24px 24px !important;
+    /* Curvas exteriores suaves */
+    border-radius: 0 0 22px 22px !important;
     overflow: visible !important;
 
-    background:
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--primary-color) 14%, rgba(255,255,255,0.05) 86%),
-        color-mix(in srgb, var(--secondary-color) 14%, rgba(255,255,255,0.05) 86%)
-      ) !important;
+    /* EXTERIOR MUCHO MÁS TRANSPARENTE */
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 
-    backdrop-filter: blur(10px) saturate(1.03) !important;
-    -webkit-backdrop-filter: blur(10px) saturate(1.03) !important;
-
-    border-bottom: 1px solid rgba(255,255,255,0.10) !important;
-    box-shadow:
-      0 6px 18px rgba(0,0,0,0.10),
-      inset 0 -1px 0 rgba(255,255,255,0.06) !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
 }
 
-/* brillo suave */
+/* quitamos brillo decorativo exterior */
 .header::before{
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    pointer-events: none !important;
-    background:
-      radial-gradient(circle at 18% 50%, rgba(255,255,255,0.05), transparent 28%),
-      radial-gradient(circle at 82% 50%, rgba(255,255,255,0.04), transparent 30%);
-    opacity: 0.8 !important;
+    content: none !important;
 }
 
 /* Caja interior del header */
@@ -956,16 +943,18 @@ section{
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    gap: 22px !important;
+    gap: 18px !important;
     flex-wrap: nowrap !important;
 
-    background: var(--glass-bg) !important;
+    /* caja glass interior suave */
+    background:
+      color-mix(in srgb, var(--glass-bg) 74%, rgba(255,255,255,0.14) 26%) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
 
     border-radius: 22px !important;
     border: 1px solid rgba(255,255,255,0.10) !important;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.12) !important;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.08) !important;
 }
 
 /* Logo */
@@ -980,7 +969,7 @@ section{
 
 .header .logo img{
     display: block !important;
-    width: min(225px, 100%) !important;
+    width: min(220px, 100%) !important;
     height: auto !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -999,7 +988,7 @@ section{
     display: flex !important;
     justify-content: flex-end !important;
     align-items: center !important;
-    gap: 30px !important;
+    gap: 10px !important;
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
@@ -1010,23 +999,55 @@ section{
     max-width: none !important;
 }
 
+/* Botones de escritorio */
 .header .navigation ul li{
     margin: 0 !important;
     flex: 0 1 auto !important;
 }
 
 .header .navigation a{
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 38px !important;
+    padding: 7px 12px !important;
+
+    border-radius: 999px !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+
+    /* botones discretos, suaves, sin sombras feas */
+    background:
+      color-mix(in srgb, rgba(255,255,255,0.18) 72%, transparent 28%) !important;
+
     color: color-mix(in srgb, var(--text-color) 92%, white 8%) !important;
     font-weight: 700 !important;
     text-decoration: none !important;
-    font-size: 1rem !important;
+    font-size: 0.94rem !important;
     line-height: 1.2 !important;
     white-space: nowrap !important;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.14) !important;
+
+    text-shadow: none !important;
+    box-shadow: none !important;
+
+    transition:
+      background 0.18s ease,
+      color 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.18s ease !important;
 }
 
-.header .navigation a:hover{
+.header .navigation a:hover,
+.header .navigation a:focus{
+    transform: translateY(-1px) !important;
+    background:
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--primary-color) 82%, white 18%),
+        color-mix(in srgb, var(--secondary-color) 82%, white 18%)
+      ) !important;
     color: #ffffff !important;
+    border-color: rgba(255,255,255,0.16) !important;
 }
 
 /* Icono menú */
@@ -1049,7 +1070,7 @@ section{
 @media only screen and (max-width: 1250px){
     .header .container.logo-nav-container{
         padding: 12px 18px !important;
-        gap: 16px !important;
+        gap: 14px !important;
     }
 
     .header .logo img{
@@ -1057,22 +1078,24 @@ section{
     }
 
     .header .navigation ul{
-        gap: 18px !important;
+        gap: 8px !important;
     }
 
     .header .navigation a{
-        font-size: 0.95rem !important;
+        padding: 6px 10px !important;
+        font-size: 0.90rem !important;
     }
 }
 
 /* TABLET MÁS ESTRECHA */
 @media only screen and (max-width: 980px){
     .header .navigation ul{
-        gap: 14px !important;
+        gap: 6px !important;
     }
 
     .header .navigation a{
-        font-size: 0.90rem !important;
+        font-size: 0.86rem !important;
+        padding: 6px 9px !important;
     }
 }
 
@@ -1103,27 +1126,27 @@ section{
         width: min(165px, 100%) !important;
     }
 
-    /* botón del menú más estilizado y acorde al tema */
+    /* botón hamburguesa más elegante */
     .header .menu-icon{
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
 
-        width: 48px !important;
-        height: 48px !important;
+        width: 46px !important;
+        height: 46px !important;
         padding: 0 !important;
         border-radius: 14px !important;
 
-        background: color-mix(in srgb, var(--glass-bg) 70%, white 30%) !important;
-        border: 1px solid rgba(255,255,255,0.18) !important;
-        box-shadow:
-          0 4px 12px rgba(0,0,0,0.10),
-          inset 0 1px 0 rgba(255,255,255,0.12) !important;
+        background:
+          color-mix(in srgb, var(--glass-bg) 74%, rgba(255,255,255,0.18) 26%) !important;
+
+        border: 1px solid rgba(255,255,255,0.14) !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06) !important;
     }
 
     .header .menu-icon img{
-        width: 30px !important;
-        height: 30px !important;
+        width: 28px !important;
+        height: 28px !important;
     }
 
     .header .navigation{
@@ -1146,18 +1169,14 @@ section{
         padding: 12px !important;
 
         background:
-          linear-gradient(
-            180deg,
-            color-mix(in srgb, var(--glass-bg) 72%, white 28%),
-            color-mix(in srgb, var(--primary-color) 12%, var(--glass-bg) 88%)
-          ) !important;
+          color-mix(in srgb, var(--glass-bg) 80%, rgba(255,255,255,0.18) 20%) !important;
 
         backdrop-filter: blur(12px) !important;
         -webkit-backdrop-filter: blur(12px) !important;
 
         border: 1px solid rgba(255,255,255,0.14) !important;
         border-radius: 18px !important;
-        box-shadow: 0 8px 18px rgba(0,0,0,0.12) !important;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08) !important;
 
         max-width: 100% !important;
         opacity: 1 !important;
@@ -1181,32 +1200,30 @@ section{
         justify-content: center !important;
 
         width: 100% !important;
-        min-height: 52px !important;
+        min-height: 50px !important;
         padding: 10px 14px !important;
 
         border-radius: 14px !important;
         border: 1px solid rgba(255,255,255,0.14) !important;
 
         background:
-          color-mix(in srgb, var(--glass-bg) 58%, white 42%) !important;
+          color-mix(in srgb, rgba(255,255,255,0.74) 78%, var(--glass-bg) 22%) !important;
 
-        color: color-mix(in srgb, var(--text-dark) 84%, white 16%) !important;
+        color: color-mix(in srgb, var(--text-dark) 86%, white 14%) !important;
         font-size: 1rem !important;
         font-weight: 700 !important;
         line-height: 1.2 !important;
         white-space: normal !important;
         text-align: center !important;
-        text-shadow: none !important;
 
-        box-shadow:
-          0 4px 10px rgba(0,0,0,0.08),
-          inset 0 1px 0 rgba(255,255,255,0.16) !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
 
         transition:
           transform 0.18s ease,
           background 0.18s ease,
           color 0.18s ease,
-          box-shadow 0.18s ease !important;
+          border-color 0.18s ease !important;
     }
 
     .header .navigation a:hover,
@@ -1215,13 +1232,11 @@ section{
         background:
           linear-gradient(
             90deg,
-            var(--primary-color),
-            var(--secondary-color)
+            color-mix(in srgb, var(--primary-color) 80%, white 20%),
+            color-mix(in srgb, var(--secondary-color) 80%, white 20%)
           ) !important;
         color: #ffffff !important;
-        box-shadow:
-          0 6px 14px rgba(0,0,0,0.14),
-          inset 0 1px 0 rgba(255,255,255,0.18) !important;
+        border-color: rgba(255,255,255,0.18) !important;
     }
 }
 /* ==========================================
