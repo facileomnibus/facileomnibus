@@ -228,14 +228,44 @@ section{
         color: white;
 }
 /* widgets responsive */
-
 .widgets-bar{
-    flex-direction:column;
-    gap:10px;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+
+    width: min(100%, 340px) !important;
+    margin: 10px auto 0 !important;
+    padding: 0 !important;
 }
 
-.widget-box input{
-    width:220px !important;
+/* cajas de fecha / hora / buscador */
+.widgets-bar .widget-box{
+    padding: 8px 12px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+}
+
+/* fecha y hora: compactas y en horizontal */
+.widgets-bar .widget-box:not(:last-child){
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+}
+
+/* buscador: en segunda fila ocupando todo el ancho útil */
+.widgets-bar .widget-box:last-child{
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* input del buscador: responsive real */
+.widgets-bar .widget-box input{
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
 }
 .main-dashboard{
     grid-template-columns: 1fr; /* columna única en móvil */
