@@ -35,6 +35,7 @@
 
   --menu-link-shadow: 0 4px 14px color-mix(in srgb, var(--menu-accent-color) 24%, rgba(0,0,0,0.10) 76%);
   --menu-link-shadow-hover: 0 6px 18px color-mix(in srgb, var(--menu-accent-color) 34%, rgba(0,0,0,0.12) 66%);
+  --widgets-max-width: 1100px;
 }
 html,
 body{
@@ -1248,5 +1249,58 @@ footer .footer-inner p,
       animation:none !important;
       transform:none !important;
       box-shadow:none !important;
+  }
+}
+/* ==========================================
+   ANCHO DE WIDGETS
+========================================== */
+
+#widgets-container,
+.widgets-bar,
+#facile-news-widget.facile-news-shell,
+.widget-box.ticker-widget,
+#weather-widget.weather-widget{
+  width: min(100%, var(--widgets-max-width)) !important;
+  max-width: var(--widgets-max-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+}
+
+/* barra superior: mismo ancho que el resto */
+.widgets-bar{
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+
+/* noticias: mismo marco que el resto */
+#facile-news-widget.facile-news-shell{
+  margin: 14px auto !important;
+}
+
+/* ticker: gana al inline style de index.html */
+.widget-box.ticker-widget{
+  margin: 20px auto !important;
+}
+
+/* tiempo: mismo ancho exacto que noticias y ticker */
+@media only screen and (min-width: 768px){
+  #weather-widget.weather-widget{
+    width: min(100%, var(--widgets-max-width)) !important;
+    max-width: var(--widgets-max-width) !important;
+    margin: 20px auto !important;
+  }
+}
+
+/* móvil: mantener proporción buena y uniforme */
+@media only screen and (max-width: 767px){
+  #widgets-container,
+  .widgets-bar,
+  #facile-news-widget.facile-news-shell,
+  .widget-box.ticker-widget,
+  #weather-widget.weather-widget{
+    width: 95% !important;
+    max-width: 95% !important;
   }
 }
