@@ -244,16 +244,43 @@ section{
 }
 
 /* icono menú */
-
 .menu-icon{
-    display:block;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    transition: transform 0.2s ease;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    width:56px !important;
+    height:56px !important;
+    padding:0 !important;
+    margin:0 !important;
+
+    cursor:pointer !important;
+    border:none !important;
+    background:transparent !important;
+    appearance:none !important;
+    -webkit-appearance:none !important;
+
+    position:relative !important;
+    z-index:1002 !important;
+
+    touch-action:manipulation !important;
+    transition: transform 0.2s ease !important;
 }
-.menu-icon:hover {
-        transform: scale(1.05);
+
+.menu-icon:hover,
+.menu-icon:focus,
+.menu-icon:active{
+    transform: scale(1.03) !important;
+    outline:none !important;
 }
+
+.menu-icon img{
+    display:block !important;
+    width:40px !important;
+    height:40px !important;
+    pointer-events:none !important;
+}
+
 /* ocultar menú */
 
 .navigation ul{
@@ -271,7 +298,17 @@ section{
     opacity: 0;
     transform: translateY(-10px);
 }
-   
+.navigation{
+    position: relative !important;
+    z-index:1001 !important;
+}
+
+@media only screen and (max-width:767px){
+  .navigation ul{
+      position: relative !important;
+      z-index:1001 !important;
+  }
+}   
 /* mostrar menú cuando se activa */
 
 .navigation ul.show{
@@ -528,7 +565,11 @@ height:auto;
         padding-top: 92px; /* header más pequeño en móvil */
     }
 }
-
+@media only screen and (max-width:767px){
+  body{
+      background-attachment: scroll !important;
+  }
+}
 /* mejora separación visual móvil */
 @media only screen and (max-width:767px){
     #widgets-container{
@@ -1163,5 +1204,49 @@ footer .footer-inner p,
   .site-footer .footer-inner p{
     font-size: 0.95rem !important;
     line-height: 1.3 !important;
+  }
+}
+/* ==========================================
+   OPTIMIZACIÓN MÓVIL
+========================================== */
+@media only screen and (max-width:767px){
+  .header,
+  .container,
+  .widget-box,
+  .navigation ul,
+  .navigation ul li a,
+  .weather-widget,
+  .ticker-widget,
+  footer .footer-inner,
+  .footer .footer-inner,
+  .site-footer .footer-inner{
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+  }
+
+  .header,
+  .container,
+  .widget-box,
+  .weather-widget,
+  .ticker-widget,
+  footer,
+  footer .footer-inner,
+  .footer .footer-inner,
+  .site-footer .footer-inner{
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10) !important;
+  }
+
+  .navigation ul.show{
+      box-shadow: 0 6px 14px rgba(0,0,0,0.10) !important;
+  }
+
+  .navigation ul li a{
+      box-shadow: none !important;
+  }
+   
+.logo img:hover{
+      animation:none !important;
+      transform:none !important;
+      box-shadow:none !important;
   }
 }
