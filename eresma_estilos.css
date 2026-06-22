@@ -10,29 +10,31 @@
   --text-dark: #333;
   --glass-bg: rgba(255,255,255,0.15);
   --custom-background: none;
+  --menu-accent-color: var(--secondary-color);
+
   --menu-mobile-panel-bg: color-mix(in srgb, var(--glass-bg) 82%, rgba(255,255,255,0.18) 18%);
   --menu-mobile-panel-open-bg: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--secondary-color) 50%, rgba(255,255,255,0.10) 50%),
-    color-mix(in srgb, var(--secondary-color) 70%, var(--glass-bg) 30%)
+    color-mix(in srgb, var(--menu-accent-color) 62%, rgba(255,255,255,0.08) 38%),
+    color-mix(in srgb, var(--menu-accent-color) 82%, var(--glass-bg) 18%)
   );
 
   --menu-mobile-item-bg: color-mix(in srgb, rgba(255,255,255,0.62) 68%, var(--glass-bg) 32%);
   --menu-mobile-item-hover-bg: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--secondary-color) 58%, rgba(255,255,255,0.10) 42%),
-    color-mix(in srgb, var(--secondary-color) 78%, var(--glass-bg) 22%)
+    color-mix(in srgb, var(--menu-accent-color) 66%, rgba(255,255,255,0.08) 34%),
+    color-mix(in srgb, var(--menu-accent-color) 86%, var(--glass-bg) 14%)
   );
 
   --menu-link-bg: color-mix(in srgb, var(--glass-bg) 76%, rgba(255,255,255,0.08) 24%);
   --menu-link-active-bg: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--secondary-color) 52%, rgba(255,255,255,0.10) 48%),
-    color-mix(in srgb, var(--secondary-color) 72%, var(--glass-bg) 28%)
+    color-mix(in srgb, var(--menu-accent-color) 68%, rgba(255,255,255,0.08) 32%),
+    color-mix(in srgb, var(--menu-accent-color) 88%, var(--glass-bg) 12%)
   );
 
-  --menu-link-shadow: 0 4px 14px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.10) 76%);
-  --menu-link-shadow-hover: 0 6px 18px color-mix(in srgb, var(--secondary-color) 34%, rgba(0,0,0,0.12) 66%);
+  --menu-link-shadow: 0 4px 14px color-mix(in srgb, var(--menu-accent-color) 24%, rgba(0,0,0,0.10) 76%);
+  --menu-link-shadow-hover: 0 6px 18px color-mix(in srgb, var(--menu-accent-color) 34%, rgba(0,0,0,0.12) 66%);
 }
 html,
 body{
@@ -123,21 +125,26 @@ main.intro{
 .navigation a:focus,
 .navigation a:focus-visible,
 .navigation a:active{
-    background: var(--menu-link-active-bg);
-    color: #ffffff;
+    background: var(--menu-link-active-bg) !important;
+    color: #ffffff !important;
     outline: none;
-    border-color: rgba(255,255,255,0.18);
-    box-shadow: var(--menu-link-shadow-hover);
+    border-color: rgba(255,255,255,0.18) !important;
+    box-shadow: var(--menu-link-shadow-hover) !important;
     transform: translateY(-1px);
 }
 
-/* estado persistente para la opción actual */
 .navigation a[aria-current="page"],
-.navigation a.is-active{
+.navigation a.is-active,
+.navigation li.active > a{
     background: var(--menu-link-active-bg) !important;
     color: #ffffff !important;
     border-color: rgba(255,255,255,0.18) !important;
     box-shadow: var(--menu-link-shadow-hover) !important;
+}
+
+.navigation a:visited,
+.navigation a:-webkit-any-link{
+    color: var(--text-color);
 }
 
 /* iconos noticias */
@@ -308,17 +315,18 @@ section{
 .navigation ul li a:focus,
 .navigation ul li a:focus-visible,
 .navigation ul li a:active{
-        background: var(--menu-mobile-item-hover-bg);
-        color: white;
+        background: var(--menu-mobile-item-hover-bg) !important;
+        color: white !important;
         outline: none;
-        border-color: rgba(255,255,255,0.18);
-        box-shadow: var(--menu-link-shadow-hover);
+        border-color: rgba(255,255,255,0.18) !important;
+        box-shadow: var(--menu-link-shadow-hover) !important;
         transform: translateY(-1px);
 }
 
 /* estado persistente para móvil */
 .navigation ul li a[aria-current="page"],
-.navigation ul li a.is-active{
+.navigation ul li a.is-active,
+.navigation ul li.active > a{
         background: var(--menu-mobile-item-hover-bg) !important;
         color: white !important;
         border-color: rgba(255,255,255,0.18) !important;
