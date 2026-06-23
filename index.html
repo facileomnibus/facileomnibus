@@ -2524,11 +2524,12 @@ if(savedCity){
     
     <!-- Botones de temas -->
     <div class="theme-buttons">
-      <button onclick="applyTheme('sol')" class="theme-btn">☀️ Sol</button>
-      <button onclick="applyTheme('luna')" class="theme-btn">🌙 Luna</button>
-      <button onclick="applyTheme('forest')" class="theme-btn">🌲 Bosque</button>
-      <button onclick="applyTheme('sunset')" class="theme-btn">🌅 Atardecer</button>
-      <button onclick="applyTheme('ocean')" class="theme-btn">🌊 Océano</button>
+      <button onclick="applyTheme('sol')" data-theme="sol" class="theme-btn">☀️ Sol</button>
+      <button onclick="applyTheme('luna')" data-theme="luna" class="theme-btn">🌙 Luna</button>
+      <button onclick="applyTheme('forest')" data-theme="forest" class="theme-btn">🌲 Bosque</button>
+      <button onclick="applyTheme('sunset')" data-theme="sunset" class="theme-btn">🌅 Atardecer</button>
+      <button onclick="applyTheme('ocean')" data-theme="ocean" class="theme-btn">🌊 Océano</button>
+      <button onclick="applyTheme('aurora')" data-theme="aurora" class="theme-btn">🌌 Aurora</button>
     </div>
     
     <hr>
@@ -2614,6 +2615,11 @@ if(savedCity){
   color: white;
   transform: translateY(-2px);
 }
+.theme-btn.is-selected {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+}
 
 @media (max-width: 767px) {
   .theme-panel {
@@ -2661,14 +2667,14 @@ function applyCustomBackground() {
     return;
   }
   
-  const currentTheme = localStorage.getItem("selectedTheme") || "light";
+  const currentTheme = localStorage.getItem("selectedTheme
   applyTheme(currentTheme, url);
   alert("✅ Fondo aplicado");
 }
 
 // Limpiar fondo
 function clearCustomBackground() {
-  const currentTheme = localStorage.getItem("selectedTheme") || "light";
+  const currentTheme = localStorage.getItem("selectedTheme
   applyTheme(currentTheme, null);
   document.getElementById("bg-url").value = "";
   alert("✅ Fondo limpiado");
