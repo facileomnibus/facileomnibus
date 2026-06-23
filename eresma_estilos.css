@@ -36,6 +36,8 @@
   --menu-link-shadow: 0 4px 14px color-mix(in srgb, var(--menu-accent-color) 24%, rgba(0,0,0,0.10) 76%);
   --menu-link-shadow-hover: 0 6px 18px color-mix(in srgb, var(--menu-accent-color) 34%, rgba(0,0,0,0.12) 66%);
   --widgets-max-width: 1100px;
+
+  --theme-transition-speed: 280ms;
 }
 html,
 body{
@@ -1303,4 +1305,27 @@ footer .footer-inner p,
     width: 95% !important;
     max-width: 95% !important;
   }
+}
+/* ==========================================
+   TRANSICIÓN ENTRE TEMAS
+========================================== */
+body,
+.header,
+.container,
+.widget-box,
+.navigation a,
+.navigation ul li a,
+.weather-widget,
+.ticker-widget,
+#facile-news-widget.facile-news-shell,
+footer,
+footer .footer-inner,
+.footer .footer-inner,
+.site-footer .footer-inner{
+  transition:
+    background var(--theme-transition-speed) ease,
+    background-color var(--theme-transition-speed) ease,
+    color var(--theme-transition-speed) ease,
+    border-color var(--theme-transition-speed) ease,
+    box-shadow var(--theme-transition-speed) ease;
 }
