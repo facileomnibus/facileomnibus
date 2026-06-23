@@ -71,13 +71,35 @@ const THEMES = {
       glass: "rgba(0,119,190,0.3)"
     },
     backgroundImage: "none"
-  }
+  },
+  aurora: {
+    name: "Tema Aurora", 
+    colors: {
+      primary: "#8a5cff",
+      secondary: "#10c9a7",
+      backgroundGradient: "linear-gradient(180deg, #18204f, #114b58)",
+      headerBg: "linear-gradient(90deg, #7b61ff, #13c9aa)",
+      textColor: "rgba(255,255,255,0.95)",
+      textDark: "#deeff7",
+      glassBg: "rgba(255,255,255,0.14)"
+    }, 
+    backgroundImage: "none"
+  },
 };
 
 // Función para aplicar tema
 function applyTheme(themeName, backgroundUrl = null) {
   const theme = THEMES[themeName] || THEMES.light;
   const root = document.documentElement;
+  localStorage.setItem("selectedTheme", themeName);
+  syncThemeButtons(themeName);
+
+// Sincronización visual con el botón activo
+function syncThemeButtons(themeName) {
+  document.querySelectorAll(".theme-btn").forEach((button) => {
+    button.classList.toggle("is-selected", button.dataset.theme === themeName);
+  });
+}
   
   // Aplicar variables CSS
   root.style.setProperty("--primary-color", theme.colors.primary);
@@ -110,4 +132,7 @@ function loadSavedTheme() {
 }
 
 // Ejecutar al cargar la página
-document.addEventListener("DOMContentLoaded", loadSavedTheme); 
+document.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("selectedTheme") || "sol";
+  applyTheme(savedTheme);
+}); 
