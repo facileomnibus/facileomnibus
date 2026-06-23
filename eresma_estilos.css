@@ -305,13 +305,10 @@ section{
     position: relative !important;
     z-index:1001 !important;
 }
-
-@media only screen and (max-width:767px){
-  .navigation ul{
-      position: relative !important;
-      z-index:1001 !important;
-  }
-}   
+.navigation ul{
+    position: relative !important;
+    z-index:1001 !important;
+}
 /* mostrar menú cuando se activa */
 
 .navigation ul.show{
