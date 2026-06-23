@@ -2645,24 +2645,9 @@ if(savedCity){
 </style>
 
 <script>
-// Toggle del menú
-document.getElementById("theme-toggle").addEventListener("click", function() {
-  const menu = document.getElementById("theme-menu");
-  menu.style.display = menu.style.display === "none" ? "block" : "none";
-});
-
-// Cerrar menú al hacer click fuera
-document.addEventListener("click", function(e) {
-  const panel = document.getElementById("theme-panel");
-  if (!panel.contains(e.target)) {
-    document.getElementById("theme-menu").style.display = "none";
-  }
-});
-
-// Aplicar fondo personalizado
-<script>
-// Toggle del menú
-document.getElementById("theme-toggle").addEventListener("click", function() {
+// Toggle del menú de temas
+document.getElementById("theme-toggle").addEventListener("click", function(e) {
+  e.stopPropagation();
   const menu = document.getElementById("theme-menu");
   menu.style.display = menu.style.display === "none" ? "block" : "none";
 });
