@@ -1,6 +1,6 @@
 /* ===================================
    SISTEMA DE TEMAS DINÁMICOS FACILE
-================================== */
+=================================== */
 
 const THEMES = {
   sol: {
@@ -16,7 +16,7 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-  
+
   luna: {
     name: "Tema Luna",
     colors: {
@@ -30,7 +30,7 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-  
+
   forest: {
     name: "Tema Bosque",
     colors: {
@@ -44,7 +44,7 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-  
+
   sunset: {
     name: "Tema Atardecer",
     colors: {
@@ -58,7 +58,7 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-  
+
   ocean: {
     name: "Tema Océano",
     colors: {
@@ -72,36 +72,32 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
+
   aurora: {
-    name: "Tema Aurora", 
+    name: "Tema Aurora",
     colors: {
       primary: "#8a5cff",
       secondary: "#10c9a7",
-      backgroundGradient: "linear-gradient(180deg, #18204f, #114b58)",
+      background: "linear-gradient(180deg, #18204f, #114b58)",
       headerBg: "linear-gradient(90deg, #7b61ff, #13c9aa)",
       textColor: "rgba(255,255,255,0.95)",
       textDark: "#deeff7",
-      glassBg: "rgba(255,255,255,0.14)"
-    }, 
+      glass: "rgba(255,255,255,0.14)"
+    },
     backgroundImage: "none"
-  },
+  }
 };
 
-// Función para aplicar tema
-function applyTheme(themeName, backgroundUrl = null) {
-  const theme = THEMES[themeName] || THEMES.light;
-  const root = document.documentElement;
-  localStorage.setItem("selectedTheme", themeName);
-  syncThemeButtons(themeName);
-
-// Sincronización visual con el botón activo
 function syncThemeButtons(themeName) {
   document.querySelectorAll(".theme-btn").forEach((button) => {
     button.classList.toggle("is-selected", button.dataset.theme === themeName);
   });
 }
-  
-  // Aplicar variables CSS
+
+function applyTheme(themeName, backgroundUrl = null) {
+  const theme = THEMES[themeName] || THEMES.sol;
+  const root = document.documentElement;
+
   root.style.setProperty("--primary-color", theme.colors.primary);
   root.style.setProperty("--secondary-color", theme.colors.secondary);
   root.style.setProperty("--background-gradient", theme.colors.background);
@@ -109,30 +105,25 @@ function syncThemeButtons(themeName) {
   root.style.setProperty("--text-color", theme.colors.textColor);
   root.style.setProperty("--text-dark", theme.colors.textDark);
   root.style.setProperty("--glass-bg", theme.colors.glass);
-  
-  // Aplicar fondo personalizado si existe
+
   if (backgroundUrl) {
     root.style.setProperty("--custom-background", `url('${backgroundUrl}')`);
+    localStorage.setItem("customBackground", backgroundUrl);
   } else {
     root.style.setProperty("--custom-background", "none");
+    localStorage.removeItem("customBackground");
   }
-  
-  // Guardar en localStorage
+
   localStorage.setItem("selectedTheme", themeName);
-  if (backgroundUrl) {
-    localStorage.setItem("customBackground", backgroundUrl);
-  }
+  syncThemeButtons(themeName);
 }
 
-// Cargar tema guardado al iniciar
 function loadSavedTheme() {
-  const savedTheme = localStorage.getItem("selectedTheme") || "light";
+  const savedTheme = localStorage.getItem("selectedTheme") || "sol";
   const savedBackground = localStorage.getItem("customBackground");
   applyTheme(savedTheme, savedBackground);
 }
 
-// Ejecutar al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("selectedTheme") || "sol";
-  applyTheme(savedTheme);
-}); 
+  loadSavedTheme();
+});
