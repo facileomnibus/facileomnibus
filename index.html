@@ -2660,21 +2660,37 @@ document.addEventListener("click", function(e) {
 });
 
 // Aplicar fondo personalizado
+<script>
+// Toggle del menú
+document.getElementById("theme-toggle").addEventListener("click", function() {
+  const menu = document.getElementById("theme-menu");
+  menu.style.display = menu.style.display === "none" ? "block" : "none";
+});
+
+// Cerrar menú al hacer click fuera
+document.addEventListener("click", function(e) {
+  const panel = document.getElementById("theme-panel");
+  if (!panel.contains(e.target)) {
+    document.getElementById("theme-menu").style.display = "none";
+  }
+});
+
+// Aplicar fondo personalizado
 function applyCustomBackground() {
   const url = document.getElementById("bg-url").value;
   if (!url) {
     alert("Por favor, pega una URL de imagen válida");
     return;
   }
-  
-  const currentTheme = localStorage.getItem("selectedTheme
+
+  const currentTheme = localStorage.getItem("selectedTheme") || "sol";
   applyTheme(currentTheme, url);
   alert("✅ Fondo aplicado");
 }
 
 // Limpiar fondo
 function clearCustomBackground() {
-  const currentTheme = localStorage.getItem("selectedTheme
+  const currentTheme = localStorage.getItem("selectedTheme") || "sol";
   applyTheme(currentTheme, null);
   document.getElementById("bg-url").value = "";
   alert("✅ Fondo limpiado");
