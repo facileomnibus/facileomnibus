@@ -1,8 +1,24 @@
 {
-  "updatedAt": "2026-06-23T19:28:52.008270+00:00",
+  "updatedAt": "2026-06-23T21:16:56.311486+00:00",
   "source": "google-news-rss",
   "query": "",
   "items": [
+    {
+      "title": "Desalojada una de las cuatro torres de Madrid por una explosión en el interior del edificio",
+      "source": "EL PAÍS",
+      "summary": "Desalojada una de las cuatro torres de Madrid por una explosión en el interior del edificio EL PAÍS Extinguido el incendio en la torre Moeve de la Castellana que había obligado a desalojar el edificio Telemadrid El incendio en la torre Moeve de Madrid, en imág",
+      "image": "",
+      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQbTZZcEtyNEJpSlMwblQ2clB0eDNsMlV0RWp2Uk9UajU2d3JhSDNxbnhNTWdreF9tVmlfRTdQVU5qWkU1WHJwcWg4eVNaSEwzRngxd3YxR3RBV21vM1BYel9ON0F4TkpqazRaOVJDYlZ5X1ZjazZ2SlpXaXFHbWJVWkU1WklOQWU0UUJwdHB6RTFKa0NuX3R6SnJSemFrdGY2REpDMk41UzZuRnk2anBUODY0RDMtNHhqV2l5LVdDTHNMbXpxMXVkMTFhS0NIdTY2Zl9FcndOR3FjeXB4ZS1rcHJ3?oc=5",
+      "pubDate": "Tue, 23 Jun 2026 15:22:46 GMT"
+    },
+    {
+      "title": "Qué es un domo de calor, el fenómeno que causa temperaturas extremas como las que se están registrando en Europa",
+      "source": "BBC",
+      "summary": "Qué es un domo de calor, el fenómeno que causa temperaturas extremas como las que se están registrando en Europa BBC El calor paraliza Francia y provoca 40 muertos por ahogamiento en una semana EL PAÍS La Torre Eiffel y el Museo del Louvre adelantan su cierre",
+      "image": "",
+      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFB1aE80TXl6Y3E2Z2FvdDUtUURHY3N0WEVfcHJmdktrZmVyU2tIbC1GX0stVGJ5SG5XSTJERWhBZU8yVzNEcERydzJ6dTdvQk5GMnJhWm5BcVlEanPSAWBBVV95cUxOUVFnNW1mWDlqOGVUWmk4anlqTTRvdlJuQlJNWTBKN1JZZjZXQjBSRzBhN3lobzhJMWcyNHdnRmVkbkFEbTZYS00tcnE4V3ZCZDRaWEV4cTk5cktGQVh5MXA?oc=5",
+      "pubDate": "Tue, 23 Jun 2026 20:32:56 GMT"
+    },
     {
       "title": "Ignacio Escolar señala las \"sospechas más que fundadas\" sobre \"el proceder de los jueces españoles\"",
       "source": "Cadena SER",
@@ -12,60 +28,44 @@
       "pubDate": "Tue, 23 Jun 2026 11:25:07 GMT"
     },
     {
-      "title": "Desalojada una de las cuatro torres de Madrid por una intensa columna de humo que sale del interior",
-      "source": "EL PAÍS",
-      "summary": "Desalojada una de las cuatro torres de Madrid por una intensa columna de humo que sale del interior EL PAÍS Incendio y desalojo de la Torre Moeve, uno de los cuatro rascacielos junto a la Castellana: los bomberos liberan a las tres personas confinadas en el ed",
-      "image": "",
-      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQbTZZcEtyNEJpSlMwblQ2clB0eDNsMlV0RWp2Uk9UajU2d3JhSDNxbnhNTWdreF9tVmlfRTdQVU5qWkU1WHJwcWg4eVNaSEwzRngxd3YxR3RBV21vM1BYel9ON0F4TkpqazRaOVJDYlZ5X1ZjazZ2SlpXaXFHbWJVWkU1WklOQWU0UUJwdHB6RTFKa0NuX3R6SnJSemFrdGY2REpDMk41UzZuRnk2anBUODY0RDMtNHhqV2l5LVdDTHNMbXpxMXVkMTFhS0NIdTY2Zl9FcndOR3FjeXB4ZS1rcHJ3?oc=5",
-      "pubDate": "Tue, 23 Jun 2026 15:22:46 GMT"
-    },
-    {
       "title": "Zapatero quiere saber si se analizaron dispositivos incautados sin autorización judicial y avisa de una posible nulidad",
       "source": "elDiario.es",
-      "summary": "Zapatero quiere saber si se analizaron dispositivos incautados sin autorización judicial y avisa de una posible nulidad elDiario.es Zapatero cuestiona la validez de pruebas clave en el origen del caso Plus Ultra EL PAÍS Zapatero apunta de nuevo a la nulidad de",
+      "summary": "Zapatero quiere saber si se analizaron dispositivos incautados sin autorización judicial y avisa de una posible nulidad elDiario.es Zapatero cuestiona la validez de pruebas clave en el origen del caso Plus Ultra EL PAÍS Zapatero plantea al juez la nulidad de l",
       "image": "",
       "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQNkx2UTRCVUtGaDU2VG5SeWJWSjhfQU5xZ0tiazluTzRuTzVQbE01RF9ua09WRTVCZHpJeTNRLW9aRjlVNnkyNTFkVEtVWUxJcmcxLW5rX1I1WTZsNThYX0U0VW5YVHhoYUd3WFFFSVBfaTJNSmJOcTk3LVYxUkliZndMcG83cnVUaEw1S1dFTmJycjNFWVV1bnREMkNKUmJYYmRMVV9ha21JTzljb09ob3JzV3RYMjBMN3I5TElydlpIeHNadWpqLVNmaWxiWGp5bmNtcVRpS3dkdEZ5Z1c4?oc=5",
       "pubDate": "Tue, 23 Jun 2026 11:05:30 GMT"
     },
     {
-      "title": "El Gobierno aprueba normas para los patinetes: 15 años de edad mínima, casco obligatorio y luces siempre encendidas",
-      "source": "Cadena SER",
-      "summary": "El Gobierno aprueba normas para los patinetes: 15 años de edad mínima, casco obligatorio y luces siempre encendidas Cadena SER Interior actualiza el Reglamento General de Circulación para mejorar la protección de los usuarios vulnerables de la vía DGT Los cond",
+      "title": "La asistente de Begoña Gómez recurre el auto del juez Peinado por \"grave, impertinente y desconsiderado\"",
+      "source": "elDiario.es",
+      "summary": "La asistente de Begoña Gómez recurre el auto del juez Peinado por \"grave, impertinente y desconsiderado\" elDiario.es El riesgo 'justificado' del juez Peinado ante una posible fuga de Begoña Gómez: ocho presidentes y ministros huyeron de la Justicia gracias a p",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxOWXowUXNQa2RZZjFTVjhOUXVxR216OG5rZm83d0xxa21hb3BQNW5uSUROZkpvOEtTRDY2bnVaaFk1T25nOVJ1aU5HVU1wVVV3aVRDaWxPVE5qTVY4ejBYc1JzNjZPakh6TE15a0c2Vk9iUDlGcHBhUWwxSjhSd21WY2xGR1dJQzVxd3FYZkluX2owVGtvS0RSamwteF9hNGkzaWhwd3k4eHR6WTFqZGtqdnh5TkZyenBSSEJuVW9pM0NaRHQ5RktRZlBNZ0x3elItbjF3VFVLanZVZGpOWmFDLVlaX3ZmVlloU2J6SXRla1ZFbWZuVjROaXJpONIBjwJBVV95cUxOM1ZDMmI0azdCdlNyVWg1SHM1M2VGczVCSm00ZktkQW1CVkFNT09fYlF1azJCS19uZ00wR2d1NUlNcnRJM3NILTFfbzFnTllBTjRxckowMHNQRkx1N1V6WGpwNjlvcGZrNWJIcUhoUjFtcWRyVGpubVMxZjlQZEFMRm16S0ZOUnNoZkhobV9mb2VYTnVQN2c0aC14YnVuQmEybkF1SUJNM1lNOXhhZEZhVWtUOTQ2WENJajZTRm4zUWtOYVMtYTN4MmJubTk2eV9EdTdPQkRTalhxZTlMNjBQOFo0d3hIbjM0MW84NXBSSk1xQnJXYnM4VW4tU0lvRnhlUjZrMGxXdUVMempLQVFz?oc=5",
-      "pubDate": "Tue, 23 Jun 2026 15:14:48 GMT"
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPYU1scmpsblNpOENNTXM1YS1MZEhlbmFPREM2TUJ6MXJmTmhTZzVDcFk2cUN5WGJ4YXRjLWJ2VEFhWllkb08yTXI0N2pDQ3FsLWRMeHVsOGxHclZGVVVpWW5CWUdDdDNrRWcyeks5d2hJYnRtcHRfUXVJWG5QclF2eElidXNmZjFIcTd6eHNVQmdvc1ZUQTlvbl9qMTg1Q1E5d2FTMnNfZFozNURPZWpoWTlYSmkxUmtwTFpQbXJBbDNYeS13eV9pLVJlWdIB0AFBVV95cUxQY2NVSUtIa2tiVVMzU1Q0WVNGbzZ4OEpfa0s2ZFNRTkhaZEdFVUVCMDNjQjZHdEFpMjBmZ0Uwc1d2ZWtDUkoyOGNMRmtTOHdPaEN6V0V2MDJhVVowekdyYWdlS3FOcVVBY21GVUtvYTRoeHMybjFtb21wTlJiNkR5V3NfNlVCaGVUZ09sREJObFJHdlVXZXF5TjVaOEZGMEUtd3pTVUZzdFphUW1JMjZqNHE1MVotb3gtZER0SFJfWU9sRlBOMlJTX251MlBUYXBi?oc=5",
+      "pubDate": "Tue, 23 Jun 2026 16:32:55 GMT"
     },
     {
-      "title": "El PNV admite \"reuniones\" con miembros del Gobierno por Tubos Reunidos y el PP reclama más explicaciones",
-      "source": "El Confidencial",
-      "summary": "El PNV admite \"reuniones\" con miembros del Gobierno por Tubos Reunidos y el PP reclama más explicaciones El Confidencial Ortuzar se reunió con la trama de Santos Cerdán para que la SEPI no recibiera 10 millones de Tubos Reunidos y la red corrupta se repartió 2",
+      "title": "Pedro Sánchez anuncia que el Gobierno aprueba la mayor inversión en dependencia de la democracia: más de 2.200 M€ extra para \"cuidar más y mejor a quienes más lo necesitan\"",
+      "source": "La Moncloa",
+      "summary": "Pedro Sánchez anuncia que el Gobierno aprueba la mayor inversión en dependencia de la democracia: más de 2.200 M€ extra para \"cuidar más y mejor a quienes más lo necesitan\" La Moncloa Sindicato Unión General de Trabajadoras y Trabajadores de España UGT Menos l",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPOUJPR2E4S1dPbkRCeVdJN0FDSFFKUUlvdnpCb1drc1JuSjdZOHVfS1I0NDM0cXVNTDAyb0FJWUR6dlFjQjZfeDJ4eWp3cHB0SS1xSWh0QzA1Ti1mTXM0Q1BpM1VUOUhoVjhXLU5mRDJiVjFEblhpZ19Cd1lwTE5pRXdrbmdGc0w0VG5NZ1NacHI0eUxoQV9TLTdveU5MQlpyb2dYQUk5VnVLVWF6NHJLR1ZFZw?oc=5",
-      "pubDate": "Tue, 23 Jun 2026 11:49:00 GMT"
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNT2FYOW43V3NEcldTR201emNKcVZ2Nm9tLU1kdmZrRjlzaEhQWV80VUtyeVF0VUIxQVlJRW42RUR4Q0xoQTJheGlDS2Nkb1k1b19ieF9KTWlubV9vc0ZCZVoyZ29YVDIwbERKU0lLM0FwYS1YTEFWZDJnT2w1dEtheHNoeTA4cmd2T2JRTzNQUjJMdU1CN3lOYUxEZmdjRkNMODNOSjM1VXpqQzVlVDlHWUpIc3JyQQ?oc=5",
+      "pubDate": "Tue, 23 Jun 2026 10:40:54 GMT"
     },
     {
-      "title": "El Gobierno propone al catedrático Juan José Ganuza al frente de la CNMC y blinda el consejo con mayoría izquierdista",
-      "source": "El Debate",
-      "summary": "El Gobierno propone al catedrático Juan José Ganuza al frente de la CNMC y blinda el consejo con mayoría izquierdista El Debate El Gobierno propone al catedrático Juan José Ganuza como nuevo presidente de la CNMC EL PAÍS La activista trans vasca Marina Echebar",
+      "title": "El Gobierno advierte contra la corrupción: “El que la hace la paga, se llame Ábalos o Ayuso”",
+      "source": "La Vanguardia",
+      "summary": "El Gobierno advierte contra la corrupción: “El que la hace la paga, se llame Ábalos o Ayuso” La Vanguardia El Gobierno recurre al 'y tú más' tras la primera condena a un ex ministro de Sánchez: \"El que la hace la paga, se llame Ábalos o Ayuso\" El Mundo Las \"ho",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxOSTQtZFhFa3VSb3JDNXJFU2k3Zk5vSDRWT1J2NTRlVTQwbmpMeERWWFJtaHhjcXVBU2VoVkVBMVd0amxTUmNSMGdPdmxaTUJ6OGZCSHNYd1pkZTVvTWN1ZkpzSllwQVlzMUtqN3JCdWRZMXNXRUp0ajBvbDlQT3RiRXg1eEhmei1YeHkwcVhCZWg0SmhEVnd3TXd0UGNsN3UwNHpPUlpPdnE3Yk56TjVBX2YyVlk2RzVUUU9uUUlhWHlza2VzQWVadklYclpNdk9qelF5Rm1sOWxnaVk0V3pnVNIB5gFBVV95cUxNVG1IZ2hlc0lsODMwQndvOFVEaVhrRDFPN3N1cUVydmlQRVlGdHhEaERPR3hKNlRHa0pObV9OcUlSQ2JKRDZfU2JIT0hGZVN0SlR6dThCblBhZ3YtLXBZa3piM05QengwVkV2dUFpMXM4ZGFMSmFnMDBEY3huYkE0MkRERlZ5VUdBQUR2SS15dV9GVlptdGFOQTJKRWZ4ODR6VlRnZmRHTk5paGRpN0ctVnlYNWtSZkpudDQzYUhybi1Qd1VIeFVQZWtxb1REN3JZRC1EVHpRdHFJbXAwSHBSZ2xfTVRpUQ?oc=5",
-      "pubDate": "Tue, 23 Jun 2026 11:26:43 GMT"
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOc2ZiRWptbTE4ajZPdjRCemNiZ1NxTThJYnVKN1FkSUNmTU0zNVZyYU1wVUl1Mk1FV3AyR3N4ZFdRLWFDd2tkd1pGMlRWOEdxZ2RpOEMxeE5fMXlMNlFwUGVvWVYtRVp5VU5Ld2RjbFZPejNna0xFRjFZRUFDUFQ5YlI0RzVOM2xIRTVxOUI1ZnFXV1MySVZ5NFdnTWxJY1AweE9iVXgtbEt4cWpJ0gGyAUFVX3lxTE5QV1piLTNkaGFIaFd5dkFlcEdyTVdGUjF2Z19TeHlLWHJfa0t0bDZrY3hTYmtFS0xwdldIcmUwdmE2RWVORUdwX0RsNUlpSjZfRXZuUUVJaTlzY3R2aFgyVGlKTEdfS1hSN2I3cFBYODN2QW90bjRZRXMwMm14RlVVWWt1OWx5T1kxV3Z1YmpwQWZpUFkwcXFjQlNsVERsWlRYbVFzaElUSVJNRGdEU0M1VVE?oc=5",
+      "pubDate": "Tue, 23 Jun 2026 13:19:19 GMT"
     },
     {
-      "title": "El Gobierno, sobre la sentencia del caso mascarillas: \"El PSOE actuó. El que la hace, la paga. Se llame Ábalos o Ayuso\"",
-      "source": "LaSexta",
-      "summary": "El Gobierno, sobre la sentencia del caso mascarillas: \"El PSOE actuó. El que la hace, la paga. Se llame Ábalos o Ayuso\" LaSexta El Gobierno recurre al 'y tú más' tras la primera condena a un ex ministro de Sánchez: \"El que la hace la paga, se llame Ábalos o Ay",
-      "image": "",
-      "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQNXl3TmtXcUVlYks1eDJSX21YV0IyMjBPdW9XTlhyWDU1TmxSNTNnVnU5S1lFaGg1SWZKNXJKbnpKM01FcFZwTzRVWXNzUVdIOUVHM3NtSnBqcmdhVVBPajE2NDU4NDJUeEhHU3lwaFhkczFsQmJKd2Y1X2M2NWdYak05SFNuWkZiVVZtT2NUSV85TEFiSXczb0hoZ2ZkeHRzdzNoanhFVEdsMXdyaUtyTnlWYWtld0xxUG1Uc0hqYzNqdjBKZm9ybzRLWWprX0N6NE4taFhiLXBVbjNicWNiSk9WNkRvazhXUkFqV05TQ3k?oc=5",
-      "pubDate": "Tue, 23 Jun 2026 12:15:21 GMT"
-    },
-    {
-      "title": "La UDEF aprecia indicios de presunto fraude en el Gobierno de Melilla para la construcción de un centro comercial",
+      "title": "Felipe González cree que Sánchez debe dimitir o convocar elecciones tras la sentencia a Ábalos",
       "source": "RTVE.es",
-      "summary": "La UDEF aprecia indicios de presunto fraude en el Gobierno de Melilla para la construcción de un centro comercial RTVE.es La UDEF ve indicios de malversación y prevaricación en el Gobierno del PP de Melilla para la construcción del primer gran centro comercial",
+      "summary": "Felipe González cree que Sánchez debe dimitir o convocar elecciones tras la sentencia a Ábalos RTVE.es González pide a Sánchez \"dimitir o convocar elecciones\" antes de su comparecencia en el Congreso: \"Es igual que cuando cayó Rajoy\" El Mundo González pide a Z",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxORmxLWVkzeFhjN25hQU8tLVRNaEFLT2ZCMDg5SWJER29LVW9RclNrRXN2VWRMZVhJdVo1RGJTYVEwV0xDWnd4cGplX1RpLWQtdHFJcU5EcGRtNWM1M3dxbGVmQm5aNDJmN21maWRpb0JOeUhobUNFXzNzaWF3Ui1MRUU5TVowaFlNS21aLTlJLUdUbm9DaU9hMnIxd1NHejJuSlZ4SUtDTHJNSEpWYWFIdTRKUVBOcU10TTliYjVsbDZES2ZjLUszMEFCblBIdk1ZRHNVRVF3R29XUQ?oc=5",
-      "pubDate": "Tue, 23 Jun 2026 16:46:00 GMT"
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQYmNQd3FPUWJTT2JEV2tUS2NMc2JObnd5ZTlNd056Y2JCQUFpdW1jbWtTUWQ5UFNqMzBkUjAyZFByMG1DalI2azlzdW9jQzY5Y0JNNUM5dnpfcW5idzhIQ0pLTzhnVDFrRnRoQk1XbFg1cDI2YnE2YnZfbEh2Q2tvWGZIZnZLY0pJY1ZEZ2NtR3cwOHlDVUxBVDN4UXlFaGlhRkJpX21MQl9qTVZkLU9QYzNLWEFCcV9qWDl0RlFWdXFONVJSUUE?oc=5",
+      "pubDate": "Tue, 23 Jun 2026 18:32:30 GMT"
     }
   ]
 }
