@@ -219,15 +219,10 @@ section{
 
 .logo-nav-container{
     display:flex;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    justify-content: space-between !important;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap: wrap;
 }
-
-.navigation{
-    position: relative !important;
-    z-index:1001 !important;
-    margin-left:auto !important
 
 /* menú escritorio */
 
@@ -257,12 +252,8 @@ section{
     align-items:center !important;
     justify-content:center !important;
 
-    width:64px !important;
-    height:64px !important;
-    min-width:64px !important;
-    min-height:64px !important;
-    flex:0 0 64px !important;
-
+    width:56px !important;
+    height:56px !important;
     padding:0 !important;
     margin:0 !important;
 
@@ -273,40 +264,10 @@ section{
     -webkit-appearance:none !important;
 
     position:relative !important;
-    z-index:1003 !important;
-
-    line-height:0 !important;
-    font-size:0 !important;
-    overflow:visible !important;
+    z-index:1002 !important;
 
     touch-action:manipulation !important;
-    -webkit-tap-highlight-color: transparent !important;
-    transition: transform 0.22s ease !important;
-}
-
-/* botón animado alrededor del icono */
-.menu-icon::before{
-    content:"";
-    position:absolute;
-    inset:4px;
-    border-radius:18px;
-    z-index:0;
-    pointer-events:none;
-
-    background:
-      linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--secondary-color) 42%, rgba(255,255,255,0.16) 58%),
-        color-mix(in srgb, var(--secondary-color) 68%, var(--glass-bg) 32%)
-      );
-
-    border:1px solid rgba(255,255,255,0.16);
-    box-shadow:
-      0 6px 16px color-mix(in srgb, var(--secondary-color) 22%, rgba(0,0,0,0.12) 78%),
-      inset 0 1px 0 rgba(255,255,255,0.14);
-
-    opacity:0.96;
-    animation: menuPulse 2.2s ease-in-out infinite;
+    transition: transform 0.2s ease !important;
 }
 
 .menu-icon:hover,
@@ -318,31 +279,9 @@ section{
 
 .menu-icon img{
     display:block !important;
-    width:34px !important;
-    height:34px !important;
-    position:relative !important;
-    z-index:1 !important;
+    width:40px !important;
+    height:40px !important;
     pointer-events:none !important;
-}
-@keyframes menuPulse{
-    0%{
-        transform: scale(1);
-        box-shadow:
-          0 6px 16px color-mix(in srgb, var(--secondary-color) 22%, rgba(0,0,0,0.12) 78%),
-          inset 0 1px 0 rgba(255,255,255,0.14);
-    }
-    50%{
-        transform: scale(1.04);
-        box-shadow:
-          0 8px 18px color-mix(in srgb, var(--secondary-color) 32%, rgba(0,0,0,0.12) 68%),
-          inset 0 1px 0 rgba(255,255,255,0.18);
-    }
-    100%{
-        transform: scale(1);
-        box-shadow:
-          0 6px 16px color-mix(in srgb, var(--secondary-color) 22%, rgba(0,0,0,0.12) 78%),
-          inset 0 1px 0 rgba(255,255,255,0.14);
-    }
 }
 
 /* ocultar menú */
