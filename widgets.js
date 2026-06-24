@@ -188,41 +188,53 @@ document.addEventListener("DOMContentLoaded", () => {
     menuBtn.dataset.menuInit = "true";
 
     const setMenuState = (open) => {
-      menu.classList.toggle("show", open);
-      menuBtn.classList.toggle("is-open", open);
-      menuBtn.setAttribute("aria-expanded", String(open));
-      menuBtn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
-      document.body.classList.toggle("mobile-menu-open", open);
-    };
+  menu.classList.toggle("show", open);
+  menuBtn.classList.toggle("is-open", open);
+  menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+  document.body.classList.toggle("mobile-menu-open", open);
+};
 
-    const isMenuOpen = () => menu.classList.contains("show");
+const isMenuOpen = () => menu.classList.contains("show");
 
+setMenuState(false);
+
+/* Evita que el mismo clic que abre/cierra el botón
+   dispare inmediatamente el cierre del documento */
+let ignoreDocumentClick = false;
+
+const toggleMenu = (event) => {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  ignoreDocumentClick = true;
+  setMenuState(!isMenuOpen());
+
+  window.setTimeout(() => {
+    ignoreDocumentClick = false;
+  }, 0);
+};
+
+menuBtn.addEventListener("click", toggleMenu);
+
+menuBtn.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    toggleMenu(event);
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (ignoreDocumentClick || !isMenuOpen()) return;
+
+  const clickedInsideMenu = menu.contains(event.target);
+  const clickedButton = menuBtn.contains(event.target);
+
+  if (!clickedInsideMenu && !clickedButton) {
     setMenuState(false);
-
-    const toggleMenu = (event) => {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      setMenuState(!isMenuOpen());
-    };
-
-    menuBtn.addEventListener("click", toggleMenu);
-
-    menuBtn.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        toggleMenu(event);
-      }
-    });
-
-    document.addEventListener("click", (event) => {
-      if (!isMenuOpen()) return;
-      const clickedInsideMenu = menu.contains(event.target);
-      const clickedButton = menuBtn.contains(event.target);
-      if (!clickedInsideMenu && !clickedButton) {
-        setMenuState(false);
-      }
-    });
+  }
+});
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && isMenuOpen()) {
