@@ -71,27 +71,50 @@ document.addEventListener("DOMContentLoaded", () => {
   bar.appendChild(search);
 
   /* ===============================
-     MENÚ RESPONSIVE
-  ================================ */
-  const menuBtn = document.querySelector(".menu-icon");
-  const menu = document.querySelector(".navigation ul");
+   MENÚ RESPONSIVE
+================================ */
+const menuBtn = document.querySelector(".menu-icon");
+const menu = document.querySelector(".navigation ul");
 
-  if (menuBtn && menu) {
-    const toggleMenu = (event) => {
+if (menuBtn && menu) {
+  let lastToggleTime = 0;
+
+  const toggleMenu = (event) => {
+    if (event) {
       event.preventDefault();
       event.stopPropagation();
+    }
 
-      const isOpen = menu.classList.toggle("show");
-      menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    };
+    lastToggleTime = Date.now();
 
-    menuBtn.addEventListener("click", toggleMenu);
+    const isOpen = menu.classList.toggle("show");
+    menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  };
 
-    document.addEventListener("click", (event) => {
-      if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
-        menu.classList.remove("show");
-        menuBtn.setAttribute("aria-expanded", "false");
-      }
-    });
-  }
+  const handleButtonInteraction = (event) => {
+    toggleMenu(event);
+  };
+
+  menuBtn.addEventListener("click", handleButtonInteraction);
+  menuBtn.addEventListener("touchend", handleButtonInteraction, { passive: false });
+  menuBtn.addEventListener("pointerup", handleButtonInteraction);
+
+  document.addEventListener("click", (event) => {
+    if (Date.now() - lastToggleTime < 250) return;
+
+    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+      menu.classList.remove("show");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  document.addEventListener("touchend", (event) => {
+    if (Date.now() - lastToggleTime < 250) return;
+
+    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+      menu.classList.remove("show");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+  }, { passive: true });
+}
 });
