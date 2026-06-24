@@ -248,42 +248,117 @@ section{
 
 /* icono menú */
 .menu-icon{
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
+    --menu-btn-size: 56px;
+    --menu-btn-radius: 18px;
+    --menu-btn-line-color: rgba(255,255,255,0.96);
+    --menu-btn-bg:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--secondary-color) 28%, rgba(255,255,255,0.16) 72%),
+        color-mix(in srgb, var(--primary-color) 28%, var(--glass-bg) 72%)
+      );
+    --menu-btn-bg-hover:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--secondary-color) 42%, rgba(255,255,255,0.12) 58%),
+        color-mix(in srgb, var(--primary-color) 42%, var(--glass-bg) 58%)
+      );
 
-    width:56px !important;
-    height:56px !important;
+    display:grid !important;
+    place-items:center !important;
+    width:var(--menu-btn-size) !important;
+    height:var(--menu-btn-size) !important;
+    min-width:48px !important;
+    min-height:48px !important;
     padding:0 !important;
     margin:0 !important;
-
+    box-sizing:border-box !important;
     cursor:pointer !important;
-    border:none !important;
-    background:transparent !important;
+    border:1px solid rgba(255,255,255,0.14) !important;
+    border-radius:var(--menu-btn-radius) !important;
+    background:var(--menu-btn-bg) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     appearance:none !important;
     -webkit-appearance:none !important;
-
-    position:relative !important;
-    z-index:1002 !important;
-
     touch-action:manipulation !important;
-    transition: transform 0.2s ease !important;
+    -webkit-tap-highlight-color: transparent !important;
+    user-select:none !important;
+    -webkit-user-select:none !important;
+    position:relative !important;
+    z-index:1004 !important;
+    box-shadow:
+      0 8px 20px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.12) 76%),
+      inset 0 1px 0 rgba(255,255,255,0.16) !important;
+    transition:
+      transform 160ms ease,
+      background 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease !important;
 }
 
 .menu-icon:hover,
-.menu-icon:focus,
-.menu-icon:active{
-    transform: scale(1.03) !important;
+.menu-icon:focus-visible{
+    background:var(--menu-btn-bg-hover) !important;
     outline:none !important;
+    box-shadow:
+      0 10px 24px color-mix(in srgb, var(--secondary-color) 30%, rgba(0,0,0,0.12) 70%),
+      inset 0 1px 0 rgba(255,255,255,0.18) !important;
 }
 
-.menu-icon img{
-    display:block !important;
-    width:40px !important;
-    height:40px !important;
-    pointer-events:none !important;
+.menu-icon:active{
+    transform:scale(0.96) !important;
 }
 
+.menu-icon__box{
+    position:relative;
+    width:24px;
+    height:18px;
+    display:block;
+    pointer-events:none;
+}
+
+.menu-icon__line{
+    position:absolute;
+    left:50%;
+    width:24px;
+    height:2.5px;
+    border-radius:999px;
+    background:var(--menu-btn-line-color);
+    transform:translateX(-50%);
+    transition:
+      top 220ms ease,
+      transform 220ms ease,
+      opacity 180ms ease;
+    pointer-events:none;
+}
+
+.menu-icon__line:nth-child(1){
+    top:0;
+}
+
+.menu-icon__line:nth-child(2){
+    top:calc(50% - 1.25px);
+}
+
+.menu-icon__line:nth-child(3){
+    top:calc(100% - 2.5px);
+}
+
+.menu-icon[aria-expanded="true"] .menu-icon__line:nth-child(1){
+    top:calc(50% - 1.25px);
+    transform:translateX(-50%) rotate(45deg);
+}
+
+.menu-icon[aria-expanded="true"] .menu-icon__line:nth-child(2){
+    opacity:0;
+    transform:translateX(-50%) scaleX(0.4);
+}
+
+.menu-icon[aria-expanded="true"] .menu-icon__line:nth-child(3){
+    top:calc(50% - 1.25px);
+    transform:translateX(-50%) rotate(-45deg);
+}
 /* ocultar menú */
 
 .navigation ul{
@@ -309,14 +384,16 @@ section{
     position: relative !important;
     z-index:1001 !important;
 }
-/* mostrar menú cuando se activa */
 
+/* mostrar menú cuando se activa */
 .navigation ul.show{
-    display:block;
+    display:flex !important;
+    flex-direction:column !important;
     opacity: 1;
     transform: translateY(0);
     background: var(--menu-mobile-panel-open-bg);
     backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
     border-radius:10px;
     padding:10px;
     border: 1px solid rgba(255,255,255,0.10);
