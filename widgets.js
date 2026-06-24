@@ -79,31 +79,26 @@ bar.appendChild(search)
    MENÚ RESPONSIVE
 ================================ */
 
-const menuBtn=document.querySelector(".menu-icon")
-const menu=document.querySelector(".navigation ul")
+const menuBtn = document.querySelector(".menu-icon");
+const menu = document.querySelector(".navigation ul");
 
-if(menuBtn && menu){
+if (menuBtn && menu) {
+  const toggleMenu = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-menuBtn.addEventListener("click",()=>{
-menu.classList.toggle("show")
-})
+    const isOpen = menu.classList.toggle("show");
+    menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  };
 
-menuBtn.addEventListener("touchstart",()=>{
-menu.classList.toggle("show")
-})
+  menuBtn.addEventListener("click", toggleMenu);
 
-/* ===== FIX CLICK PC (evitar doble evento) ===== */
-
-menuBtn.addEventListener("click", function(e){
-    e.stopPropagation();
-    e.preventDefault();
-    menu.classList.toggle("show");
-}, true);
-
-menuBtn.addEventListener("touchstart", function(e){
-    e.stopPropagation();
-    e.preventDefault();
-}, true);   
+  document.addEventListener("click", (event) => {
+    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+      menu.classList.remove("show");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+  });
 }
 
 })
