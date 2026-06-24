@@ -245,19 +245,14 @@ section{
 .logo{
     font-size:1.2rem;
 }
-
 /* icono menú */
 .menu-icon{
     display:inline-flex !important;
     align-items:center !important;
     justify-content:center !important;
 
-    width:68px !important;
-    height:68px !important;
-    min-width:68px !important;
-    min-height:68px !important;
-    flex:0 0 68px !important;
-
+    width:56px !important;
+    height:56px !important;
     padding:0 !important;
     margin:0 !important;
 
@@ -268,30 +263,26 @@ section{
     -webkit-appearance:none !important;
 
     position:relative !important;
-    z-index:1004 !important;
-
-    line-height:0 !important;
-    font-size:0 !important;
-    overflow:visible !important;
+    z-index:1002 !important;
 
     touch-action:manipulation !important;
     -webkit-tap-highlight-color: transparent !important;
-    transition: transform 0.22s ease !important;
+    transition: transform 0.2s ease !important;
 }
 
-/* fondo/botón animado alrededor del icono */
+/* fondo animado alrededor del icono, SIN romper el header */
 .menu-icon::before{
     content:"";
     position:absolute;
-    inset:6px;
-    border-radius:20px;
+    inset:3px;
+    border-radius:18px;
     z-index:0;
     pointer-events:none;
 
     background:
       linear-gradient(
         135deg,
-        color-mix(in srgb, var(--secondary-color) 40%, rgba(255,255,255,0.18) 60%),
+        color-mix(in srgb, var(--secondary-color) 40%, rgba(255,255,255,0.16) 60%),
         color-mix(in srgb, var(--secondary-color) 68%, var(--glass-bg) 32%)
       );
 
@@ -304,26 +295,20 @@ section{
     animation: menuPulse 2.2s ease-in-out infinite;
 }
 
-/* dibujar hamburguesa con CSS para evitar desalineación de la imagen */
-.menu-icon::after{
-    content:"";
-    position:absolute;
-    z-index:1;
-    width:24px;
-    height:4px;
-    border-radius:999px;
-    background:#ffffff;
-    box-shadow:
-      0 -9px 0 #ffffff,
-      0 9px 0 #ffffff;
+/* mantenemos el icono ORIGINAL visible */
+.menu-icon img{
+    display:block !important;
+    width:28px !important;
+    height:28px !important;
+    position:relative !important;
+    z-index:1 !important;
+    pointer-events:none !important;
+    opacity:1 !important;
 }
 
-/* ocultamos la imagen PNG en móvil para que no desplace visualmente el clic */
-.menu-icon img{
-    opacity:0 !important;
-    width:0 !important;
-    height:0 !important;
-    pointer-events:none !important;
+/* quitamos el icono falso dibujado con CSS */
+.menu-icon::after{
+    content:none !important;
 }
 
 .menu-icon:hover,
@@ -332,6 +317,7 @@ section{
     transform: scale(1.03) !important;
     outline:none !important;
 }
+
 @keyframes menuPulse{
     0%{
         transform: scale(1);
@@ -342,7 +328,7 @@ section{
     50%{
         transform: scale(1.04);
         box-shadow:
-          0 9px 20px color-mix(in srgb, var(--secondary-color) 34%, rgba(0,0,0,0.12) 66%),
+          0 8px 18px color-mix(in srgb, var(--secondary-color) 32%, rgba(0,0,0,0.12) 68%),
           inset 0 1px 0 rgba(255,255,255,0.18);
     }
     100%{
@@ -351,29 +337,6 @@ section{
           0 6px 16px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.12) 76%),
           inset 0 1px 0 rgba(255,255,255,0.14);
     }
-}
-.logo-nav-container{
-    flex-wrap: nowrap !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 8px !important;
-}
-
-.logo{
-    flex: 1 1 auto !important;
-    min-width: 0 !important;
-}
-
-.navigation{
-    position: relative !important;
-    z-index:1001 !important;
-    margin-left:auto !important;
-    flex: 0 0 auto !important;
-}
-
-.navigation ul{
-    position: relative !important;
-    z-index:1001 !important;
 }
 /* ocultar menú */
 
