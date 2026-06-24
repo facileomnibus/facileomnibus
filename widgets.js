@@ -179,92 +179,94 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function initMobileMenu() {
-    const menuBtn = document.getElementById("mobileMenuToggle") || document.querySelector(".menu-icon");
-    const menu = document.getElementById("site-menu") || document.querySelector(".navigation ul");
-    if (!menuBtn || !menu) return;
+  const menuBtn =
+    document.getElementById("mobileMenuToggle") ||
+    document.querySelector(".menu-icon");
 
-    // Evita volver a enlazar el mismo botón y generar comportamientos raros
-    if (menuBtn.dataset.menuInit === "true") return;
-    menuBtn.dataset.menuInit = "true";
+  const menu =
+    document.getElementById("site-menu") ||
+    document.querySelector(".navigation ul");
 
-    const setMenuState = (open) => {
-  menu.classList.toggle("show", open);
-  menuBtn.classList.toggle("is-open", open);
-  menuBtn.setAttribute("aria-expanded", String(open));
-  menuBtn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
-  document.body.classList.toggle("mobile-menu-open", open);
-};
+  if (!menuBtn || !menu) return;
 
-const isMenuOpen = () => menu.classList.contains("show");
+  // Evita volver a enlazar el mismo botón y generar comportamientos raros
+  if (menuBtn.dataset.menuInit === "true") return;
+  menuBtn.dataset.menuInit = "true";
 
-setMenuState(false);
+  const setMenuState = (open) => {
+    menu.classList.toggle("show", open);
+    menuBtn.classList.toggle("is-open", open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    document.body.classList.toggle("mobile-menu-open", open);
+  };
 
-/* Evita que el mismo clic que abre/cierra el botón
-   dispare inmediatamente el cierre del documento */
-let ignoreDocumentClick = false;
+  const isMenuOpen = () => menu.classList.contains("show");
 
-const toggleMenu = (event) => {
-  if (event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
+  // Estado inicial seguro
+  setMenuState(false);
 
-  ignoreDocumentClick = true;
-  setMenuState(!isMenuOpen());
+  let ignoreDocumentPointer = false;
 
-  window.setTimeout(() => {
-    ignoreDocumentClick = false;
-  }, 0);
-};
+  const toggleMenu = (event) => {
+    // Solo botón principal del ratón / toque normal
+    if (event && event.type === "pointerup" && event.button !== 0) return;
 
-menuBtn.addEventListener("click", toggleMenu);
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
-menuBtn.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" || event.key === " ") {
-    toggleMenu(event);
-  }
-});
+    ignoreDocumentPointer = true;
+    setMenuState(!isMenuOpen());
 
-document.addEventListener("click", (event) => {
-  if (ignoreDocumentClick || !isMenuOpen()) return;
-
-  const clickedInsideMenu = menu.contains(event.target);
-  const clickedButton = menuBtn.contains(event.target);
-
-  if (!clickedInsideMenu && !clickedButton) {
-    setMenuState(false);
-  }
-});
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && isMenuOpen()) {
-        setMenuState(false);
-      }
+    // Espera al siguiente frame para no cerrar con el mismo gesto
+    requestAnimationFrame(() => {
+      ignoreDocumentPointer = false;
     });
+  };
 
-    menu.addEventListener("click", (event) => {
-      const link = event.target.closest("a");
-      if (link) {
-        setMenuState(false);
-      }
-    });
+  // Ratón / touch / stylus
+  menuBtn.addEventListener("pointerup", toggleMenu);
 
-    window.addEventListener("resize", () => {
-      if (window.innerWidth >= 768 && isMenuOpen()) {
-        setMenuState(false);
-      }
-    });
-  }
+  // Teclado
+  menuBtn.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      toggleMenu(event);
+    }
+  });
 
-  try {
-    initTopWidgets();
-  } catch (error) {
-    console.error("[Facile widgets] Error al montar los widgets superiores:", error);
-  }
+  // Cerrar al pulsar fuera
+  document.addEventListener("pointerup", (event) => {
+    if (ignoreDocumentPointer || !isMenuOpen()) return;
 
-  try {
-    initMobileMenu();
-  } catch (error) {
-    console.error("[Facile menu] Error al inicializar el menú móvil:", error);
-  }
-});
+    const clickedInsideMenu = menu.contains(event.target);
+    const clickedButton = menuBtn.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedButton) {
+      setMenuState(false);
+    }
+  });
+
+  // Cerrar con Escape
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && isMenuOpen()) {
+      setMenuState(false);
+    }
+  });
+
+  // Cerrar al tocar un enlace del menú
+  menu.addEventListener("pointerup", (event) => {
+    const link = event.target.closest("a");
+    if (link) {
+      setMenuState(false);
+    }
+  });
+
+  // Cerrar al volver a escritorio
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768 && isMenuOpen()) {
+      setMenuState(false);
+    }
+  });
+}
