@@ -46,52 +46,132 @@ document.addEventListener("DOMContentLoaded", () => {
   bar.appendChild(clockWidget);
 
   /* ===============================
-     BUSCADOR GOOGLE
-  ================================ */
-  const searchWidget = document.createElement("div");
-  searchWidget.className = "widget-box";
-  searchWidget.innerHTML = `
-    <form
-      action="https://www.google.com/search"
-      method="get"
-      target="_blank"
-      style="display:flex; gap:8px; align-items:center; width:100%;"
+   BUSCADOR MULTI-BUSCADOR
+================================ */
+const SEARCH_ENGINES = {
+  google: {
+    label: "Google",
+    action: "https://www.google.com/search",
+    param: "q",
+    placeholder: "Buscar en Google...",
+    badge: "G"
+  },
+  bing: {
+    label: "Bing",
+    action: "https://www.bing.com/search",
+    param: "q",
+    placeholder: "Buscar en Bing...",
+    badge: "B"
+  },
+  startpage: {
+    label: "Startpage",
+    action: "https://www.startpage.com/sp/search",
+    param: "query",
+    placeholder: "Buscar en Startpage...",
+    badge: "S"
+  },
+  duckduckgo: {
+    label: "DuckDuckGo",
+    action: "https://duckduckgo.com/",
+    param: "q",
+    placeholder: "Buscar en DuckDuckGo...",
+    badge: "D"
+  },
+  brave: {
+    label: "Brave Search",
+    action: "https://search.brave.com/search",
+    param: "q",
+    placeholder: "Buscar en Brave Search...",
+    badge: "B"
+  },
+  yahoo: {
+    label: "Yahoo",
+    action: "https://search.yahoo.com/search",
+    param: "p",
+    placeholder: "Buscar en Yahoo...",
+    badge: "Y"
+  }
+};
+
+const savedEngine = localStorage.getItem("facileSearchEngine") || "google";
+
+const searchWidget = document.createElement("div");
+searchWidget.className = "widget-box facile-search-widget";
+
+searchWidget.innerHTML = `
+  <form
+    id="facileSearchForm"
+    class="facile-search-form"
+    method="get"
+    target="_blank"
+    autocomplete="off"
+  >
+    <div class="facile-search-engine-wrap">
+      <span class="facile-search-engine-badge" id="facileSearchBadge" aria-hidden="true">G</span>
+
+      <select
+        id="facileSearchEngine"
+        class="facile-search-engine"
+        aria-label="Seleccionar buscador"
+      >
+        <option value="google">Google</option>
+        <option value="bing">Bing</option>
+        <option value="startpage">Startpage</option>
+        <option value="duckduckgo">DuckDuckGo</option>
+        <option value="brave">Brave Search</option>
+        <option value="yahoo">Yahoo</option>
+      </select>
+    </div>
+
+    <input
+      id="facileSearchInput"
+      class="facile-search-input"
+      type="text"
+      placeholder="Buscar..."
+      aria-label="Buscar"
+      required
     >
-      <input
-        type="text"
-        name="q"
-        placeholder="Buscar en Google..."
-        aria-label="Buscar en Google"
-        style="
-          flex:1;
-          min-width:0;
-          padding:10px 12px;
-          border:none;
-          outline:none;
-          border-radius:12px;
-          background:rgba(255,255,255,0.88);
-          color:#333;
-          box-sizing:border-box;
-        "
-      >
-      <button
-        type="submit"
-        style="
-          padding:10px 14px;
-          border:none;
-          border-radius:12px;
-          cursor:pointer;
-          background:#5bd3ff;
-          color:white;
-          font-weight:700;
-          box-shadow:0 5px 12px rgba(0,0,0,0.10);
-        "
-      >
-        Buscar
-      </button>
-    </form>
-  `;
-  bar.appendChild(searchWidget);
+
+    <button
+      id="facileSearchSubmit"
+      class="facile-search-submit"
+      type="submit"
+    >
+      Buscar
+    </button>
+  </form>
+`;
+
+bar.appendChild(searchWidget);
+
+const searchForm = document.getElementById("facileSearchForm");
+const searchEngineSelect = document.getElementById("facileSearchEngine");
+const searchInput = document.getElementById("facileSearchInput");
+const searchBadge = document.getElementById("facileSearchBadge");
+
+function syncSearchEngine(engineKey) {
+  const engine = SEARCH_ENGINES[engineKey] || SEARCH_ENGINES.google;
+
+  searchForm.action = engine.action;
+  searchForm.setAttribute("data-engine", engineKey);
+
+  searchInput.name = engine.param;
+  searchInput.placeholder = engine.placeholder;
+  searchInput.setAttribute("aria-label", engine.placeholder);
+
+  searchBadge.textContent = engine.badge;
+  searchBadge.setAttribute("data-engine", engineKey);
+
+  searchEngineSelect.value = engineKey;
+  localStorage.setItem("facileSearchEngine", engineKey);
+}
+
+searchEngineSelect.addEventListener("change", () => {
+  syncSearchEngine(searchEngineSelect.value);
+  searchInput.focus();
+});
+
+syncSearchEngine(savedEngine);
 
   /* ===============================
      MENÚ RESPONSIVE
