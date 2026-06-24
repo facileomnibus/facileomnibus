@@ -74,36 +74,77 @@ font-size:14px;
 
 bar.appendChild(search)
 
-
 /* ===============================
    MENÚ RESPONSIVE
 ================================ */
+const menuBtn = document.getElementById("mobileMenuToggle") || document.querySelector(".menu-icon");
+const menu = document.getElementById("site-menu") || document.querySelector(".navigation ul");
 
-const menuBtn=document.querySelector(".menu-icon")
-const menu=document.querySelector(".navigation ul")
+if (menuBtn && menu) {
+  let isOpen = false;
 
-if(menuBtn && menu){
+  const openMenu = () => {
+    menu.classList.add("show");
+    menuBtn.setAttribute("aria-expanded", "true");
+    menuBtn.setAttribute("aria-label", "Cerrar menú");
+    isOpen = true;
+  };
 
-menuBtn.addEventListener("click",()=>{
-menu.classList.toggle("show")
-})
+  const closeMenu = () => {
+    menu.classList.remove("show");
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.setAttribute("aria-label", "Abrir menú");
+    isOpen = false;
+  };
 
-menuBtn.addEventListener("touchstart",()=>{
-menu.classList.toggle("show")
-})
+  const toggleMenu = (event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
-/* ===== FIX CLICK PC (evitar doble evento) ===== */
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  };
 
-menuBtn.addEventListener("click", function(e){
-    e.stopPropagation();
-    e.preventDefault();
-    menu.classList.toggle("show");
-}, true);
+  menuBtn.addEventListener("click", toggleMenu);
 
-menuBtn.addEventListener("touchstart", function(e){
-    e.stopPropagation();
-    e.preventDefault();
-}, true);   
+  menuBtn.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      toggleMenu(event);
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!isOpen) return;
+
+    const clickedInsideMenu = menu.contains(event.target);
+    const clickedButton = menuBtn.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedButton) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && isOpen) {
+      closeMenu();
+    }
+  });
+
+  menu.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
+    if (link) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768 && isOpen) {
+      closeMenu();
+    }
+  });
 }
-
-})
