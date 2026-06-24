@@ -1570,3 +1570,39 @@ footer .footer-inner,
 body.mobile-menu-open{
   overflow: hidden;
 }
+/* ==========================================
+   MENÚ MÓVIL
+========================================== */
+@media only screen and (max-width: 767px){
+  /* Asegura que el desplegable no quede recortado */
+  .header{
+    overflow: visible !important;
+  }
+
+  .logo-nav-container{
+    position: relative !important;
+  }
+
+  /* Si el botón está en modo abierto (X),
+     forzamos visualmente la apertura real del menú */
+  .menu-icon.is-open + .navigation ul{
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    background: var(--menu-mobile-panel-open-bg) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--secondary-color) 20%, rgba(0,0,0,0.12) 80%) !important;
+  }
+
+  .menu-icon.is-open + .navigation{
+    position: relative !important;
+    z-index: 1001 !important;
+  }
+}
