@@ -77,50 +77,28 @@ const menuBtn = document.querySelector(".menu-icon");
 const menu = document.querySelector(".navigation ul");
 
 if (menuBtn && menu) {
-  const openMenu = () => {
-    menu.classList.add("show");
-    menuBtn.setAttribute("aria-expanded", "true");
-  };
+  menuBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
 
-  const closeMenu = () => {
-    menu.classList.remove("show");
-    menuBtn.setAttribute("aria-expanded", "false");
-  };
+    const isOpen = menu.classList.toggle("show");
+    menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
 
-  const toggleMenu = (event) => {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    if (menu.classList.contains("show")) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  };
-
-  /* abrir/cerrar con click: más estable en PC y móvil */
-  menuBtn.addEventListener("click", toggleMenu);
-
-  /* soporte teclado */
-  menuBtn.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      toggleMenu(event);
+  document.addEventListener("click", function (e) {
+    if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+      menu.classList.remove("show");
+      menuBtn.setAttribute("aria-expanded", "false");
     }
   });
 
-  /* cerrar al hacer click fuera */
-  document.addEventListener("click", (event) => {
-    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
-      closeMenu();
-    }
-  });
+  menuBtn.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      e.stopPropagation();
 
-  /* cerrar con Escape */
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeMenu();
+      const isOpen = menu.classList.toggle("show");
+      menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
     }
   });
 }
