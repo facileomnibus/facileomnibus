@@ -245,3 +245,4 @@ syncSearchEngine(savedEngine);
       }
     });
   }
+});
