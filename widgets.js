@@ -77,33 +77,50 @@ const menuBtn = document.querySelector(".menu-icon");
 const menu = document.querySelector(".navigation ul");
 
 if (menuBtn && menu) {
-  const toggleMenu = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const isOpen = !menu.classList.contains("show");
-    menu.classList.toggle("show", isOpen);
-    menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  const openMenu = () => {
+    menu.classList.add("show");
+    menuBtn.setAttribute("aria-expanded", "true");
   };
 
-  const closeMenu = (event) => {
-    if (menu.contains(event.target) || menuBtn.contains(event.target)) return;
-
+  const closeMenu = () => {
     menu.classList.remove("show");
     menuBtn.setAttribute("aria-expanded", "false");
   };
 
-  /* un solo evento universal */
-  menuBtn.addEventListener("pointerup", toggleMenu);
+  const toggleMenu = (event) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
-  /* cerrar al tocar fuera */
-  document.addEventListener("pointerup", closeMenu);
+    if (menu.classList.contains("show")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  };
 
-  /* opcional: cerrar al pulsar Escape */
+  /* abrir/cerrar con click: más estable en PC y móvil */
+  menuBtn.addEventListener("click", toggleMenu);
+
+  /* soporte teclado */
+  menuBtn.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      toggleMenu(event);
+    }
+  });
+
+  /* cerrar al hacer click fuera */
+  document.addEventListener("click", (event) => {
+    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  /* cerrar con Escape */
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
-      menu.classList.remove("show");
-      menuBtn.setAttribute("aria-expanded", "false");
+      closeMenu();
     }
   });
 }
