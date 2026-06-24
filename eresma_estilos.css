@@ -262,6 +262,7 @@ section{
     cursor:pointer !important;
     pointer-events:auto !important;
     user-select:none !important;
+    -webkit-user-select:none !important;
     border:none !important;
     appearance:none !important;
     -webkit-appearance:none !important;
@@ -362,7 +363,8 @@ section{
 /* mostrar menú cuando se activa */
 
 .navigation ul.show{
-    display:block;
+    display:flex !important;
+    flex-direction:column !important;
     opacity: 1;
     transform: translateY(0);
     background: var(--menu-mobile-panel-open-bg);
