@@ -24,11 +24,24 @@
     <header class="header">
         <div class="container logo-nav-container">
         <a href="https://ofacile.github.io/facile/" class="logo"><img src="https://raw.githubusercontent.com/ofacile/facile/refs/heads/master/facilelogo.png" width="225" alt="facilelogo.png"></a>
-        <button class="menu-icon" type="button" aria-label="Abrir menú" aria-expanded="false">
-        <img src="https://raw.githubusercontent.com/ofacile/facile/refs/heads/master/menufacileom.png" width="50" alt="facilemenuicon">
+        <button
+          class="menu-icon"
+          id="mobileMenuToggle"
+          type="button"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="site-menu"
+        >
+          <span class="menu-icon__box" aria-hidden="true">
+            <span class="menu-icon__line"></span>
+            <span class="menu-icon__line"></span>
+            <span class="menu-icon__line"></span>
+            </span>
         </button>
+
         <nav class="navigation">
-         <ul>
+        <ul id="site-menu">
+
             <li><a href="https://ofacile.github.io/facile/" aria-current="page">Inicio</a></li>
             <li><a href="https://ofacile.github.io/facile/clasica">Versión clásica</a></li>
             <li><a href="https://twitter.com/o_facile" target="_blank">Síguenos en Twitter (X)</a></li>
