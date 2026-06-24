@@ -240,10 +240,14 @@ section{
 .header{
     padding:1rem 0;
     border-radius: 0 0 18px 18px;
+    overflow: visible !important;
 }
 
 .logo{
     font-size:1.2rem;
+}
+.logo-nav-container{
+    position: relative !important;
 }
 
 /* icono menú */
@@ -365,20 +369,29 @@ section{
     display:none;
     flex-direction: column;
     width:100%;
-    background: var(--menu-mobile-panel-bg);
-    backdrop-filter: blur(12px);
-    border-radius: 15px;
-    padding: 12px;
-    margin: 10px auto;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
     max-width: 95%;
     text-align: center;
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(-10px);
+    border: none !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
 }
 .navigation{
-    position: relative !important;
+    position: absolute !important;
+    top: calc(100% + 10px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
     z-index:1001 !important;
+    pointer-events: none !important;
 }
 .navigation ul{
     position: relative !important;
@@ -391,13 +404,14 @@ section{
     flex-direction:column !important;
     opacity: 1;
     transform: translateY(0);
-    background: var(--menu-mobile-panel-open-bg);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    border-radius:10px;
-    padding:10px;
-    border: 1px solid rgba(255,255,255,0.10);
-    box-shadow: 0 8px 20px color-mix(in srgb, var(--secondary-color) 20%, rgba(0,0,0,0.12) 80%);
+    background: transparent !important;
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    border-radius:0 !important;
+    padding:0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    pointer-events: auto !important;
 }
 
 /* enlaces verticales */
@@ -1542,82 +1556,4 @@ footer .footer-inner,
 }
 body.mobile-menu-open{
   overflow: hidden;
-}
-/* ==========================================
-   MENÚ MÓVIL LIMPIO Y SIN FONDO ENTRE OPCIONES
-========================================== */
-@media only screen and (max-width: 767px){
-  .header{
-    overflow: visible !important;
-  }
-
-  .logo-nav-container{
-    position: relative !important;
-  }
-
-  /* El botón siempre por encima del panel */
-  .menu-icon{
-    z-index: 1004 !important;
-  }
-
-  /* El contenedor del nav no debe bloquear clics */
-  .navigation{
-    position: absolute !important;
-    top: calc(100% + 10px) !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    z-index: 1001 !important;
-    pointer-events: none !important;
-  }
-
-  /* Menú cerrado */
-  .navigation ul{
-    display: flex !important;
-    flex-direction: column !important;
-    width: min(95%, 1020px) !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    transform: translateY(-10px) !important;
-
-    /* IMPORTANTE: sin fondo/panel entre opciones */
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  /* Menú abierto */
-  .navigation ul.show{
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: translateY(0) !important;
-
-    /* IMPORTANTE: seguir sin fondo/panel entre opciones */
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 auto !important;
-  }
-
-  .navigation ul li{
-    display: block !important;
-    width: 100% !important;
-    margin: 8px 0 !important;
-    text-align: center !important;
-  }
-
-  .navigation ul li a{
-    display: block !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
 }
