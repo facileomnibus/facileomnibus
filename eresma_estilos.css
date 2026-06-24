@@ -260,6 +260,8 @@ section{
     box-sizing:border-box !important;
 
     cursor:pointer !important;
+    pointer-events:auto !important;
+    user-select:none !important;
     border:none !important;
     appearance:none !important;
     -webkit-appearance:none !important;
