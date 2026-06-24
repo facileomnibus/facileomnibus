@@ -177,7 +177,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     syncSearchEngine(savedEngine);
   }
-
+/* ===============================
+       MENÚ MÓVIL
+    ================================ */
   function initMobileMenu() {
   const menuBtn =
     document.getElementById("mobileMenuToggle") ||
@@ -189,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!menuBtn || !menu) return;
 
-  // Evita volver a enlazar el mismo botón y generar comportamientos raros
+  // Evita volver a inicializar el mismo botón
   if (menuBtn.dataset.menuInit === "true") return;
   menuBtn.dataset.menuInit = "true";
 
@@ -206,47 +208,34 @@ document.addEventListener("DOMContentLoaded", () => {
   // Estado inicial seguro
   setMenuState(false);
 
-  let ignoreDocumentPointer = false;
-
   const toggleMenu = (event) => {
-    // Solo botón principal del ratón / toque normal
-    if (event && event.type === "pointerup" && event.button !== 0) return;
-
     if (event) {
       event.preventDefault();
       event.stopPropagation();
     }
 
-    ignoreDocumentPointer = true;
     setMenuState(!isMenuOpen());
-
-    // Espera al siguiente frame para no cerrar con el mismo gesto
-    requestAnimationFrame(() => {
-      ignoreDocumentPointer = false;
-    });
   };
 
-  // Ratón / touch / stylus
-  menuBtn.addEventListener("pointerup", toggleMenu);
-
-  // Teclado
-  menuBtn.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      toggleMenu(event);
-    }
-  });
+  // Apertura/cierre principal del botón
+  menuBtn.addEventListener("click", toggleMenu);
 
   // Cerrar al pulsar fuera
-  document.addEventListener("pointerup", (event) => {
-    if (ignoreDocumentPointer || !isMenuOpen()) return;
+  // Se usa pointerdown en captura para que no compita con el click del botón
+  document.addEventListener(
+    "pointerdown",
+    (event) => {
+      if (!isMenuOpen()) return;
 
-    const clickedInsideMenu = menu.contains(event.target);
-    const clickedButton = menuBtn.contains(event.target);
+      const clickedInsideMenu = menu.contains(event.target);
+      const clickedButton = menuBtn.contains(event.target);
 
-    if (!clickedInsideMenu && !clickedButton) {
-      setMenuState(false);
-    }
-  });
+      if (!clickedInsideMenu && !clickedButton) {
+        setMenuState(false);
+      }
+    },
+    true
+  );
 
   // Cerrar con Escape
   document.addEventListener("keydown", (event) => {
@@ -255,8 +244,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Cerrar al tocar un enlace del menú
-  menu.addEventListener("pointerup", (event) => {
+  // Cerrar al pulsar un enlace del menú
+  menu.addEventListener("click", (event) => {
     const link = event.target.closest("a");
     if (link) {
       setMenuState(false);
@@ -270,15 +259,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 }
-try {
-    initTopWidgets();
-  } catch (error) {
-    console.error("[Facile widgets] Error al montar los widgets superiores:", error);
-  }
-
-  try {
-    initMobileMenu();
-  } catch (error) {
-    console.error("[Facile menu] Error al inicializar el menú móvil:", error);
-  }
-});
