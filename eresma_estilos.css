@@ -245,15 +245,16 @@ section{
 .logo{
     font-size:1.2rem;
 }
-/* icono menú: área visible = área pulsable */
+/* icono menú: versión estable + animación suave */
 .menu-icon{
-    display:grid !important;
-    place-items:center !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
 
-    width:64px !important;
-    height:64px !important;
-    min-width:64px !important;
-    min-height:64px !important;
+    width:56px !important;
+    height:56px !important;
+    min-width:56px !important;
+    min-height:56px !important;
 
     padding:0 !important;
     margin:0 !important;
@@ -265,6 +266,7 @@ section{
     -webkit-tap-highlight-color: transparent !important;
     user-select:none !important;
     -webkit-user-select:none !important;
+
     border:none !important;
     appearance:none !important;
     -webkit-appearance:none !important;
@@ -273,21 +275,25 @@ section{
     z-index:1004 !important;
 
     border-radius:18px !important;
-
     background:
       linear-gradient(
         135deg,
-        color-mix(in srgb, var(--secondary-color) 40%, rgba(255,255,255,0.16) 60%),
-        color-mix(in srgb, var(--secondary-color) 68%, var(--glass-bg) 32%)
+        color-mix(in srgb, var(--secondary-color) 38%, rgba(255,255,255,0.14) 62%),
+        color-mix(in srgb, var(--secondary-color) 62%, var(--glass-bg) 38%)
       ) !important;
 
     border:1px solid rgba(255,255,255,0.16) !important;
 
     box-shadow:
-      0 6px 16px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.12) 76%),
-      inset 0 1px 0 rgba(255,255,255,0.14) !important;
+      0 5px 14px color-mix(in srgb, var(--secondary-color) 22%, rgba(0,0,0,0.12) 78%),
+      inset 0 1px 0 rgba(255,255,255,0.12) !important;
 
-    animation: menuPulse 2.2s ease-in-out infinite;
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      opacity 0.18s ease !important;
+
+    animation: menuButtonPulse 2.2s ease-in-out infinite;
 }
 
 .menu-icon img{
@@ -300,10 +306,7 @@ section{
     opacity:1 !important;
 }
 
-.menu-icon::before{
-    content:none !important;
-}
-
+.menu-icon::before,
 .menu-icon::after{
     content:none !important;
 }
@@ -312,26 +315,30 @@ section{
 .menu-icon:focus,
 .menu-icon:active{
     outline:none !important;
+    transform:scale(1.03) !important;
+    box-shadow:
+      0 7px 18px color-mix(in srgb, var(--secondary-color) 28%, rgba(0,0,0,0.12) 72%),
+      inset 0 1px 0 rgba(255,255,255,0.16) !important;
 }
 
-@keyframes menuPulse{
+@keyframes menuButtonPulse{
     0%{
-        opacity:0.94;
+        opacity:0.96;
         box-shadow:
-          0 6px 16px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.12) 76%),
-          inset 0 1px 0 rgba(255,255,255,0.14);
+          0 5px 14px color-mix(in srgb, var(--secondary-color) 22%, rgba(0,0,0,0.12) 78%),
+          inset 0 1px 0 rgba(255,255,255,0.12);
     }
     50%{
         opacity:1;
         box-shadow:
-          0 9px 20px color-mix(in srgb, var(--secondary-color) 34%, rgba(0,0,0,0.12) 66%),
+          0 8px 18px color-mix(in srgb, var(--secondary-color) 30%, rgba(0,0,0,0.12) 70%),
           inset 0 1px 0 rgba(255,255,255,0.18);
     }
     100%{
-        opacity:0.94;
+        opacity:0.96;
         box-shadow:
-          0 6px 16px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.12) 76%),
-          inset 0 1px 0 rgba(255,255,255,0.14);
+          0 5px 14px color-mix(in srgb, var(--secondary-color) 22%, rgba(0,0,0,0.12) 78%),
+          inset 0 1px 0 rgba(255,255,255,0.12);
     }
 }
 /* ocultar menú */
