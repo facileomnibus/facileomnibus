@@ -261,6 +261,8 @@ section{
 
     cursor:pointer !important;
     pointer-events:auto !important;
+    touch-action:manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
     user-select:none !important;
     -webkit-user-select:none !important;
     border:none !important;
@@ -284,9 +286,6 @@ section{
     box-shadow:
       0 6px 16px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.12) 76%),
       inset 0 1px 0 rgba(255,255,255,0.14) !important;
-
-    touch-action:manipulation !important;
-    -webkit-tap-highlight-color: transparent !important;
 
     animation: menuPulse 2.2s ease-in-out infinite;
 }
