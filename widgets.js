@@ -77,44 +77,34 @@ const menuBtn = document.querySelector(".menu-icon");
 const menu = document.querySelector(".navigation ul");
 
 if (menuBtn && menu) {
-  let lastToggleTime = 0;
-
   const toggleMenu = (event) => {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    event.preventDefault();
+    event.stopPropagation();
 
-    lastToggleTime = Date.now();
-
-    const isOpen = menu.classList.toggle("show");
+    const isOpen = !menu.classList.contains("show");
+    menu.classList.toggle("show", isOpen);
     menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
   };
 
-  const handleButtonInteraction = (event) => {
-    toggleMenu(event);
+  const closeMenu = (event) => {
+    if (menu.contains(event.target) || menuBtn.contains(event.target)) return;
+
+    menu.classList.remove("show");
+    menuBtn.setAttribute("aria-expanded", "false");
   };
 
-  menuBtn.addEventListener("click", handleButtonInteraction);
-  menuBtn.addEventListener("touchend", handleButtonInteraction, { passive: false });
-  menuBtn.addEventListener("pointerup", handleButtonInteraction);
+  /* un solo evento universal */
+  menuBtn.addEventListener("pointerup", toggleMenu);
 
-  document.addEventListener("click", (event) => {
-    if (Date.now() - lastToggleTime < 250) return;
+  /* cerrar al tocar fuera */
+  document.addEventListener("pointerup", closeMenu);
 
-    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+  /* opcional: cerrar al pulsar Escape */
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
       menu.classList.remove("show");
       menuBtn.setAttribute("aria-expanded", "false");
     }
   });
-
-  document.addEventListener("touchend", (event) => {
-    if (Date.now() - lastToggleTime < 250) return;
-
-    if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
-      menu.classList.remove("show");
-      menuBtn.setAttribute("aria-expanded", "false");
-    }
-  }, { passive: true });
 }
 });
