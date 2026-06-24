@@ -259,3 +259,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 }
+
+try {
+  initTopWidgets();
+} catch (error) {
+  console.error("[Facile widgets] Error al montar los widgets superiores:", error);
+}
+
+try {
+  initMobileMenu();
+} catch (error) {
+  console.error("[Facile menu] Error al inicializar el menú móvil:", error);
+}
+});
