@@ -1,150 +1,175 @@
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
+  /* ===============================
+     BARRA DE WIDGETS SUPERIOR
+  ================================ */
+  const container = document.getElementById("widgets-container");
+  if (!container) return;
 
-/* ===============================
-   BARRA DE WIDGETS SUPERIOR
-================================ */
+  const bar = document.createElement("div");
+  bar.className = "widgets-bar";
+  container.appendChild(bar);
 
-const bar=document.createElement("div")
-bar.className="widgets-bar"
-
-const container = document.getElementById("widgets-container")
-
-if(container){
-    container.appendChild(bar)
-}
-
-/* ===============================
+  /* ===============================
      FECHA
-  ================================= */
+  ================================ */
+  const dateWidget = document.createElement("div");
+  dateWidget.className = "widget-box";
 
-  const dateWidget = document.createElement("div")
-  dateWidget.className="widget-box"
-
-  function updateDate(){
-    const now = new Date()
-    // Formato: Día de la semana, dd/mm/yyyy
-    const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit' }
-    dateWidget.innerHTML = "📅 " + now.toLocaleDateString('es-ES', options)
+  function updateDate() {
+    const now = new Date();
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    };
+    dateWidget.textContent = "📅 " + now.toLocaleDateString("es-ES", options);
   }
 
-  updateDate()
-  // Actualiza la fecha a medianoche para que cambie correctamente (opcional)
-  setInterval(updateDate, 60 * 1000) // cada minuto
+  updateDate();
+  setInterval(updateDate, 60 * 1000);
+  bar.appendChild(dateWidget);
 
-  bar.appendChild(dateWidget)
+  /* ===============================
+     RELOJ
+  ================================ */
+  const clockWidget = document.createElement("div");
+  clockWidget.className = "widget-box";
 
-/* ===============================
-   RELOJ
-================================ */
+  function updateClock() {
+    const now = new Date();
+    clockWidget.textContent = "🕒 " + now.toLocaleTimeString("es-ES");
+  }
 
-const clock=document.createElement("div")
-clock.className="widget-box"
+  updateClock();
+  setInterval(updateClock, 1000);
+  bar.appendChild(clockWidget);
 
-function updateClock(){
- const now=new Date()
- clock.innerHTML="🕒 "+now.toLocaleTimeString()
-}
+  /* ===============================
+     BUSCADOR GOOGLE
+  ================================ */
+  const searchWidget = document.createElement("div");
+  searchWidget.className = "widget-box";
+  searchWidget.innerHTML = `
+    <form
+      action="https://www.google.com/search"
+      method="get"
+      target="_blank"
+      style="display:flex; gap:8px; align-items:center; width:100%;"
+    >
+      <input
+        type="text"
+        name="q"
+        placeholder="Buscar en Google..."
+        aria-label="Buscar en Google"
+        style="
+          flex:1;
+          min-width:0;
+          padding:10px 12px;
+          border:none;
+          outline:none;
+          border-radius:12px;
+          background:rgba(255,255,255,0.88);
+          color:#333;
+          box-sizing:border-box;
+        "
+      >
+      <button
+        type="submit"
+        style="
+          padding:10px 14px;
+          border:none;
+          border-radius:12px;
+          cursor:pointer;
+          background:#5bd3ff;
+          color:white;
+          font-weight:700;
+          box-shadow:0 5px 12px rgba(0,0,0,0.10);
+        "
+      >
+        Buscar
+      </button>
+    </form>
+  `;
+  bar.appendChild(searchWidget);
 
-setInterval(updateClock,1000)
-updateClock()
+  /* ===============================
+     MENÚ RESPONSIVE
+  ================================ */
+  const menuBtn =
+    document.getElementById("mobileMenuToggle") ||
+    document.querySelector(".menu-icon");
 
-bar.appendChild(clock)
+  const menu =
+    document.getElementById("site-menu") ||
+    document.querySelector(".navigation ul");
 
-/* ===============================
-   BUSCADOR GOOGLE
-================================ */
+  if (menuBtn && menu) {
+    let isOpen = false;
 
-const search=document.createElement("div")
-search.className="widget-box"
+    const openMenu = () => {
+      menu.classList.add("show");
+      menuBtn.setAttribute("aria-expanded", "true");
+      menuBtn.setAttribute("aria-label", "Cerrar menú");
+      isOpen = true;
+    };
 
-search.innerHTML=`
-<form action="https://www.google.com/search" target="_blank">
-<input name="q" placeholder="Buscar en Internet..."
-style="
-padding:8px;
-border-radius:10px;
-border:none;
-outline:none;
-width:260px;
-max-width:90vw;
-font-size:14px;
-">
-</form>
-`
+    const closeMenu = () => {
+      menu.classList.remove("show");
+      menuBtn.setAttribute("aria-expanded", "false");
+      menuBtn.setAttribute("aria-label", "Abrir menú");
+      isOpen = false;
+    };
 
-bar.appendChild(search)
+    const toggleMenu = (event) => {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
 
-/* ===============================
-   MENÚ RESPONSIVE
-================================ */
-const menuBtn = document.getElementById("mobileMenuToggle") || document.querySelector(".menu-icon");
-const menu = document.getElementById("site-menu") || document.querySelector(".navigation ul");
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    };
 
-if (menuBtn && menu) {
-  let isOpen = false;
+    menuBtn.addEventListener("click", toggleMenu);
 
-  const openMenu = () => {
-    menu.classList.add("show");
-    menuBtn.setAttribute("aria-expanded", "true");
-    menuBtn.setAttribute("aria-label", "Cerrar menú");
-    isOpen = true;
-  };
+    menuBtn.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        toggleMenu(event);
+      }
+    });
 
-  const closeMenu = () => {
-    menu.classList.remove("show");
-    menuBtn.setAttribute("aria-expanded", "false");
-    menuBtn.setAttribute("aria-label", "Abrir menú");
-    isOpen = false;
-  };
+    document.addEventListener("click", (event) => {
+      if (!isOpen) return;
 
-  const toggleMenu = (event) => {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+      const clickedInsideMenu = menu.contains(event.target);
+      const clickedButton = menuBtn.contains(event.target);
 
-    if (isOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  };
+      if (!clickedInsideMenu && !clickedButton) {
+        closeMenu();
+      }
+    });
 
-  menuBtn.addEventListener("click", toggleMenu);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && isOpen) {
+        closeMenu();
+      }
+    });
 
-  menuBtn.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      toggleMenu(event);
-    }
-  });
+    menu.addEventListener("click", (event) => {
+      const link = event.target.closest("a");
+      if (link) {
+        closeMenu();
+      }
+    });
 
-  document.addEventListener("click", (event) => {
-    if (!isOpen) return;
-
-    const clickedInsideMenu = menu.contains(event.target);
-    const clickedButton = menuBtn.contains(event.target);
-
-    if (!clickedInsideMenu && !clickedButton) {
-      closeMenu();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && isOpen) {
-      closeMenu();
-    }
-  });
-
-  menu.addEventListener("click", (event) => {
-    const link = event.target.closest("a");
-    if (link) {
-      closeMenu();
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 768 && isOpen) {
-      closeMenu();
-    }
-  });
-}
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768 && isOpen) {
+        closeMenu();
+      }
+    });
+  }
+});
