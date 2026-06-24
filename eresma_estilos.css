@@ -245,7 +245,7 @@ section{
 .logo{
     font-size:1.2rem;
 }
-/* icono menú: área de pulsación = área visible */
+/* icono menú: área visible = área pulsable */
 .menu-icon{
     display:grid !important;
     place-items:center !important;
@@ -261,46 +261,33 @@ section{
 
     cursor:pointer !important;
     border:none !important;
-    background:transparent !important;
     appearance:none !important;
     -webkit-appearance:none !important;
 
     position:relative !important;
     z-index:1004 !important;
 
-    touch-action:manipulation !important;
-    -webkit-tap-highlight-color: transparent !important;
-
     border-radius:18px !important;
-    overflow:visible !important;
-}
-
-/* fondo visual del botón, PERO sin salirse del área clicable */
-.menu-icon::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:18px;
-    z-index:0;
-    pointer-events:none;
 
     background:
       linear-gradient(
         135deg,
         color-mix(in srgb, var(--secondary-color) 40%, rgba(255,255,255,0.16) 60%),
         color-mix(in srgb, var(--secondary-color) 68%, var(--glass-bg) 32%)
-      );
+      ) !important;
 
-    border:1px solid rgba(255,255,255,0.16);
+    border:1px solid rgba(255,255,255,0.16) !important;
+
     box-shadow:
       0 6px 16px color-mix(in srgb, var(--secondary-color) 24%, rgba(0,0,0,0.12) 76%),
-      inset 0 1px 0 rgba(255,255,255,0.14);
+      inset 0 1px 0 rgba(255,255,255,0.14) !important;
 
-    opacity:0.96;
+    touch-action:manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+
     animation: menuPulse 2.2s ease-in-out infinite;
 }
 
-/* mantenemos vuestro icono original visible y centrado */
 .menu-icon img{
     display:block !important;
     width:28px !important;
@@ -311,18 +298,12 @@ section{
     opacity:1 !important;
 }
 
-/* eliminamos cualquier hamburguesa falsa dibujada por CSS */
-.menu-icon::after{
+.menu-icon::before{
     content:none !important;
 }
 
-/* feedback visual sin cambiar la caja real */
-.menu-icon:hover::before,
-.menu-icon:focus::before,
-.menu-icon:active::before{
-    box-shadow:
-      0 8px 18px color-mix(in srgb, var(--secondary-color) 32%, rgba(0,0,0,0.12) 68%),
-      inset 0 1px 0 rgba(255,255,255,0.18);
+.menu-icon::after{
+    content:none !important;
 }
 
 .menu-icon:hover,
@@ -331,7 +312,6 @@ section{
     outline:none !important;
 }
 
-/* animación suave, SIN mover el área pulsable */
 @keyframes menuPulse{
     0%{
         opacity:0.94;
