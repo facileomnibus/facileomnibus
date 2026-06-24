@@ -350,6 +350,7 @@ section{
     transition: all 0.3s ease;
     opacity: 0;
     transform: translateY(-10px);
+    pointer-events:none;
 }
 .navigation{
     position: relative !important;
@@ -372,6 +373,7 @@ section{
     padding:10px;
     border: 1px solid rgba(255,255,255,0.10);
     box-shadow: 0 8px 20px color-mix(in srgb, var(--secondary-color) 20%, rgba(0,0,0,0.12) 80%);
+    pointer-events:auto;
 }
 
 /* enlaces verticales */
