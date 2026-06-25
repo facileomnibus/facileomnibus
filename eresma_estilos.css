@@ -1550,153 +1550,151 @@ body.mobile-menu-open{
   overflow: hidden;
 }
 /* ==========================================
-   MENÚ MÓVIL
-========================================== */
-@media only screen and (max-width:767px){
-
-  /* el header no debe recortar el desplegable */
-  body.mobile-menu-open .header{
-    overflow: visible !important;
-  }
-
-  /* asegurar que el bloque nav exista visualmente */
-  header.header .navigation{
-    display: block !important;
-    width: 100% !important;
-    flex: 1 1 100% !important;
-    order: 3 !important;
-    position: relative !important;
-    z-index: 1003 !important;
-    margin-top: 8px !important;
-    pointer-events: auto !important;
-  }
-
-  /* estado cerrado */
-  header.header .navigation > ul#site-menu{
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    transform: translateY(-8px) !important;
-    max-height: 0 !important;
-    overflow: hidden !important;
-    pointer-events: none !important;
-  }
-
-  /* estado abierto */
-  header.header .navigation > ul#site-menu.show{
-    display: flex !important;
-    flex-direction: column !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    max-height: 80vh !important;
-    overflow: visible !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 1005 !important;
-    width: 100% !important;
-    margin: 10px 0 0 0 !important;
-    padding: 0 !important;
-    gap: 8px !important;
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
-
-  header.header .navigation > ul#site-menu.show > li{
-    display: block !important;
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  header.header .navigation > ul#site-menu.show > li > a{
-    display: block !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-}
-/* ==========================================
-   MENÚ MÓVIL 2
+   MENÚ NATIVO DEFINITIVO
 ========================================== */
 
-/* Escritorio */
+/* =========================
+   ESCRITORIO
+========================= */
 @media only screen and (min-width: 768px) {
-  .mobile-menu-native {
-    display: block !important;
+  .logo-nav-container{
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 20px !important;
   }
 
-  .mobile-menu-native > summary {
+  .navigation{
+    width: auto !important;
+    flex: 0 0 auto !important;
+    order: 2 !important;
+    margin-left: auto !important;
+    position: static !important;
+  }
+
+  .mobile-menu-native{
+    display: block !important;
+    width: auto !important;
+  }
+
+  .mobile-menu-native > summary{
     display: none !important;
   }
 
-  .mobile-menu-native > ul#site-menu {
+  .mobile-menu-native > ul#site-menu{
     display: flex !important;
+    flex-direction: row !important;
     gap: 20px !important;
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
+    width: auto !important;
+    opacity: 1 !important;
+    transform: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .mobile-menu-native > ul#site-menu > li{
+    width: auto !important;
+    margin: 0 !important;
+  }
+
+  .mobile-menu-native > ul#site-menu > li > a{
+    display: inline-flex !important;
+    width: auto !important;
   }
 }
 
-/* Móvil */
+/* =========================
+   MÓVIL
+========================= */
 @media only screen and (max-width: 767px) {
-  .mobile-menu-native {
-    display: block !important;
-    width: 100% !important;
+  .logo-nav-container{
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
   }
 
-  .mobile-menu-native > summary {
+  .logo{
+    flex: 0 1 auto !important;
+  }
+
+  .navigation{
+    width: auto !important;
+    flex: 0 0 auto !important;
+    order: 2 !important;
+    margin-left: auto !important;
+    position: relative !important;
+    z-index: 1005 !important;
+  }
+
+  .mobile-menu-native{
+    position: relative !important;
+    display: block !important;
+    width: auto !important;
+  }
+
+  .mobile-menu-native > summary{
     list-style: none !important;
     cursor: pointer !important;
+    display: grid !important;
+    place-items: center !important;
   }
 
-  .mobile-menu-native > summary::-webkit-details-marker {
+  .mobile-menu-native > summary::-webkit-details-marker{
     display: none !important;
   }
 
-  .mobile-menu-native > ul#site-menu {
-    width: 100% !important;
-    margin: 10px 0 0 0 !important;
+  /* El panel sale debajo del icono, no debajo del logo */
+  .mobile-menu-native > ul#site-menu{
+    position: absolute !important;
+    top: calc(100% + 10px) !important;
+    right: 0 !important;
+    left: auto !important;
+    width: min(320px, calc(100vw - 32px)) !important;
+    margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
-    gap: 8px !important;
     flex-direction: column !important;
+    gap: 8px !important;
+    z-index: 1006 !important;
   }
 
-  .mobile-menu-native:not([open]) > ul#site-menu {
+  .mobile-menu-native:not([open]) > ul#site-menu{
     display: none !important;
   }
 
-  .mobile-menu-native[open] > ul#site-menu {
+  .mobile-menu-native[open] > ul#site-menu{
     display: flex !important;
   }
 
-  .mobile-menu-native > ul#site-menu > li {
+  .mobile-menu-native > ul#site-menu > li{
     width: 100% !important;
     margin: 0 !important;
   }
 
-  .mobile-menu-native > ul#site-menu > li > a {
+  .mobile-menu-native > ul#site-menu > li > a{
     display: block !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  /* Convierte la hamburguesa en X cuando details está abierto */
-  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(1) {
+  /* Convierte hamburguesa en X */
+  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(1){
     top: calc(50% - 1.25px);
     transform: translateX(-50%) rotate(45deg);
   }
 
-  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(2) {
+  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(2){
     opacity: 0;
     transform: translateX(-50%) scaleX(0.4);
   }
 
-  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(3) {
+  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(3){
     top: calc(50% - 1.25px);
     transform: translateX(-50%) rotate(-45deg);
   }
