@@ -1649,23 +1649,33 @@ body.mobile-menu-open{
     display: none !important;
   }
 
-  /* El panel sale debajo del icono, no debajo del logo */
+  /* PANEL LIMPIO DEL MENÚ */
   .mobile-menu-native > ul#site-menu{
     position: absolute !important;
-    top: calc(100% + 10px) !important;
+    top: calc(100% + 12px) !important;
     right: 0 !important;
     left: auto !important;
-    width: min(320px, calc(100vw - 32px)) !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    list-style: none !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    z-index: 1006 !important;
-  }
+    width: min(280px, calc(100vw - 32px)) !important;
 
-  .mobile-menu-native:not([open]) > ul#site-menu{
     display: none !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+
+    margin: 0 !important;
+    padding: 14px !important;
+    list-style: none !important;
+    box-sizing: border-box !important;
+
+    border-radius: 24px !important;
+    background: var(--menu-mobile-panel-open-bg) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.18) !important;
+
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+
+    z-index: 1006 !important;
   }
 
   .mobile-menu-native[open] > ul#site-menu{
@@ -1678,9 +1688,18 @@ body.mobile-menu-open{
   }
 
   .mobile-menu-native > ul#site-menu > li > a{
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     width: 100% !important;
+    min-height: 54px !important;
     box-sizing: border-box !important;
+
+    padding: 12px 14px !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    word-break: normal !important;
   }
 
   /* Convierte hamburguesa en X */
