@@ -370,100 +370,6 @@ section{
     transform:translateX(-50%) rotate(-45deg);
   }
 
-  /* NAV EN FLUJO NORMAL: segunda fila del header */
-  .navigation{
-    width:100% !important;
-    flex: 1 1 100% !important;
-    order: 3 !important;
-    position: static !important;
-    z-index:1001 !important;
-    pointer-events: auto !important;
-    margin: 0 !important;
-  }
-
-  /* menú cerrado */
-  .navigation ul{
-    display:none !important;
-    flex-direction: column !important;
-    width:100% !important;
-    margin: 10px 0 0 0 !important;
-    padding: 0 !important;
-    max-width: 100% !important;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition:
-      opacity 0.25s ease,
-      transform 0.25s ease;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-
-  /* menú abierto */
-  .navigation ul.show{
-    display:flex !important;
-    flex-direction:column !important;
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    background: transparent !important;
-    backdrop-filter:none !important;
-    -webkit-backdrop-filter:none !important;
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    margin: 10px 0 0 0 !important;
-  }
-
-  .navigation ul li{
-    display:block !important;
-    width:100% !important;
-    margin:8px 0 !important;
-    text-align:center !important;
-  }
-
-  .navigation ul li a{
-    display:block !important;
-    width:100% !important;
-    box-sizing:border-box !important;
-    padding: 0.75rem 0.85rem !important;
-    border-radius: 12px !important;
-    background: var(--menu-mobile-item-bg) !important;
-    border: 1px solid rgba(255,255,255,0.10) !important;
-    outline: none !important;
-    box-shadow: var(--menu-link-shadow) !important;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-appearance: none;
-    appearance: none;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  .navigation ul li a:hover,
-  .navigation ul li a:focus,
-  .navigation ul li a:focus-visible,
-  .navigation ul li a:active{
-    background: var(--menu-mobile-item-hover-bg) !important;
-    color: white !important;
-    outline: none !important;
-    border-color: rgba(255,255,255,0.18) !important;
-    box-shadow: var(--menu-link-shadow-hover) !important;
-    transform: translateY(-1px);
-  }
-
-  .navigation ul li a[aria-current="page"],
-  .navigation ul li a.is-active,
-  .navigation ul li.active > a{
-    background: var(--menu-mobile-item-hover-bg) !important;
-    color: white !important;
-    border-color: rgba(255,255,255,0.18) !important;
-    box-shadow: var(--menu-link-shadow-hover) !important;
-  }
-
   /* widgets responsive */
   .widgets-bar{
     display: flex !important;
@@ -1611,6 +1517,10 @@ body.mobile-menu-open{
    MÓVIL
 ========================= */
 @media only screen and (max-width: 767px) {
+  .header{
+    overflow: visible !important;
+  }
+
   .logo-nav-container{
     display: flex !important;
     justify-content: space-between !important;
@@ -1629,7 +1539,7 @@ body.mobile-menu-open{
     order: 2 !important;
     margin-left: auto !important;
     position: relative !important;
-    z-index: 1005 !important;
+    z-index: 1100 !important;
   }
 
   .mobile-menu-native{
@@ -1649,33 +1559,37 @@ body.mobile-menu-open{
     display: none !important;
   }
 
-  /* PANEL LIMPIO DEL MENÚ */
   .mobile-menu-native > ul#site-menu{
     position: absolute !important;
     top: calc(100% + 12px) !important;
     right: 0 !important;
     left: auto !important;
-    width: min(280px, calc(100vw - 32px)) !important;
+
+    width: min(320px, calc(100vw - 24px)) !important;
+    max-width: calc(100vw - 24px) !important;
+
+    margin: 0 !important;
+    padding: 12px !important;
+    list-style: none !important;
+    box-sizing: border-box !important;
 
     display: none !important;
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 10px !important;
 
-    margin: 0 !important;
-    padding: 14px !important;
-    list-style: none !important;
-    box-sizing: border-box !important;
-
-    border-radius: 24px !important;
-    background: var(--menu-mobile-panel-open-bg) !important;
+    background: rgba(255,255,255,0.16) !important;
     border: 1px solid rgba(255,255,255,0.12) !important;
-    box-shadow: 0 14px 30px rgba(0,0,0,0.18) !important;
-
+    border-radius: 22px !important;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.16) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
 
-    z-index: 1006 !important;
+    opacity: 1 !important;
+    transform: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    z-index: 1101 !important;
   }
 
   .mobile-menu-native[open] > ul#site-menu{
@@ -1685,6 +1599,7 @@ body.mobile-menu-open{
   .mobile-menu-native > ul#site-menu > li{
     width: 100% !important;
     margin: 0 !important;
+    padding: 0 !important;
   }
 
   .mobile-menu-native > ul#site-menu > li > a{
@@ -1692,17 +1607,23 @@ body.mobile-menu-open{
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    min-height: 54px !important;
+    min-height: 52px !important;
     box-sizing: border-box !important;
 
+    margin: 0 !important;
     padding: 12px 14px !important;
+
+    border-radius: 16px !important;
+    background: rgba(255,255,255,0.20) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    box-shadow: none !important;
+
     text-align: center !important;
     line-height: 1.2 !important;
     white-space: normal !important;
     word-break: normal !important;
   }
 
-  /* Convierte hamburguesa en X */
   .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(1){
     top: calc(50% - 1.25px);
     transform: translateX(-50%) rotate(45deg);
