@@ -1456,7 +1456,9 @@ body.mobile-menu-open{
   overflow: hidden;
 }
 /* ==========================================
-   MENÚ NATIVO DEFINITIVO
+   MENÚ DEFINITIVO SEPARADO
+   - Escritorio: menú normal siempre visible
+   - Móvil: menú nativo con <details>
 ========================================== */
 
 /* =========================
@@ -1474,49 +1476,27 @@ body.mobile-menu-open{
   .navigation{
     width: auto !important;
     flex: 0 0 auto !important;
-    order: 2 !important;
     margin-left: auto !important;
     position: static !important;
   }
 
-  .mobile-menu-native{
-    display: block !important;
-    width: auto !important;
-  }
-
-  .mobile-menu-native > summary{
-    display: none !important;
-  }
-
-  /* CLAVE: mostrar el menú SIEMPRE en escritorio,
-     aunque <details> esté cerrado por defecto */
-  .mobile-menu-native:not([open]) > ul#site-menu,
-  .mobile-menu-native[open] > ul#site-menu{
+  /* El menú de escritorio SIEMPRE visible */
+  .desktop-menu{
     display: flex !important;
     flex-direction: row !important;
+    align-items: center !important;
     gap: 20px !important;
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
-    width: auto !important;
-    opacity: 1 !important;
-    transform: none !important;
-    max-height: none !important;
-    overflow: visible !important;
-    position: static !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
   }
 
-  .mobile-menu-native > ul#site-menu > li{
-    width: auto !important;
+  .desktop-menu > li{
     margin: 0 !important;
+    width: auto !important;
   }
 
-  .mobile-menu-native > ul#site-menu > li > a{
+  .desktop-menu > li > a{
     display: inline-flex !important;
     width: auto !important;
     min-height: auto !important;
@@ -1525,6 +1505,11 @@ body.mobile-menu-open{
     border-radius: 999px !important;
     background: var(--menu-link-bg) !important;
     box-shadow: var(--menu-link-shadow) !important;
+  }
+
+  /* El menú móvil NO existe en escritorio */
+  .mobile-menu-native{
+    display: none !important;
   }
 }
 
@@ -1551,12 +1536,17 @@ body.mobile-menu-open{
   .navigation{
     width: auto !important;
     flex: 0 0 auto !important;
-    order: 2 !important;
     margin-left: auto !important;
     position: relative !important;
     z-index: 1100 !important;
   }
 
+  /* El menú de escritorio desaparece en móvil */
+  .desktop-menu{
+    display: none !important;
+  }
+
+  /* El menú móvil sí existe */
   .mobile-menu-native{
     position: relative !important;
     display: block !important;
@@ -1575,8 +1565,7 @@ body.mobile-menu-open{
     display: none !important;
   }
 
-  /* Panel móvil más limpio, más opaco y más controlado */
-  .mobile-menu-native > ul#site-menu{
+  .mobile-menu-native > ul.mobile-menu-list{
     position: absolute !important;
     top: calc(100% + 10px) !important;
     right: 0 !important;
@@ -1611,17 +1600,17 @@ body.mobile-menu-open{
     z-index: 1101 !important;
   }
 
-  .mobile-menu-native[open] > ul#site-menu{
+  .mobile-menu-native[open] > ul.mobile-menu-list{
     display: flex !important;
   }
 
-  .mobile-menu-native > ul#site-menu > li{
+  .mobile-menu-native > ul.mobile-menu-list > li{
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  .mobile-menu-native > ul#site-menu > li > a{
+  .mobile-menu-native > ul.mobile-menu-list > li > a{
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
