@@ -1618,3 +1618,86 @@ body.mobile-menu-open{
     box-sizing: border-box !important;
   }
 }
+/* ==========================================
+   MENÚ MÓVIL 2
+========================================== */
+
+/* Escritorio */
+@media only screen and (min-width: 768px) {
+  .mobile-menu-native {
+    display: block !important;
+  }
+
+  .mobile-menu-native > summary {
+    display: none !important;
+  }
+
+  .mobile-menu-native > ul#site-menu {
+    display: flex !important;
+    gap: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+}
+
+/* Móvil */
+@media only screen and (max-width: 767px) {
+  .mobile-menu-native {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .mobile-menu-native > summary {
+    list-style: none !important;
+    cursor: pointer !important;
+  }
+
+  .mobile-menu-native > summary::-webkit-details-marker {
+    display: none !important;
+  }
+
+  .mobile-menu-native > ul#site-menu {
+    width: 100% !important;
+    margin: 10px 0 0 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    gap: 8px !important;
+    flex-direction: column !important;
+  }
+
+  .mobile-menu-native:not([open]) > ul#site-menu {
+    display: none !important;
+  }
+
+  .mobile-menu-native[open] > ul#site-menu {
+    display: flex !important;
+  }
+
+  .mobile-menu-native > ul#site-menu > li {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .mobile-menu-native > ul#site-menu > li > a {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Convierte la hamburguesa en X cuando details está abierto */
+  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(1) {
+    top: calc(50% - 1.25px);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-50%) scaleX(0.4);
+  }
+
+  .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(3) {
+    top: calc(50% - 1.25px);
+    transform: translateX(-50%) rotate(-45deg);
+  }
+}
