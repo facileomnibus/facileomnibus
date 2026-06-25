@@ -1462,6 +1462,7 @@ body.mobile-menu-open{
 /* =========================
    ESCRITORIO
 ========================= */
+@media only screen and (min-width: 768px) {
   .logo-nav-container{
     display: flex !important;
     justify-content: space-between !important;
@@ -1487,7 +1488,8 @@ body.mobile-menu-open{
     display: none !important;
   }
 
-  /* FORZAR visibilidad del menú en PC aunque details esté cerrado */
+  /* CLAVE: mostrar el menú SIEMPRE en escritorio,
+     aunque <details> esté cerrado por defecto */
   .mobile-menu-native:not([open]) > ul#site-menu,
   .mobile-menu-native[open] > ul#site-menu{
     display: flex !important;
@@ -1566,20 +1568,23 @@ body.mobile-menu-open{
     cursor: pointer !important;
     display: grid !important;
     place-items: center !important;
+    margin: 0 !important;
   }
 
   .mobile-menu-native > summary::-webkit-details-marker{
     display: none !important;
   }
 
+  /* Panel móvil más limpio, más opaco y más controlado */
   .mobile-menu-native > ul#site-menu{
     position: absolute !important;
-    top: calc(100% + 12px) !important;
+    top: calc(100% + 10px) !important;
     right: 0 !important;
     left: auto !important;
 
-    width: min(290px, calc(100vw - 24px)) !important;
+    width: min(300px, calc(100vw - 24px)) !important;
     max-width: calc(100vw - 24px) !important;
+    max-height: calc(100vh - 120px) !important;
 
     margin: 0 !important;
     padding: 10px !important;
@@ -1591,17 +1596,18 @@ body.mobile-menu-open{
     align-items: stretch !important;
     gap: 8px !important;
 
-    background: rgba(255,255,255,0.14) !important;
-    border: 1px solid rgba(255,255,255,0.10) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    background: rgba(255,255,255,0.26) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
     border-radius: 20px !important;
     box-shadow: 0 12px 24px rgba(0,0,0,0.14) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
 
     opacity: 1 !important;
     transform: none !important;
-    max-height: none !important;
-    overflow: visible !important;
     z-index: 1101 !important;
   }
 
@@ -1619,23 +1625,27 @@ body.mobile-menu-open{
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+
     width: 100% !important;
-    min-height: 50px !important;
+    min-height: 48px !important;
     box-sizing: border-box !important;
+
     margin: 0 !important;
     padding: 10px 12px !important;
 
     border-radius: 15px !important;
-    background: rgba(255,255,255,0.18) !important;
+    background: rgba(255,255,255,0.22) !important;
     border: 1px solid rgba(255,255,255,0.08) !important;
     box-shadow: none !important;
 
     text-align: center !important;
-    line-height: 1.2 !important;
+    line-height: 1.15 !important;
+    font-size: 0.98rem !important;
     white-space: normal !important;
     word-break: normal !important;
   }
 
+  /* X cuando está abierto */
   .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(1){
     top: calc(50% - 1.25px);
     transform: translateX(-50%) rotate(45deg);
@@ -1651,4 +1661,3 @@ body.mobile-menu-open{
     transform: translateX(-50%) rotate(-45deg);
   }
 }
-
