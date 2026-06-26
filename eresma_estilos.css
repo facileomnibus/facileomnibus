@@ -1172,34 +1172,90 @@ footer .footer-inner p,
    OPTIMIZACIÓN MÓVIL
 ========================================== */
 @media only screen and (max-width:767px){
+
+  /*
+    1) Reducimos coste de cristal en móvil.
+    Mantiene estética general, pero evita capas de blur grandes y anidadas.
+  */
   .header,
   .container,
   .widget-box,
   .weather-widget,
   .ticker-widget,
+  #facile-news-widget.facile-news-shell,
+  #facile-news-widget .facile-news-card,
+  #facile-news-widget .facile-news-media,
+  #facile-news-widget .facile-news-fallback-icon,
+  #facile-news-widget .facile-news-button.secondary,
+  #weather-content,
+  #weather-content > div:last-child > div,
   footer .footer-inner,
   .footer .footer-inner,
   .site-footer .footer-inner{
-      backdrop-filter: blur(4px) !important;
-      -webkit-backdrop-filter: blur(4px) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
+  /*
+    2) Sombras más ligeras en la zona de widgets.
+    No elimina la estética, pero evita repintados caros durante scroll.
+  */
   .header,
   .container,
   .widget-box,
   .weather-widget,
   .ticker-widget,
+  #facile-news-widget.facile-news-shell,
+  #facile-news-widget .facile-news-card,
+  #weather-content > div:last-child > div,
   footer,
   footer .footer-inner,
   .footer .footer-inner,
   .site-footer .footer-inner{
-      box-shadow: 0 4px 12px rgba(0,0,0,0.10) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10) !important;
   }
 
+  /*
+    3) Desactivar animaciones/transiciones decorativas en móvil.
+    Importante: no desactiva el funcionamiento de botones, enlaces ni formularios.
+  */
   .logo img:hover{
-      animation:none !important;
-      transform:none !important;
-      box-shadow:none !important;
+    animation: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  #facile-news-widget .facile-news-card{
+    animation: none !important;
+  }
+
+  .facile-news-button,
+  .facile-news-arrow,
+  .facile-news-dot,
+  .facile-search-submit,
+  .navigation a,
+  .mobile-menu-native > ul.mobile-menu-list,
+  .mobile-menu-native > ul.mobile-menu-list > li > a{
+    transition-duration: 0.01ms !important;
+  }
+
+  /*
+    4) Imágenes de widgets más estables al cargar.
+    Ayuda a reducir saltos y repintados.
+  */
+  #facile-news-widget img,
+  #widgets-container img,
+  .weather-widget img{
+    transform: none !important;
+    backface-visibility: hidden;
+  }
+
+  /*
+    5) TradingView en móvil: evitar coste visual extra del contenedor.
+    El widget sigue funcionando igual.
+  */
+  .ticker-widget{
+    padding: 10px 0 !important;
   }
 }
 /* ==========================================
