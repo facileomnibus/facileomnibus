@@ -1715,7 +1715,7 @@ body.facile-mobile-menu-open{
   .mobile-menu-native > ul.mobile-menu-list{
     position: absolute !important;
 
-    top: calc(100% + 35px) !important;
+    top: calc(100% + 14px) !important;
     left: 12px !important;
     right: 12px !important;
 
