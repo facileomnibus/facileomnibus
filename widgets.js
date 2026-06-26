@@ -2,6 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("widgets-container");
   if (!container) return;
 
+  // Estado de menú móvil para poder aligerar widgets mediante CSS solo cuando haga falta
+  const mobileMenu = document.querySelector(".mobile-menu-native");
+  function syncMobileMenuState() {
+    document.body.classList.toggle("facile-mobile-menu-open", !!(mobileMenu && mobileMenu.open));
+  }
+  if (mobileMenu) {
+    mobileMenu.addEventListener("toggle", syncMobileMenuState, { passive: true });
+    syncMobileMenuState();
+  }
+
   // Evita duplicados si el script se ejecuta más de una vez
   const existingBar = container.querySelector(".widgets-bar");
   if (existingBar) existingBar.remove();
@@ -9,6 +19,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const bar = document.createElement("div");
   bar.className = "widgets-bar";
   container.appendChild(bar);
+
+  let clockTimer = null;
+  let dateTimer = null;
+
+  const canRunTimers = () => !document.hidden && !(mobileMenu && mobileMenu.open);
+
+  function clearWidgetTimers() {
+    if (clockTimer) window.clearTimeout(clockTimer);
+    if (dateTimer) window.clearTimeout(dateTimer);
+    clockTimer = null;
+    dateTimer = null;
+  }
 
   /* ===============================
      FECHA
@@ -27,8 +49,18 @@ document.addEventListener("DOMContentLoaded", () => {
     dateWidget.textContent = "📅 " + now.toLocaleDateString("es-ES", options);
   }
 
+  function scheduleDate() {
+    if (dateTimer) window.clearTimeout(dateTimer);
+    if (!canRunTimers()) return;
+    const now = new Date();
+    const nextMinute = 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
+    dateTimer = window.setTimeout(() => {
+      updateDate();
+      scheduleDate();
+    }, Math.max(1000, nextMinute));
+  }
+
   updateDate();
-  window.setInterval(updateDate, 60 * 1000);
   bar.appendChild(dateWidget);
 
   /* ===============================
@@ -42,9 +74,33 @@ document.addEventListener("DOMContentLoaded", () => {
     clockWidget.textContent = "🕒 " + now.toLocaleTimeString("es-ES");
   }
 
+  function scheduleClock() {
+    if (clockTimer) window.clearTimeout(clockTimer);
+    if (!canRunTimers()) return;
+    const now = new Date();
+    const nextSecond = 1000 - now.getMilliseconds();
+    clockTimer = window.setTimeout(() => {
+      updateClock();
+      scheduleClock();
+    }, Math.max(250, nextSecond));
+  }
+
   updateClock();
-  window.setInterval(updateClock, 1000);
   bar.appendChild(clockWidget);
+
+  function resumeLightTimers() {
+    clearWidgetTimers();
+    if (canRunTimers()) {
+      updateClock();
+      updateDate();
+      scheduleClock();
+      scheduleDate();
+    }
+  }
+
+  document.addEventListener("visibilitychange", resumeLightTimers, { passive: true });
+  if (mobileMenu) mobileMenu.addEventListener("toggle", resumeLightTimers, { passive: true });
+  resumeLightTimers();
 
   /* ===============================
      BUSCADOR MULTI-BUSCADOR
@@ -95,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const savedEngine = localStorage.getItem("facileSearchEngine") || "google";
-
   const searchWidget = document.createElement("div");
   searchWidget.className = "widget-box facile-search-widget";
 
