@@ -1446,36 +1446,45 @@ body.mobile-menu-open{
   overflow: hidden;
 }
 /* ==========================================
-   MENÚ MÓVIL SANEADO — INTEGRADO EN HEADER
-   Sin fixed, sin overlay, sin tapar contenido
+   MENÚ MÓVIL FINAL — LEGIBLE Y SEPARADO
+   - Separado del header
+   - Ancho casi completo
+   - Colores seguros para todos los temas
+   - Sin overlay global
 ========================================== */
 
 :root{
+  /* Distancia vertical del menú respecto al viewport.
+     Si necesitas subir/bajar el menú, toca SOLO esta variable. */
+  --facile-mobile-menu-top: clamp(320px, 38vh, 380px);
+
+  /* Fondo del panel: glass, pero suficientemente opaco para no perder legibilidad */
   --facile-mobile-menu-panel-bg:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--primary-color) 22%, rgba(255,255,255,0.78) 78%),
-      color-mix(in srgb, var(--glass-bg) 38%, rgba(255,255,255,0.66) 62%)
+      color-mix(in srgb, rgba(244,251,255,0.96) 78%, var(--primary-color) 22%),
+      color-mix(in srgb, rgba(232,244,250,0.94) 76%, var(--glass-bg) 24%)
     );
 
   --facile-mobile-menu-panel-border:
-    color-mix(in srgb, var(--primary-color) 58%, rgba(255,255,255,0.64) 42%);
+    color-mix(in srgb, rgba(255,255,255,0.78) 62%, var(--primary-color) 38%);
 
   --facile-mobile-menu-panel-shadow:
-    0 22px 48px rgba(0,0,0,0.24),
-    0 8px 22px color-mix(in srgb, var(--primary-color) 22%, rgba(0,0,0,0.16) 78%),
-    inset 0 1px 0 rgba(255,255,255,0.42);
+    0 26px 56px rgba(0,0,0,0.28),
+    0 10px 24px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.58);
 
+  /* Botones normales: claros, opacos y con texto oscuro */
   --facile-mobile-menu-item-bg:
     linear-gradient(
       135deg,
-      color-mix(in srgb, rgba(255,255,255,0.86) 68%, var(--primary-color) 32%),
-      color-mix(in srgb, rgba(255,255,255,0.74) 70%, var(--secondary-color) 30%)
+      rgba(248,252,255,0.98),
+      color-mix(in srgb, rgba(234,244,252,0.96) 84%, var(--primary-color) 16%)
     );
 
-  --facile-mobile-menu-item-text:
-    color-mix(in srgb, var(--text-dark) 82%, var(--primary-color) 18%);
+  --facile-mobile-menu-item-text: #263447;
 
+  /* Botón activo: usa el color del tema, con texto blanco */
   --facile-mobile-menu-item-active:
     var(--menu-link-active-bg);
 }
@@ -1567,6 +1576,7 @@ body.mobile-menu-open{
     display: none !important;
   }
 
+  /* Nada de overlay global: no oscurecemos ni tapamos el header */
   .mobile-menu-native::before,
   .mobile-menu-native::after{
     content: none !important;
@@ -1574,21 +1584,21 @@ body.mobile-menu-open{
   }
 
   /*
-    Panel integrado:
-    - relativo al header
-    - no fixed
-    - no overlay
-    - no tapa el header
-    - no depende del scroll de la página
+    Panel de menú:
+    - Más separado del header.
+    - Casi a ancho completo.
+    - Más opaco para que no se mezcle con el contenido.
   */
   .mobile-menu-native > ul.mobile-menu-list{
-    position: absolute !important;
-    top: calc(100% + 18px) !important;
-    left: 50% !important;
-    right: auto !important;
+    position: fixed !important;
 
-    width: calc(100vw - 24px) !important;
-    max-width: calc(100vw - 24px) !important;
+    top: var(--facile-mobile-menu-top) !important;
+    left: 10px !important;
+    right: 10px !important;
+
+    width: auto !important;
+    max-width: none !important;
+    max-height: min(42vh, 360px) !important;
 
     margin: 0 !important;
     padding: 18px 12px !important;
@@ -1597,31 +1607,35 @@ body.mobile-menu-open{
 
     display: none !important;
     flex-direction: column !important;
-    align-items: center !important;
+    align-items: stretch !important;
     justify-content: flex-start !important;
-    gap: 13px !important;
+    gap: 14px !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain !important;
 
     background: var(--facile-mobile-menu-panel-bg) !important;
     border: 1px solid var(--facile-mobile-menu-panel-border) !important;
-    border-radius: 24px !important;
+    border-radius: 28px !important;
     box-shadow: var(--facile-mobile-menu-panel-shadow) !important;
 
-    backdrop-filter: blur(16px) saturate(1.06) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(1.06) !important;
+    backdrop-filter: blur(18px) saturate(1.08) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.08) !important;
 
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
 
-    transform: translate(-50%, -10px) scale(0.985) !important;
+    transform: translateY(-12px) scale(0.985) !important;
     transform-origin: top center !important;
 
-    z-index: 1020 !important;
+    z-index: 990 !important;
 
     transition:
-      opacity 180ms ease,
-      transform 180ms ease,
-      visibility 180ms ease !important;
+      opacity 190ms ease,
+      transform 190ms ease,
+      visibility 190ms ease !important;
   }
 
   .mobile-menu-native[open] > ul.mobile-menu-list{
@@ -1629,7 +1643,7 @@ body.mobile-menu-open{
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    transform: translate(-50%, 0) scale(1) !important;
+    transform: translateY(0) scale(1) !important;
   }
 
   .mobile-menu-native > ul.mobile-menu-list > li{
@@ -1647,29 +1661,30 @@ body.mobile-menu-open{
     justify-content: center !important;
 
     width: 100% !important;
-    min-height: 58px !important;
+    min-height: 60px !important;
     box-sizing: border-box !important;
 
     margin: 0 !important;
-    padding: 13px 16px !important;
+    padding: 14px 18px !important;
 
-    border-radius: 18px !important;
+    border-radius: 20px !important;
     text-align: center !important;
     text-decoration: none !important;
     line-height: 1.16 !important;
-    font-size: clamp(1rem, 4vw, 1.16rem) !important;
+    font-size: clamp(1.02rem, 4.2vw, 1.18rem) !important;
     font-weight: 850 !important;
 
     color: var(--facile-mobile-menu-item-text) !important;
     background: var(--facile-mobile-menu-item-bg) !important;
-    border: 1px solid rgba(255,255,255,0.46) !important;
+    border: 1px solid rgba(255,255,255,0.52) !important;
     box-shadow:
-      0 7px 16px rgba(0,0,0,0.10),
-      inset 0 1px 0 rgba(255,255,255,0.44) !important;
+      0 8px 18px rgba(0,0,0,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.55) !important;
 
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
 
+    text-shadow: none !important;
     white-space: normal !important;
     word-break: normal !important;
 
@@ -1688,10 +1703,11 @@ body.mobile-menu-open{
   .mobile-menu-native > ul.mobile-menu-list > li > a[aria-current="page"]{
     background: var(--facile-mobile-menu-item-active) !important;
     color: #ffffff !important;
-    border-color: rgba(255,255,255,0.30) !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.26) !important;
+    border-color: rgba(255,255,255,0.34) !important;
     box-shadow:
-      0 13px 26px rgba(0,0,0,0.18),
-      inset 0 1px 0 rgba(255,255,255,0.18) !important;
+      0 14px 28px rgba(0,0,0,0.18),
+      inset 0 1px 0 rgba(255,255,255,0.20) !important;
     transform: translateY(-1px) !important;
     filter: brightness(1.03) !important;
   }
@@ -1711,4 +1727,3 @@ body.mobile-menu-open{
     transform: translateX(-50%) rotate(-45deg) !important;
   }
 }
-
