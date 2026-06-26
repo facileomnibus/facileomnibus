@@ -1714,7 +1714,7 @@ body.mobile-menu-open{
 ========================================== */
 @media only screen and (max-width: 767px) {
   .mobile-menu-native{
-    transform: translateY(-6px) !important;
+    transform: translateY(-8px) !important;
   }
 
   .mobile-menu-native > summary.menu-icon{
