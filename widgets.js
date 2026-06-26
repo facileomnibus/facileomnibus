@@ -211,6 +211,37 @@ document.addEventListener("DOMContentLoaded", () => {
   searchWidget.appendChild(form);
   bar.appendChild(searchWidget);
 
+  function normalizeEngineText(text) {
+  return (text || "")
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function findSearchEngineIcon(engineKey) {
+  const iconAliases = {
+    google: "google",
+    bing: "bing",
+    startpage: "startpage",
+    duckduckgo: "duckduckgo",
+    brave: "brave",
+    yahoo: "yahoo"
+  };
+
+  const wantedAlt = normalizeEngineText(iconAliases[engineKey] || engineKey);
+  const icons = document.querySelectorAll("#buscadores img");
+
+  for (const img of icons) {
+    const alt = normalizeEngineText(img.getAttribute("alt"));
+    if (alt === wantedAlt) {
+      return img.currentSrc || img.src;
+    }
+  }
+
+  return "";
+}
   function syncSearchEngine(engineKey) {
     const engine = SEARCH_ENGINES[engineKey] || SEARCH_ENGINES.google;
     form.action = engine.action;
@@ -218,7 +249,20 @@ document.addEventListener("DOMContentLoaded", () => {
     input.name = engine.param;
     input.placeholder = engine.placeholder;
     input.setAttribute("aria-label", engine.placeholder);
-    badge.textContent = engine.badge;
+    const iconSrc = findSearchEngineIcon(engineKey);
+
+badge.textContent = "";
+
+if (iconSrc) {
+  const icon = document.createElement("img");
+  icon.src = iconSrc;
+  icon.alt = "";
+  icon.loading = "lazy";
+  icon.decoding = "async";
+  badge.appendChild(icon);
+} else {
+  badge.textContent = engine.badge;
+}
     badge.setAttribute("data-engine", engineKey);
     select.value = engineKey;
     localStorage.setItem("facileSearchEngine", engineKey);
