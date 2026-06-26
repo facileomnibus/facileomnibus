@@ -1282,60 +1282,56 @@ footer .footer-inner,
    BUSCADOR MULTI-BUSCADOR
 ========================================== */
 .facile-search-widget{
-  padding: 10px 12px !important;
+  padding: 8px 10px !important;
   width: 100% !important;
+  max-width: 690px !important;
   box-sizing: border-box !important;
+  flex: 1 1 560px !important;
 }
 
 .facile-search-form{
   display: grid;
-  grid-template-columns: 190px minmax(0, 1fr) auto;
-  gap: 10px;
+  grid-template-columns: 48px minmax(180px, 1fr) auto;
+  gap: 8px;
   align-items: center;
   width: 100%;
 }
 
+/* Selector compacto: sigue funcionando, pero ocupa menos */
 .facile-search-engine-wrap{
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-width: 0;
+  justify-content: center;
+  width: 48px;
+  height: 44px;
+  min-width: 48px;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
   background: rgba(255,255,255,0.18);
   border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 14px;
-  padding: 6px 10px;
+  border-radius: 15px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
-.facile-search-engine-badge{
-  width: 28px;
-  height: 28px;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  color: #ffffff;
-  font-size: 0.86rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  box-shadow: 0 4px 10px rgba(0,0,0,0.10);
-}
-
+/* El select queda encima, invisible, para mantener el clic */
 .facile-search-engine{
-  flex: 1 1 auto;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   min-width: 0;
   border: none;
   outline: none;
   background: transparent;
-  color: var(--text-color);
-  font-weight: 700;
-  font-size: 0.95rem;
+  color: transparent;
   cursor: pointer;
+  opacity: 0;
   appearance: none;
   -webkit-appearance: none;
+  z-index: 2;
 }
 
 .facile-search-engine option{
@@ -1343,16 +1339,42 @@ footer .footer-inner,
   background: #ffffff;
 }
 
+.facile-search-engine-badge{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  box-shadow: 0 4px 10px rgba(0,0,0,0.10);
+  position: relative;
+  z-index: 1;
+}
+
+.facile-search-engine-badge img{
+  width: 20px;
+  height: 20px;
+  display: block;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
 .facile-search-input{
   width: 100%;
   min-width: 0;
-  padding: 12px 14px;
+  padding: 10px 13px;
   border: none;
   outline: none;
-  border-radius: 16px;
+  border-radius: 15px;
   background: rgba(255,255,255,0.88);
   color: #333;
-  font-size: 1rem;
+  font-size: 0.96rem;
   box-sizing: border-box;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
 }
@@ -1362,14 +1384,15 @@ footer .footer-inner,
 }
 
 .facile-search-submit{
-  padding: 12px 18px;
+  padding: 10px 14px;
   border: none;
-  border-radius: 16px;
+  border-radius: 15px;
   cursor: pointer;
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.01em;
+  white-space: nowrap;
   background: linear-gradient(
     90deg,
     color-mix(in srgb, var(--primary-color) 82%, white 18%),
@@ -1428,22 +1451,35 @@ footer .footer-inner,
 
 /* Responsive */
 @media only screen and (max-width: 767px){
+  .facile-search-widget{
+    max-width: 100% !important;
+    padding: 8px !important;
+    flex: 1 1 100% !important;
+  }
+
   .facile-search-form{
-    grid-template-columns: 1fr;
-    gap: 10px;
+    grid-template-columns: 44px minmax(0, 1fr) 76px;
+    gap: 7px;
   }
 
   .facile-search-engine-wrap{
-    width: 100%;
-    box-sizing: border-box;
+    width: 44px;
+    height: 42px;
+    min-width: 44px;
+  }
+
+  .facile-search-input{
+    padding: 9px 11px;
+    font-size: 0.92rem;
   }
 
   .facile-search-submit{
-    width: 100%;
+    width: auto;
+    padding: 9px 10px;
+    font-size: 0.86rem;
   }
-}
-body.mobile-menu-open{
-  overflow: hidden;
+  body.mobile-menu-open{
+    overflow: hidden;
 }
 /* ==========================================
    MENÚ MÓVIL REHECHO — BANDA BAJO HEADER
