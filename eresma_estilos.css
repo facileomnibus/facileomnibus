@@ -1574,8 +1574,7 @@ body.mobile-menu-open{
   }
 }
 /* ==========================================
-   CAPA FINAL VISUAL — MENÚ MÓVIL ESTILIZADO
-   (añadir al final del archivo)
+   MENÚ MÓVIL
 ========================================== */
 
 :root{
@@ -1708,5 +1707,17 @@ body.mobile-menu-open{
     color: #ffffff !important;
     border-color: rgba(255,255,255,0.18) !important;
     box-shadow: 0 10px 22px rgba(0,0,0,0.12) !important;
+  }
+}
+/* ==========================================
+   MENÚ MÓVIL 2
+========================================== */
+@media only screen and (max-width: 767px) {
+  .mobile-menu-native{
+    transform: translateY(-6px) !important;
+  }
+
+  .mobile-menu-native > summary.menu-icon{
+    top: 0 !important;
   }
 }
