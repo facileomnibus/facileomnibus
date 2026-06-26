@@ -87,27 +87,19 @@ document.addEventListener("DOMContentLoaded", () => {
   clockWidget.className = "widget-box";
 
   function updateClock() {
-  const now = new Date();
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
-
-  clockWidget.textContent = "🕒 " + now.toLocaleTimeString("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: isMobile
+    const now = new Date();
+    clockWidget.textContent = "🕒 " + now.toLocaleTimeString("es-ES");
   }
 
   function scheduleClock() {
     if (clockTimer) window.clearTimeout(clockTimer);
     if (!canRunTimers()) return;
     const now = new Date();
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-const delay = isMobile
-  ? 60000 - (now.getSeconds() * 1000 + now.getMilliseconds())
-  : 1000 - now.getMilliseconds();
-
-clockTimer = window.setTimeout(() => {
-  updateClock();
-  scheduleClock
+    const nextSecond = 1000 - now.getMilliseconds();
+    clockTimer = window.setTimeout(() => {
+      updateClock();
+      scheduleClock();
+    }, Math.max(250, nextSecond));
   }
 
   updateClock();
