@@ -8,9 +8,26 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.toggle("facile-mobile-menu-open", !!(mobileMenu && mobileMenu.open));
   }
   if (mobileMenu) {
-    mobileMenu.addEventListener("toggle", syncMobileMenuState, { passive: true });
-    syncMobileMenuState();
+  mobileMenu.addEventListener("toggle", syncMobileMenuState, { passive: true });
+  syncMobileMenuState();
+
+  const desktopQuery = window.matchMedia("(min-width: 768px)");
+
+  function closeMobileMenuOnDesktop() {
+    if (desktopQuery.matches && mobileMenu.open) {
+      mobileMenu.open = false;
+      syncMobileMenuState();
+    }
   }
+
+  if (desktopQuery.addEventListener) {
+    desktopQuery.addEventListener("change", closeMobileMenuOnDesktop);
+  } else if (desktopQuery.addListener) {
+    desktopQuery.addListener(closeMobileMenuOnDesktop);
+  }
+
+  closeMobileMenuOnDesktop();
+}
 
   // Evita duplicados si el script se ejecuta más de una vez
   const existingBar = container.querySelector(".widgets-bar");
