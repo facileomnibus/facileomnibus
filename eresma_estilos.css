@@ -1648,8 +1648,8 @@ body.mobile-menu-open{
     border-radius: 28px !important;
     box-shadow: var(--facile-mobile-menu-panel-shadow) !important;
 
-    backdrop-filter: blur(50px) saturate(1.20) brightness(1.02) !important;
-    -webkit-backdrop-filter: blur(50px) saturate(1.20) brightness(1.02) !important;
+    backdrop-filter: blur(100px) saturate(1.20) brightness(1.02) !important;
+    -webkit-backdrop-filter: blur(100px) saturate(1.20) brightness(1.02) !important;
 
     opacity: 0 !important;
     visibility: hidden !important;
