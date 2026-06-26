@@ -1574,32 +1574,32 @@ body.mobile-menu-open{
   }
 }
 /* ==========================================
-   MENÚ MÓVIL FINAL — PANEL TRADICIONAL
+   MENÚ MÓVIL FINAL — SHEET TRADICIONAL
 ========================================== */
 
 :root{
-  --mobile-menu-panel-bg:
+  --mobile-menu-sheet-bg:
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--glass-bg) 64%, rgba(255,255,255,0.34) 36%),
+      color-mix(in srgb, var(--glass-bg) 58%, rgba(255,255,255,0.34) 42%),
       color-mix(in srgb, var(--glass-bg) 82%, rgba(255,255,255,0.16) 18%)
     );
 
-  --mobile-menu-panel-border:
-    color-mix(in srgb, rgba(255,255,255,0.28) 72%, var(--glass-bg) 28%);
+  --mobile-menu-sheet-border:
+    color-mix(in srgb, rgba(255,255,255,0.30) 72%, var(--glass-bg) 28%);
+
+  --mobile-menu-sheet-shadow:
+    0 22px 46px rgba(0,0,0,0.20),
+    inset 0 1px 0 rgba(255,255,255,0.16);
 
   --mobile-menu-item-bg:
-    color-mix(in srgb, var(--menu-link-bg) 72%, rgba(255,255,255,0.20) 28%);
+    color-mix(in srgb, var(--menu-link-bg) 72%, rgba(255,255,255,0.22) 28%);
 
   --mobile-menu-item-active:
     var(--menu-link-active-bg);
 
-  --mobile-menu-panel-shadow:
-    0 22px 42px rgba(0,0,0,0.20),
-    inset 0 1px 0 rgba(255,255,255,0.16);
-
   --mobile-menu-item-shadow:
-    0 7px 16px rgba(0,0,0,0.09);
+    0 8px 18px rgba(0,0,0,0.09);
 }
 
 /* ========== ESCRITORIO ========== */
@@ -1635,7 +1635,7 @@ body.mobile-menu-open{
     width: auto !important;
     margin-left: auto !important;
     position: relative !important;
-    z-index: 1300 !important;
+    z-index: 1400 !important;
   }
 
   .mobile-menu-native{
@@ -1649,7 +1649,7 @@ body.mobile-menu-open{
     transform: none !important;
   }
 
-  /* Subimos SOLO el botón, no todo el details */
+  /* Movemos SOLO el botón, no el panel */
   .mobile-menu-native > summary.menu-icon{
     display: grid !important;
     place-items: center !important;
@@ -1660,7 +1660,7 @@ body.mobile-menu-open{
     position: relative !important;
     top: 0 !important;
     transform: translateY(-8px) !important;
-    z-index: 1302 !important;
+    z-index: 1402 !important;
   }
 
   .mobile-menu-native > summary::-webkit-details-marker{
@@ -1668,65 +1668,66 @@ body.mobile-menu-open{
   }
 
   /*
-    Panel móvil tradicional:
-    - no depende del ancho del botón
-    - ocupa gran parte del ancho de pantalla
-    - queda centrado
-    - aparece debajo del header
+    SHEET MÓVIL TRADICIONAL:
+    - ancho casi completo
+    - empieza debajo del header
+    - ocupa buena parte de la pantalla
+    - no queda como cajita centrada
   */
   .mobile-menu-native > ul.mobile-menu-list{
     position: fixed !important;
 
-    top: clamp(132px, 18vh, 180px) !important;
-    left: 50% !important;
-    right: auto !important;
+    top: clamp(168px, 23vh, 220px) !important;
+    left: 12px !important;
+    right: 12px !important;
 
-    width: min(92vw, 430px) !important;
-    max-width: calc(100vw - 28px) !important;
-    max-height: calc(100vh - 170px) !important;
+    width: auto !important;
+    max-width: none !important;
+    min-height: min(340px, calc(100vh - 210px)) !important;
+    max-height: calc(100vh - 190px) !important;
 
     margin: 0 !important;
-    padding: 14px !important;
+    padding: 18px 16px 20px !important;
     box-sizing: border-box !important;
     list-style: none !important;
 
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    gap: 12px !important;
+    gap: 14px !important;
 
     overflow-y: auto !important;
     overflow-x: hidden !important;
     overscroll-behavior: contain !important;
 
-    background: var(--mobile-menu-panel-bg) !important;
-    border: 1px solid var(--mobile-menu-panel-border) !important;
-    border-radius: 26px !important;
-    box-shadow: var(--mobile-menu-panel-shadow) !important;
+    background: var(--mobile-menu-sheet-bg) !important;
+    border: 1px solid var(--mobile-menu-sheet-border) !important;
+    border-radius: 30px 30px 28px 28px !important;
+    box-shadow: var(--mobile-menu-sheet-shadow) !important;
 
-    backdrop-filter: blur(20px) saturate(1.08) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(1.08) !important;
+    backdrop-filter: blur(22px) saturate(1.10) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(1.10) !important;
 
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
 
-    transform: translate(-50%, -10px) scale(0.97) !important;
+    transform: translateY(-14px) scale(0.985) !important;
     transform-origin: top center !important;
 
-    z-index: 1301 !important;
+    z-index: 1390 !important;
 
     transition:
-      opacity 190ms ease,
-      transform 190ms ease,
-      visibility 190ms ease !important;
+      opacity 210ms ease,
+      transform 210ms ease,
+      visibility 210ms ease !important;
   }
 
   .mobile-menu-native[open] > ul.mobile-menu-list{
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    transform: translate(-50%, 0) scale(1) !important;
+    transform: translateY(0) scale(1) !important;
   }
 
   .mobile-menu-native > ul.mobile-menu-list > li{
@@ -1741,21 +1742,21 @@ body.mobile-menu-open{
     justify-content: center !important;
 
     width: 100% !important;
-    min-height: 58px !important;
+    min-height: 64px !important;
     box-sizing: border-box !important;
 
     margin: 0 !important;
-    padding: 14px 16px !important;
+    padding: 15px 18px !important;
 
-    border-radius: 20px !important;
+    border-radius: 23px !important;
     text-align: center !important;
-    line-height: 1.2 !important;
-    font-size: clamp(1rem, 4.2vw, 1.12rem) !important;
-    font-weight: 800 !important;
+    line-height: 1.18 !important;
+    font-size: clamp(1.05rem, 4.4vw, 1.22rem) !important;
+    font-weight: 850 !important;
 
     color: var(--text-color) !important;
     background: var(--mobile-menu-item-bg) !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255,255,255,0.13) !important;
     box-shadow: var(--mobile-menu-item-shadow) !important;
 
     backdrop-filter: blur(10px) !important;
@@ -1768,7 +1769,8 @@ body.mobile-menu-open{
       transform 170ms ease,
       background 190ms ease,
       box-shadow 190ms ease,
-      border-color 190ms ease !important;
+      border-color 190ms ease,
+      filter 190ms ease !important;
   }
 
   .mobile-menu-native > ul.mobile-menu-list > li > a:hover,
@@ -1778,11 +1780,12 @@ body.mobile-menu-open{
   .mobile-menu-native > ul.mobile-menu-list > li > a[aria-current="page"]{
     background: var(--mobile-menu-item-active) !important;
     color: #ffffff !important;
-    border-color: rgba(255,255,255,0.18) !important;
+    border-color: rgba(255,255,255,0.20) !important;
     box-shadow:
-      0 12px 24px rgba(0,0,0,0.14),
-      inset 0 1px 0 rgba(255,255,255,0.16) !important;
+      0 13px 26px rgba(0,0,0,0.15),
+      inset 0 1px 0 rgba(255,255,255,0.18) !important;
     transform: translateY(-1px) !important;
+    filter: brightness(1.03) !important;
   }
 
   /* Icono hamburguesa -> X */
