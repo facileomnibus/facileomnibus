@@ -1172,33 +1172,47 @@ footer .footer-inner p,
    OPTIMIZACIÓN MÓVIL
 ========================================== */
 @media only screen and (max-width:767px){
+/*
+    1) Optimización general de sombras.
+*/
+.container,
+.widget-box,
+.weather-widget,
+.ticker-widget,
+#facile-news-widget.facile-news-shell,
+#facile-news-widget .facile-news-card,
+#facile-news-widget .facile-news-media,
+#facile-news-widget .facile-news-fallback-icon,
+#facile-news-widget .facile-news-button.secondary,
+#weather-content,
+#weather-content > div:last-child > div,
+footer .footer-inner,
+.footer .footer-inner,
+.site-footer .footer-inner{
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+/* Header móvil: blur suave, no agresivo */
+.header{
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--glass-bg) 72%, rgba(0,0,0,0.22) 28%),
+      color-mix(in srgb, var(--glass-bg) 64%, rgba(0,0,0,0.18) 36%)
+    ) !important;
+  backdrop-filter: blur(8px) saturate(1.06) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(1.06) !important;
+}
 
-  /*
-    1) Reducimos coste de cristal en móvil.
-    Mantiene estética general, pero evita capas de blur grandes y anidadas.
-  */
-  .header,
-  .container,
-  .widget-box,
-  .weather-widget,
-  .ticker-widget,
-  #facile-news-widget.facile-news-shell,
-  #facile-news-widget .facile-news-card,
-  #facile-news-widget .facile-news-media,
-  #facile-news-widget .facile-news-fallback-icon,
-  #facile-news-widget .facile-news-button.secondary,
-  #weather-content,
-  #weather-content > div:last-child > div,
-  footer .footer-inner,
-  .footer .footer-inner,
-  .site-footer .footer-inner{
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
+/* Caja interior del header móvil */
+.header .container.logo-nav-container{
+  background:
+    color-mix(in srgb, var(--glass-bg) 78%, rgba(0,0,0,0.18) 22%) !important;
+  backdrop-filter: blur(7px) saturate(1.04) !important;
+  -webkit-backdrop-filter: blur(7px) saturate(1.04) !important;
+}
   /*
     2) Sombras más ligeras en la zona de widgets.
-    No elimina la estética, pero evita repintados caros durante scroll.
   */
   .header,
   .container,
