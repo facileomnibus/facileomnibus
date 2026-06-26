@@ -1478,8 +1478,11 @@ footer .footer-inner,
     padding: 9px 10px;
     font-size: 0.86rem;
   }
-  body.mobile-menu-open{
-    overflow: hidden;
+}
+
+/* Estado del menú móvil */
+body.facile-mobile-menu-open{
+  overflow: hidden;
 }
 /* ==========================================
    MENÚ MÓVIL REHECHO — BANDA BAJO HEADER
