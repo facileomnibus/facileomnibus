@@ -1201,6 +1201,58 @@ footer .footer-inner p,
       transform:none !important;
       box-shadow:none !important;
   }
+  /* --- Ampliación ligera: menú móvil + widgets --- */
+@media only screen and (max-width:767px){
+
+  /*
+    Aisla zonas pesadas para que al abrir el menú
+    no se repinte toda la página.
+  */
+  .header,
+  .container,
+  #widgets-container,
+  .widgets-bar,
+  .widget-box,
+  .weather-widget,
+  .ticker-widget,
+  #facile-news-widget.facile-news-shell,
+  .mobile-menu-native > ul.mobile-menu-list{
+    contain: layout paint style;
+  }
+
+  /*
+    Mientras el menú móvil está abierto, aligeramos SOLO
+    lo que queda debajo del menú.
+    No cambia estructura ni contenido.
+  */
+  body:has(.mobile-menu-native[open]) .widgets-bar,
+  body:has(.mobile-menu-native[open]) .widget-box,
+  body:has(.mobile-menu-native[open]) .weather-widget,
+  body:has(.mobile-menu-native[open]) .ticker-widget,
+  body:has(.mobile-menu-native[open]) #facile-news-widget.facile-news-shell{
+    backdrop-filter: blur(2px) saturate(1.01) !important;
+    -webkit-backdrop-filter: blur(2px) saturate(1.01) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10) !important;
+  }
+
+  /*
+    Pausa microanimaciones/transiciones de widgets
+    solo mientras el menú está abierto.
+  */
+  body:has(.mobile-menu-native[open]) #widgets-container *,
+  body:has(.mobile-menu-native[open]) #facile-news-widget *{
+    animation-play-state: paused !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  /*
+    Ayuda a que el menú y sus botones se compongan mejor.
+  */
+  .menu-icon,
+  .mobile-menu-native > ul.mobile-menu-list,
+  .mobile-menu-native > ul.mobile-menu-list > li > a{
+    transform: translateZ(0);
+  }
 }
 /* ==========================================
    ANCHO DE WIDGETS
