@@ -1461,20 +1461,19 @@ body.mobile-menu-open{
     Ya no queda como una bandeja blanca separada del diseño.
   */
   --facile-mobile-menu-panel-bg:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--glass-bg) 64%, rgba(255,255,255,0.18) 36%),
-      color-mix(in srgb, var(--glass-bg) 76%, var(--primary-color) 24%)
-    );
+  linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--glass-bg) 88%, var(--primary-color) 12%),
+    color-mix(in srgb, var(--glass-bg) 92%, rgba(255,255,255,0.06) 8%)
+  );
 
-  --facile-mobile-menu-panel-border:
-    color-mix(in srgb, rgba(255,255,255,0.38) 58%, var(--primary-color) 42%);
+--facile-mobile-menu-panel-border:
+  color-mix(in srgb, rgba(255,255,255,0.22) 68%, var(--primary-color) 32%);
 
-  --facile-mobile-menu-panel-shadow:
-    0 24px 54px rgba(0,0,0,0.26),
-    0 10px 24px color-mix(in srgb, var(--primary-color) 18%, rgba(0,0,0,0.18) 82%),
-    inset 0 1px 0 rgba(255,255,255,0.24);
-
+--facile-mobile-menu-panel-shadow:
+  0 26px 58px rgba(0,0,0,0.28),
+  0 12px 28px color-mix(in srgb, var(--primary-color) 16%, rgba(0,0,0,0.22) 84%),
+  inset 0 1px 0 rgba(255,255,255,0.16);
   /*
     BOTONES NORMALES
     Siguen siendo claros por legibilidad, pero reciben tinte del header.
@@ -1649,8 +1648,8 @@ body.mobile-menu-open{
     border-radius: 28px !important;
     box-shadow: var(--facile-mobile-menu-panel-shadow) !important;
 
-    backdrop-filter: blur(20px) saturate(1.18) !important;
-    -webkit-backdrop-filter: blur(20px) saturate(1.18) !important;
+    backdrop-filter: blur(34px) saturate(1.20) brightness(1.02) !important;
+    -webkit-backdrop-filter: blur(34px) saturate(1.20) brightness(1.02) !important;
 
     opacity: 0 !important;
     visibility: hidden !important;
