@@ -569,8 +569,8 @@
   "use strict";
 
   const NEWS_JSON_URL = "./news.json";
-  const AUTOPLAY = true;
-  const AUTOPLAY_MS = 8000;
+  const IS_MOBILE = window.matchMedia("(max-width: 767px)").matches;
+  const AUTOPLAY = !IS_MOBILE
   const CACHE_KEY = "facile-news-cache-v1";
 
   function safeUrl(value, fallback) {
