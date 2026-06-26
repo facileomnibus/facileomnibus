@@ -1454,27 +1454,27 @@ body.mobile-menu-open{
   --facile-mobile-menu-panel-bg:
     linear-gradient(
       180deg,
-      color-mix(in srgb, rgba(255,255,255,0.92) 78%, var(--glass-bg) 22%),
-      color-mix(in srgb, rgba(255,255,255,0.84) 78%, var(--primary-color) 22%)
+      color-mix(in srgb, var(--primary-color) 22%, rgba(255,255,255,0.78) 78%),
+      color-mix(in srgb, var(--glass-bg) 38%, rgba(255,255,255,0.66) 62%)
     );
 
   --facile-mobile-menu-panel-border:
-    color-mix(in srgb, var(--primary-color) 42%, rgba(255,255,255,0.72) 58%);
+    color-mix(in srgb, var(--primary-color) 58%, rgba(255,255,255,0.64) 42%);
 
   --facile-mobile-menu-panel-shadow:
-    0 18px 42px rgba(0,0,0,0.20),
-    0 8px 20px rgba(0,0,0,0.14),
-    inset 0 1px 0 rgba(255,255,255,0.45);
+    0 22px 48px rgba(0,0,0,0.24),
+    0 8px 22px color-mix(in srgb, var(--primary-color) 22%, rgba(0,0,0,0.16) 78%),
+    inset 0 1px 0 rgba(255,255,255,0.42);
 
   --facile-mobile-menu-item-bg:
     linear-gradient(
       135deg,
-      color-mix(in srgb, rgba(255,255,255,0.94) 84%, var(--glass-bg) 16%),
-      color-mix(in srgb, rgba(255,255,255,0.86) 84%, var(--primary-color) 16%)
+      color-mix(in srgb, rgba(255,255,255,0.86) 68%, var(--primary-color) 32%),
+      color-mix(in srgb, rgba(255,255,255,0.74) 70%, var(--secondary-color) 30%)
     );
 
   --facile-mobile-menu-item-text:
-    color-mix(in srgb, var(--text-dark) 86%, var(--primary-color) 14%);
+    color-mix(in srgb, var(--text-dark) 82%, var(--primary-color) 18%);
 
   --facile-mobile-menu-item-active:
     var(--menu-link-active-bg);
@@ -1587,11 +1587,11 @@ body.mobile-menu-open{
     left: 50% !important;
     right: auto !important;
 
-    width: min(86vw, 620px) !important;
-    max-width: calc(100vw - 28px) !important;
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
 
     margin: 0 !important;
-    padding: 16px 14px !important;
+    padding: 18px 12px !important;
     box-sizing: border-box !important;
     list-style: none !important;
 
@@ -1599,7 +1599,7 @@ body.mobile-menu-open{
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: 12px !important;
+    gap: 13px !important;
 
     background: var(--facile-mobile-menu-panel-bg) !important;
     border: 1px solid var(--facile-mobile-menu-panel-border) !important;
@@ -1647,13 +1647,13 @@ body.mobile-menu-open{
     justify-content: center !important;
 
     width: 100% !important;
-    min-height: 54px !important;
+    min-height: 58px !important;
     box-sizing: border-box !important;
 
     margin: 0 !important;
-    padding: 12px 16px !important;
+    padding: 13px 16px !important;
 
-    border-radius: 17px !important;
+    border-radius: 18px !important;
     text-align: center !important;
     text-decoration: none !important;
     line-height: 1.16 !important;
