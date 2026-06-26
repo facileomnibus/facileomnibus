@@ -1455,43 +1455,54 @@ body.mobile-menu-open{
 ========================================== */
 
 :root{
-  /* Panel: cristal claro, pero menos blanco y más integrado con el tema */
+  /*
+    PANEL DEL MENÚ
+    Menos blanco, más integrado con cada tema,
+    pero suficientemente claro para no perder contraste.
+  */
   --facile-mobile-menu-panel-bg:
     linear-gradient(
       180deg,
-      color-mix(in srgb, rgba(238,248,252,0.94) 78%, var(--primary-color) 22%),
-      color-mix(in srgb, rgba(220,238,242,0.90) 72%, var(--glass-bg) 28%)
+      color-mix(in srgb, rgba(242,249,252,0.94) 72%, var(--primary-color) 28%),
+      color-mix(in srgb, rgba(226,239,242,0.92) 76%, var(--glass-bg) 24%)
     );
 
   --facile-mobile-menu-panel-border:
-    color-mix(in srgb, rgba(255,255,255,0.66) 58%, var(--primary-color) 42%);
+    color-mix(in srgb, rgba(255,255,255,0.68) 56%, var(--primary-color) 44%);
 
   --facile-mobile-menu-panel-shadow:
-    0 24px 52px rgba(0,0,0,0.26),
+    0 24px 54px rgba(0,0,0,0.28),
     0 10px 24px rgba(0,0,0,0.18),
-    inset 0 1px 0 rgba(255,255,255,0.48);
+    inset 0 1px 0 rgba(255,255,255,0.50);
 
-  /* Botones normales: claros, legibles y con tinte del tema */
+  /*
+    BOTONES NORMALES
+    Base clara estable para todos los temas.
+    Tiene un toque del color principal, pero no tanto como para perder legibilidad.
+  */
   --facile-mobile-menu-item-bg:
     linear-gradient(
       135deg,
-      color-mix(in srgb, rgba(248,252,255,0.96) 84%, var(--primary-color) 16%),
-      color-mix(in srgb, rgba(228,242,246,0.94) 82%, var(--glass-bg) 18%)
+      color-mix(in srgb, rgba(248,252,255,0.97) 82%, var(--primary-color) 18%),
+      color-mix(in srgb, rgba(230,242,246,0.95) 84%, var(--glass-bg) 16%)
     );
 
-  /* Texto estable para todos los temas */
+  /*
+    Texto fijo oscuro.
+    No depende del tema porque tiene que leerse siempre.
+  */
   --facile-mobile-menu-item-text: #1f2d42;
 
   /*
-    Botón activo:
-    color del tema, pero menos chillón que el verde/cian actual.
-    Mantiene texto blanco legible.
+    BOTÓN ACTIVO
+    Usa el color de acento del tema, pero mezclado para que no sea chillón.
+    En azul/verde/naranja/oscuro queda más integrado.
   */
   --facile-mobile-menu-item-active:
     linear-gradient(
       135deg,
-      color-mix(in srgb, var(--menu-accent-color) 72%, var(--primary-color) 28%),
-      color-mix(in srgb, var(--menu-accent-color) 82%, #0f6f8f 18%)
+      color-mix(in srgb, var(--menu-accent-color) 68%, var(--primary-color) 32%),
+      color-mix(in srgb, var(--menu-accent-color) 74%, #12384f 26%)
     );
 }
 
@@ -1689,10 +1700,8 @@ body.mobile-menu-open{
 
     color: var(--facile-mobile-menu-item-text) !important;
     background: var(--facile-mobile-menu-item-bg) !important;
-    border: 1px solid rgba(255,255,255,0.58) !important;
-    box-shadow:
-      0 8px 18px rgba(0,0,0,0.12),
-      inset 0 1px 0 rgba(255,255,255,0.62) !important;
+    border: 1px solid rgba(255,255,255,0.56) !important;
+    text-shadow: none !important;
 
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
@@ -1716,8 +1725,8 @@ body.mobile-menu-open{
   .mobile-menu-native > ul.mobile-menu-list > li > a[aria-current="page"]{
     background: var(--facile-mobile-menu-item-active) !important;
     color: #ffffff !important;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.32) !important;
-    border-color: rgba(255,255,255,0.40) !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.34) !important;
+    border-color: rgba(255,255,255,0.42) !important;
   }
 
   .mobile-menu-native[open] > summary.menu-icon .menu-icon__line:nth-child(1){
