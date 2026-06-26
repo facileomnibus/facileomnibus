@@ -1648,8 +1648,8 @@ body.mobile-menu-open{
     border-radius: 28px !important;
     box-shadow: var(--facile-mobile-menu-panel-shadow) !important;
 
-    backdrop-filter: blur(28px) saturate(1.16) brightness(1.01) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(1.16) brightness(1.01) !important;
+    backdrop-filter: blur(34px) saturate(1.20) brightness(1.02) !important;
+    -webkit-backdrop-filter: blur(34px) saturate(1.20) brightness(1.02) !important;
 
     opacity: 0 !important;
     visibility: hidden !important;
@@ -1756,117 +1756,3 @@ body.mobile-menu-open{
     transform: translateX(-50%) rotate(-45deg) !important;
   }
 }
-
-/* ==========================================
-   OPTIMIZACIÓN SUAVE — WIDGETS + MENÚ MÓVIL
-   Objetivo: menos trabones sin perder estética Frutiger Aero
-========================================== */
-
-/* Aislar zonas pesadas para que un repintado del menú no obligue a repintar media página */
-.header,
-.container,
-.widgets-bar,
-.widget-box,
-.weather-widget,
-.ticker-widget,
-#facile-news-widget.facile-news-shell,
-.mobile-menu-native > ul.mobile-menu-list{
-  contain: layout paint style;
-}
-
-/* Las secciones largas con cientos de iconos se renderizan bajo demanda */
-main.intro .container > section:not(#facile-news-widget){
-  content-visibility: auto;
-  contain-intrinsic-size: 160px;
-}
-
-/* Mantener la zona superior siempre lista: widgets visibles y menú fluido */
-#widgets-container,
-.widgets-bar,
-#facile-news-widget,
-#weather-widget,
-.ticker-widget,
-.mobile-menu-native,
-.mobile-menu-native > ul.mobile-menu-list{
-  content-visibility: visible;
-}
-
-/* Evitar transiciones globales caras en elementos que cambian mucho */
-.navigation a,
-.facile-search-submit,
-#facile-news-widget .facile-news-button,
-#facile-news-widget .facile-news-arrow,
-#facile-news-widget .facile-news-dot{
-  transition-property: transform, background, background-color, color, border-color, box-shadow, opacity, filter !important;
-}
-
-@media only screen and (max-width: 767px){
-  /* Reducimos un poco el coste del glass general en móvil, manteniendo el look */
-  .header,
-  .container,
-  .widget-box,
-  .weather-widget,
-  .ticker-widget,
-  #facile-news-widget.facile-news-shell{
-    backdrop-filter: blur(5px) saturate(1.04) !important;
-    -webkit-backdrop-filter: blur(5px) saturate(1.04) !important;
-  }
-
-  /* Mientras el menú está abierto, bajamos el coste de lo que queda DEBAJO.
-     La apariencia sigue siendo glass, pero el navegador pinta bastante menos. */
-  body.facile-mobile-menu-open .widgets-bar,
-  body.facile-mobile-menu-open .widget-box,
-  body.facile-mobile-menu-open .weather-widget,
-  body.facile-mobile-menu-open .ticker-widget,
-  body.facile-mobile-menu-open #facile-news-widget.facile-news-shell,
-  body:has(.mobile-menu-native[open]) .widgets-bar,
-  body:has(.mobile-menu-native[open]) .widget-box,
-  body:has(.mobile-menu-native[open]) .weather-widget,
-  body:has(.mobile-menu-native[open]) .ticker-widget,
-  body:has(.mobile-menu-native[open]) #facile-news-widget.facile-news-shell{
-    backdrop-filter: blur(2px) saturate(1.01) !important;
-    -webkit-backdrop-filter: blur(2px) saturate(1.01) !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.10) !important;
-  }
-
-  /* Pausamos microanimaciones/transiciones bajo el menú mientras está abierto */
-  body.facile-mobile-menu-open #widgets-container *,
-  body:has(.mobile-menu-native[open]) #widgets-container *,
-  body.facile-mobile-menu-open #facile-news-widget *,
-  body:has(.mobile-menu-native[open]) #facile-news-widget *{
-    animation-play-state: paused !important;
-    transition-duration: 0.001ms !important;
-  }
-
-  /* El menú conserva impacto visual, pero con una capa algo menos cara que blur(34px) */
-  .mobile-menu-native > ul.mobile-menu-list{
-    backdrop-filter: blur(28px) saturate(1.16) brightness(1.01) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(1.16) brightness(1.01) !important;
-    will-change: opacity, transform;
-  }
-
-  .mobile-menu-native > ul.mobile-menu-list > li > a{
-    backdrop-filter: blur(5px) !important;
-    -webkit-backdrop-filter: blur(5px) !important;
-  }
-
-  .logo img,
-  .menu-icon,
-  .mobile-menu-native > ul.mobile-menu-list,
-  .mobile-menu-native > ul.mobile-menu-list > li > a{
-    transform: translateZ(0);
-  }
-}
-
-/* Respeta accesibilidad y mejora en dispositivos configurados para reducir movimiento */
-@media (prefers-reduced-motion: reduce){
-  *,
-  *::before,
-  *::after{
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.001ms !important;
-  }
-}
-
