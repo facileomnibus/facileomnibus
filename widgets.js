@@ -52,8 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===============================
      FECHA
   ================================ */
-  const dateWidget = document.createElement("div");
-  dateWidget.className = "widget-box";
+  const dateWidget = document.createElement("a");
+dateWidget.className = "widget-box facile-info-widget facile-date-widget";
+dateWidget.href = "https://bcalendar.com/new";
+dateWidget.target = "_blank";
+dateWidget.rel = "noopener noreferrer";
+dateWidget.setAttribute("aria-label", "Abrir calendario");
 
   function updateDate() {
     const now = new Date();
@@ -83,8 +87,12 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===============================
      RELOJ
   ================================ */
-  const clockWidget = document.createElement("div");
-  clockWidget.className = "widget-box";
+  const clockWidget = document.createElement("a");
+clockWidget.className = "widget-box facile-info-widget facile-clock-widget";
+clockWidget.href = "https://reloj-alarma.es";
+clockWidget.target = "_blank";
+clockWidget.rel = "noopener noreferrer";
+clockWidget.setAttribute("aria-label", "Reloj y alarma");
 
   function updateClock() {
   const now = new Date();
