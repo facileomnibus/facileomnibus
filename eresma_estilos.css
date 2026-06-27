@@ -1200,16 +1200,16 @@ footer .footer-inner,
       color-mix(in srgb, var(--glass-bg) 72%, rgba(0,0,0,0.22) 28%),
       color-mix(in srgb, var(--glass-bg) 64%, rgba(0,0,0,0.18) 36%)
     ) !important;
-  backdrop-filter: blur(8px) saturate(1.06) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(1.06) !important;
+  backdrop-filter: blur(7px) saturate(1.06) !important;
+  -webkit-backdrop-filter: blur(7px) saturate(1.06) !important;
 }
 
 /* Caja interior del header móvil */
 .header .container.logo-nav-container{
   background:
     color-mix(in srgb, var(--glass-bg) 78%, rgba(0,0,0,0.18) 22%) !important;
-  backdrop-filter: blur(7px) saturate(1.04) !important;
-  -webkit-backdrop-filter: blur(7px) saturate(1.04) !important;
+  backdrop-filter: blur(6px) saturate(1.04) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(1.04) !important;
 }
   /*
     2) Sombras más ligeras en la zona de widgets.
