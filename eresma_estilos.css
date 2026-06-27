@@ -213,6 +213,54 @@ section{
     box-shadow:0 3px 10px rgba(0,0,0,0.15);
     color: var(--text-color);
 }
+
+.facile-info-widget{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  text-decoration: none !important;
+  color: #ffffff !important;
+
+  font-size: 0.98rem;
+  font-weight: 850;
+  letter-spacing: 0.01em;
+  line-height: 1;
+
+  text-shadow:
+    0 1px 2px rgba(0,0,0,0.32),
+    0 0 10px rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.12);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--glass-bg) 72%, rgba(255,255,255,0.12) 28%),
+      color-mix(in srgb, var(--glass-bg) 82%, rgba(0,0,0,0.10) 18%)
+    );
+
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.facile-info-widget:hover,
+.facile-info-widget:focus-visible{
+  color: #ffffff !important;
+  text-decoration: none !important;
+  outline: none;
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.facile-info-widget:active{
+  transform: scale(0.98);
+}
+
+.facile-info-widget:visited{
+  color: #ffffff !important;
+}
 /* ===============================
    HEADER RESPONSIVE
 ================================ */
@@ -1272,6 +1320,13 @@ footer .footer-inner,
     padding: 10px 0 !important;
   }
 }
+.facile-info-widget{
+  font-size: 0.92rem !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.005em !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.30) !important;
+  transition-duration: 0.01ms !important;
+}
 /* ==========================================
    ANCHO DE WIDGETS
 ========================================== */
@@ -1555,19 +1610,12 @@ body.facile-mobile-menu-open{
   overflow: hidden;
 }
 /* ==========================================
-   MENÚ MÓVIL REHECHO — BANDA BAJO HEADER
-   - No fixed
-   - No overlay
-   - Separado del header real
-   - Ancho casi completo
-   - Texto legible en todos los temas
+   MENÚ MÓVIL
 ========================================== */
 
 :root{
   /*
     PANEL DEL MENÚ
-    Más cercano al header: usa más glass-bg y primary-color.
-    Ya no queda como una bandeja blanca separada del diseño.
   */
   --facile-mobile-menu-panel-bg:
   linear-gradient(
@@ -1585,7 +1633,6 @@ body.facile-mobile-menu-open{
   inset 0 1px 0 rgba(255,255,255,0.16);
   /*
     BOTONES NORMALES
-    Siguen siendo claros por legibilidad, pero reciben tinte del header.
   */
   --facile-mobile-menu-item-bg:
     linear-gradient(
@@ -1604,9 +1651,6 @@ body.facile-mobile-menu-open{
 
   /*
     BOTÓN ACTIVO
-    Más cercano al header/acento, menos chillón.
-    En azul será azul/cian, en verde será verde sofisticado,
-    en naranja será naranja/ámbar.
   */
   --facile-mobile-menu-item-active:
     linear-gradient(
@@ -1719,12 +1763,7 @@ body.facile-mobile-menu-open{
   }
 
   /*
-    MENÚ:
-    - absolute respecto al header
-    - debajo del header real
-    - separado con margen
-    - ancho casi completo
-    - fondo suficientemente opaco
+    MENÚ
   */
   .mobile-menu-native > ul.mobile-menu-list{
     position: absolute !important;
