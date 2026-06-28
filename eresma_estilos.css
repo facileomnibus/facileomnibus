@@ -1952,113 +1952,118 @@ body.facile-mobile-menu-open{
   transform: translateY(1px) !important;
 }
 /* ==========================================
-   BOTONES FLOTANTES — RADIO + TEMAS ESTABLES
-   No toca OpenWidget. No mueve el chat.
+   RADIO + TEMAS + CHAT — POSICIÓN FINAL
+   Ajuste fino de la columna de 3 widgets.
+   Radio/Temas abren hacia dentro y no mueven OpenWidget.
 ========================================== */
 
 :root{
-  --facile-float-right: 22px;
-  --facile-float-bottom: 24px;
-  --facile-float-size: 52px;
-  --facile-float-gap: 10px;
+  --facile-float-size: 42px;
+  --facile-float-right: 25px;
+  --facile-float-bottom: 16px;
+  --facile-float-gap: 8px;
+  --facile-floating-panel-inset: 18px;
 
   --facile-theme-radio-bg:
-    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.34), transparent 28%),
-    linear-gradient(135deg, #ff7a3d 0%, #ff5f7d 52%, #7a6cff 100%);
+    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.34), transparent 30%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 88%, white 12%) 0%,
+      color-mix(in srgb, var(--primary-color) 56%, var(--secondary-color) 44%) 48%,
+      color-mix(in srgb, var(--secondary-color) 86%, white 14%) 100%
+    );
+
+  --facile-theme-radio-bg-hover:
+    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.42), transparent 31%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 78%, white 22%) 0%,
+      color-mix(in srgb, var(--primary-color) 48%, var(--secondary-color) 52%) 48%,
+      color-mix(in srgb, var(--secondary-color) 78%, white 22%) 100%
+    );
 
   --facile-theme-radio-shadow:
-    0 9px 22px rgba(0,0,0,0.24),
-    0 0 16px rgba(255,105,82,0.34),
+    0 7px 16px rgba(0,0,0,0.22),
+    0 0 13px color-mix(in srgb, var(--primary-color) 32%, transparent 68%),
     inset 0 1px 0 rgba(255,255,255,0.28);
 
   --facile-theme-radio-shadow-hover:
-    0 12px 26px rgba(0,0,0,0.28),
-    0 0 22px rgba(255,111,73,0.42),
+    0 9px 20px rgba(0,0,0,0.26),
+    0 0 17px color-mix(in srgb, var(--secondary-color) 38%, transparent 62%),
     inset 0 1px 0 rgba(255,255,255,0.32);
+
+  --facile-floating-panel-bg:
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,0.16), transparent 34%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--glass-bg) 78%, var(--primary-color) 22%),
+      color-mix(in srgb, var(--glass-bg) 72%, var(--secondary-color) 28%)
+    );
 }
 
-/* ==========================================
-   TEMAS — BOTÓN INFERIOR
-========================================== */
+/* ===============================
+   COLUMNA DERECHA: CHAT / RADIO / TEMAS
+================================ */
 
 #theme-panel.theme-panel{
   position: fixed !important;
   right: var(--facile-float-right) !important;
   bottom: var(--facile-float-bottom) !important;
-  z-index: 2145 !important;
-
+  width: var(--facile-float-size) !important;
+  height: var(--facile-float-size) !important;
   margin: 0 !important;
   padding: 0 !important;
-
+  z-index: 2145 !important;
   overflow: visible !important;
 }
-
-/* No cambiamos el comportamiento del menú de temas */
-#theme-menu.theme-menu{
-  z-index: 2147 !important;
-}
-
-/* ==========================================
-   RADIO — BOTÓN ENCIMA DE TEMAS
-========================================== */
 
 .facile-radio-widget{
   position: fixed !important;
   right: var(--facile-float-right) !important;
-  bottom: calc(
-    var(--facile-float-bottom) +
-    var(--facile-float-size) +
-    var(--facile-float-gap)
-  ) !important;
+  bottom: calc(var(--facile-float-bottom) + var(--facile-float-size) + var(--facile-float-gap)) !important;
+  width: var(--facile-float-size) !important;
+  height: var(--facile-float-size) !important;
+  margin: 0 !important;
+  padding: 0 !important;
   z-index: 2146 !important;
-
+  overflow: visible !important;
   font-family: "Segoe UI", Arial, sans-serif !important;
 }
-
-/* ==========================================
-   ESTILO COMÚN RADIO + TEMAS
-========================================== */
 
 .facile-radio-button,
 #theme-toggle.theme-toggle-btn{
   width: var(--facile-float-size) !important;
   height: var(--facile-float-size) !important;
-
-  border: 0 !important;
-  border-radius: 999px !important;
-  cursor: pointer !important;
-
-  display: grid !important;
-  place-items: center !important;
-
+  min-width: var(--facile-float-size) !important;
+  min-height: var(--facile-float-size) !important;
   margin: 0 !important;
   padding: 0 !important;
-
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  border-radius: 999px !important;
+  display: grid !important;
+  place-items: center !important;
   color: #ffffff !important;
   background: var(--facile-theme-radio-bg) !important;
-
   box-shadow: var(--facile-theme-radio-shadow) !important;
-
-  backdrop-filter: blur(7px) saturate(1.05) !important;
-  -webkit-backdrop-filter: blur(7px) saturate(1.05) !important;
-
+  line-height: 1 !important;
+  cursor: pointer !important;
+  backdrop-filter: blur(7px) saturate(1.06) !important;
+  -webkit-backdrop-filter: blur(7px) saturate(1.06) !important;
   -webkit-tap-highlight-color: transparent !important;
   touch-action: manipulation !important;
-
-  line-height: 1 !important;
-
   transition:
     transform 150ms ease,
     filter 150ms ease,
-    box-shadow 150ms ease !important;
+    box-shadow 150ms ease,
+    background 180ms ease !important;
 }
 
 .facile-radio-button{
-  font-size: 1.18rem !important;
+  font-size: 0.88rem !important;
 }
 
 #theme-toggle.theme-toggle-btn{
-  font-size: 1.26rem !important;
+  font-size: 0.98rem !important;
 }
 
 .facile-radio-button:hover,
@@ -2066,60 +2071,50 @@ body.facile-mobile-menu-open{
 #theme-toggle.theme-toggle-btn:hover,
 #theme-toggle.theme-toggle-btn:focus-visible{
   outline: none !important;
-  filter: brightness(1.07) !important;
-  transform: translateY(-2px) !important;
+  background: var(--facile-theme-radio-bg-hover) !important;
   box-shadow: var(--facile-theme-radio-shadow-hover) !important;
+  filter: brightness(1.05) saturate(1.04) !important;
+  transform: translateY(-1px) scale(1.01) !important;
 }
 
 .facile-radio-button:active,
 #theme-toggle.theme-toggle-btn:active{
-  transform: translateY(1px) scale(0.98) !important;
+  transform: translateY(1px) scale(0.985) !important;
 }
 
-/* ==========================================
-   PANEL DE RADIO — ESTILO RESTAURADO
-========================================== */
+/* ===============================
+   PANEL RADIO: HACIA DENTRO
+================================ */
 
 .facile-radio-panel{
   position: absolute !important;
-  right: 0 !important;
-  bottom: calc(var(--facile-float-size) + 12px) !important;
-
-  width: min(350px, calc(100vw - 24px)) !important;
-  max-height: min(590px, calc(100vh - 112px)) !important;
+  right: calc(100% + var(--facile-floating-panel-inset)) !important;
+  left: auto !important;
+  bottom: 0 !important;
+  top: auto !important;
+  width: min(350px, calc(100vw - 112px)) !important;
+  max-height: min(590px, calc(100vh - 42px)) !important;
   box-sizing: border-box !important;
-
   padding: 12px !important;
   border-radius: 24px !important;
-
-  background:
-    radial-gradient(circle at 20% 0%, rgba(255,255,255,0.16), transparent 34%),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--glass-bg) 78%, rgba(255,122,61,0.24) 22%),
-      color-mix(in srgb, var(--glass-bg) 72%, rgba(122,108,255,0.30) 28%)
-    ) !important;
-
+  color: #ffffff !important;
+  background: var(--facile-floating-panel-bg) !important;
   border: 1px solid rgba(255,255,255,0.17) !important;
-
   box-shadow:
     0 18px 42px rgba(0,0,0,0.30),
     inset 0 1px 0 rgba(255,255,255,0.16) !important;
-
   backdrop-filter: blur(13px) saturate(1.06) !important;
   -webkit-backdrop-filter: blur(13px) saturate(1.06) !important;
-
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
-
-  transform: translateY(10px) scale(0.98) !important;
+  transform: translateY(8px) scale(0.98) !important;
   transform-origin: bottom right !important;
-
   transition:
     opacity 170ms ease,
     transform 170ms ease,
     visibility 170ms ease !important;
+  overflow: hidden !important;
 }
 
 .facile-radio-widget.is-open .facile-radio-panel{
@@ -2129,12 +2124,15 @@ body.facile-mobile-menu-open{
   transform: translateY(0) scale(1) !important;
 }
 
+/* ===============================
+   ESTRUCTURA INTERNA RADIO
+================================ */
+
 .facile-radio-header{
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   gap: 10px !important;
-
   margin-bottom: 10px !important;
   color: #ffffff !important;
 }
@@ -2160,18 +2158,13 @@ body.facile-mobile-menu-open{
   border: 0 !important;
   border-radius: 12px !important;
   cursor: pointer !important;
-
   display: grid !important;
   place-items: center !important;
-
   color: #ffffff !important;
   font-size: 1.35rem !important;
   line-height: 1 !important;
-
   background: rgba(255,255,255,0.16) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.18) !important;
-
-  -webkit-tap-highlight-color: transparent !important;
 }
 
 .facile-radio-search{
@@ -2187,13 +2180,10 @@ body.facile-mobile-menu-open{
   border: 0 !important;
   outline: none !important;
   border-radius: 14px !important;
-
   padding: 10px 12px !important;
   box-sizing: border-box !important;
-
   color: #263447 !important;
   background: rgba(255,255,255,0.90) !important;
-
   font: inherit !important;
   font-size: 0.88rem !important;
 }
@@ -2204,18 +2194,12 @@ body.facile-mobile-menu-open{
   border: 0 !important;
   border-radius: 14px !important;
   cursor: pointer !important;
-
   color: #ffffff !important;
   font-weight: 800 !important;
-
   background: var(--facile-theme-radio-bg) !important;
-
   box-shadow:
-    0 7px 16px rgba(0,0,0,0.16),
-    inset 0 1px 0 rgba(255,255,255,0.20) !important;
-
-  -webkit-tap-highlight-color: transparent !important;
-  touch-action: manipulation !important;
+    0 6px 14px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.22) !important;
 }
 
 .facile-radio-search button{
@@ -2228,13 +2212,10 @@ body.facile-mobile-menu-open{
   grid-template-columns: 46px minmax(0, 1fr) !important;
   gap: 10px !important;
   align-items: center !important;
-
   padding: 10px !important;
   border-radius: 18px !important;
-
   background: rgba(255,255,255,0.14) !important;
   border: 1px solid rgba(255,255,255,0.13) !important;
-
   color: #ffffff !important;
 }
 
@@ -2242,10 +2223,8 @@ body.facile-mobile-menu-open{
   width: 46px !important;
   height: 46px !important;
   border-radius: 15px !important;
-
   display: grid !important;
   place-items: center !important;
-
   overflow: hidden !important;
   background: rgba(255,255,255,0.20) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.18) !important;
@@ -2259,7 +2238,8 @@ body.facile-mobile-menu-open{
   object-fit: cover !important;
 }
 
-.facile-radio-now-text{
+.facile-radio-now-text,
+.facile-radio-row-text{
   min-width: 0 !important;
 }
 
@@ -2289,7 +2269,6 @@ body.facile-mobile-menu-open{
   grid-template-columns: 48px 42px minmax(0, 1fr) !important;
   gap: 8px !important;
   align-items: center !important;
-
   margin-top: 10px !important;
 }
 
@@ -2309,7 +2288,6 @@ body.facile-mobile-menu-open{
   margin-top: 10px !important;
   display: grid !important;
   gap: 7px !important;
-
   max-height: 220px !important;
   overflow-y: auto !important;
   overscroll-behavior: contain !important;
@@ -2319,23 +2297,18 @@ body.facile-mobile-menu-open{
 .facile-radio-row,
 .facile-radio-loading-row{
   width: 100% !important;
-  border: 0 !important;
+  border: 1px solid rgba(255,255,255,0.11) !important;
   cursor: pointer !important;
   border-radius: 15px !important;
-
   display: grid !important;
   grid-template-columns: 34px minmax(0, 1fr) !important;
   gap: 9px !important;
   align-items: center !important;
-
   padding: 8px !important;
   box-sizing: border-box !important;
-
   color: #ffffff !important;
   text-align: left !important;
-
   background: rgba(255,255,255,0.13) !important;
-  border: 1px solid rgba(255,255,255,0.11) !important;
 }
 
 .facile-radio-loading-row{
@@ -2355,15 +2328,9 @@ body.facile-mobile-menu-open{
   height: 34px !important;
   border-radius: 11px !important;
   overflow: hidden !important;
-
   display: grid !important;
   place-items: center !important;
-
   background: rgba(255,255,255,0.18) !important;
-}
-
-.facile-radio-row-text{
-  min-width: 0 !important;
 }
 
 .facile-radio-row-text strong{
@@ -2386,209 +2353,34 @@ body.facile-mobile-menu-open{
   line-height: 1.25 !important;
 }
 
-/* Seguridad: si queda alguna clase antigua, no debe mover OpenWidget */
-.facile-openwidget-shifted{
-  transform: none !important;
-}
+/* ===============================
+   MENÚ TEMAS: HACIA DENTRO
+================================ */
 
-/* ==========================================
-   MÓVIL
-========================================== */
-
-@media only screen and (max-width: 767px){
-  :root{
-    --facile-float-right: 14px;
-    --facile-float-bottom: 18px;
-    --facile-float-size: 50px;
-    --facile-float-gap: 9px;
-  }
-
-  .facile-radio-button,
-  #theme-toggle.theme-toggle-btn{
-    width: var(--facile-float-size) !important;
-    height: var(--facile-float-size) !important;
-
-    backdrop-filter: blur(5px) saturate(1.04) !important;
-    -webkit-backdrop-filter: blur(5px) saturate(1.04) !important;
-
-    transition-duration: 130ms !important;
-  }
-
-  .facile-radio-button{
-    font-size: 1.12rem !important;
-  }
-
-  #theme-toggle.theme-toggle-btn{
-    font-size: 1.20rem !important;
-  }
-
-  .facile-radio-panel{
-    right: 0 !important;
-    bottom: calc(var(--facile-float-size) + 11px) !important;
-
-    width: min(326px, calc(100vw - 24px)) !important;
-    max-height: min(545px, calc(100vh - 112px)) !important;
-
-    padding: 10px !important;
-    border-radius: 22px !important;
-
-    backdrop-filter: blur(8px) saturate(1.04) !important;
-    -webkit-backdrop-filter: blur(8px) saturate(1.04) !important;
-  }
-
-  .facile-radio-results{
-    max-height: 185px !important;
-  }
-}
-/* ==========================================
-   PULIDO FINAL — RADIO + TEMAS BAJO CHAT
-   Más pequeños, mejor alineados y adaptados al tema
-========================================== */
-
-:root{
-  /*
-    Ajuste visual:
-    - tamaño menor
-    - menos separación vertical
-    - posición más baja para que Radio no choque con Chat
-  */
-  --facile-float-right: 24px;
-  --facile-float-bottom: 14px;
-  --facile-float-size: 48px;
-  --facile-float-gap: 8px;
-
-  /*
-    Color dinámico:
-    el botón usa los colores activos del tema:
-    --primary-color y --secondary-color.
-  */
-  --facile-theme-radio-bg:
-    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.34), transparent 30%),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--primary-color) 88%, white 12%) 0%,
-      color-mix(in srgb, var(--primary-color) 56%, var(--secondary-color) 44%) 48%,
-      color-mix(in srgb, var(--secondary-color) 86%, white 14%) 100%
-    );
-
-  --facile-theme-radio-bg-hover:
-    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.40), transparent 30%),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--primary-color) 80%, white 20%) 0%,
-      color-mix(in srgb, var(--primary-color) 48%, var(--secondary-color) 52%) 48%,
-      color-mix(in srgb, var(--secondary-color) 80%, white 20%) 100%
-    );
-
-  --facile-theme-radio-shadow:
-    0 8px 18px rgba(0,0,0,0.22),
-    0 0 14px color-mix(in srgb, var(--primary-color) 34%, transparent 66%),
-    inset 0 1px 0 rgba(255,255,255,0.28);
-
-  --facile-theme-radio-shadow-hover:
-    0 10px 22px rgba(0,0,0,0.26),
-    0 0 18px color-mix(in srgb, var(--secondary-color) 38%, transparent 62%),
-    inset 0 1px 0 rgba(255,255,255,0.32);
-}
-
-/* Radio: botón intermedio debajo del Chat */
-.facile-radio-widget{
-  right: var(--facile-float-right) !important;
-  bottom: calc(
-    var(--facile-float-bottom) +
-    var(--facile-float-size) +
-    var(--facile-float-gap)
-  ) !important;
-  z-index: 2146 !important;
-}
-
-/* Temas: botón inferior */
-#theme-panel.theme-panel{
-  right: var(--facile-float-right) !important;
-  bottom: var(--facile-float-bottom) !important;
-  z-index: 2145 !important;
-  width: var(--facile-float-size) !important;
-  height: var(--facile-float-size) !important;
-  overflow: visible !important;
-}
-
-/* Estilo común: Radio + Temas */
-.facile-radio-button,
-#theme-toggle.theme-toggle-btn{
-  width: var(--facile-float-size) !important;
-  height: var(--facile-float-size) !important;
-
-  min-width: var(--facile-float-size) !important;
-  min-height: var(--facile-float-size) !important;
-
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  border-radius: 999px !important;
-
-  display: grid !important;
-  place-items: center !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  background: var(--facile-theme-radio-bg) !important;
-  box-shadow: var(--facile-theme-radio-shadow) !important;
-
+#theme-menu.theme-menu{
+  position: absolute !important;
+  right: calc(100% + var(--facile-floating-panel-inset)) !important;
+  left: auto !important;
+  bottom: 0 !important;
+  top: auto !important;
+  width: min(320px, calc(100vw - 112px)) !important;
+  max-height: min(560px, calc(100vh - 42px)) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  box-sizing: border-box !important;
+  padding: 14px !important;
+  border-radius: 24px !important;
   color: #ffffff !important;
-  line-height: 1 !important;
-
-  backdrop-filter: blur(7px) saturate(1.06) !important;
-  -webkit-backdrop-filter: blur(7px) saturate(1.06) !important;
-
-  transition:
-    transform 150ms ease,
-    filter 150ms ease,
-    box-shadow 150ms ease,
-    background 180ms ease !important;
-}
-
-/* Iconos un poco más pequeños */
-.facile-radio-button{
-  font-size: 1.02rem !important;
-}
-
-#theme-toggle.theme-toggle-btn{
-  font-size: 1.14rem !important;
-}
-
-/* Hover/focus más fino */
-.facile-radio-button:hover,
-.facile-radio-button:focus-visible,
-#theme-toggle.theme-toggle-btn:hover,
-#theme-toggle.theme-toggle-btn:focus-visible{
-  outline: none !important;
-  background: var(--facile-theme-radio-bg-hover) !important;
-  box-shadow: var(--facile-theme-radio-shadow-hover) !important;
-  filter: brightness(1.05) !important;
-  transform: translateY(-1px) !important;
-}
-
-/* Pulsación sin desplazamientos raros */
-.facile-radio-button:active,
-#theme-toggle.theme-toggle-btn:active{
-  transform: translateY(1px) scale(0.985) !important;
-}
-
-/* Panel de radio: al abrir, que no nazca pegado al Chat */
-.facile-radio-panel{
-  bottom: calc(var(--facile-float-size) + 10px) !important;
-}
-
-/* Radio: botones internos también adaptados al tema */
-.facile-radio-search button,
-.facile-radio-main-control,
-.facile-radio-small-control{
-  background: var(--facile-theme-radio-bg) !important;
+  background: var(--facile-floating-panel-bg) !important;
+  border: 1px solid rgba(255,255,255,0.17) !important;
   box-shadow:
-    0 6px 14px rgba(0,0,0,0.16),
-    inset 0 1px 0 rgba(255,255,255,0.22) !important;
+    0 18px 42px rgba(0,0,0,0.30),
+    inset 0 1px 0 rgba(255,255,255,0.16) !important;
+  backdrop-filter: blur(13px) saturate(1.06) !important;
+  -webkit-backdrop-filter: blur(13px) saturate(1.06) !important;
+  z-index: 2147 !important;
 }
 
-/* Temas: botones internos adaptados al tema */
 #theme-menu .theme-btn{
   background:
     linear-gradient(
@@ -2598,192 +2390,34 @@ body.facile-mobile-menu-open{
     ) !important;
 }
 
-/* Móvil: todavía más compacto */
-@media only screen and (max-width: 767px){
-  :root{
-    --facile-float-right: 20px;
-    --facile-float-bottom: 14px;
-    --facile-float-size: 46px;
-    --facile-float-gap: 8px;
-  }
-
-  .facile-radio-button{
-    font-size: 0.98rem !important;
-  }
-
-  #theme-toggle.theme-toggle-btn{
-    font-size: 1.08rem !important;
-  }
-
-  .facile-radio-button,
-  #theme-toggle.theme-toggle-btn{
-    backdrop-filter: blur(5px) saturate(1.04) !important;
-    -webkit-backdrop-filter: blur(5px) saturate(1.04) !important;
-  }
-
-  .facile-radio-panel{
-    bottom: calc(var(--facile-float-size) + 10px) !important;
-  }
-}
-/* ==========================================
-   AJUSTE FINO — RADIO + TEMAS JUNTO AL CHAT
-   Botones un poco más pequeños.
-   Paneles abiertos hacia dentro de la página.
-   No toca OpenWidget.
-========================================== */
-
-:root{
-  /* Botones algo más pequeños para convivir mejor con Chat */
-  --facile-float-size: 44px;
-
-  /* Ajuste de alineación bajo el botón de Chat */
-  --facile-float-right: 26px;
-  --facile-float-bottom: 16px;
-  --facile-float-gap: 8px;
-
-  /* Distancia entre botón flotante y menú/panel abierto */
-  --facile-floating-panel-inset: 18px;
-}
-
-/* Aseguramos que Radio sea solo el botón cuando está cerrado */
-.facile-radio-widget{
-  width: var(--facile-float-size) !important;
-  height: var(--facile-float-size) !important;
-  overflow: visible !important;
-}
-
-/* Aseguramos que Temas sea solo el botón cuando está cerrado */
-#theme-panel.theme-panel{
-  width: var(--facile-float-size) !important;
-  height: var(--facile-float-size) !important;
-  overflow: visible !important;
-}
-
-/* Botones Radio + Temas más compactos */
-.facile-radio-button,
-#theme-toggle.theme-toggle-btn{
-  width: var(--facile-float-size) !important;
-  height: var(--facile-float-size) !important;
-  min-width: var(--facile-float-size) !important;
-  min-height: var(--facile-float-size) !important;
-}
-
-/* Iconos un poco más contenidos */
-.facile-radio-button{
-  font-size: 0.92rem !important;
-}
-
-#theme-toggle.theme-toggle-btn{
-  font-size: 1.02rem !important;
-}
-
-/* Radio mantiene su posición encima de Temas */
-.facile-radio-widget{
-  right: var(--facile-float-right) !important;
-  bottom: calc(
-    var(--facile-float-bottom) +
-    var(--facile-float-size) +
-    var(--facile-float-gap)
-  ) !important;
-}
-
-/* Temas mantiene su posición inferior */
-#theme-panel.theme-panel{
-  right: var(--facile-float-right) !important;
-  bottom: var(--facile-float-bottom) !important;
-}
-
-/* ==========================================
-   PANEL DE RADIO — ABRIR HACIA DENTRO
-   En vez de abrir pegado al borde derecho,
-   se desplaza a la izquierda del botón.
-========================================== */
-
-.facile-radio-panel{
-  position: absolute !important;
-
-  right: calc(100% + var(--facile-floating-panel-inset)) !important;
-  left: auto !important;
-
-  bottom: 0 !important;
-  top: auto !important;
-
-  width: min(350px, calc(100vw - 112px)) !important;
-  max-height: min(590px, calc(100vh - 42px)) !important;
-
-  transform-origin: bottom right !important;
-}
-
-/* Cuando abre, sigue usando la clase del JS */
-.facile-radio-widget.is-open .facile-radio-panel{
-  transform: translateY(0) scale(1) !important;
-}
-
-/* ==========================================
-   MENÚ DE TEMAS — ABRIR HACIA DENTRO
-   Igual que Radio: se coloca a la izquierda
-   del botón de Temas.
-========================================== */
-
-#theme-menu.theme-menu{
-  position: absolute !important;
-
-  right: calc(100% + var(--facile-floating-panel-inset)) !important;
-  left: auto !important;
-
-  bottom: 0 !important;
-  top: auto !important;
-
-  width: min(320px, calc(100vw - 112px)) !important;
-  max-height: min(560px, calc(100vh - 42px)) !important;
-
-  overflow-y: auto !important;
-  overscroll-behavior: contain !important;
-
-  z-index: 2147 !important;
-}
-
-/* Seguridad: no mover Chat/OpenWidget */
+/* Seguridad: nunca mover Chat/OpenWidget desde este CSS. */
 .facile-openwidget-shifted{
   transform: none !important;
 }
 
-/* ==========================================
-   MÓVIL
-========================================== */
-
 @media only screen and (max-width: 767px){
   :root{
-    --facile-float-size: 44px;
-
-    /*
-      El botón de Chat es más grande.
-      Con 44px, necesitamos un poco más de right
-      para centrar Radio/Temas debajo.
-    */
-    --facile-float-right: 21px;
+    --facile-float-size: 42px;
+    --facile-float-right: 22px;
     --facile-float-bottom: 16px;
     --facile-float-gap: 8px;
-
     --facile-floating-panel-inset: 12px;
   }
 
   .facile-radio-button{
-    font-size: 0.90rem !important;
+    font-size: 0.86rem !important;
   }
 
   #theme-toggle.theme-toggle-btn{
-    font-size: 1rem !important;
+    font-size: 0.96rem !important;
   }
 
   .facile-radio-panel,
   #theme-menu.theme-menu{
     right: calc(100% + var(--facile-floating-panel-inset)) !important;
     left: auto !important;
-
     bottom: 0 !important;
     top: auto !important;
-
     width: min(318px, calc(100vw - 90px)) !important;
     max-height: min(540px, calc(100vh - 36px)) !important;
   }
