@@ -2640,3 +2640,97 @@ section{
     scroll-behavior: auto !important;
   }
 }
+
+/* FACILE ICONOS: ELEVACION GLOBAL SIN RECORTE */
+:root{
+  --facile-icon-lift: 4px;
+  --facile-icon-lift-room: 8px;
+}
+
+/*
+  Solo afecta a los repertorios de páginas.
+  No toca header, widgets, noticias, radio, temas ni OpenWidget.
+*/
+main.intro .container > section:not(#facile-news-widget){
+  overflow: visible !important;
+  content-visibility: visible !important;
+  contain: layout style !important;
+  padding-top: var(--facile-icon-lift-room) !important;
+  margin-top: calc(var(--facile-icon-lift-room) * -1) !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo{
+  overflow: visible !important;
+  position: relative !important;
+  isolation: isolate !important;
+  transform: translate3d(0,0,0) !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo img{
+  overflow: visible !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  animation: none !important;
+  transform: translate3d(0,0,0) !important;
+  backface-visibility: hidden !important;
+  will-change: transform !important;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    filter 150ms ease !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:hover,
+main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible,
+main.intro .container > section:not(#facile-news-widget) > a.logo:active{
+  z-index: 3 !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:hover img,
+main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible img{
+  animation: none !important;
+  transform: translate3d(0, calc(var(--facile-icon-lift) * -1), 0) !important;
+  filter: brightness(1.045) saturate(1.04) !important;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.74),
+    0 0 0 5px color-mix(in srgb, var(--primary-color) 44%, transparent 56%),
+    0 8px 16px rgba(0,0,0,0.18) !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:active img{
+  animation: none !important;
+  transform: translate3d(0,-1px,0) scale(0.985) !important;
+  filter: brightness(0.98) !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible{
+  outline: none !important;
+}
+
+@media only screen and (max-width: 767px){
+  :root{
+    --facile-icon-lift: 3px;
+    --facile-icon-lift-room: 7px;
+  }
+
+  main.intro .container > section:not(#facile-news-widget) > a.logo img{
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease,
+      filter 120ms ease !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  main.intro .container > section:not(#facile-news-widget) > a.logo img{
+    transition-duration: 0.01ms !important;
+  }
+
+  main.intro .container > section:not(#facile-news-widget) > a.logo:hover img,
+  main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible img,
+  main.intro .container > section:not(#facile-news-widget) > a.logo:active img{
+    transform: translate3d(0,-2px,0) !important;
+  }
+}
+
