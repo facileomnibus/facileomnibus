@@ -2625,3 +2625,166 @@ body.facile-mobile-menu-open{
     bottom: calc(var(--facile-float-size) + 10px) !important;
   }
 }
+/* ==========================================
+   AJUSTE FINO — RADIO + TEMAS JUNTO AL CHAT
+   Botones un poco más pequeños.
+   Paneles abiertos hacia dentro de la página.
+   No toca OpenWidget.
+========================================== */
+
+:root{
+  /* Botones algo más pequeños para convivir mejor con Chat */
+  --facile-float-size: 44px;
+
+  /* Ajuste de alineación bajo el botón de Chat */
+  --facile-float-right: 26px;
+  --facile-float-bottom: 16px;
+  --facile-float-gap: 8px;
+
+  /* Distancia entre botón flotante y menú/panel abierto */
+  --facile-floating-panel-inset: 18px;
+}
+
+/* Aseguramos que Radio sea solo el botón cuando está cerrado */
+.facile-radio-widget{
+  width: var(--facile-float-size) !important;
+  height: var(--facile-float-size) !important;
+  overflow: visible !important;
+}
+
+/* Aseguramos que Temas sea solo el botón cuando está cerrado */
+#theme-panel.theme-panel{
+  width: var(--facile-float-size) !important;
+  height: var(--facile-float-size) !important;
+  overflow: visible !important;
+}
+
+/* Botones Radio + Temas más compactos */
+.facile-radio-button,
+#theme-toggle.theme-toggle-btn{
+  width: var(--facile-float-size) !important;
+  height: var(--facile-float-size) !important;
+  min-width: var(--facile-float-size) !important;
+  min-height: var(--facile-float-size) !important;
+}
+
+/* Iconos un poco más contenidos */
+.facile-radio-button{
+  font-size: 0.92rem !important;
+}
+
+#theme-toggle.theme-toggle-btn{
+  font-size: 1.02rem !important;
+}
+
+/* Radio mantiene su posición encima de Temas */
+.facile-radio-widget{
+  right: var(--facile-float-right) !important;
+  bottom: calc(
+    var(--facile-float-bottom) +
+    var(--facile-float-size) +
+    var(--facile-float-gap)
+  ) !important;
+}
+
+/* Temas mantiene su posición inferior */
+#theme-panel.theme-panel{
+  right: var(--facile-float-right) !important;
+  bottom: var(--facile-float-bottom) !important;
+}
+
+/* ==========================================
+   PANEL DE RADIO — ABRIR HACIA DENTRO
+   En vez de abrir pegado al borde derecho,
+   se desplaza a la izquierda del botón.
+========================================== */
+
+.facile-radio-panel{
+  position: absolute !important;
+
+  right: calc(100% + var(--facile-floating-panel-inset)) !important;
+  left: auto !important;
+
+  bottom: 0 !important;
+  top: auto !important;
+
+  width: min(350px, calc(100vw - 112px)) !important;
+  max-height: min(590px, calc(100vh - 42px)) !important;
+
+  transform-origin: bottom right !important;
+}
+
+/* Cuando abre, sigue usando la clase del JS */
+.facile-radio-widget.is-open .facile-radio-panel{
+  transform: translateY(0) scale(1) !important;
+}
+
+/* ==========================================
+   MENÚ DE TEMAS — ABRIR HACIA DENTRO
+   Igual que Radio: se coloca a la izquierda
+   del botón de Temas.
+========================================== */
+
+#theme-menu.theme-menu{
+  position: absolute !important;
+
+  right: calc(100% + var(--facile-floating-panel-inset)) !important;
+  left: auto !important;
+
+  bottom: 0 !important;
+  top: auto !important;
+
+  width: min(320px, calc(100vw - 112px)) !important;
+  max-height: min(560px, calc(100vh - 42px)) !important;
+
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+
+  z-index: 2147 !important;
+}
+
+/* Seguridad: no mover Chat/OpenWidget */
+.facile-openwidget-shifted{
+  transform: none !important;
+}
+
+/* ==========================================
+   MÓVIL
+========================================== */
+
+@media only screen and (max-width: 767px){
+  :root{
+    --facile-float-size: 44px;
+
+    /*
+      El botón de Chat es más grande.
+      Con 44px, necesitamos un poco más de right
+      para centrar Radio/Temas debajo.
+    */
+    --facile-float-right: 21px;
+    --facile-float-bottom: 16px;
+    --facile-float-gap: 8px;
+
+    --facile-floating-panel-inset: 12px;
+  }
+
+  .facile-radio-button{
+    font-size: 0.90rem !important;
+  }
+
+  #theme-toggle.theme-toggle-btn{
+    font-size: 1rem !important;
+  }
+
+  .facile-radio-panel,
+  #theme-menu.theme-menu{
+    right: calc(100% + var(--facile-floating-panel-inset)) !important;
+    left: auto !important;
+
+    bottom: 0 !important;
+    top: auto !important;
+
+    width: min(318px, calc(100vw - 90px)) !important;
+    max-height: min(540px, calc(100vh - 36px)) !important;
+  }
+}
