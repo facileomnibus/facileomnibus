@@ -139,3 +139,88 @@ p {
         padding-top: 0;
     }
 }
+
+/* FACILE SEGUNDA OPTIMIZACION WIDGETS */
+#widgets-container,
+.widgets-bar,
+.facile-info-widget,
+.facile-search-widget,
+.facile-search-form{
+  contain: layout paint style;
+}
+
+.widgets-bar{
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 74px;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.facile-info-widget,
+.facile-search-widget,
+.facile-search-engine-wrap,
+.facile-search-input,
+.facile-search-submit{
+  will-change: auto !important;
+}
+
+.facile-date-widget,
+.facile-clock-widget{
+  min-height: 38px;
+}
+
+.facile-search-engine-badge img{
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+@media only screen and (max-width: 767px){
+  #widgets-container{
+    contain: layout paint style;
+    isolation: isolate;
+  }
+
+  .widgets-bar{
+    gap: 8px !important;
+    transform: none !important;
+  }
+
+  .widgets-bar,
+  .widget-box,
+  .facile-info-widget,
+  .facile-search-widget,
+  .facile-search-engine-wrap{
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .facile-info-widget,
+  .facile-search-submit,
+  .facile-search-engine-wrap{
+    box-shadow: 0 3px 8px rgba(0,0,0,0.10) !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .facile-info-widget:hover,
+  .facile-info-widget:focus-visible,
+  .facile-search-submit:hover,
+  .facile-search-submit:focus-visible{
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .facile-search-input{
+    font-size: 16px !important;
+  }
+}
+
+body.facile-mobile-menu-open #widgets-container,
+body.facile-mobile-menu-open .widgets-bar,
+body.facile-mobile-menu-open .facile-info-widget,
+body.facile-mobile-menu-open .facile-search-widget{
+  transition: none !important;
+  animation: none !important;
+}
+
