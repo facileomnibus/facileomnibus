@@ -1,8 +1,16 @@
 {
-  "updatedAt": "2026-06-28T16:16:42.787278+00:00",
+  "updatedAt": "2026-06-28T17:45:41.809919+00:00",
   "source": "google-news-rss",
   "query": "",
   "items": [
+    {
+      "title": "El campo de golf en La Guaira que era un símbolo de opulencia y ahora es el epicentro del desastre tras los terremotos en Venezuela",
+      "source": "BBC",
+      "summary": "El campo de golf en La Guaira que era un símbolo de opulencia y ahora es el epicentro del desastre tras los terremotos en Venezuela BBC Raúl Estévez, geofísico venezolano: \"Desde finales del siglo pasado se advertía que el próximo gran terremoto sería en el oc",
+      "image": "",
+      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE83cmlYUmhDNUx5TEE1WjQ3LXhLN2xMMHhPdzJvQ0FBcXJ4MmpaQUVfUGdGWFd4WE5UaTBzcmFQQzNuVjVERWJ1cnVZNFJaSWlsUXRHblB5YUtYd2vSAWBBVV95cUxOOHZzU1dMSktmU0ZrNDBLbVJTWUlxSV9UOFk2Y0lVdmpjMXpMdlBZS3pLUmV0VkRFLW44ZXl3d2VNZnZlZXVZLWNqeURhSVJ1UElZWGhtY2o1SE9wZXdWTVY?oc=5",
+      "pubDate": "Sun, 28 Jun 2026 12:00:38 GMT"
+    },
     {
       "title": "Última hora del terremoto en Venezuela, en directo | Exteriores eleva a 9 la cifra de españoles fallecidos y a 152 la de desaparecidos en el doble terremoto de Venezuela",
       "source": "EL PAÍS",
@@ -20,19 +28,11 @@
       "pubDate": "Sun, 28 Jun 2026 09:31:45 GMT"
     },
     {
-      "title": "El campo de golf en La Guaira que era un símbolo de opulencia y ahora es el epicentro del desastre tras los terremotos en Venezuela",
-      "source": "BBC",
-      "summary": "El campo de golf en La Guaira que era un símbolo de opulencia y ahora es el epicentro del desastre tras los terremotos en Venezuela BBC Raúl Estévez, geofísico venezolano: \"Desde finales del siglo pasado se advertía que el próximo gran terremoto sería en el oc",
-      "image": "",
-      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE83cmlYUmhDNUx5TEE1WjQ3LXhLN2xMMHhPdzJvQ0FBcXJ4MmpaQUVfUGdGWFd4WE5UaTBzcmFQQzNuVjVERWJ1cnVZNFJaSWlsUXRHblB5YUtYd2vSAWBBVV95cUxOOHZzU1dMSktmU0ZrNDBLbVJTWUlxSV9UOFk2Y0lVdmpjMXpMdlBZS3pLUmV0VkRFLW44ZXl3d2VNZnZlZXVZLWNqeURhSVJ1UElZWGhtY2o1SE9wZXdWTVY?oc=5",
-      "pubDate": "Sun, 28 Jun 2026 12:00:38 GMT"
-    },
-    {
-      "title": "Atropelladas varias personas por un camión de la basura en la calle de Navarrería de Pamplona",
+      "title": "Atropelladas varias personas por un camión de la basura en la plaza de Navarrería de Pamplona",
       "source": "Noticias de Navarra",
-      "summary": "Atropelladas varias personas por un camión de la basura en la calle de Navarrería de Pamplona Noticias de Navarra Un camión de la basura con una avería en los frenos atropella a varias personas en el casco antiguo de Pamplona EL PAÍS Una persona fallecida y do",
+      "summary": "Atropelladas varias personas por un camión de la basura en la plaza de Navarrería de Pamplona Noticias de Navarra Un camión de la basura con una avería en los frenos atropella a varias personas en el casco antiguo de Pamplona EL PAÍS Un muerto y cuatro heridos",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNR0dNcXRITWs4SEZqU0dVelpBX0ZTWlZvOVU1NmlZQ01yWEROdzcxNUZfTTdralBjcmsyMVowelhJcWllRnVaVjFlUk9haXY0d2tyVlJUV1VKWXRUbTFPTGF3RG03MnFTeENOYUZkMWpJbmE0Nzh0emZxNHNMUzlEdzR6MlZSVEV4dUJYZFZCcnA1NU1FbFZJY3p5azEyU1JCdFdpb2dCV2NUMF8zNlFiYUlqZ0NGSVpYcWRWUElMRdIBxAFBVV95cUxQRUFfVmljZEk5X1M5c0ppZm94UE5ubkVlSUhoMkdQYmtRWEdvcDZOQUZBeDdiR0lBOUoyOFlwUGhVMDdHZVNJTjFLNnVrclNpU1FReWVFODVOT1pqQWRVS0UxRDI3U1hMZUhzaGhwRjdfeGN1akgyTUFJc1pXZlNMUUZUbzJONFRPZ3VvYm5tcE5JVk9LMEFxa083Rm51azVOS0hPNXhMSXVKbjRKby1SSGdmdVpMMkp3MW1HUk9kYmJERWFR?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNM3BndFpMdWszdEdFd3NBaVEwWV9qcjhlLXd2eGV5Rmp6MHFNZEdTR1NlODNkODZqb1drZVNPNEUxVzhmRnp2RHBkak9SYXgzSVg1UTNodjkzNWszd3IzUy1sYy1vS3A4d0Q0bGlEcXZZWVRVRktVeXpycHRMUlZmMnBBT2lFb2tlREJubm9JSXg1SnFGOUxzckVfOWtaSXcwajVKaDVGVWRwYTNlQWJ2akItZ3hLMXdBTVRF0gHAAUFVX3lxTE5VMGFYYmczQUdCM1FOX2p1NmtULTUyU0pvX1p2RWtZcXU1U2xDeVRvWjJ6RWw1RWNnRjB0NmZxM1RndXVzWU5Ld0hqUlE4MV9hSUpNazVCalFsZ1ZhSjVEdmc2eDNjbzZfOXNBMzBEal9MMG1tbW5NVjdLRDJ2a0NLUU9HWHJ2cldFSW9kVjJrU3FQYjVvTEdCb3hkWDl4dkh3SHFuU0xJdWxjRkZjSG1iZG9fR3dLcHJsa1pEaXVVMQ?oc=5",
       "pubDate": "Sun, 28 Jun 2026 14:05:20 GMT"
     },
     {
@@ -44,28 +44,28 @@
       "pubDate": "Sat, 27 Jun 2026 17:50:32 GMT"
     },
     {
-      "title": "Por una igualdad real y efectiva: Los municipios españoles reafirman su compromiso con las personas LGTBI - FEMP",
-      "source": "Federación Española de Municipios y Provincias",
-      "summary": "Por una igualdad real y efectiva: Los municipios españoles reafirman su compromiso con las personas LGTBI FEMP - Federación Española de Municipios y Provincias Vitoria marcha con orgullo por los derechos LGTBIQ+ El Correo Declaración institucional por el por D",
+      "title": "Feijóo apela en Barcelona a dejar atrás el ‘procés’: “Como la mayoría de los catalanes, nosotros también queremos pasar página”",
+      "source": "EL PAÍS",
+      "summary": "Feijóo apela en Barcelona a dejar atrás el ‘procés’: “Como la mayoría de los catalanes, nosotros también queremos pasar página” EL PAÍS Sánchez, Feijóo y Catalunya La Vanguardia Feijóo mete presión al PP catalán ante el auge de sus rivales ABC Feijóo pide ahor",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOekgzLUpzU0ZLUlJYcVUzaUt2OUJ3MWlZMkprTVZLb2JNWUpSOHI1VVk3UnVJVUFpLUhwLVczeEpzalVoOUJ3WVFGVm1LMnNNWi1PaFhaVmVCU0piejh4MWZ1dzgwUXFHMmlYUkl0cUg4LUJxb0Y1ajZuOXBObHV5LWpEMURmY0dGUkUyX2lITnotWFlkNlNiOWtKSm56MVNJQUU3TWI5TVRxSlBGU3lDVG9PNmVpek5qdDFabko0S2h3c2hpRFVzRlRLbGNQYzR5UHFIeDJpODBLOFRh?oc=5",
-      "pubDate": "Sun, 28 Jun 2026 07:53:27 GMT"
+      "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNMi1sdjZuamtrVVhzLXdZOThCcWt6NHQ4ZEdtaFRwbXktZWRJR2ZvbjFJalhWQnhxUTg3VXctdVpkMGdzS185MnEwUmd4Z3pQOU1rcnFubzYzejdWalJWQmp1QmZPRDhPSnNFWmVxb2dmeFNoaG5kMzhtY2lEc0xDbTBNSUU0VnNKRC0xeEYxZ1MxcXJ6cDhjSkVnUXpFQUQ1SmR1VXlZb1poaEhvdnV6SG1rcHNFbzlQZVhJWmxFYm05SlBaV21EVFllazFuVHI5MV9DdDM0clljclpIeEVQOHRRc1Jxd3Z5NTllTUxUNXVSYnlVUmfSAYoCQVVfeXFMUEJhaVhMXzNid1dfZW9TakVNalMwazZQSWxBdDE2NDQ1Mk9qSzdBV2VIclR6eFJvM2lRdTNWTmJ1VFdVdlROTy1ROG5ycWQ0ZzB6N092REhIanV3ZFBMd0tDU0piRVZmUnNCTkdWRy1aLVJwcTlnWjNtRnp1WFdMOV9KNmY0RTNPVDMwTGZ1VnhtRG5mUUlacGpLaWtxMG1CbmNZdFhscDAxOTlCMk1ydFpTYVlMRFdxaVR2ZmlaSkRhdU91U3FfSE5TcmJCZmo3YVJnLUZ2REhoU1hDNFUyUHdOZ0VEd3NQMG94NTBxWGwyWFl5OHNfN0pDaXM3azJZZVZCSnhTS1cyWGc?oc=5",
+      "pubDate": "Sat, 27 Jun 2026 12:21:48 GMT"
     },
     {
-      "title": "Detenido un ciberdepredador sexual tras una denuncia en Gran Canaria que destapó más de 20 víctimas menores",
-      "source": "Canarias7",
-      "summary": "Detenido un ciberdepredador sexual tras una denuncia en Gran Canaria que destapó más de 20 víctimas menores Canarias7 Detenido un pederasta al que se le imputan 36 delitos contra la libertad sexual a más de 20 menores durante 10 años RTVE.es La Guardia Civil d",
+      "title": "El incendio de Ezkabarte queda perimetrado y estabilizado: se retiran los medios aéreos",
+      "source": "Noticias de Navarra",
+      "summary": "El incendio de Ezkabarte queda perimetrado y estabilizado: se retiran los medios aéreos Noticias de Navarra Ubicación de los puntos calientes del incendio de Ezcabarte, ya estabilizado Diario de Navarra Emergencia por fuego en Navarra Noticias de Navarra Conti",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQaHhwZXo1ZE1fWHZqc1dXNGlLdXdEOHp4RzBSMHhXcHBic2l5Y2JHekJXMG1rQ0xRQ3ZjVlNMa29kVVp4NGxhTmhyOFpxSHVXTE1mdW5BNTNVZmhvSm1WUHhyWmFTTUVGdHM5ZzNPMzU0VkQ5TUNxUEhpY1VvdFVQejFLNzBick9XR1VjQlVxM192WlJndFI5TW12RnpVeklnSURiQWM0eWVJNEd1akpsQnRSNlTSAboBQVVfeXFMTkNVTE9wVG9OOHBoRng5WnhrNF84dDBZaFpoNE04LWdkaEVlRlphNjQwc3M3Q1ZxVlRMdFpvR24wTzFjdDN2S3A1SFppSXdKdllQOGZFSTFIOVFzWTZEbEtydTlFb0pSd1FQS0VaY1UtU1hCTDA2TFRDckN3TFpHMUZzV1lNbGgxMTdJNjdNYW04RVVLcFlNVzlmWEllRDhBSjlsSTlaYnlCYzBHT2lXNnFsQkI5bGxXeURB?oc=5",
-      "pubDate": "Sun, 28 Jun 2026 10:25:47 GMT"
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxObDNOQ1RHMFBYamFNazlDT1ZheW9aZUtHcGN0Wm9mcEYxVlZ3Vnd5VDFPMkRPOURpU2JKQVBZUWQ2b1Z4RUQ1T0EySFEtM0ZmUnJqZVhwWm55V01aSFhiNVM1NzJBOVJwZmJJSkhvTlNFUFFqUDdFaldJaGl5SVNKak1PQ1JPZUdFSkx5TVlOYy11YW1sUEhlbHJ6ZXRsR3A2dER3N2RMemFaeW5QanpNT0tQYzlLQXhU0gG-AUFVX3lxTFBhT3FUcWowbDlZREwtVW9tNDdySUpqNW1ScXI1WWkzdk84eGJGSzBNaF84cm5QcWRsOFhXX0gxNnhVUDc5aWxVVmE3NzdobGJKWDZvNmNDWndaa2tlZXd4a1kzZDVmZUZ0Q083cWZzak43THdaRVhNaDdsLXo0V2ROOWxnMVVlVHN0QTdFYWtxU2RkOUR1S3czTGdtVmhMMkdfWWw5bWlKV1JVX2Y5TUxPMnBLQ2FFSEJyV3NNNVE?oc=5",
+      "pubDate": "Sun, 28 Jun 2026 09:30:26 GMT"
     },
     {
-      "title": "Dos muertos en una persecución policial en coche por las calles de Poblenou",
-      "source": "La Vanguardia",
-      "summary": "Dos muertos en una persecución policial en coche por las calles de Poblenou La Vanguardia Dos muertos en un accidente de tráfico en Barcelona provocado por un coche que huía de los Mossos EL PAÍS Dos muertos tras un choque provocado por un conductor que huía d",
+      "title": "Mueren dos personas en un choque en Barcelona provocado por un conductor que huía de la policía",
+      "source": "Cadena SER",
+      "summary": "Mueren dos personas en un choque en Barcelona provocado por un conductor que huía de la policía Cadena SER Dos muertos en un accidente de tráfico en Barcelona provocado por un coche que huía de los Mossos EL PAÍS Dos muertos tras un choque provocado por un con",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQNG5VbEoyS1lPMnZSQXBQYnV1bHE5VG1QYUxHUW1JUnMySUtDRnp1cHVhUFB4cWI3bW9TVWUzNHBHc1E2SjRiY2U2RVVTRTJtMEh6R21iVVp2TmVmNlNZSk9Ua2JiYUdOSXVFbGNJRlNXWVlWaHlTWnZzTGNnUURiZWh0VlJOWU5iRm4zS0d5VTU5WVNQcFAtaW5xYUlOYy1qQWJPUzk4LXFpSi00OUpiZ0s1TkltWlIzT2Vr?oc=5",
-      "pubDate": "Sun, 28 Jun 2026 13:24:37 GMT"
+      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPWVRCa2lQVk1PRmVHNWdMbnU5SGVia0ZOdHBZS0RvUjJSeUd6ZHNkZmhnaWlxaUZnbFNCc0tqelhfMGpnc012RWY4NHVrdzRPUU11XzQtYkY3a3dqMF8xTzdsMHlkU0U0S0ZDWHgwVGpIT2JjT3Zoal9GVllBTl96SWw1TS05dkNtb2tHeVlnb1FBRnNCWDJsa0dscXJ5MXBMYmtLZ1p4b2R4aV9LQkNMRjZXa3lIX25iTUN6bnRlYUNCMG9jQXg1QW9qT0QtQjNNRGZCTlphUU1YOEdiZ3fSAfIBQVVfeXFMTVBPZnJFUXg5c2pzRFMzbE1RZ3JPdmlRaUYxQmw1R3VMbm5QMjZBUWthY0M5RzNnM3g1Q2puUlpIRTFQVmd5dktBdmJCTHhYWHA3dTdGbHFURWZqaE5wN0twekpnR1IydnYwb2Y3elNNNHEyc1lkbWp1R0h4ZDJjUEh0S0tKbDJqc0l5SGo2TzVNQkthdjd3WlJQdE5EMFZOQk9UaG9PZl96SUNSZDEzOHJzcmloXzVsa01jdkhJSS1SV2dxTXNySExHUWY5YmlEa0ZwZXlVVmhRMkt2cEVQeEo5ekRKVnB2UG04ckdXOHFwM1E?oc=5",
+      "pubDate": "Sun, 28 Jun 2026 12:34:57 GMT"
     }
   ]
 }
