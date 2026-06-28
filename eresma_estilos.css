@@ -2641,22 +2641,21 @@ section{
   }
 }
 
-/* FACILE FIX: MISMA ANIMACION SIN RECORTE EN PRIMERA FILA */
+/* FACILE FLUIDEZ: MISMA ANIMACION SIN RECORTE */
 :root{
   --facile-icon-hover-room: 8px;
 }
 
 /*
-  Mantiene EXACTAMENTE la animación actual de .logo img:hover.
-  Este bloque solo evita que el área superior de cada apartado recorte
-  los iconos de la primera fila cuando la animación los eleva.
+  Mantiene la animación actual de .logo img:hover.
+  No desactiva content-visibility: auto, porque eso era lo que hacía
+  la navegación menos fluida al obligar a pintar todas las secciones.
 */
 main.intro .container > section:not(#facile-news-widget){
   overflow: visible !important;
-  content-visibility: visible !important;
-  contain: layout style !important;
   padding-top: var(--facile-icon-hover-room) !important;
   margin-top: calc(var(--facile-icon-hover-room) * -1) !important;
+  contain-intrinsic-size: 1px 136px !important;
 }
 
 main.intro .container > section:not(#facile-news-widget) > a.logo{
@@ -2672,7 +2671,6 @@ main.intro .container > section:not(#facile-news-widget) > a.logo:active{
 }
 
 main.intro .container > section:not(#facile-news-widget) > a.logo img{
-  overflow: visible !important;
   transform-origin: center center !important;
   backface-visibility: hidden !important;
 }
@@ -2681,5 +2679,8 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   :root{
     --facile-icon-hover-room: 7px;
   }
-}
 
+  main.intro .container > section:not(#facile-news-widget){
+    contain-intrinsic-size: 1px 118px !important;
+  }
+}
