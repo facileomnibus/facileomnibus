@@ -2640,82 +2640,141 @@ section{
     scroll-behavior: auto !important;
   }
 }
-main.intro section .logo{
+:root{
+  --facile-page-icon-tile: 48px;
+  --facile-page-icon-size: 44px;
+  --facile-page-icon-radius: 10px;
+  --facile-page-icon-gap-x: 11px;
+  --facile-page-icon-gap-y: 10px;
+}
+
+main.intro .container > section:not(#facile-news-widget){
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, var(--facile-page-icon-tile)) !important;
+  gap: var(--facile-page-icon-gap-y) var(--facile-page-icon-gap-x) !important;
+  align-items: start !important;
+  justify-content: start !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo{
   position: relative !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 44px !important;
-  height: 44px !important;
+  display: grid !important;
+  place-items: center !important;
+
+  width: var(--facile-page-icon-tile) !important;
+  height: var(--facile-page-icon-tile) !important;
+  min-width: var(--facile-page-icon-tile) !important;
+  min-height: var(--facile-page-icon-tile) !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border-radius: calc(var(--facile-page-icon-radius) + 3px) !important;
   overflow: visible !important;
-  border-radius: 14px !important;
   isolation: isolate !important;
+
+  text-decoration: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
 
-main.intro section .logo img{
-  width: 40px !important;
-  height: 40px !important;
-  max-width: 40px !important;
-  max-height: 40px !important;
-  padding: 2px !important;
+main.intro .container > section:not(#facile-news-widget) > a.logo img{
+  width: var(--facile-page-icon-size) !important;
+  height: var(--facile-page-icon-size) !important;
+  max-width: var(--facile-page-icon-size) !important;
+  max-height: var(--facile-page-icon-size) !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: block !important;
   box-sizing: border-box !important;
+
   object-fit: contain !important;
   object-position: center !important;
-  display: block !important;
-  overflow: visible !important;
-  border-radius: 10px !important;
-  background: rgba(255,255,255,0.88) !important;
-  animation: none !important;
-  transform: none !important;
-  transition:
-    box-shadow 140ms ease,
-    filter 140ms ease,
-    background-color 140ms ease,
-    border-color 140ms ease !important;
-}
 
-main.intro section .logo:hover img,
-main.intro section .logo:focus-visible img{
+  border-radius: var(--facile-page-icon-radius) !important;
+  background: rgba(255,255,255,0.92) !important;
+
   transform: none !important;
   animation: none !important;
-  object-fit: contain !important;
-  background: rgba(255,255,255,0.96) !important;
-  filter: brightness(1.04) saturate(1.04) !important;
+
   box-shadow:
-    0 0 0 2px rgba(255,255,255,0.78),
-    0 0 0 5px color-mix(in srgb, var(--primary-color) 50%, transparent 50%),
-    0 6px 14px rgba(0,0,0,0.16) !important;
-  outline: none !important;
+    0 1px 3px rgba(0,0,0,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.40) !important;
+
+  transition:
+    box-shadow 130ms ease,
+    filter 130ms ease,
+    background-color 130ms ease !important;
 }
 
-main.intro section .logo:active img{
-  transform: none !important;
-  animation: none !important;
-  filter: brightness(0.98) !important;
+main.intro .container > section:not(#facile-news-widget) > a.logo::after{
+  content: "" !important;
+  position: absolute !important;
+  inset: 1px !important;
+  border-radius: calc(var(--facile-page-icon-radius) + 4px) !important;
+  pointer-events: none !important;
+
+  opacity: 0 !important;
   box-shadow:
     0 0 0 2px rgba(255,255,255,0.70),
-    0 0 0 5px color-mix(in srgb, var(--secondary-color) 48%, transparent 52%),
+    0 0 0 5px color-mix(in srgb, var(--primary-color) 46%, transparent 54%),
+    0 6px 14px rgba(0,0,0,0.16) !important;
+
+  transition: opacity 130ms ease !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:hover img,
+main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible img{
+  filter: brightness(1.045) saturate(1.04) !important;
+  background: rgba(255,255,255,0.98) !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:hover::after,
+main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible::after{
+  opacity: 1 !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:active img{
+  filter: brightness(0.98) !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:active::after{
+  opacity: 1 !important;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.68),
+    0 0 0 5px color-mix(in srgb, var(--secondary-color) 46%, transparent 54%),
     0 4px 10px rgba(0,0,0,0.14) !important;
 }
 
-main.intro section .logo:focus-visible{
+main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible{
   outline: none !important;
 }
 
 @media only screen and (max-width: 767px){
-  main.intro section .logo img{
+  :root{
+    --facile-page-icon-tile: 46px;
+    --facile-page-icon-size: 43px;
+    --facile-page-icon-gap-x: 9px;
+    --facile-page-icon-gap-y: 9px;
+  }
+
+  main.intro .container > section:not(#facile-news-widget) > a.logo img,
+  main.intro .container > section:not(#facile-news-widget) > a.logo::after{
     transition-duration: 0.01ms !important;
   }
 
-  main.intro section .logo:hover img,
-  main.intro section .logo:focus-visible img,
-  main.intro section .logo:active img{
-    transform: none !important;
-    animation: none !important;
+  main.intro .container > section:not(#facile-news-widget) > a.logo:hover img,
+  main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible img,
+  main.intro .container > section:not(#facile-news-widget) > a.logo:active img{
     filter: none !important;
+  }
+
+  main.intro .container > section:not(#facile-news-widget) > a.logo:hover::after,
+  main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible::after,
+  main.intro .container > section:not(#facile-news-widget) > a.logo:active::after{
     box-shadow:
-      0 0 0 2px rgba(255,255,255,0.72),
-      0 0 0 4px color-mix(in srgb, var(--primary-color) 45%, transparent 55%) !important;
+      0 0 0 2px rgba(255,255,255,0.70),
+      0 0 0 4px color-mix(in srgb, var(--primary-color) 42%, transparent 58%) !important;
   }
 }
