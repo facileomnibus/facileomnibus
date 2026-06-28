@@ -160,3 +160,150 @@
     });
   });
 })();
+(function(){
+  "use strict";
+
+  function ready(callback){
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+
+    callback();
+  }
+
+  ready(function(){
+    const themePanel = document.getElementById("theme-panel");
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeMenu = document.getElementById("theme-menu");
+
+    const radioWidget = document.getElementById("facileRadioWidget");
+    const radioToggle = document.getElementById("facileRadioToggle");
+    const radioClose = document.getElementById("facileRadioClose");
+
+    if (!themePanel || !themeToggle || !themeMenu) {
+      return;
+    }
+
+    let internalClick = false;
+
+    function radioIsOpen(){
+      return !!(radioWidget && radioWidget.classList.contains("is-open"));
+    }
+
+    function closeRadio(){
+      if (!radioIsOpen()) {
+        return;
+      }
+
+      if (radioClose) {
+        radioClose.click();
+        return;
+      }
+
+      if (radioToggle) {
+        radioToggle.click();
+      }
+    }
+
+    function themeIsOpenByState(){
+      if (themePanel.classList.contains("facile-theme-menu-open")) {
+        return true;
+      }
+
+      if (themeToggle.getAttribute("aria-expanded") === "true") {
+        return true;
+      }
+
+      if (themeMenu.getAttribute("aria-hidden") === "false") {
+        return true;
+      }
+
+      if (themeMenu.classList.contains("is-open")) {
+        return true;
+      }
+
+      if (themeMenu.classList.contains("open")) {
+        return true;
+      }
+
+      if (themeMenu.classList.contains("active")) {
+        return true;
+      }
+
+      return false;
+    }
+
+    function applyThemeState(open){
+      themePanel.classList.toggle("facile-theme-menu-open", open);
+      themeToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      themeMenu.setAttribute("aria-hidden", open ? "false" : "true");
+    }
+
+    function syncThemeState(){
+      applyThemeState(themeIsOpenByState());
+    }
+
+    function closeTheme(){
+      if (!themeIsOpenByState()) {
+        applyThemeState(false);
+        return;
+      }
+
+      internalClick = true;
+      themeToggle.click();
+
+      window.setTimeout(function(){
+        internalClick = false;
+        applyThemeState(false);
+      }, 0);
+    }
+
+    themeToggle.addEventListener("click", function(){
+      if (internalClick) {
+        return;
+      }
+
+      closeRadio();
+
+      window.setTimeout(function(){
+        const nextOpen = !themePanel.classList.contains("facile-theme-menu-open");
+        applyThemeState(nextOpen);
+      }, 0);
+    });
+
+    if (radioToggle) {
+      radioToggle.addEventListener("click", function(){
+        closeTheme();
+      }, true);
+    }
+
+    document.addEventListener("keydown", function(event){
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      closeTheme();
+    });
+
+    const observer = new MutationObserver(function(){
+      if (internalClick) {
+        return;
+      }
+
+      syncThemeState();
+    });
+
+    observer.observe(themeMenu, {
+      attributes: true,
+      attributeFilter: ["class", "aria-hidden", "hidden", "style"]
+    });
+
+    observer.observe(themeToggle, {
+      attributes: true,
+      attributeFilter: ["class", "aria-expanded", "aria-pressed"]
+    });
+
+    syncThemeState();
+  });
+})();
