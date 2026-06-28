@@ -2894,7 +2894,7 @@ function clearCustomBackground() {
 })();
 </script>
 <!-- ==========================================
-     MINI RADIO FACILE
+     MINI RADIO FACILE — RADIO BROWSER
 ========================================== -->
 <div class="facile-radio-widget" id="facileRadioWidget">
   <button
@@ -2910,7 +2910,7 @@ function clearCustomBackground() {
     <div class="facile-radio-header">
       <div>
         <strong>Radio en directo</strong>
-        <span>Con el poder de myTuner Radio</span>
+        <span id="facileRadioStatus">Radio Browser</span>
       </div>
 
       <button
@@ -2920,17 +2920,6 @@ function clearCustomBackground() {
         aria-label="Cerrar radio">
         ×
       </button>
-    </div>
-
-    <div class="facile-radio-frame-wrap">
-      <iframe
-        id="facileRadioFrame"
-        title="Radio en directo"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        data-src="https://mytuner-radio.com/es/widgets/iframe/"
-        src="about:blank">
-      </iframe>
     </div>
 
     <form class="facile-radio-search" id="facileRadioSearch">
@@ -2944,8 +2933,36 @@ function clearCustomBackground() {
       <button type="submit">Buscar</button>
     </form>
 
+    <div class="facile-radio-now" id="facileRadioNow">
+      <div class="facile-radio-logo" id="facileRadioLogo">📡</div>
+      <div class="facile-radio-now-text">
+        <strong id="facileRadioName">Elige una emisora</strong>
+        <span id="facileRadioMeta">España · online</span>
+      </div>
+    </div>
+
+    <audio id="facileRadioAudio" preload="none"></audio>
+
+    <div class="facile-radio-controls">
+      <button type="button" id="facileRadioPlay" class="facile-radio-main-control">
+        ▶
+      </button>
+
+      <button type="button" id="facileRadioFav" class="facile-radio-small-control" aria-label="Guardar emisora">
+        ☆
+      </button>
+
+      <select id="facileRadioPreset" aria-label="Emisoras destacadas">
+        <option value="">Emisoras destacadas</option>
+      </select>
+    </div>
+
+    <div class="facile-radio-results" id="facileRadioResults">
+      <button type="button" class="facile-radio-loading-row">Cargando emisoras...</button>
+    </div>
+
     <p class="facile-radio-note">
-      El reproductor se carga solo al abrirlo para ahorrar recursos.
+      Tu reproductor ligero, sencillo y gratuito. Las emisoras dependen de streams públicos.
     </p>
   </section>
 </div>
