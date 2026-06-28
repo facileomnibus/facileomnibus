@@ -39,6 +39,7 @@
      <link href="eresma_estilos.css" rel="stylesheet">
      <script defer src="widgets.js"></script>
      <script defer src="temas.js"></script>
+     <script defer src="radio.js"></script>
      <!-- Start of OpenWidget (www.openwidget.com) code -->
      <script>
      window.__ow = window.__ow || {};
@@ -2892,6 +2893,62 @@ function clearCustomBackground() {
     observer.observe(document.body, { childList: true, subtree: true });
 })();
 </script>
+<!-- ==========================================
+     MINI RADIO FACILE
+========================================== -->
+<div class="facile-radio-widget" id="facileRadioWidget">
+  <button
+    class="facile-radio-button"
+    id="facileRadioToggle"
+    type="button"
+    aria-label="Abrir radio en directo"
+    aria-expanded="false">
+    📻
+  </button>
+
+  <section class="facile-radio-panel" id="facileRadioPanel" aria-hidden="true">
+    <div class="facile-radio-header">
+      <div>
+        <strong>Radio en directo</strong>
+        <span>Con el poder de myTuner Radio</span>
+      </div>
+
+      <button
+        class="facile-radio-close"
+        id="facileRadioClose"
+        type="button"
+        aria-label="Cerrar radio">
+        ×
+      </button>
+    </div>
+
+    <div class="facile-radio-frame-wrap">
+      <iframe
+        id="facileRadioFrame"
+        title="Radio en directo"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        data-src="https://mytuner-radio.com/es/widgets/iframe/"
+        src="about:blank">
+      </iframe>
+    </div>
+
+    <form class="facile-radio-search" id="facileRadioSearch">
+      <input
+        id="facileRadioQuery"
+        type="search"
+        placeholder="Buscar emisora..."
+        autocomplete="off"
+        aria-label="Buscar emisora">
+
+      <button type="submit">Buscar</button>
+    </form>
+
+    <p class="facile-radio-note">
+      El reproductor se carga solo al abrirlo para ahorrar recursos.
+    </p>
+  </section>
+</div>
 </body>
 </html>    
 
