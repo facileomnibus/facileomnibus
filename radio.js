@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://at1.api.radio-browser.info/json"
   ];
 
-  const CACHE_KEY = "facile-radio-cache-v2";
+  const CACHE_KEY = "facile-radio-cache-v3";
   const FAV_KEY = "facile-radio-favs-v1";
   const LAST_KEY = "facile-radio-last-v1";
 
@@ -38,10 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function stationTitle(station) {
-    return safeText(station.name, "Emisora sin nombre");
+    return safeText(station && station.name, "Emisora sin nombre");
   }
 
   function stationMeta(station) {
+    if (!station) return "Radio online";
+
     const parts = [
       station.country,
       station.language,
@@ -53,7 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getStreamUrl(station) {
-    return station.url_resolved || station.url || "";
+    return (station && (station.url_resolved || station.url)) || "";
+  }
+
+  function setStatus(text) {
+    if (statusText) statusText.textContent = text;
   }
 
   function saveCache(items) {
@@ -93,17 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function isFav(station) {
     if (!station) return false;
-    const favs = loadFavs();
-    return favs.some((item) => item.stationuuid === station.stationuuid);
+    return loadFavs().some((item) => item.stationuuid === station.stationuuid);
   }
 
   function syncFavButton() {
-    if (!favBtn) return;
-    favBtn.textContent = isFav(currentStation) ? "★" : "☆";
-  }
-
-  function setStatus(text) {
-    if (statusText) statusText.textContent = text;
+    if (favBtn) favBtn.textContent = isFav(currentStation) ? "★" : "☆";
   }
 
   async function fetchWithFallback(path, options = {}) {
@@ -138,13 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return (items || [])
       .filter((station) => {
         const url = getStreamUrl(station);
-        return (
-          station &&
-          station.stationuuid &&
-          station.name &&
-          url &&
-          station.lastcheckok === 1
-        );
+        return station && station.stationuuid && station.name && url && station.lastcheckok === 1;
       })
       .map((station) => ({
         stationuuid: station.stationuuid,
@@ -251,25 +245,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function selectStation(station, autoplay) {
+    if (!station) return;
+
     currentStation = station;
 
-    radioName.textContent = stationTitle(station);
-    radioMeta.textContent = stationMeta(station);
+    if (radioName) radioName.textContent = stationTitle(station);
+    if (radioMeta) radioMeta.textContent = stationMeta(station);
 
-    radioLogo.textContent = "";
-    if (station.favicon) {
-      const img = document.createElement("img");
-      img.src = station.favicon;
-      img.alt = "";
-      img.loading = "lazy";
-      img.decoding = "async";
-      img.referrerPolicy = "no-referrer";
-      img.onerror = () => {
+    if (radioLogo) {
+      radioLogo.textContent = "";
+
+      if (station.favicon) {
+        const img = document.createElement("img");
+        img.src = station.favicon;
+        img.alt = "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.referrerPolicy = "no-referrer";
+        img.onerror = () => {
+          radioLogo.textContent = "📻";
+        };
+        radioLogo.appendChild(img);
+      } else {
         radioLogo.textContent = "📻";
-      };
-      radioLogo.appendChild(img);
-    } else {
-      radioLogo.textContent = "📻";
+      }
     }
 
     audio.src = getStreamUrl(station);
@@ -282,9 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     syncFavButton();
     reportClick(station);
 
-    if (autoplay) {
-      playRadio();
-    }
+    if (autoplay) playRadio();
   }
 
   async function playRadio() {
@@ -298,11 +295,11 @@ document.addEventListener("DOMContentLoaded", () => {
       setStatus("Conectando...");
       await audio.play();
       isPlaying = true;
-      playBtn.textContent = "⏸";
+      if (playBtn) playBtn.textContent = "⏸";
       setStatus("Reproduciendo");
     } catch (error) {
       isPlaying = false;
-      playBtn.textContent = "▶";
+      if (playBtn) playBtn.textContent = "▶";
       setStatus("No se pudo reproducir");
       console.warn("[FacileRadio] error audio:", error);
     }
@@ -311,8 +308,24 @@ document.addEventListener("DOMContentLoaded", () => {
   function pauseRadio() {
     audio.pause();
     isPlaying = false;
-    playBtn.textContent = "▶";
+    if (playBtn) playBtn.textContent = "▶";
     setStatus("Pausado");
+  }
+
+  function selectStationFromLastOrFirst(items) {
+    try {
+      const raw = localStorage.getItem(LAST_KEY);
+      if (raw) {
+        const last = JSON.parse(raw);
+        const found = items.find((item) => item.stationuuid === last.stationuuid);
+        selectStation(found || last, false);
+        return;
+      }
+    } catch (_) {}
+
+    if (items.length && !currentStation) {
+      selectStation(items[0], false);
+    }
   }
 
   async function loadFeatured() {
@@ -338,38 +351,25 @@ document.addEventListener("DOMContentLoaded", () => {
       setStatus("Radio Browser");
     } catch (error) {
       console.warn("[FacileRadio] usando caché:", error);
+
       if (!cached.length) {
         clearResults();
+
         const row = document.createElement("button");
         row.type = "button";
         row.className = "facile-radio-loading-row";
         row.textContent = "No se pudieron cargar emisoras.";
         results.appendChild(row);
+
         setStatus("Sin conexión");
       }
     }
   }
 
-  function selectStationFromLastOrFirst(items) {
-    try {
-      const raw = localStorage.getItem(LAST_KEY);
-      if (raw) {
-        const last = JSON.parse(raw);
-        const found = items.find((item) => item.stationuuid === last.stationuuid);
-        selectStation(found || last, false);
-        return;
-      }
-    } catch (_) {}
-
-    if (items.length && !currentStation) {
-      selectStation(items[0], false);
-    }
-  }
-
   async function searchStations(query) {
     setStatus("Buscando...");
-
     clearResults();
+
     const loading = document.createElement("button");
     loading.type = "button";
     loading.className = "facile-radio-loading-row";
@@ -466,6 +466,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchForm && searchInput) {
     searchForm.addEventListener("submit", (event) => {
       event.preventDefault();
+
       const query = searchInput.value.trim();
       if (query) searchStations(query);
     });
@@ -473,60 +474,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   audio.addEventListener("playing", () => {
     isPlaying = true;
-    playBtn.textContent = "⏸";
+    if (playBtn) playBtn.textContent = "⏸";
     setStatus("Reproduciendo");
   });
 
   audio.addEventListener("pause", () => {
     isPlaying = false;
-    playBtn.textContent = "▶";
+    if (playBtn) playBtn.textContent = "▶";
   });
 
   audio.addEventListener("error", () => {
     isPlaying = false;
-    playBtn.textContent = "▶";
+    if (playBtn) playBtn.textContent = "▶";
     setStatus("Stream no disponible");
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeRadio();
   });
-
-  /*
-    OpenWidget se conserva, pero lo subimos para dejar la zona intermedia a la radio.
-  */
-  function moveOpenWidgetUp() {
-    const candidates = document.querySelectorAll(
-      'iframe[src*="openwidget"], iframe[src*="openwidget.com"], div[id*="openwidget"], div[class*="openwidget"]'
-    );
-
-    candidates.forEach((node) => {
-      if (node.closest("#facileRadioWidget")) return;
-
-      const rect = node.getBoundingClientRect();
-
-      const looksLikeFloatingWidget =
-        rect.width > 40 &&
-        rect.height > 40 &&
-        rect.right > window.innerWidth - 140 &&
-        rect.bottom > window.innerHeight - 230;
-
-      if (!looksLikeFloatingWidget) return;
-
-      node.classList.add("facile-openwidget-shifted");
-      node.style.setProperty("transform", "translateY(-148px)", "important");
-      node.style.setProperty("transition", "transform 180ms ease", "important");
-      node.style.setProperty("z-index", "2190", "important");
-    });
-  }
-
-  moveOpenWidgetUp();
-
-  const observer = new MutationObserver(moveOpenWidgetUp);
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-
-  window.addEventListener("resize", moveOpenWidgetUp, { passive: true });
 });
