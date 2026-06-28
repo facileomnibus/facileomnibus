@@ -2640,3 +2640,46 @@ section{
     scroll-behavior: auto !important;
   }
 }
+
+/* FACILE FIX: MISMA ANIMACION SIN RECORTE EN PRIMERA FILA */
+:root{
+  --facile-icon-hover-room: 8px;
+}
+
+/*
+  Mantiene EXACTAMENTE la animación actual de .logo img:hover.
+  Este bloque solo evita que el área superior de cada apartado recorte
+  los iconos de la primera fila cuando la animación los eleva.
+*/
+main.intro .container > section:not(#facile-news-widget){
+  overflow: visible !important;
+  content-visibility: visible !important;
+  contain: layout style !important;
+  padding-top: var(--facile-icon-hover-room) !important;
+  margin-top: calc(var(--facile-icon-hover-room) * -1) !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo{
+  position: relative !important;
+  overflow: visible !important;
+  z-index: 0 !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo:hover,
+main.intro .container > section:not(#facile-news-widget) > a.logo:focus-visible,
+main.intro .container > section:not(#facile-news-widget) > a.logo:active{
+  z-index: 5 !important;
+}
+
+main.intro .container > section:not(#facile-news-widget) > a.logo img{
+  overflow: visible !important;
+  transform-origin: center center !important;
+  backface-visibility: hidden !important;
+}
+
+@media only screen and (max-width: 767px){
+  :root{
+    --facile-icon-hover-room: 7px;
+  }
+}
+
