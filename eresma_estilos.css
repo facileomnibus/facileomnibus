@@ -2422,3 +2422,142 @@ body.facile-mobile-menu-open{
     max-height: min(540px, calc(100vh - 36px)) !important;
   }
 }
+#theme-menu.theme-menu{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(8px) scale(0.98) !important;
+  transform-origin: bottom right !important;
+  transition:
+    opacity 170ms ease,
+    transform 170ms ease,
+    visibility 170ms ease !important;
+  will-change: opacity, transform !important;
+}
+
+#theme-panel.facile-theme-menu-open #theme-menu.theme-menu{
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+#theme-menu .theme-buttons{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+#theme-menu .theme-btn{
+  position: relative !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255,255,255,0.22) !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35) !important;
+  background-size: 220% 220% !important;
+  background-position: 0% 50% !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.24) !important;
+  transition:
+    transform 170ms ease,
+    filter 170ms ease,
+    background-position 420ms ease,
+    box-shadow 210ms ease !important;
+}
+
+#theme-menu .theme-btn::after{
+  content: "" !important;
+  position: absolute !important;
+  inset: -40% !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 38%,
+      rgba(255,255,255,0.34) 48%,
+      transparent 60%,
+      transparent 100%
+    ) !important;
+  transform: translateX(-70%) rotate(12deg) !important;
+  opacity: 0.65 !important;
+  animation: facileThemeButtonSweep 5.8s ease-in-out infinite !important;
+}
+
+#theme-menu .theme-btn:hover,
+#theme-menu .theme-btn:focus-visible{
+  outline: none !important;
+  background-position: 100% 50% !important;
+  filter: brightness(1.07) saturate(1.08) !important;
+  transform: translateY(-2px) scale(1.018) !important;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.24),
+    inset 0 1px 0 rgba(255,255,255,0.30) !important;
+}
+
+#theme-menu .theme-btn:active{
+  transform: translateY(1px) scale(0.985) !important;
+}
+
+#theme-menu .theme-btn[data-theme="sol"],
+#theme-menu .theme-buttons .theme-btn:nth-child(1){
+  background:
+    linear-gradient(135deg, #ffd45a 0%, #ff9b35 48%, #ff5f6d 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="luna"],
+#theme-menu .theme-buttons .theme-btn:nth-child(2){
+  background:
+    linear-gradient(135deg, #4357ff 0%, #7a5cff 48%, #1b2448 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="forest"],
+#theme-menu .theme-btn[data-theme="bosque"],
+#theme-menu .theme-buttons .theme-btn:nth-child(3){
+  background:
+    linear-gradient(135deg, #43d17a 0%, #0ea66d 48%, #115c42 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="sunset"],
+#theme-menu .theme-btn[data-theme="atardecer"],
+#theme-menu .theme-buttons .theme-btn:nth-child(4){
+  background:
+    linear-gradient(135deg, #ff9045 0%, #ff4f86 48%, #7d4dff 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="ocean"],
+#theme-menu .theme-btn[data-theme="oceano"],
+#theme-menu .theme-buttons .theme-btn:nth-child(5){
+  background:
+    linear-gradient(135deg, #2fc8ff 0%, #2488ff 48%, #1458b8 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="aurora"],
+#theme-menu .theme-buttons .theme-btn:nth-child(6){
+  background:
+    linear-gradient(135deg, #4dffd2 0%, #56a7ff 48%, #9d66ff 100%) !important;
+}
+
+@keyframes facileThemeButtonSweep{
+  0%{
+    transform: translateX(-75%) rotate(12deg);
+  }
+  42%{
+    transform: translateX(85%) rotate(12deg);
+  }
+  100%{
+    transform: translateX(85%) rotate(12deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #theme-menu.theme-menu,
+  #theme-menu .theme-btn,
+  #theme-menu .theme-btn::after{
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
