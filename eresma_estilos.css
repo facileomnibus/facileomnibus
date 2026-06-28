@@ -2561,3 +2561,83 @@ body.facile-mobile-menu-open{
     transition-duration: 0.01ms !important;
   }
 }
+
+/* FACILE PERFORMANCE PATCH */
+*{
+  box-sizing: border-box;
+}
+
+img{
+  content-visibility: auto;
+  contain-intrinsic-size: 40px 40px;
+}
+
+.logo img{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.logo-nav-container .logo img{
+  width: auto;
+  height: auto;
+  max-width: 225px;
+}
+
+section{
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 120px;
+}
+
+#facile-news-widget,
+#weather-widget,
+.widget-box.ticker-widget{
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 260px;
+}
+
+@media only screen and (max-width: 767px){
+  *,
+  *::before,
+  *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  .container,
+  .widget-box,
+  .weather-widget,
+  .ticker-widget,
+  #facile-news-widget.facile-news-shell,
+  #facile-news-widget .facile-news-card,
+  footer,
+  footer .footer-inner,
+  .footer .footer-inner,
+  .site-footer .footer-inner,
+  #theme-menu.theme-menu,
+  .facile-radio-panel{
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10) !important;
+  }
+
+  .logo img:hover,
+  .navigation a:hover,
+  .facile-radio-button:hover,
+  #theme-toggle.theme-toggle-btn:hover{
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
