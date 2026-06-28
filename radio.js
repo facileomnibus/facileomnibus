@@ -3,21 +3,401 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("facileRadioToggle");
   const panel = document.getElementById("facileRadioPanel");
   const closeBtn = document.getElementById("facileRadioClose");
-  const frame = document.getElementById("facileRadioFrame");
   const searchForm = document.getElementById("facileRadioSearch");
   const searchInput = document.getElementById("facileRadioQuery");
+  const results = document.getElementById("facileRadioResults");
+  const audio = document.getElementById("facileRadioAudio");
+  const playBtn = document.getElementById("facileRadioPlay");
+  const favBtn = document.getElementById("facileRadioFav");
+  const preset = document.getElementById("facileRadioPreset");
+  const radioName = document.getElementById("facileRadioName");
+  const radioMeta = document.getElementById("facileRadioMeta");
+  const radioLogo = document.getElementById("facileRadioLogo");
+  const statusText = document.getElementById("facileRadioStatus");
 
-  if (!widget || !toggle || !panel || !frame) return;
+  if (!widget || !toggle || !panel || !audio || !results) return;
 
-  let frameLoaded = false;
+  const API_SERVERS = [
+    "https://de1.api.radio-browser.info/json",
+    "https://nl1.api.radio-browser.info/json",
+    "https://at1.api.radio-browser.info/json"
+  ];
 
-  function loadRadioFrameOnce() {
-    if (frameLoaded) return;
+  const CACHE_KEY = "facile-radio-cache-v2";
+  const FAV_KEY = "facile-radio-favs-v1";
+  const LAST_KEY = "facile-radio-last-v1";
 
-    const src = frame.getAttribute("data-src");
-    if (src) {
-      frame.src = src;
-      frameLoaded = true;
+  let apiBase = API_SERVERS[0];
+  let currentStation = null;
+  let currentList = [];
+  let isPlaying = false;
+  let initialized = false;
+
+  function safeText(value, fallback = "") {
+    return (value || fallback).toString().trim();
+  }
+
+  function stationTitle(station) {
+    return safeText(station.name, "Emisora sin nombre");
+  }
+
+  function stationMeta(station) {
+    const parts = [
+      station.country,
+      station.language,
+      station.codec ? station.codec.toUpperCase() : "",
+      station.bitrate ? station.bitrate + " kbps" : ""
+    ].filter(Boolean);
+
+    return parts.join(" · ") || "Radio online";
+  }
+
+  function getStreamUrl(station) {
+    return station.url_resolved || station.url || "";
+  }
+
+  function saveCache(items) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        savedAt: Date.now(),
+        items: items.slice(0, 30)
+      }));
+    } catch (_) {}
+  }
+
+  function loadCache() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return [];
+      const data = JSON.parse(raw);
+      return Array.isArray(data.items) ? data.items : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function loadFavs() {
+    try {
+      const raw = localStorage.getItem(FAV_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function saveFavs(favs) {
+    try {
+      localStorage.setItem(FAV_KEY, JSON.stringify(favs.slice(0, 25)));
+    } catch (_) {}
+  }
+
+  function isFav(station) {
+    if (!station) return false;
+    const favs = loadFavs();
+    return favs.some((item) => item.stationuuid === station.stationuuid);
+  }
+
+  function syncFavButton() {
+    if (!favBtn) return;
+    favBtn.textContent = isFav(currentStation) ? "★" : "☆";
+  }
+
+  function setStatus(text) {
+    if (statusText) statusText.textContent = text;
+  }
+
+  async function fetchWithFallback(path, options = {}) {
+    const timeoutMs = options.timeoutMs || 7000;
+
+    for (const server of API_SERVERS) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+      try {
+        const response = await fetch(server + path, {
+          cache: "no-store",
+          signal: controller.signal
+        });
+
+        clearTimeout(timer);
+
+        if (!response.ok) throw new Error("HTTP " + response.status);
+
+        apiBase = server;
+        return await response.json();
+      } catch (error) {
+        clearTimeout(timer);
+        console.warn("[FacileRadio] fallo servidor:", server, error);
+      }
+    }
+
+    throw new Error("No hay servidores de radio disponibles");
+  }
+
+  function normalizeStations(items) {
+    return (items || [])
+      .filter((station) => {
+        const url = getStreamUrl(station);
+        return (
+          station &&
+          station.stationuuid &&
+          station.name &&
+          url &&
+          station.lastcheckok === 1
+        );
+      })
+      .map((station) => ({
+        stationuuid: station.stationuuid,
+        name: station.name,
+        url: station.url,
+        url_resolved: station.url_resolved,
+        homepage: station.homepage,
+        favicon: station.favicon,
+        country: station.country,
+        language: station.language,
+        codec: station.codec,
+        bitrate: station.bitrate,
+        votes: station.votes || 0,
+        clickcount: station.clickcount || 0,
+        lastcheckok: station.lastcheckok
+      }));
+  }
+
+  function clearResults() {
+    while (results.firstChild) results.removeChild(results.firstChild);
+  }
+
+  function renderStations(items) {
+    currentList = items;
+    clearResults();
+
+    if (!items.length) {
+      const empty = document.createElement("button");
+      empty.type = "button";
+      empty.className = "facile-radio-loading-row";
+      empty.textContent = "No se encontraron emisoras.";
+      results.appendChild(empty);
+      return;
+    }
+
+    items.slice(0, 12).forEach((station) => {
+      const row = document.createElement("button");
+      row.type = "button";
+      row.className = "facile-radio-row";
+
+      const logo = document.createElement("span");
+      logo.className = "facile-radio-row-logo";
+
+      if (station.favicon) {
+        const img = document.createElement("img");
+        img.src = station.favicon;
+        img.alt = "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.referrerPolicy = "no-referrer";
+        img.onerror = () => {
+          logo.textContent = "📻";
+        };
+        logo.appendChild(img);
+      } else {
+        logo.textContent = "📻";
+      }
+
+      const text = document.createElement("span");
+      text.className = "facile-radio-row-text";
+
+      const title = document.createElement("strong");
+      title.textContent = stationTitle(station);
+
+      const meta = document.createElement("em");
+      meta.textContent = stationMeta(station);
+
+      text.appendChild(title);
+      text.appendChild(meta);
+
+      row.appendChild(logo);
+      row.appendChild(text);
+
+      row.addEventListener("click", () => {
+        selectStation(station, true);
+      });
+
+      results.appendChild(row);
+    });
+  }
+
+  function renderPreset(items) {
+    if (!preset) return;
+
+    preset.innerHTML = '<option value="">Emisoras destacadas</option>';
+
+    items.slice(0, 20).forEach((station) => {
+      const option = document.createElement("option");
+      option.value = station.stationuuid;
+      option.textContent = stationTitle(station);
+      preset.appendChild(option);
+    });
+  }
+
+  async function reportClick(station) {
+    if (!station || !station.stationuuid) return;
+
+    try {
+      await fetch(apiBase + "/url/" + encodeURIComponent(station.stationuuid), {
+        cache: "no-store",
+        keepalive: true
+      });
+    } catch (_) {}
+  }
+
+  function selectStation(station, autoplay) {
+    currentStation = station;
+
+    radioName.textContent = stationTitle(station);
+    radioMeta.textContent = stationMeta(station);
+
+    radioLogo.textContent = "";
+    if (station.favicon) {
+      const img = document.createElement("img");
+      img.src = station.favicon;
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.referrerPolicy = "no-referrer";
+      img.onerror = () => {
+        radioLogo.textContent = "📻";
+      };
+      radioLogo.appendChild(img);
+    } else {
+      radioLogo.textContent = "📻";
+    }
+
+    audio.src = getStreamUrl(station);
+    audio.load();
+
+    try {
+      localStorage.setItem(LAST_KEY, JSON.stringify(station));
+    } catch (_) {}
+
+    syncFavButton();
+    reportClick(station);
+
+    if (autoplay) {
+      playRadio();
+    }
+  }
+
+  async function playRadio() {
+    if (!currentStation && currentList.length) {
+      selectStation(currentList[0], false);
+    }
+
+    if (!audio.src) return;
+
+    try {
+      setStatus("Conectando...");
+      await audio.play();
+      isPlaying = true;
+      playBtn.textContent = "⏸";
+      setStatus("Reproduciendo");
+    } catch (error) {
+      isPlaying = false;
+      playBtn.textContent = "▶";
+      setStatus("No se pudo reproducir");
+      console.warn("[FacileRadio] error audio:", error);
+    }
+  }
+
+  function pauseRadio() {
+    audio.pause();
+    isPlaying = false;
+    playBtn.textContent = "▶";
+    setStatus("Pausado");
+  }
+
+  async function loadFeatured() {
+    setStatus("Cargando...");
+
+    const cached = loadCache();
+    if (cached.length) {
+      renderStations(cached);
+      renderPreset(cached);
+      selectStationFromLastOrFirst(cached);
+    }
+
+    try {
+      const data = await fetchWithFallback(
+        "/stations/search?countrycode=ES&hidebroken=true&order=clickcount&reverse=true&limit=30"
+      );
+
+      const stations = normalizeStations(data);
+      saveCache(stations);
+      renderStations(stations);
+      renderPreset(stations);
+      selectStationFromLastOrFirst(stations);
+      setStatus("Radio Browser");
+    } catch (error) {
+      console.warn("[FacileRadio] usando caché:", error);
+      if (!cached.length) {
+        clearResults();
+        const row = document.createElement("button");
+        row.type = "button";
+        row.className = "facile-radio-loading-row";
+        row.textContent = "No se pudieron cargar emisoras.";
+        results.appendChild(row);
+        setStatus("Sin conexión");
+      }
+    }
+  }
+
+  function selectStationFromLastOrFirst(items) {
+    try {
+      const raw = localStorage.getItem(LAST_KEY);
+      if (raw) {
+        const last = JSON.parse(raw);
+        const found = items.find((item) => item.stationuuid === last.stationuuid);
+        selectStation(found || last, false);
+        return;
+      }
+    } catch (_) {}
+
+    if (items.length && !currentStation) {
+      selectStation(items[0], false);
+    }
+  }
+
+  async function searchStations(query) {
+    setStatus("Buscando...");
+
+    clearResults();
+    const loading = document.createElement("button");
+    loading.type = "button";
+    loading.className = "facile-radio-loading-row";
+    loading.textContent = "Buscando emisoras...";
+    results.appendChild(loading);
+
+    try {
+      const path =
+        "/stations/search?hidebroken=true&order=clickcount&reverse=true&limit=24&name=" +
+        encodeURIComponent(query);
+
+      const data = await fetchWithFallback(path);
+      const stations = normalizeStations(data);
+
+      renderStations(stations);
+      renderPreset(stations);
+      setStatus("Resultados");
+    } catch (error) {
+      console.error("[FacileRadio] búsqueda:", error);
+      clearResults();
+
+      const row = document.createElement("button");
+      row.type = "button";
+      row.className = "facile-radio-loading-row";
+      row.textContent = "No se pudo buscar ahora.";
+      results.appendChild(row);
+
+      setStatus("Error buscando");
     }
   }
 
@@ -25,7 +405,11 @@ document.addEventListener("DOMContentLoaded", () => {
     widget.classList.add("is-open");
     toggle.setAttribute("aria-expanded", "true");
     panel.setAttribute("aria-hidden", "false");
-    loadRadioFrameOnce();
+
+    if (!initialized) {
+      initialized = true;
+      loadFeatured();
+    }
   }
 
   function closeRadio() {
@@ -34,41 +418,82 @@ document.addEventListener("DOMContentLoaded", () => {
     panel.setAttribute("aria-hidden", "true");
   }
 
-  function toggleRadio() {
+  toggle.addEventListener("click", () => {
     if (widget.classList.contains("is-open")) {
       closeRadio();
     } else {
       openRadio();
     }
-  }
-
-  toggle.addEventListener("click", toggleRadio);
+  });
 
   if (closeBtn) {
     closeBtn.addEventListener("click", closeRadio);
   }
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeRadio();
-    }
-  });
+  if (playBtn) {
+    playBtn.addEventListener("click", () => {
+      if (isPlaying) {
+        pauseRadio();
+      } else {
+        playRadio();
+      }
+    });
+  }
+
+  if (favBtn) {
+    favBtn.addEventListener("click", () => {
+      if (!currentStation) return;
+
+      const favs = loadFavs();
+      const exists = favs.some((item) => item.stationuuid === currentStation.stationuuid);
+
+      const nextFavs = exists
+        ? favs.filter((item) => item.stationuuid !== currentStation.stationuuid)
+        : [currentStation, ...favs];
+
+      saveFavs(nextFavs);
+      syncFavButton();
+    });
+  }
+
+  if (preset) {
+    preset.addEventListener("change", () => {
+      const station = currentList.find((item) => item.stationuuid === preset.value);
+      if (station) selectStation(station, true);
+    });
+  }
 
   if (searchForm && searchInput) {
     searchForm.addEventListener("submit", (event) => {
       event.preventDefault();
-
       const query = searchInput.value.trim();
-      if (!query) return;
-
-      const url = "https://mytuner-radio.com/es/search/?q=" + encodeURIComponent(query);
-      window.open(url, "_blank", "noopener,noreferrer");
+      if (query) searchStations(query);
     });
   }
 
+  audio.addEventListener("playing", () => {
+    isPlaying = true;
+    playBtn.textContent = "⏸";
+    setStatus("Reproduciendo");
+  });
+
+  audio.addEventListener("pause", () => {
+    isPlaying = false;
+    playBtn.textContent = "▶";
+  });
+
+  audio.addEventListener("error", () => {
+    isPlaying = false;
+    playBtn.textContent = "▶";
+    setStatus("Stream no disponible");
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeRadio();
+  });
+
   /*
-    Desplaza OpenWidget hacia arriba sin eliminarlo.
-    Usa MutationObserver porque OpenWidget se inyecta después de cargar la página.
+    OpenWidget se conserva, pero lo subimos para dejar la zona intermedia a la radio.
   */
   function moveOpenWidgetUp() {
     const candidates = document.querySelectorAll(
@@ -80,21 +505,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const rect = node.getBoundingClientRect();
 
-      /*
-        Solo tocamos elementos flotantes visibles cerca de la esquina inferior derecha.
-        Esto evita afectar contenido normal de la página.
-      */
       const looksLikeFloatingWidget =
         rect.width > 40 &&
         rect.height > 40 &&
-        rect.right > window.innerWidth - 130 &&
-        rect.bottom > window.innerHeight - 170;
+        rect.right > window.innerWidth - 140 &&
+        rect.bottom > window.innerHeight - 230;
 
       if (!looksLikeFloatingWidget) return;
 
       node.classList.add("facile-openwidget-shifted");
-
-      node.style.setProperty("transform", "translateY(-74px)", "important");
+      node.style.setProperty("transform", "translateY(-148px)", "important");
       node.style.setProperty("transition", "transform 180ms ease", "important");
       node.style.setProperty("z-index", "2190", "important");
     });
@@ -102,10 +522,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   moveOpenWidgetUp();
 
-  const observer = new MutationObserver(() => {
-    moveOpenWidgetUp();
-  });
-
+  const observer = new MutationObserver(moveOpenWidgetUp);
   observer.observe(document.body, {
     childList: true,
     subtree: true
