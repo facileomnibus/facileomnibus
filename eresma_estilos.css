@@ -226,7 +226,8 @@ section{
   font-size: 0.98rem;
   font-weight: 760;
   letter-spacing: 0.006em;
-  line-height: 1;
+  line-height: 1.22;
+  overflow: visible !important;
 
   text-shadow:
     0 1px 2px rgba(0,0,0,0.32),
@@ -255,7 +256,7 @@ section{
 }
 
 .facile-info-widget:active{
-  transform: scale(0.98);
+  transform: translateY(1px);
 }
 
 .facile-info-widget:visited{
@@ -1354,7 +1355,7 @@ footer .footer-inner,
   padding-right: 0 !important;
   box-sizing: border-box !important;
   flex-wrap: wrap !important;
-  overflow: hidden !important;
+  overflow: visible !important;
 }
 
 /* noticias: mismo marco que el resto */
@@ -1931,4 +1932,22 @@ body.facile-mobile-menu-open{
     top: calc(50% - 1.25px) !important;
     transform: translateX(-50%) rotate(-45deg) !important;
   }
+}
+/* ==========================================
+   FIX ADICIONALES
+========================================== */
+
+.widgets-bar{
+  overflow: visible !important;
+}
+
+.facile-date-widget,
+.facile-clock-widget,
+.facile-info-widget{
+  overflow: visible !important;
+  line-height: 1.22 !important;
+}
+
+.facile-info-widget:active{
+  transform: translateY(1px) !important;
 }
