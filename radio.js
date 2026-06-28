@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    items.slice(0, 12).forEach((station) => {
+    items.slice(0, 24).forEach((station) => {
       const row = document.createElement("button");
       row.type = "button";
       row.className = "facile-radio-row";
@@ -340,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const data = await fetchWithFallback(
-        "/stations/search?countrycode=ES&hidebroken=true&order=clickcount&reverse=true&limit=30"
+        "/stations/search?countrycode=ES&hidebroken=true&order=clickcount&reverse=true&limit=80"
       );
 
       const stations = normalizeStations(data);
@@ -378,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const path =
-        "/stations/search?hidebroken=true&order=clickcount&reverse=true&limit=24&name=" +
+        "/stations/search?hidebroken=true&order=clickcount&reverse=true&limit=80&name=" +
         encodeURIComponent(query);
 
       const data = await fetchWithFallback(path);
