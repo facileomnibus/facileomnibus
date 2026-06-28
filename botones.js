@@ -7,303 +7,183 @@
 (function(){
   "use strict";
 
-  function onReady(callback){
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", callback, { once: true });
-      return;
-    }
-
-    callback();
-  }
-
-  onReady(function(){
-    const radioWidget = document.getElementById("facileRadioWidget");
-    const radioToggle = document.getElementById("facileRadioToggle");
-    const radioClose = document.getElementById("facileRadioClose");
-
-    const themePanel = document.getElementById("theme-panel");
-    const themeToggle = document.getElementById("theme-toggle");
-    const themeMenu = document.getElementById("theme-menu");
-
-    if (!radioWidget || !radioToggle || !themeToggle || !themeMenu) {
-      return;
-    }
-
-    let themeOpen = inferThemeOpen();
-    let closingThemeProgrammatically = false;
-    let closingRadioProgrammatically = false;
-
-    function hasOpenClass(element){
-      if (!element || !element.classList) return false;
-
-      return (
-        element.classList.contains("open") ||
-        element.classList.contains("is-open") ||
-        element.classList.contains("active") ||
-        element.classList.contains("show")
-      );
-    }
-
-    function inferThemeOpen(){
-      if (!themeMenu) return false;
-
-      if (themeToggle && themeToggle.getAttribute("aria-expanded") === "true") {
-        return true;
-      }
-
-      if (themeMenu.getAttribute("aria-hidden") === "false") {
-        return true;
-      }
-
-      if (hasOpenClass(themePanel) || hasOpenClass(themeMenu)) {
-        return true;
-      }
-
-      return false;
-    }
-
-    function refreshThemeStateSoon(){
-      window.setTimeout(function(){
-        themeOpen = inferThemeOpen();
-      }, 0);
-    }
-
-    function radioIsOpen(){
-      return radioWidget.classList.contains("is-open");
-    }
-
-    function closeRadio(){
-      if (!radioIsOpen()) return;
-
-      closingRadioProgrammatically = true;
-
-      if (radioClose) {
-        radioClose.click();
-      } else {
-        radioToggle.click();
-      }
-
-      window.setTimeout(function(){
-        closingRadioProgrammatically = false;
-      }, 0);
-    }
-
-    function closeTheme(){
-      themeOpen = inferThemeOpen();
-
-      if (!themeOpen) return;
-
-      closingThemeProgrammatically = true;
-
-      /*
-        Usamos el propio botón de Temas para cerrar.
-        Esto es más seguro que forzar display:none,
-        porque respetamos la lógica interna de temas.js.
-      */
-      themeToggle.click();
-
-      window.setTimeout(function(){
-        closingThemeProgrammatically = false;
-        themeOpen = inferThemeOpen();
-      }, 0);
-    }
-
-    /*
-      Si el usuario abre Radio, primero cerramos Temas.
-      Se usa capture=true para ejecutarlo antes del click interno de radio.js.
-    */
-    radioToggle.addEventListener("click", function(){
-      if (closingRadioProgrammatically) return;
-      closeTheme();
-    }, true);
-
-    /*
-      Si el usuario abre Temas, primero cerramos Radio.
-      Se usa capture=true para ejecutarlo antes del click interno de temas.js.
-    */
-    themeToggle.addEventListener("click", function(){
-      if (closingThemeProgrammatically) return;
-      closeRadio();
-      refreshThemeStateSoon();
-    }, true);
-
-    /*
-      Observamos cambios de clases/atributos en el menú de Temas
-      para mantener themeOpen sincronizado sin depender de estilos visuales.
-    */
-    const observer = new MutationObserver(function(){
-      themeOpen = inferThemeOpen();
-    });
-
-    observer.observe(themeMenu, {
-      attributes: true,
-      attributeFilter: ["class", "aria-hidden", "hidden", "style"]
-    });
-
-    observer.observe(themeToggle, {
-      attributes: true,
-      attributeFilter: ["class", "aria-expanded", "aria-pressed"]
-    });
-
-    if (themePanel) {
-      observer.observe(themePanel, {
-        attributes: true,
-        attributeFilter: ["class", "aria-hidden", "hidden", "style"]
-      });
-    }
-
-    document.addEventListener("keydown", function(event){
-      if (event.key !== "Escape") return;
-
-      closeRadio();
-      closeTheme();
-    });
-  });
-})();
-(function(){
-  "use strict";
-
   function ready(callback){
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", callback, { once: true });
       return;
     }
-
     callback();
   }
 
-  ready(function(){
+  function runWhenIdle(callback, timeout){
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(callback, { timeout: timeout || 2500 });
+      return;
+    }
+    window.setTimeout(callback, Math.min(timeout || 2500, 1200));
+  }
+
+  function once(target, eventName, callback, options){
+    if (!target) return;
+    target.addEventListener(eventName, callback, Object.assign({ once: true, passive: true }, options || {}));
+  }
+
+  function loadOpenWidget(){
+    if (!window.OpenWidget || typeof window.OpenWidget.init !== "function") return;
+    if (window.__facileOpenWidgetLoaded) return;
+    window.__facileOpenWidgetLoaded = true;
+    window.OpenWidget.init();
+  }
+
+  function scheduleOpenWidget(){
+    runWhenIdle(loadOpenWidget, 4500);
+    once(window, "pointerdown", loadOpenWidget);
+    once(window, "keydown", loadOpenWidget);
+    once(window, "scroll", loadOpenWidget);
+  }
+
+  function loadTradingView(){
+    const container = document.querySelector(".tradingview-widget-container");
+    const config = document.getElementById("facile-tradingview-config");
+    if (!container || !config || window.__facileTradingViewLoaded) return;
+    window.__facileTradingViewLoaded = true;
+
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+    script.textContent = config.textContent || "{}";
+    container.appendChild(script);
+  }
+
+  function scheduleTradingView(){
+    const widget = document.querySelector(".widget-box.ticker-widget");
+    if (!widget) return;
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (!entry.isIntersecting) return;
+          observer.disconnect();
+          loadTradingView();
+        });
+      }, { rootMargin: "600px 0px" });
+      observer.observe(widget);
+      return;
+    }
+
+    runWhenIdle(loadTradingView, 3500);
+  }
+
+  function setupRadioThemeSync(){
     const themePanel = document.getElementById("theme-panel");
     const themeToggle = document.getElementById("theme-toggle");
     const themeMenu = document.getElementById("theme-menu");
-
     const radioWidget = document.getElementById("facileRadioWidget");
     const radioToggle = document.getElementById("facileRadioToggle");
     const radioClose = document.getElementById("facileRadioClose");
 
-    if (!themePanel || !themeToggle || !themeMenu) {
-      return;
-    }
+    if (!themePanel || !themeToggle || !themeMenu) return;
 
-    let internalClick = false;
+    let syncing = false;
 
     function radioIsOpen(){
       return !!(radioWidget && radioWidget.classList.contains("is-open"));
     }
 
-    function closeRadio(){
-      if (!radioIsOpen()) {
-        return;
-      }
-
-      if (radioClose) {
-        radioClose.click();
-        return;
-      }
-
-      if (radioToggle) {
-        radioToggle.click();
-      }
+    function themeIsOpen(){
+      return themePanel.classList.contains("facile-theme-menu-open") ||
+        themeToggle.getAttribute("aria-expanded") === "true" ||
+        themeMenu.getAttribute("aria-hidden") === "false" ||
+        themeMenu.classList.contains("is-open") ||
+        themeMenu.classList.contains("open") ||
+        themeMenu.classList.contains("active");
     }
 
-    function themeIsOpenByState(){
-      if (themePanel.classList.contains("facile-theme-menu-open")) {
-        return true;
-      }
-
-      if (themeToggle.getAttribute("aria-expanded") === "true") {
-        return true;
-      }
-
-      if (themeMenu.getAttribute("aria-hidden") === "false") {
-        return true;
-      }
-
-      if (themeMenu.classList.contains("is-open")) {
-        return true;
-      }
-
-      if (themeMenu.classList.contains("open")) {
-        return true;
-      }
-
-      if (themeMenu.classList.contains("active")) {
-        return true;
-      }
-
-      return false;
-    }
-
-    function applyThemeState(open){
+    function setThemeState(open){
       themePanel.classList.toggle("facile-theme-menu-open", open);
       themeToggle.setAttribute("aria-expanded", open ? "true" : "false");
       themeMenu.setAttribute("aria-hidden", open ? "false" : "true");
     }
 
-    function syncThemeState(){
-      applyThemeState(themeIsOpenByState());
+    function closeRadio(){
+      if (!radioIsOpen()) return;
+      if (radioClose) {
+        radioClose.click();
+        return;
+      }
+      if (radioToggle) radioToggle.click();
     }
 
     function closeTheme(){
-      if (!themeIsOpenByState()) {
-        applyThemeState(false);
+      if (!themeIsOpen()) {
+        setThemeState(false);
         return;
       }
-
-      internalClick = true;
-      themeToggle.click();
-
-      window.setTimeout(function(){
-        internalClick = false;
-        applyThemeState(false);
-      }, 0);
+      setThemeState(false);
     }
 
-    themeToggle.addEventListener("click", function(){
-      if (internalClick) {
-        return;
-      }
-
+    themeToggle.addEventListener("click", function(event){
+      if (syncing) return;
+      syncing = true;
       closeRadio();
-
       window.setTimeout(function(){
-        const nextOpen = !themePanel.classList.contains("facile-theme-menu-open");
-        applyThemeState(nextOpen);
+        setThemeState(!themePanel.classList.contains("facile-theme-menu-open"));
+        syncing = false;
       }, 0);
     });
 
     if (radioToggle) {
       radioToggle.addEventListener("click", function(){
+        if (syncing) return;
         closeTheme();
       }, true);
     }
 
     document.addEventListener("keydown", function(event){
-      if (event.key !== "Escape") {
-        return;
-      }
-
+      if (event.key !== "Escape") return;
       closeTheme();
+      closeRadio();
     });
 
-    const observer = new MutationObserver(function(){
-      if (internalClick) {
+    setThemeState(false);
+  }
+
+  function makeWeatherLazy(){
+    if (typeof window.facileStartWeather !== "function" && typeof window.loadWeather !== "function") return;
+    const weather = document.getElementById("weather-widget");
+    if (!weather || window.__facileWeatherLazyDone) return;
+
+    function startWeather(){
+      if (window.__facileWeatherLazyDone) return;
+      window.__facileWeatherLazyDone = true;
+      if (typeof window.facileStartWeather === "function") {
+        window.facileStartWeather();
         return;
       }
+      window.loadWeather(40.4168, -3.7038, "Madrid");
+    }
 
-      syncThemeState();
-    });
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (!entry.isIntersecting) return;
+          observer.disconnect();
+          startWeather();
+        });
+      }, { rootMargin: "500px 0px" });
+      observer.observe(weather);
+      return;
+    }
 
-    observer.observe(themeMenu, {
-      attributes: true,
-      attributeFilter: ["class", "aria-hidden", "hidden", "style"]
-    });
+    runWhenIdle(startWeather, 3500);
+  }
 
-    observer.observe(themeToggle, {
-      attributes: true,
-      attributeFilter: ["class", "aria-expanded", "aria-pressed"]
-    });
-
-    syncThemeState();
+  ready(function(){
+    setupRadioThemeSync();
+    scheduleOpenWidget();
+    scheduleTradingView();
+    runWhenIdle(makeWeatherLazy, 2000);
   });
 })();
+
