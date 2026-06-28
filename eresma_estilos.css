@@ -2452,10 +2452,10 @@ body.facile-mobile-menu-open{
     - menos separación vertical
     - posición más baja para que Radio no choque con Chat
   */
-  --facile-float-right: 18px;
+  --facile-float-right: 24px;
   --facile-float-bottom: 14px;
   --facile-float-size: 48px;
-  --facile-float-gap: 6px;
+  --facile-float-gap: 8px;
 
   /*
     Color dinámico:
@@ -2601,10 +2601,10 @@ body.facile-mobile-menu-open{
 /* Móvil: todavía más compacto */
 @media only screen and (max-width: 767px){
   :root{
-    --facile-float-right: 14px;
+    --facile-float-right: 20px;
     --facile-float-bottom: 14px;
     --facile-float-size: 46px;
-    --facile-float-gap: 6px;
+    --facile-float-gap: 8px;
   }
 
   .facile-radio-button{
