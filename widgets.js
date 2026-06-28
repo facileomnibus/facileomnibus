@@ -1,313 +1,331 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("widgets-container");
-  if (!container) return;
+(function(){
+  "use strict";
 
-  // Estado de menú móvil para poder aligerar widgets mediante CSS solo cuando haga falta
-  const mobileMenu = document.querySelector(".mobile-menu-native");
-  function syncMobileMenuState() {
-    document.body.classList.toggle("facile-mobile-menu-open", !!(mobileMenu && mobileMenu.open));
+  function ready(callback){
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
   }
-  if (mobileMenu) {
-  mobileMenu.addEventListener("toggle", syncMobileMenuState, { passive: true });
-  syncMobileMenuState();
 
-  const desktopQuery = window.matchMedia("(min-width: 768px)");
+  function afterPaint(callback){
+    window.requestAnimationFrame(function(){
+      window.requestAnimationFrame(callback);
+    });
+  }
 
-  function closeMobileMenuOnDesktop() {
-    if (desktopQuery.matches && mobileMenu.open) {
-      mobileMenu.open = false;
+  function idle(callback, timeout){
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(callback, { timeout: timeout || 1200 });
+      return;
+    }
+    window.setTimeout(callback, Math.min(timeout || 1200, 700));
+  }
+
+  ready(function(){
+    afterPaint(initWidgets);
+  });
+
+  function initWidgets(){
+    const container = document.getElementById("widgets-container");
+    if (!container || container.dataset.facileWidgetsReady === "1") return;
+    container.dataset.facileWidgetsReady = "1";
+
+    const mobileMenu = document.querySelector(".mobile-menu-native");
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+
+    let barVisible = true;
+    let clockTimer = 0;
+    let dateTimer = 0;
+    let iconCache = null;
+
+    function isMobile(){
+      return mobileQuery.matches;
+    }
+
+    function menuOpen(){
+      return !!(mobileMenu && mobileMenu.open);
+    }
+
+    function canRunTimers(){
+      return !document.hidden && !menuOpen() && barVisible;
+    }
+
+    function syncMobileMenuState(){
+      document.body.classList.toggle("facile-mobile-menu-open", menuOpen());
+    }
+
+    if (mobileMenu) {
+      mobileMenu.addEventListener("toggle", function(){
+        syncMobileMenuState();
+        resumeTimers();
+      }, { passive: true });
       syncMobileMenuState();
     }
-  }
 
-  if (desktopQuery.addEventListener) {
-    desktopQuery.addEventListener("change", closeMobileMenuOnDesktop);
-  } else if (desktopQuery.addListener) {
-    desktopQuery.addListener(closeMobileMenuOnDesktop);
-  }
+    function closeMobileMenuOnDesktop(){
+      if (desktopQuery.matches && mobileMenu && mobileMenu.open) {
+        mobileMenu.open = false;
+        syncMobileMenuState();
+      }
+    }
 
-  closeMobileMenuOnDesktop();
-}
+    if (desktopQuery.addEventListener) {
+      desktopQuery.addEventListener("change", closeMobileMenuOnDesktop);
+      mobileQuery.addEventListener("change", resumeTimers);
+    } else if (desktopQuery.addListener) {
+      desktopQuery.addListener(closeMobileMenuOnDesktop);
+      mobileQuery.addListener(resumeTimers);
+    }
 
-  // Evita duplicados si el script se ejecuta más de una vez
-  const existingBar = container.querySelector(".widgets-bar");
-  if (existingBar) existingBar.remove();
+    closeMobileMenuOnDesktop();
 
-  const bar = document.createElement("div");
-  bar.className = "widgets-bar";
-  container.appendChild(bar);
+    const oldBar = container.querySelector(".widgets-bar");
+    if (oldBar) oldBar.remove();
 
-  let clockTimer = null;
-  let dateTimer = null;
+    const bar = document.createElement("div");
+    bar.className = "widgets-bar";
+    bar.setAttribute("aria-label", "Widgets rápidos");
 
-  const canRunTimers = () => !document.hidden && !(mobileMenu && mobileMenu.open);
+    const fragment = document.createDocumentFragment();
 
-  function clearWidgetTimers() {
-    if (clockTimer) window.clearTimeout(clockTimer);
-    if (dateTimer) window.clearTimeout(dateTimer);
-    clockTimer = null;
-    dateTimer = null;
-  }
+    const dateWidget = document.createElement("a");
+    dateWidget.className = "widget-box facile-info-widget facile-date-widget";
+    dateWidget.href = "https://bcalendar.com/new";
+    dateWidget.target = "_blank";
+    dateWidget.rel = "noopener noreferrer";
+    dateWidget.setAttribute("aria-label", "Abrir calendario");
+    fragment.appendChild(dateWidget);
 
-  /* ===============================
-     FECHA
-  ================================ */
-  const dateWidget = document.createElement("a");
-dateWidget.className = "widget-box facile-info-widget facile-date-widget";
-dateWidget.href = "https://bcalendar.com/new";
-dateWidget.target = "_blank";
-dateWidget.rel = "noopener noreferrer";
-dateWidget.setAttribute("aria-label", "Abrir calendario");
+    const clockWidget = document.createElement("a");
+    clockWidget.className = "widget-box facile-info-widget facile-clock-widget";
+    clockWidget.href = "https://reloj-alarma.es";
+    clockWidget.target = "_blank";
+    clockWidget.rel = "noopener noreferrer";
+    clockWidget.setAttribute("aria-label", "Reloj y alarma");
+    fragment.appendChild(clockWidget);
 
-  function updateDate() {
-    const now = new Date();
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit"
+    const SEARCH_ENGINES = {
+      google: { label: "Google", action: "https://www.google.com/search", param: "q", placeholder: "Buscar en Google...", badge: "G" },
+      bing: { label: "Bing", action: "https://www.bing.com/search", param: "q", placeholder: "Buscar en Bing...", badge: "B" },
+      startpage: { label: "Startpage", action: "https://www.startpage.com/sp/search", param: "query", placeholder: "Buscar en Startpage...", badge: "S" },
+      duckduckgo: { label: "DuckDuckGo", action: "https://duckduckgo.com/", param: "q", placeholder: "Buscar en DuckDuckGo...", badge: "D" },
+      brave: { label: "Brave Search", action: "https://search.brave.com/search", param: "q", placeholder: "Buscar en Brave Search...", badge: "B" },
+      yahoo: { label: "Yahoo", action: "https://search.yahoo.com/search", param: "p", placeholder: "Buscar en Yahoo...", badge: "Y" }
     };
-    dateWidget.textContent = "📅 " + now.toLocaleDateString("es-ES", options);
-  }
 
-  function scheduleDate() {
-    if (dateTimer) window.clearTimeout(dateTimer);
-    if (!canRunTimers()) return;
-    const now = new Date();
-    const nextMinute = 60000 - (now.getSeconds() * 1000 + now.getMilliseconds());
-    dateTimer = window.setTimeout(() => {
-      updateDate();
-      scheduleDate();
-    }, Math.max(1000, nextMinute));
-  }
+    const searchWidget = document.createElement("div");
+    searchWidget.className = "widget-box facile-search-widget";
 
-  updateDate();
-  bar.appendChild(dateWidget);
+    const form = document.createElement("form");
+    form.id = "facileSearchForm";
+    form.className = "facile-search-form";
+    form.method = "get";
+    form.target = "_blank";
+    form.autocomplete = "off";
 
-  /* ===============================
-     RELOJ
-  ================================ */
-  const clockWidget = document.createElement("a");
-clockWidget.className = "widget-box facile-info-widget facile-clock-widget";
-clockWidget.href = "https://reloj-alarma.es";
-clockWidget.target = "_blank";
-clockWidget.rel = "noopener noreferrer";
-clockWidget.setAttribute("aria-label", "Reloj y alarma");
+    const engineWrap = document.createElement("div");
+    engineWrap.className = "facile-search-engine-wrap";
 
-  function updateClock() {
-  const now = new Date();
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const badge = document.createElement("span");
+    badge.id = "facileSearchBadge";
+    badge.className = "facile-search-engine-badge";
+    badge.setAttribute("aria-hidden", "true");
 
-  clockWidget.textContent = "🕒 " + now.toLocaleTimeString("es-ES", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: isMobile ? undefined : "2-digit"
-  });
-}
+    const select = document.createElement("select");
+    select.id = "facileSearchEngine";
+    select.className = "facile-search-engine";
+    select.setAttribute("aria-label", "Seleccionar buscador");
 
-  function scheduleClock() {
-    if (clockTimer) window.clearTimeout(clockTimer);
-    if (!canRunTimers()) return;
-    const now = new Date();
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    Object.keys(SEARCH_ENGINES).forEach(function(key){
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = SEARCH_ENGINES[key].label;
+      select.appendChild(option);
+    });
 
-    const delay = isMobile
-      ? 60000 - (now.getSeconds() * 1000 + now.getMilliseconds())
-      : 1000 - now.getMilliseconds();
+    const input = document.createElement("input");
+    input.id = "facileSearchInput";
+    input.className = "facile-search-input";
+    input.type = "text";
+    input.placeholder = "Buscar...";
+    input.setAttribute("aria-label", "Buscar");
+    input.required = true;
 
-    clockTimer = window.setTimeout(() => {
-    updateClock();
-    scheduleClock();
-    }, Math.max(isMobile ? 1000 : 250, delay));
-  }
+    const submit = document.createElement("button");
+    submit.id = "facileSearchSubmit";
+    submit.className = "facile-search-submit";
+    submit.type = "submit";
+    submit.textContent = "Buscar";
 
-  updateClock();
-  bar.appendChild(clockWidget);
+    engineWrap.appendChild(badge);
+    engineWrap.appendChild(select);
+    form.appendChild(engineWrap);
+    form.appendChild(input);
+    form.appendChild(submit);
+    searchWidget.appendChild(form);
+    fragment.appendChild(searchWidget);
 
-  function resumeLightTimers() {
-    clearWidgetTimers();
-    if (canRunTimers()) {
+    bar.appendChild(fragment);
+    container.replaceChildren(bar);
+
+    function normalize(text){
+      return (text || "")
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
+    }
+
+    function buildIconCache(){
+      const cache = Object.create(null);
+      document.querySelectorAll("#buscadores img").forEach(function(img){
+        const key = normalize(img.getAttribute("alt"));
+        if (!key || cache[key]) return;
+        cache[key] = img.currentSrc || img.src || "";
+      });
+      iconCache = cache;
+    }
+
+    function findIcon(engineKey){
+      if (!iconCache) return "";
+      const aliases = {
+        google: "google",
+        bing: "bing",
+        startpage: "startpage",
+        duckduckgo: "duckduckgo",
+        brave: "brave",
+        yahoo: "yahoo"
+      };
+      return iconCache[normalize(aliases[engineKey] || engineKey)] || "";
+    }
+
+    function setBadge(engineKey, allowIcon){
+      const engine = SEARCH_ENGINES[engineKey] || SEARCH_ENGINES.google;
+      badge.replaceChildren();
+      const iconSrc = allowIcon ? findIcon(engineKey) : "";
+      if (iconSrc) {
+        const icon = document.createElement("img");
+        icon.src = iconSrc;
+        icon.alt = "";
+        icon.loading = "lazy";
+        icon.decoding = "async";
+        badge.appendChild(icon);
+      } else {
+        badge.textContent = engine.badge;
+      }
+      badge.setAttribute("data-engine", engineKey);
+    }
+
+    function syncSearchEngine(engineKey, options){
+      const engine = SEARCH_ENGINES[engineKey] || SEARCH_ENGINES.google;
+      const useIcon = !!(options && options.useIcon);
+      form.action = engine.action;
+      form.setAttribute("data-engine", engineKey);
+      input.name = engine.param;
+      input.placeholder = engine.placeholder;
+      input.setAttribute("aria-label", engine.placeholder);
+      select.value = engineKey;
+      setBadge(engineKey, useIcon);
+      try {
+        localStorage.setItem("facileSearchEngine", engineKey);
+      } catch (_) {}
+    }
+
+    function updateDate(){
+      const now = new Date();
+      dateWidget.textContent = "📅 " + now.toLocaleDateString("es-ES", {
+        weekday: "long",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+    }
+
+    function scheduleDate(){
+      if (dateTimer) window.clearTimeout(dateTimer);
+      dateTimer = 0;
+      if (!canRunTimers()) return;
+      const now = new Date();
+      const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 1, 0, 0);
+      dateTimer = window.setTimeout(function(){
+        updateDate();
+        scheduleDate();
+      }, Math.max(60000, tomorrow.getTime() - now.getTime()));
+    }
+
+    function updateClock(){
+      const now = new Date();
+      clockWidget.textContent = "🕒 " + now.toLocaleTimeString("es-ES", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: isMobile() ? undefined : "2-digit"
+      });
+    }
+
+    function scheduleClock(){
+      if (clockTimer) window.clearTimeout(clockTimer);
+      clockTimer = 0;
+      if (!canRunTimers()) return;
+      const now = new Date();
+      const delay = isMobile()
+        ? 60000 - (now.getSeconds() * 1000 + now.getMilliseconds())
+        : 1000 - now.getMilliseconds();
+      clockTimer = window.setTimeout(function(){
+        updateClock();
+        scheduleClock();
+      }, Math.max(isMobile() ? 1000 : 250, delay));
+    }
+
+    function clearTimers(){
+      if (clockTimer) window.clearTimeout(clockTimer);
+      if (dateTimer) window.clearTimeout(dateTimer);
+      clockTimer = 0;
+      dateTimer = 0;
+    }
+
+    function resumeTimers(){
+      clearTimers();
+      if (!canRunTimers()) return;
       updateClock();
       updateDate();
       scheduleClock();
       scheduleDate();
     }
-  }
 
-  document.addEventListener("visibilitychange", resumeLightTimers, { passive: true });
-  if (mobileMenu) mobileMenu.addEventListener("toggle", resumeLightTimers, { passive: true });
-  resumeLightTimers();
-
-  /* ===============================
-     BUSCADOR MULTI-BUSCADOR
-  ================================ */
-  const SEARCH_ENGINES = {
-    google: {
-      label: "Google",
-      action: "https://www.google.com/search",
-      param: "q",
-      placeholder: "Buscar en Google...",
-      badge: "G"
-    },
-    bing: {
-      label: "Bing",
-      action: "https://www.bing.com/search",
-      param: "q",
-      placeholder: "Buscar en Bing...",
-      badge: "B"
-    },
-    startpage: {
-      label: "Startpage",
-      action: "https://www.startpage.com/sp/search",
-      param: "query",
-      placeholder: "Buscar en Startpage...",
-      badge: "S"
-    },
-    duckduckgo: {
-      label: "DuckDuckGo",
-      action: "https://duckduckgo.com/",
-      param: "q",
-      placeholder: "Buscar en DuckDuckGo...",
-      badge: "D"
-    },
-    brave: {
-      label: "Brave Search",
-      action: "https://search.brave.com/search",
-      param: "q",
-      placeholder: "Buscar en Brave Search...",
-      badge: "B"
-    },
-    yahoo: {
-      label: "Yahoo",
-      action: "https://search.yahoo.com/search",
-      param: "p",
-      placeholder: "Buscar en Yahoo...",
-      badge: "Y"
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          barVisible = entry.isIntersecting;
+          resumeTimers();
+        });
+      }, { rootMargin: "180px 0px" });
+      observer.observe(bar);
     }
-  };
 
-  const savedEngine = localStorage.getItem("facileSearchEngine") || "google";
-  const searchWidget = document.createElement("div");
-  searchWidget.className = "widget-box facile-search-widget";
+    document.addEventListener("visibilitychange", resumeTimers, { passive: true });
 
-  const form = document.createElement("form");
-  form.id = "facileSearchForm";
-  form.className = "facile-search-form";
-  form.method = "get";
-  form.target = "_blank";
-  form.autocomplete = "off";
+    select.addEventListener("change", function(){
+      syncSearchEngine(select.value, { useIcon: !!iconCache });
+      if (!isMobile()) input.focus();
+    });
 
-  const engineWrap = document.createElement("div");
-  engineWrap.className = "facile-search-engine-wrap";
+    const savedEngine = (() => {
+      try { return localStorage.getItem("facileSearchEngine") || "google"; }
+      catch (_) { return "google"; }
+    })();
 
-  const badge = document.createElement("span");
-  badge.id = "facileSearchBadge";
-  badge.className = "facile-search-engine-badge";
-  badge.setAttribute("aria-hidden", "true");
-  badge.textContent = "G";
+    syncSearchEngine(savedEngine, { useIcon: false });
+    updateClock();
+    updateDate();
+    resumeTimers();
 
-  const select = document.createElement("select");
-  select.id = "facileSearchEngine";
-  select.className = "facile-search-engine";
-  select.setAttribute("aria-label", "Seleccionar buscador");
-
-  [
-    ["google", "Google"],
-    ["bing", "Bing"],
-    ["startpage", "Startpage"],
-    ["duckduckgo", "DuckDuckGo"],
-    ["brave", "Brave Search"],
-    ["yahoo", "Yahoo"]
-  ].forEach(([value, label]) => {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = label;
-    select.appendChild(option);
-  });
-
-  const input = document.createElement("input");
-  input.id = "facileSearchInput";
-  input.className = "facile-search-input";
-  input.type = "text";
-  input.placeholder = "Buscar...";
-  input.setAttribute("aria-label", "Buscar");
-  input.required = true;
-
-  const submit = document.createElement("button");
-  submit.id = "facileSearchSubmit";
-  submit.className = "facile-search-submit";
-  submit.type = "submit";
-  submit.textContent = "Buscar";
-
-  engineWrap.appendChild(badge);
-  engineWrap.appendChild(select);
-  form.appendChild(engineWrap);
-  form.appendChild(input);
-  form.appendChild(submit);
-  searchWidget.appendChild(form);
-  bar.appendChild(searchWidget);
-
-  function normalizeEngineText(text) {
-  return (text || "")
-    .toString()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]/g, "");
-}
-
-function findSearchEngineIcon(engineKey) {
-  const iconAliases = {
-    google: "google",
-    bing: "bing",
-    startpage: "startpage",
-    duckduckgo: "duckduckgo",
-    brave: "brave",
-    yahoo: "yahoo"
-  };
-
-  const wantedAlt = normalizeEngineText(iconAliases[engineKey] || engineKey);
-  const icons = document.querySelectorAll("#buscadores img");
-
-  for (const img of icons) {
-    const alt = normalizeEngineText(img.getAttribute("alt"));
-    if (alt === wantedAlt) {
-      return img.currentSrc || img.src;
-    }
+    idle(function(){
+      buildIconCache();
+      syncSearchEngine(select.value, { useIcon: true });
+    }, 1600);
   }
-
-  return "";
-}
-  function syncSearchEngine(engineKey) {
-    const engine = SEARCH_ENGINES[engineKey] || SEARCH_ENGINES.google;
-    form.action = engine.action;
-    form.setAttribute("data-engine", engineKey);
-    input.name = engine.param;
-    input.placeholder = engine.placeholder;
-    input.setAttribute("aria-label", engine.placeholder);
-    const iconSrc = findSearchEngineIcon(engineKey);
-
-badge.textContent = "";
-
-if (iconSrc) {
-  const icon = document.createElement("img");
-  icon.src = iconSrc;
-  icon.alt = "";
-  icon.loading = "lazy";
-  icon.decoding = "async";
-  badge.appendChild(icon);
-} else {
-  badge.textContent = engine.badge;
-}
-    badge.setAttribute("data-engine", engineKey);
-    select.value = engineKey;
-    localStorage.setItem("facileSearchEngine", engineKey);
-  }
-
-  select.addEventListener("change", () => {
-    syncSearchEngine(select.value);
-    input.focus();
-  });
-
-  syncSearchEngine(savedEngine);
-});
+})();
