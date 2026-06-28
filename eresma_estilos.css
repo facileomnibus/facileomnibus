@@ -224,8 +224,8 @@ section{
   color: #ffffff !important;
 
   font-size: 0.98rem;
-  font-weight: 850;
-  letter-spacing: 0.01em;
+  font-weight: 760;
+  letter-spacing: 0.006em;
   line-height: 1;
 
   text-shadow:
@@ -1322,9 +1322,9 @@ footer .footer-inner,
 }
 .facile-info-widget{
   font-size: 0.92rem !important;
-  font-weight: 850 !important;
-  letter-spacing: 0.005em !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.30) !important;
+  font-weight: 760 !important;
+  letter-spacing: 0.003em !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.28) !important;
   transition-duration: 0.01ms !important;
 }
 /* ==========================================
@@ -1343,11 +1343,18 @@ footer .footer-inner,
   box-sizing: border-box !important;
 }
 
-/* barra superior: mismo ancho que el resto */
+/* barra superior: se adapta al container */
 .widgets-bar{
+  width: 100% !important;
+  max-width: 100% !important;
   justify-content: center !important;
   align-items: center !important;
-  gap: 20px !important;
+  gap: clamp(10px, 1.4vw, 16px) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+  flex-wrap: wrap !important;
+  overflow: hidden !important;
 }
 
 /* noticias: mismo marco que el resto */
@@ -1408,10 +1415,31 @@ footer .footer-inner,
 ========================================== */
 .facile-search-widget{
   padding: 8px 10px !important;
-  width: 100% !important;
-  max-width: 690px !important;
+  width: auto !important;
+  max-width: min(100%, 540px) !important;
+  min-width: 0 !important;
   box-sizing: border-box !important;
-  flex: 1 1 560px !important;
+  flex: 1 1 420px !important;
+}
+
+.facile-date-widget,
+.facile-clock-widget{
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+}
+
+@media only screen and (max-width: 1180px) and (min-width: 768px){
+  .widgets-bar{
+    gap: 12px !important;
+  }
+
+  .facile-search-widget{
+    max-width: min(100%, 500px) !important;
+    flex-basis: 380px !important;
+  }
 }
 
 .facile-search-form{
