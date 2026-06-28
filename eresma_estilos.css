@@ -2640,4 +2640,82 @@ section{
     scroll-behavior: auto !important;
   }
 }
+main.intro section .logo{
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 44px !important;
+  height: 44px !important;
+  overflow: visible !important;
+  border-radius: 14px !important;
+  isolation: isolate !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
 
+main.intro section .logo img{
+  width: 40px !important;
+  height: 40px !important;
+  max-width: 40px !important;
+  max-height: 40px !important;
+  padding: 2px !important;
+  box-sizing: border-box !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+  overflow: visible !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,0.88) !important;
+  animation: none !important;
+  transform: none !important;
+  transition:
+    box-shadow 140ms ease,
+    filter 140ms ease,
+    background-color 140ms ease,
+    border-color 140ms ease !important;
+}
+
+main.intro section .logo:hover img,
+main.intro section .logo:focus-visible img{
+  transform: none !important;
+  animation: none !important;
+  object-fit: contain !important;
+  background: rgba(255,255,255,0.96) !important;
+  filter: brightness(1.04) saturate(1.04) !important;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.78),
+    0 0 0 5px color-mix(in srgb, var(--primary-color) 50%, transparent 50%),
+    0 6px 14px rgba(0,0,0,0.16) !important;
+  outline: none !important;
+}
+
+main.intro section .logo:active img{
+  transform: none !important;
+  animation: none !important;
+  filter: brightness(0.98) !important;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.70),
+    0 0 0 5px color-mix(in srgb, var(--secondary-color) 48%, transparent 52%),
+    0 4px 10px rgba(0,0,0,0.14) !important;
+}
+
+main.intro section .logo:focus-visible{
+  outline: none !important;
+}
+
+@media only screen and (max-width: 767px){
+  main.intro section .logo img{
+    transition-duration: 0.01ms !important;
+  }
+
+  main.intro section .logo:hover img,
+  main.intro section .logo:focus-visible img,
+  main.intro section .logo:active img{
+    transform: none !important;
+    animation: none !important;
+    filter: none !important;
+    box-shadow:
+      0 0 0 2px rgba(255,255,255,0.72),
+      0 0 0 4px color-mix(in srgb, var(--primary-color) 45%, transparent 55%) !important;
+  }
+}
