@@ -3503,32 +3503,169 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   }
 }
 
-/* FACILE PULIDO FINAL RADIO TEMAS RENDIMIENTO V3 */
+/* FACILE HEADER PC ZOOM + LATERALES FAST V4 */
 :root{
   --facile-panel-x-size: 38px;
   --facile-panel-x-top: 16px;
   --facile-panel-x-right: 16px;
-  --facile-side-panel-blur-pc: 9px;
-  --facile-side-panel-blur-mobile: 4px;
-  --facile-side-panel-saturate: 1.06;
+  --facile-side-panel-blur-pc: 7px;
+  --facile-side-panel-blur-mobile: 2px;
+  --facile-side-panel-saturate: 1.04;
   --facile-side-panel-bg-fast:
-    radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--primary-color) 34%, rgba(255,255,255,0.16) 66%), transparent 34%),
-    radial-gradient(circle at 86% 100%, color-mix(in srgb, var(--secondary-color) 38%, transparent 62%), transparent 40%),
+    radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--primary-color) 34%, rgba(255,255,255,0.14) 66%), transparent 34%),
+    radial-gradient(circle at 88% 100%, color-mix(in srgb, var(--secondary-color) 38%, transparent 62%), transparent 40%),
     linear-gradient(
       160deg,
-      color-mix(in srgb, var(--primary-color) 34%, rgba(12,25,48,0.86) 66%) 0%,
-      color-mix(in srgb, var(--primary-color) 14%, var(--secondary-color) 34%) 48%,
-      color-mix(in srgb, var(--secondary-color) 42%, rgba(5,38,34,0.86) 58%) 100%
+      color-mix(in srgb, var(--primary-color) 32%, rgba(12,25,48,0.88) 68%) 0%,
+      color-mix(in srgb, var(--primary-color) 12%, var(--secondary-color) 34%) 48%,
+      color-mix(in srgb, var(--secondary-color) 42%, rgba(5,38,34,0.88) 58%) 100%
     );
-  --facile-side-panel-border-fast: color-mix(in srgb, var(--primary-color) 36%, rgba(255,255,255,0.28) 64%);
+  --facile-side-panel-border-fast: color-mix(in srgb, var(--primary-color) 34%, rgba(255,255,255,0.26) 66%);
   --facile-side-panel-shadow-fast:
-    0 16px 32px rgba(0,0,0,0.24),
-    0 0 20px color-mix(in srgb, var(--primary-color) 13%, transparent 87%),
-    inset 0 1px 0 rgba(255,255,255,0.16);
+    0 14px 28px rgba(0,0,0,0.22),
+    0 0 18px color-mix(in srgb, var(--primary-color) 12%, transparent 88%),
+    inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 /* =========================================================
-   1) RADIO Y TEMAS: misma X, misma posición, misma lógica
+   1) HEADER PC: resistente a zoom alto sin romperse
+   ========================================================= */
+@media only screen and (min-width: 768px){
+  .header{
+    overflow: visible !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .header .container.logo-nav-container{
+    width: min(calc(100% - 32px), 1400px) !important;
+    max-width: 1400px !important;
+    min-height: 76px !important;
+    margin: 10px auto !important;
+    padding: clamp(8px, 1vw, 14px) clamp(12px, 1.6vw, 24px) !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: clamp(10px, 1.4vw, 22px) !important;
+    overflow: visible !important;
+  }
+
+  .header .logo{
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    max-width: clamp(132px, 18vw, 225px) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+
+  .header .logo img,
+  .logo-nav-container .logo img{
+    width: auto !important;
+    height: auto !important;
+    max-width: clamp(132px, 18vw, 225px) !important;
+    max-height: clamp(50px, 6.2vw, 76px) !important;
+    object-fit: contain !important;
+  }
+
+  .header .navigation{
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    overflow: visible !important;
+  }
+
+  .desktop-menu{
+    width: auto !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: clamp(7px, 0.9vw, 16px) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-width: 0 !important;
+  }
+
+  .desktop-menu > li{
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .desktop-menu > li > a{
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: clamp(7px, 0.75vw, 10px) clamp(9px, 1vw, 15px) !important;
+    font-size: clamp(0.82rem, 1vw, 1rem) !important;
+    line-height: 1.12 !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+
+  main.intro{
+    padding-top: clamp(120px, 13vw, 210px) !important;
+  }
+}
+
+/* PC estrecho / zoom alto: compactar antes de que el header crezca. */
+@media only screen and (min-width: 768px) and (max-width: 1180px){
+  .header .container.logo-nav-container{
+    width: min(calc(100% - 24px), 1160px) !important;
+    min-height: 66px !important;
+    margin: 8px auto !important;
+    padding: 8px 12px !important;
+    gap: 10px !important;
+  }
+
+  .header .logo{
+    max-width: clamp(112px, 16vw, 170px) !important;
+  }
+
+  .header .logo img,
+  .logo-nav-container .logo img{
+    max-width: clamp(112px, 16vw, 170px) !important;
+    max-height: 60px !important;
+  }
+
+  .desktop-menu{
+    gap: 7px !important;
+  }
+
+  .desktop-menu > li > a{
+    padding: 7px 10px !important;
+    font-size: clamp(0.78rem, 1.15vw, 0.92rem) !important;
+  }
+
+  main.intro{
+    padding-top: clamp(108px, 13vw, 170px) !important;
+  }
+}
+
+/* Último tramo de escritorio: permitimos segunda línea compacta, no header enorme. */
+@media only screen and (min-width: 768px) and (max-width: 940px){
+  .header .container.logo-nav-container{
+    align-items: center !important;
+  }
+
+  .desktop-menu{
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
+    row-gap: 6px !important;
+  }
+
+  .desktop-menu > li > a{
+    padding: 6px 9px !important;
+    font-size: 0.80rem !important;
+  }
+}
+
+/* =========================================================
+   2) RADIO + TEMAS: X pulida, mismo sitio, menos coste de blur
    ========================================================= */
 .facile-radio-panel,
 #theme-menu.theme-menu{
@@ -3547,7 +3684,6 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   will-change: opacity, transform !important;
 }
 
-/* Radio: el título reserva sitio a la derecha y la X queda fuera del texto. */
 .facile-radio-panel{
   padding: 20px 14px 14px !important;
   overflow: hidden !important;
@@ -3570,7 +3706,6 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   text-align: center !important;
 }
 
-/* Temas: mismo margen superior que Radio y X arriba-derecha real. */
 #theme-menu.theme-menu{
   padding: 58px 14px 14px !important;
   overflow-x: hidden !important;
@@ -3609,18 +3744,18 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   transform: none !important;
   background:
     linear-gradient(135deg,
-      color-mix(in srgb, var(--primary-color) 30%, rgba(255,255,255,0.22) 70%),
-      color-mix(in srgb, var(--secondary-color) 30%, rgba(255,255,255,0.16) 70%)
+      color-mix(in srgb, var(--primary-color) 28%, rgba(255,255,255,0.20) 72%),
+      color-mix(in srgb, var(--secondary-color) 28%, rgba(255,255,255,0.14) 72%)
     ) !important;
-  border: 1px solid rgba(255,255,255,0.20) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
   box-shadow:
-    0 7px 16px rgba(0,0,0,0.18),
-    inset 0 1px 0 rgba(255,255,255,0.20) !important;
+    0 6px 14px rgba(0,0,0,0.17),
+    inset 0 1px 0 rgba(255,255,255,0.18) !important;
   transition:
-    transform 120ms ease,
-    filter 120ms ease,
-    background 140ms ease,
-    box-shadow 140ms ease !important;
+    transform 110ms ease,
+    filter 110ms ease,
+    background 130ms ease,
+    box-shadow 130ms ease !important;
 }
 
 .facile-radio-close:hover,
@@ -3629,7 +3764,7 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
 #theme-menu .theme-menu-close:focus-visible{
   outline: none !important;
   transform: translateY(-1px) scale(1.03) !important;
-  filter: brightness(1.07) saturate(1.04) !important;
+  filter: brightness(1.06) saturate(1.03) !important;
 }
 
 .facile-radio-close:active,
@@ -3645,49 +3780,15 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   pointer-events: auto !important;
 }
 
-/* =========================================================
-   2) MENU MOVIL PRINCIPAL: mismos colores, composición más barata
-   ========================================================= */
+/* Móvil: menos blur lateral para más FPS. */
 @media only screen and (max-width: 767px){
-  .mobile-menu-native > ul.mobile-menu-list{
-    backdrop-filter: blur(12px) saturate(1.08) !important;
-    -webkit-backdrop-filter: blur(12px) saturate(1.08) !important;
-    box-shadow:
-      0 14px 30px rgba(0,0,0,0.20),
-      inset 0 1px 0 rgba(255,255,255,0.14) !important;
-    transition:
-      opacity 150ms ease,
-      transform 150ms ease,
-      visibility 150ms ease !important;
-    contain: layout style paint !important;
-    will-change: auto !important;
-  }
-
-  .mobile-menu-native[open] > ul.mobile-menu-list{
-    will-change: opacity, transform !important;
-  }
-
-  .mobile-menu-native > ul.mobile-menu-list > li > a{
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow:
-      0 5px 12px rgba(0,0,0,0.12),
-      inset 0 1px 0 rgba(255,255,255,0.42) !important;
-    transition:
-      transform 120ms ease,
-      filter 120ms ease,
-      background 150ms ease,
-      border-color 150ms ease !important;
-  }
-
-  /* Laterales: un poco de blur, pero bastante menos caro que antes. */
   .facile-radio-panel,
   #theme-menu.theme-menu{
-    backdrop-filter: blur(var(--facile-side-panel-blur-mobile)) saturate(1.04) !important;
-    -webkit-backdrop-filter: blur(var(--facile-side-panel-blur-mobile)) saturate(1.04) !important;
+    backdrop-filter: blur(var(--facile-side-panel-blur-mobile)) saturate(1.02) !important;
+    -webkit-backdrop-filter: blur(var(--facile-side-panel-blur-mobile)) saturate(1.02) !important;
     box-shadow:
-      0 12px 24px rgba(0,0,0,0.22),
-      inset 0 1px 0 rgba(255,255,255,0.14) !important;
+      0 10px 22px rgba(0,0,0,0.21),
+      inset 0 1px 0 rgba(255,255,255,0.13) !important;
   }
 
   .facile-radio-panel{
@@ -3712,29 +3813,14 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
     font-size: 1.45rem !important;
   }
 
-  /* Quitar animación decorativa continua del brillo. Se mantiene el botón bonito sin coste permanente. */
   #theme-menu .theme-btn::after{
     animation: none !important;
-    opacity: 0.32 !important;
-  }
-
-  .facile-radio-row,
-  #theme-menu .theme-btn,
-  .facile-radio-search button,
-  .facile-radio-main-control,
-  .facile-radio-small-control,
-  #theme-menu button[onclick="applyCustomBackground()"],
-  #theme-menu button[onclick="clearCustomBackground()"]{
-    transition:
-      transform 110ms ease,
-      filter 110ms ease,
-      background 140ms ease,
-      border-color 140ms ease !important;
+    opacity: 0.28 !important;
   }
 }
 
 /* =========================================================
-   3) FLUIDEZ GENERAL PC + MOVIL SIN CAMBIAR LA ESENCIA
+   3) FLUIDEZ GENERAL: conservar esencia, pintar menos
    ========================================================= */
 *{
   box-sizing: border-box;
@@ -3759,7 +3845,6 @@ img{
 .logo-nav-container .logo img{
   width: auto !important;
   height: auto !important;
-  max-width: 225px !important;
 }
 
 main.intro .container > section:not(#facile-news-widget){
@@ -3787,6 +3872,32 @@ main.intro .container > section:not(#facile-news-widget){
     background-attachment: scroll !important;
   }
 
+  .mobile-menu-native > ul.mobile-menu-list{
+    backdrop-filter: blur(10px) saturate(1.06) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(1.06) !important;
+    box-shadow:
+      0 12px 26px rgba(0,0,0,0.18),
+      inset 0 1px 0 rgba(255,255,255,0.13) !important;
+    transition:
+      opacity 140ms ease,
+      transform 140ms ease,
+      visibility 140ms ease !important;
+    contain: layout style paint !important;
+    will-change: auto !important;
+  }
+
+  .mobile-menu-native[open] > ul.mobile-menu-list{
+    will-change: opacity, transform !important;
+  }
+
+  .mobile-menu-native > ul.mobile-menu-list > li > a{
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow:
+      0 5px 12px rgba(0,0,0,0.11),
+      inset 0 1px 0 rgba(255,255,255,0.40) !important;
+  }
+
   .container,
   .widget-box,
   .weather-widget,
@@ -3809,13 +3920,6 @@ main.intro .container > section:not(#facile-news-widget){
   }
 }
 
-@media only screen and (min-width: 768px){
-  .facile-radio-panel,
-  #theme-menu.theme-menu{
-    contain: layout style paint !important;
-  }
-}
-
 @media (prefers-reduced-motion: reduce){
   *,
   *::before,
@@ -3826,3 +3930,4 @@ main.intro .container > section:not(#facile-news-widget){
     scroll-behavior: auto !important;
   }
 }
+
