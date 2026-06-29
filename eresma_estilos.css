@@ -3502,3 +3502,180 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
     transition-duration: 0.01ms !important;
   }
 }
+
+/* FACILE BLUR MOVIL + FLUIDEZ GLOBAL V2 */
+:root{
+  --facile-mobile-panel-blur: 8px;
+  --facile-mobile-panel-saturation: 1.10;
+  --facile-mobile-panel-bg-readable:
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--primary-color) 34%, rgba(255,255,255,0.18) 66%), transparent 34%),
+    radial-gradient(circle at 88% 100%, color-mix(in srgb, var(--secondary-color) 38%, transparent 62%), transparent 40%),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--primary-color) 38%, rgba(8,18,38,0.84) 62%) 0%,
+      color-mix(in srgb, var(--primary-color) 18%, var(--secondary-color) 34%) 48%,
+      color-mix(in srgb, var(--secondary-color) 42%, rgba(5,34,34,0.82) 58%) 100%
+    );
+}
+
+/* Rendimiento: aislar zonas grandes sin cambiar su apariencia. */
+.header,
+main.intro .container,
+#widgets-container,
+.widgets-bar,
+#facile-news-widget,
+#weather-widget,
+.widget-box.ticker-widget,
+footer,
+.footer,
+.site-footer{
+  contain: layout style paint;
+}
+
+main.intro .container > section:not(#facile-news-widget){
+  content-visibility: auto !important;
+  contain-intrinsic-size: 1px 136px !important;
+  contain: layout style !important;
+}
+
+#facile-news-widget,
+#weather-widget,
+.widget-box.ticker-widget{
+  content-visibility: auto !important;
+  contain-intrinsic-size: 1px 280px !important;
+}
+
+.logo img,
+#facile-news-widget img,
+.facile-radio-logo img,
+.facile-radio-row-logo img{
+  image-rendering: auto;
+  backface-visibility: hidden;
+}
+
+/* Los paneles solo piden capa propia cuando se abren. */
+.facile-radio-panel,
+#theme-menu.theme-menu{
+  will-change: auto !important;
+}
+
+.facile-radio-widget.is-open .facile-radio-panel,
+#theme-panel.facile-theme-menu-open #theme-menu.theme-menu{
+  will-change: opacity, transform !important;
+}
+
+/* Móvil: recuperar un poco de blur SOLO en Radio y Temas, no en toda la página. */
+@media only screen and (max-width: 767px){
+  body{
+    background-attachment: scroll !important;
+  }
+
+  .facile-radio-panel,
+  #theme-menu.theme-menu{
+    background: var(--facile-mobile-panel-bg-readable) !important;
+    backdrop-filter: blur(var(--facile-mobile-panel-blur)) saturate(var(--facile-mobile-panel-saturation)) !important;
+    -webkit-backdrop-filter: blur(var(--facile-mobile-panel-blur)) saturate(var(--facile-mobile-panel-saturation)) !important;
+    border: 1px solid color-mix(in srgb, var(--primary-color) 38%, rgba(255,255,255,0.28) 62%) !important;
+    box-shadow:
+      0 14px 28px rgba(0,0,0,0.22),
+      0 0 22px color-mix(in srgb, var(--primary-color) 16%, transparent 84%),
+      inset 0 1px 0 rgba(255,255,255,0.16) !important;
+  }
+
+  .facile-radio-panel::before,
+  #theme-menu.theme-menu::before{
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    border-radius: inherit !important;
+    pointer-events: none !important;
+    background: rgba(0,0,0,0.10) !important;
+    z-index: 0 !important;
+  }
+
+  .facile-radio-panel > *,
+  #theme-menu.theme-menu > *{
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  .facile-radio-header strong,
+  .facile-radio-header span,
+  #theme-menu > h3,
+  #theme-menu h4,
+  #theme-menu .theme-btn,
+  #theme-menu button,
+  .facile-radio-row-text strong,
+  .facile-radio-row-text em,
+  .facile-radio-note{
+    text-shadow: 0 1px 2px rgba(0,0,0,0.42) !important;
+  }
+
+  .facile-radio-results,
+  #theme-menu.theme-menu{
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Mantener transiciones esenciales, pero evitar animaciones decorativas caras en móvil. */
+  #theme-menu .theme-btn::after{
+    animation: none !important;
+    opacity: 0.38 !important;
+  }
+
+  .facile-radio-row,
+  #theme-menu .theme-btn,
+  .facile-radio-search button,
+  .facile-radio-main-control,
+  .facile-radio-small-control,
+  #theme-menu button[onclick="applyCustomBackground()"],
+  #theme-menu button[onclick="clearCustomBackground()"]{
+    transition:
+      transform 120ms ease,
+      filter 120ms ease,
+      background 160ms ease,
+      box-shadow 160ms ease !important;
+  }
+
+  /* Optimización de cajas grandes: se conserva el vidrio principal, pero con sombras más baratas. */
+  .container,
+  .widget-box,
+  .weather-widget,
+  .ticker-widget,
+  #facile-news-widget.facile-news-shell,
+  #facile-news-widget .facile-news-card,
+  footer,
+  footer .footer-inner,
+  .footer .footer-inner,
+  .site-footer .footer-inner{
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10) !important;
+  }
+
+  img{
+    content-visibility: auto;
+    contain-intrinsic-size: 40px 40px;
+  }
+}
+
+/* PC: mantener la esencia visual, pero reducir repintados en scroll. */
+@media only screen and (min-width: 768px){
+  .facile-radio-panel,
+  #theme-menu.theme-menu{
+    contain: layout style paint !important;
+  }
+
+  main.intro .container > section:not(#facile-news-widget){
+    contain-intrinsic-size: 1px 150px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .facile-radio-panel,
+  #theme-menu.theme-menu,
+  #theme-menu .theme-btn,
+  .facile-radio-row{
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+  }
+}
+
