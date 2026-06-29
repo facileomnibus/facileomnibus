@@ -3931,3 +3931,28 @@ main.intro .container > section:not(#facile-news-widget){
   }
 }
 
+/* FACILE AJUSTE ALTURA CONTENIDO PC V5 */
+/*
+  Objetivo:
+  - Mantener el header PC compacto y resistente al zoom.
+  - Subir un poco el contenido en escritorio para recuperar una separación similar al "antes".
+  - No tocar móvil ni los menús laterales ya optimizados.
+*/
+@media only screen and (min-width: 768px){
+  main.intro{
+    padding-top: clamp(92px, 10.5vw, 176px) !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1180px){
+  main.intro{
+    padding-top: clamp(88px, 10.8vw, 142px) !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 940px){
+  main.intro{
+    padding-top: clamp(86px, 11vw, 132px) !important;
+  }
+}
+
