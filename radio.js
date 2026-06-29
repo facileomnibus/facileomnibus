@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const playBtn = document.getElementById("facileRadioPlay");
   const favBtn = document.getElementById("facileRadioFav");
   const homeBtn = document.getElementById("facileRadioHome");
+  const volumeToggle = document.getElementById("facileRadioVolumeToggle");
+  const volumeRange = document.getElementById("facileRadioVolumeRange");
+  const volumeValue = document.getElementById("facileRadioVolumeValue");
   const preset = document.getElementById("facileRadioPreset");
   const radioName = document.getElementById("facileRadioName");
   const radioMeta = document.getElementById("facileRadioMeta");
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const CACHE_KEY = "facile-radio-cache-v3";
   const FAV_KEY = "facile-radio-favs-v1";
   const LAST_KEY = "facile-radio-last-v1";
+  const VOLUME_KEY = "facile-radio-volume-v1";
 
   let apiBase = API_SERVERS[0];
   let currentStation = null;
@@ -62,7 +66,104 @@ document.addEventListener("DOMContentLoaded", () => {
   function setStatus(text) {
     if (statusText) statusText.textContent = text;
   }
+function clampVolume(value) {
+  const number = Number(value);
 
+  if (Number.isNaN(number)) {
+    return 0.8;
+  }
+
+  return Math.min(1, Math.max(0, number));
+}
+
+function getSavedVolume() {
+  try {
+    const saved = localStorage.getItem(VOLUME_KEY);
+
+    if (saved === null) {
+      return 0.8;
+    }
+
+    return clampVolume(saved);
+  } catch (_) {
+    return 0.8;
+  }
+}
+
+function saveVolume(value) {
+  try {
+    localStorage.setItem(VOLUME_KEY, String(clampVolume(value)));
+  } catch (_) {}
+}
+
+function getVolumeIcon(value) {
+  if (value <= 0) {
+    return "🔇";
+  }
+
+  if (value < 0.35) {
+    return "🔈";
+  }
+
+  if (value < 0.72) {
+    return "🔉";
+  }
+
+  return "🔊";
+}
+
+let lastNonZeroVolume = getSavedVolume() || 0.8;
+
+function renderVolume(value, shouldSave = true) {
+  const volume = clampVolume(value);
+
+  audio.volume = volume;
+
+  if (volume > 0) {
+    lastNonZeroVolume = volume;
+  }
+
+  if (volumeRange) {
+    volumeRange.value = String(Math.round(volume * 100));
+  }
+
+  if (volumeValue) {
+    volumeValue.textContent = Math.round(volume * 100) + "%";
+  }
+
+  if (volumeToggle) {
+    volumeToggle.textContent = getVolumeIcon(volume);
+    volumeToggle.setAttribute(
+      "aria-label",
+      volume > 0 ? "Silenciar radio" : "Restaurar volumen"
+    );
+  }
+
+  if (shouldSave) {
+    saveVolume(volume);
+  }
+}
+
+function initVolumeControl() {
+  renderVolume(getSavedVolume(), false);
+
+  if (volumeRange) {
+    volumeRange.addEventListener("input", () => {
+      renderVolume(Number(volumeRange.value) / 100, true);
+    });
+  }
+
+  if (volumeToggle) {
+    volumeToggle.addEventListener("click", () => {
+      if (audio.volume > 0) {
+        renderVolume(0, true);
+        return;
+      }
+
+      renderVolume(lastNonZeroVolume || 0.8, true);
+    });
+  }
+}
   function saveCache(items) {
     try {
       localStorage.setItem(CACHE_KEY, JSON.stringify({
@@ -447,7 +548,9 @@ async function goHomeRadio() {
   if (closeBtn) {
     closeBtn.addEventListener("click", closeRadio);
   }
-
+  
+  initVolumeControl();
+  
   if (playBtn) {
     playBtn.addEventListener("click", () => {
       if (isPlaying) {
