@@ -2725,15 +2725,36 @@ window.facileStartWeather = function(){
 
   if (!panel || !toggle || !menu) return;
 
+  let closeTimer = 0;
+
   function isThemeOpen(){
     return panel.classList.contains("facile-theme-menu-open");
   }
 
   function setThemeOpen(open){
-    panel.classList.toggle("facile-theme-menu-open", open);
-    toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    menu.setAttribute("aria-hidden", open ? "false" : "true");
-    menu.style.display = open ? "block" : "none";
+    window.clearTimeout(closeTimer);
+
+    if (open) {
+      menu.style.display = "block";
+
+      window.requestAnimationFrame(function(){
+        panel.classList.add("facile-theme-menu-open");
+        toggle.setAttribute("aria-expanded", "true");
+        menu.setAttribute("aria-hidden", "false");
+      });
+
+      return;
+    }
+
+    panel.classList.remove("facile-theme-menu-open");
+    toggle.setAttribute("aria-expanded", "false");
+    menu.setAttribute("aria-hidden", "true");
+
+    closeTimer = window.setTimeout(function(){
+      if (!panel.classList.contains("facile-theme-menu-open")) {
+        menu.style.display = "none";
+      }
+    }, 180);
   }
 
   function closeRadioIfOpen(){
