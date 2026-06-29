@@ -3150,3 +3150,94 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   }
 }
 
+/* FACILE FIX RADIO X Y TEMAS ESTABLE */
+/* La X de Radio debe posicionarse respecto al panel completo, no respecto al bloque del título. */
+.facile-radio-panel{
+  position: absolute !important;
+  padding-top: 18px !important;
+  overflow: hidden !important;
+}
+
+.facile-radio-header{
+  position: static !important;
+  display: block !important;
+  min-height: 42px !important;
+  margin: 0 46px 14px 46px !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.facile-radio-header > div{
+  width: 100% !important;
+  min-width: 0 !important;
+  text-align: center !important;
+}
+
+.facile-radio-header strong,
+.facile-radio-header span{
+  width: 100% !important;
+  text-align: center !important;
+}
+
+.facile-radio-close{
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 3 !important;
+  width: 34px !important;
+  height: 34px !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+.facile-radio-close:hover,
+.facile-radio-close:focus-visible{
+  transform: translateY(-1px) scale(1.04) !important;
+}
+
+/* El menú de Temas se gobierna por la clase del panel. El display inline solo evita que ocupe foco cuando está cerrado. */
+#theme-panel.facile-theme-menu-open #theme-menu.theme-menu{
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+#theme-panel:not(.facile-theme-menu-open) #theme-menu.theme-menu{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#theme-toggle.theme-toggle-btn{
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+#theme-menu.theme-menu{
+  z-index: 2147 !important;
+}
+
+#theme-menu .theme-menu-close{
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  z-index: 3 !important;
+}
+
+@media only screen and (max-width: 767px){
+  .facile-radio-header{
+    margin: 0 42px 12px 42px !important;
+  }
+
+  .facile-radio-close{
+    top: 12px !important;
+    right: 12px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+}
+
