@@ -1,7 +1,7 @@
 /* ===================================
    SISTEMA DE TEMAS DINÁMICOS FACILE
+   Persistencia robusta de tema + fondo personalizado
 =================================== */
-
 const THEMES = {
   sol: {
     name: "Tema Sol (Predeterminado)",
@@ -16,7 +16,6 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-
   luna: {
     name: "Tema Luna",
     colors: {
@@ -30,7 +29,6 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-
   forest: {
     name: "Tema Bosque",
     colors: {
@@ -44,7 +42,6 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-
   sunset: {
     name: "Tema Atardecer",
     colors: {
@@ -58,7 +55,6 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-
   ocean: {
     name: "Tema Océano",
     colors: {
@@ -72,7 +68,6 @@ const THEMES = {
     },
     backgroundImage: "none"
   },
-
   aurora: {
     name: "Tema Aurora",
     colors: {
@@ -88,14 +83,50 @@ const THEMES = {
   }
 };
 
+const FACILE_THEME_KEY = "selectedTheme";
+const FACILE_CUSTOM_BG_KEY = "customBackground";
+
 function syncThemeButtons(themeName) {
   document.querySelectorAll(".theme-btn").forEach((button) => {
     button.classList.toggle("is-selected", button.dataset.theme === themeName);
   });
 }
 
-function applyTheme(themeName, backgroundUrl = null) {
-  const theme = THEMES[themeName] || THEMES.sol;
+function normalizeBackgroundUrl(value) {
+  const url = (value || "").toString().trim();
+  if (!url) return "";
+
+  try {
+    const parsed = new URL(url, window.location.href);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return "";
+    return parsed.href;
+  } catch (_) {
+    return "";
+  }
+}
+
+function cssUrl(value) {
+  return "url(\"" + value.replace(/\\/g, "\\\\").replace(/\"/g, '\\"') + "\")";
+}
+
+function setCustomBackground(backgroundUrl) {
+  const root = document.documentElement;
+  const normalizedUrl = normalizeBackgroundUrl(backgroundUrl);
+
+  if (normalizedUrl) {
+    root.style.setProperty("--custom-background", cssUrl(normalizedUrl));
+    localStorage.setItem(FACILE_CUSTOM_BG_KEY, normalizedUrl);
+    return normalizedUrl;
+  }
+
+  root.style.setProperty("--custom-background", "none");
+  localStorage.removeItem(FACILE_CUSTOM_BG_KEY);
+  return "";
+}
+
+function applyTheme(themeName, backgroundUrl) {
+  const themeKey = THEMES[themeName] ? themeName : "sol";
+  const theme = THEMES[themeKey];
   const root = document.documentElement;
 
   root.style.setProperty("--primary-color", theme.colors.primary);
@@ -106,22 +137,66 @@ function applyTheme(themeName, backgroundUrl = null) {
   root.style.setProperty("--text-dark", theme.colors.textDark);
   root.style.setProperty("--glass-bg", theme.colors.glass);
 
-  if (backgroundUrl) {
-    root.style.setProperty("--custom-background", `url('${backgroundUrl}')`);
-    localStorage.setItem("customBackground", backgroundUrl);
-  } else {
-    root.style.setProperty("--custom-background", "none");
-    localStorage.removeItem("customBackground");
+  localStorage.setItem(FACILE_THEME_KEY, themeKey);
+  syncThemeButtons(themeKey);
+
+  /*
+    Importante:
+    - Si backgroundUrl es undefined, NO se toca el fondo personalizado guardado.
+    - Si backgroundUrl trae una URL, se guarda y se aplica.
+    - Si backgroundUrl es null, se limpia expresamente.
+  */
+  if (typeof backgroundUrl !== "undefined") {
+    if (backgroundUrl === null) {
+      setCustomBackground("");
+    } else {
+      setCustomBackground(backgroundUrl);
+    }
+    return;
   }
 
-  localStorage.setItem("selectedTheme", themeName);
-  syncThemeButtons(themeName);
+  const savedBackground = localStorage.getItem(FACILE_CUSTOM_BG_KEY);
+  if (savedBackground) {
+    setCustomBackground(savedBackground);
+  } else {
+    root.style.setProperty("--custom-background", "none");
+  }
+}
+
+function applyCustomBackground() {
+  const input = document.getElementById("bg-url");
+  const url = normalizeBackgroundUrl(input ? input.value : "");
+
+  if (!url) {
+    alert("Por favor, pega una URL de imagen válida que empiece por http:// o https://");
+    return;
+  }
+
+  const currentTheme = localStorage.getItem(FACILE_THEME_KEY) || "sol";
+  applyTheme(currentTheme, url);
+
+  if (input) input.value = url;
+  alert("✅ Fondo aplicado y guardado");
+}
+
+function clearCustomBackground() {
+  const currentTheme = localStorage.getItem(FACILE_THEME_KEY) || "sol";
+  applyTheme(currentTheme, null);
+
+  const input = document.getElementById("bg-url");
+  if (input) input.value = "";
+
+  alert("✅ Fondo limpiado");
 }
 
 function loadSavedTheme() {
-  const savedTheme = localStorage.getItem("selectedTheme") || "sol";
-  const savedBackground = localStorage.getItem("customBackground");
+  const savedTheme = localStorage.getItem(FACILE_THEME_KEY) || "sol";
+  const savedBackground = localStorage.getItem(FACILE_CUSTOM_BG_KEY) || undefined;
+
   applyTheme(savedTheme, savedBackground);
+
+  const input = document.getElementById("bg-url");
+  if (input && savedBackground) input.value = savedBackground;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
