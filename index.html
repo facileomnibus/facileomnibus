@@ -3097,6 +3097,28 @@ window.facileStartWeather = function(){
 </select>
     </div>
 
+    <div class="facile-radio-volume" id="facileRadioVolume">
+      <button
+        type="button"
+        id="facileRadioVolumeToggle"
+        class="facile-radio-volume-toggle"
+        aria-label="Silenciar radio">
+        🔊
+      </button>
+
+      <input
+        type="range"
+        id="facileRadioVolumeRange"
+        class="facile-radio-volume-range"
+        min="0"
+        max="100"
+        step="1"
+        value="80"
+        aria-label="Volumen de la radio">
+
+      <span id="facileRadioVolumeValue" class="facile-radio-volume-value">80%</span>
+    </div>
+
     <div class="facile-radio-results" id="facileRadioResults">
       <button type="button" class="facile-radio-loading-row">Cargando emisoras...</button>
     </div>
