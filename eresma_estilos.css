@@ -4133,3 +4133,73 @@ main.intro .container > section:not(#facile-news-widget){
     font-size: 0.78rem !important;
   }
 }
+/* FACILE RADIO — BOTÓN HOME CON ICONO */
+.facile-radio-controls{
+  grid-template-columns: 48px 42px 42px minmax(0, 1fr) !important;
+  gap: 8px !important;
+}
+
+.facile-radio-home-control{
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  display: grid !important;
+  place-items: center !important;
+  cursor: pointer !important;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  line-height: 1 !important;
+  font-weight: 850 !important;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.34), transparent 31%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 84%, white 16%),
+      color-mix(in srgb, var(--secondary-color) 84%, white 16%)
+    ) !important;
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.22) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.26) !important;
+  transition:
+    transform 110ms ease,
+    filter 110ms ease,
+    box-shadow 130ms ease !important;
+}
+
+.facile-radio-home-control span{
+  display: block !important;
+  line-height: 1 !important;
+  transform: translateY(-1px);
+}
+
+.facile-radio-home-control:hover,
+.facile-radio-home-control:focus-visible{
+  outline: none !important;
+  filter: brightness(1.06) saturate(1.04) !important;
+  transform: translateY(-1px) !important;
+}
+
+.facile-radio-home-control:active{
+  transform: translateY(1px) scale(0.98) !important;
+}
+
+@media only screen and (max-width: 767px){
+  .facile-radio-controls{
+    grid-template-columns: 44px 40px 40px minmax(0, 1fr) !important;
+    gap: 7px !important;
+  }
+
+  .facile-radio-home-control{
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    border-radius: 13px !important;
+    font-size: 1rem !important;
+  }
+}
