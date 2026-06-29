@@ -3503,59 +3503,42 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   }
 }
 
-/* FACILE BLUR MOVIL + FLUIDEZ GLOBAL V2 */
+/* FACILE PULIDO FINAL RADIO TEMAS RENDIMIENTO V3 */
 :root{
-  --facile-mobile-panel-blur: 8px;
-  --facile-mobile-panel-saturation: 1.10;
-  --facile-mobile-panel-bg-readable:
-    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--primary-color) 34%, rgba(255,255,255,0.18) 66%), transparent 34%),
-    radial-gradient(circle at 88% 100%, color-mix(in srgb, var(--secondary-color) 38%, transparent 62%), transparent 40%),
+  --facile-panel-x-size: 38px;
+  --facile-panel-x-top: 16px;
+  --facile-panel-x-right: 16px;
+  --facile-side-panel-blur-pc: 9px;
+  --facile-side-panel-blur-mobile: 4px;
+  --facile-side-panel-saturate: 1.06;
+  --facile-side-panel-bg-fast:
+    radial-gradient(circle at 16% 0%, color-mix(in srgb, var(--primary-color) 34%, rgba(255,255,255,0.16) 66%), transparent 34%),
+    radial-gradient(circle at 86% 100%, color-mix(in srgb, var(--secondary-color) 38%, transparent 62%), transparent 40%),
     linear-gradient(
       160deg,
-      color-mix(in srgb, var(--primary-color) 38%, rgba(8,18,38,0.84) 62%) 0%,
-      color-mix(in srgb, var(--primary-color) 18%, var(--secondary-color) 34%) 48%,
-      color-mix(in srgb, var(--secondary-color) 42%, rgba(5,34,34,0.82) 58%) 100%
+      color-mix(in srgb, var(--primary-color) 34%, rgba(12,25,48,0.86) 66%) 0%,
+      color-mix(in srgb, var(--primary-color) 14%, var(--secondary-color) 34%) 48%,
+      color-mix(in srgb, var(--secondary-color) 42%, rgba(5,38,34,0.86) 58%) 100%
     );
+  --facile-side-panel-border-fast: color-mix(in srgb, var(--primary-color) 36%, rgba(255,255,255,0.28) 64%);
+  --facile-side-panel-shadow-fast:
+    0 16px 32px rgba(0,0,0,0.24),
+    0 0 20px color-mix(in srgb, var(--primary-color) 13%, transparent 87%),
+    inset 0 1px 0 rgba(255,255,255,0.16);
 }
 
-/* Rendimiento: aislar zonas grandes sin cambiar su apariencia. */
-.header,
-main.intro .container,
-#widgets-container,
-.widgets-bar,
-#facile-news-widget,
-#weather-widget,
-.widget-box.ticker-widget,
-footer,
-.footer,
-.site-footer{
-  contain: layout style paint;
-}
-
-main.intro .container > section:not(#facile-news-widget){
-  content-visibility: auto !important;
-  contain-intrinsic-size: 1px 136px !important;
-  contain: layout style !important;
-}
-
-#facile-news-widget,
-#weather-widget,
-.widget-box.ticker-widget{
-  content-visibility: auto !important;
-  contain-intrinsic-size: 1px 280px !important;
-}
-
-.logo img,
-#facile-news-widget img,
-.facile-radio-logo img,
-.facile-radio-row-logo img{
-  image-rendering: auto;
-  backface-visibility: hidden;
-}
-
-/* Los paneles solo piden capa propia cuando se abren. */
+/* =========================================================
+   1) RADIO Y TEMAS: misma X, misma posición, misma lógica
+   ========================================================= */
 .facile-radio-panel,
 #theme-menu.theme-menu{
+  position: absolute !important;
+  background: var(--facile-side-panel-bg-fast) !important;
+  border: 1px solid var(--facile-side-panel-border-fast) !important;
+  box-shadow: var(--facile-side-panel-shadow-fast) !important;
+  backdrop-filter: blur(var(--facile-side-panel-blur-pc)) saturate(var(--facile-side-panel-saturate)) !important;
+  -webkit-backdrop-filter: blur(var(--facile-side-panel-blur-pc)) saturate(var(--facile-side-panel-saturate)) !important;
+  contain: layout style paint !important;
   will-change: auto !important;
 }
 
@@ -3564,63 +3547,175 @@ main.intro .container > section:not(#facile-news-widget){
   will-change: opacity, transform !important;
 }
 
-/* Móvil: recuperar un poco de blur SOLO en Radio y Temas, no en toda la página. */
+/* Radio: el título reserva sitio a la derecha y la X queda fuera del texto. */
+.facile-radio-panel{
+  padding: 20px 14px 14px !important;
+  overflow: hidden !important;
+}
+
+.facile-radio-header{
+  position: static !important;
+  display: block !important;
+  min-height: 54px !important;
+  margin: 0 calc(var(--facile-panel-x-size) + 18px) 16px 18px !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.facile-radio-header > div,
+.facile-radio-header strong,
+.facile-radio-header span{
+  width: 100% !important;
+  min-width: 0 !important;
+  text-align: center !important;
+}
+
+/* Temas: mismo margen superior que Radio y X arriba-derecha real. */
+#theme-menu.theme-menu{
+  padding: 58px 14px 14px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+#theme-menu > h3{
+  max-width: calc(100% - 10px) !important;
+  margin: 0 auto 18px !important;
+}
+
+.facile-radio-close,
+#theme-menu .theme-menu-close{
+  position: absolute !important;
+  inset: auto var(--facile-panel-x-right) auto auto !important;
+  top: var(--facile-panel-x-top) !important;
+  right: var(--facile-panel-x-right) !important;
+  left: auto !important;
+  bottom: auto !important;
+  z-index: 20 !important;
+  width: var(--facile-panel-x-size) !important;
+  height: var(--facile-panel-x-size) !important;
+  min-width: var(--facile-panel-x-size) !important;
+  min-height: var(--facile-panel-x-size) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 15px !important;
+  display: grid !important;
+  place-items: center !important;
+  line-height: 1 !important;
+  color: #ffffff !important;
+  font-size: 1.55rem !important;
+  font-weight: 900 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--primary-color) 30%, rgba(255,255,255,0.22) 70%),
+      color-mix(in srgb, var(--secondary-color) 30%, rgba(255,255,255,0.16) 70%)
+    ) !important;
+  border: 1px solid rgba(255,255,255,0.20) !important;
+  box-shadow:
+    0 7px 16px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.20) !important;
+  transition:
+    transform 120ms ease,
+    filter 120ms ease,
+    background 140ms ease,
+    box-shadow 140ms ease !important;
+}
+
+.facile-radio-close:hover,
+.facile-radio-close:focus-visible,
+#theme-menu .theme-menu-close:hover,
+#theme-menu .theme-menu-close:focus-visible{
+  outline: none !important;
+  transform: translateY(-1px) scale(1.03) !important;
+  filter: brightness(1.07) saturate(1.04) !important;
+}
+
+.facile-radio-close:active,
+#theme-menu .theme-menu-close:active{
+  transform: translateY(1px) scale(0.98) !important;
+}
+
+#theme-menu .theme-menu-close,
+#theme-menu .theme-btn,
+#theme-menu #bg-url,
+#theme-menu button[onclick="applyCustomBackground()"],
+#theme-menu button[onclick="clearCustomBackground()"]{
+  pointer-events: auto !important;
+}
+
+/* =========================================================
+   2) MENU MOVIL PRINCIPAL: mismos colores, composición más barata
+   ========================================================= */
 @media only screen and (max-width: 767px){
-  body{
-    background-attachment: scroll !important;
+  .mobile-menu-native > ul.mobile-menu-list{
+    backdrop-filter: blur(12px) saturate(1.08) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(1.08) !important;
+    box-shadow:
+      0 14px 30px rgba(0,0,0,0.20),
+      inset 0 1px 0 rgba(255,255,255,0.14) !important;
+    transition:
+      opacity 150ms ease,
+      transform 150ms ease,
+      visibility 150ms ease !important;
+    contain: layout style paint !important;
+    will-change: auto !important;
   }
 
+  .mobile-menu-native[open] > ul.mobile-menu-list{
+    will-change: opacity, transform !important;
+  }
+
+  .mobile-menu-native > ul.mobile-menu-list > li > a{
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow:
+      0 5px 12px rgba(0,0,0,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.42) !important;
+    transition:
+      transform 120ms ease,
+      filter 120ms ease,
+      background 150ms ease,
+      border-color 150ms ease !important;
+  }
+
+  /* Laterales: un poco de blur, pero bastante menos caro que antes. */
   .facile-radio-panel,
   #theme-menu.theme-menu{
-    background: var(--facile-mobile-panel-bg-readable) !important;
-    backdrop-filter: blur(var(--facile-mobile-panel-blur)) saturate(var(--facile-mobile-panel-saturation)) !important;
-    -webkit-backdrop-filter: blur(var(--facile-mobile-panel-blur)) saturate(var(--facile-mobile-panel-saturation)) !important;
-    border: 1px solid color-mix(in srgb, var(--primary-color) 38%, rgba(255,255,255,0.28) 62%) !important;
+    backdrop-filter: blur(var(--facile-side-panel-blur-mobile)) saturate(1.04) !important;
+    -webkit-backdrop-filter: blur(var(--facile-side-panel-blur-mobile)) saturate(1.04) !important;
     box-shadow:
-      0 14px 28px rgba(0,0,0,0.22),
-      0 0 22px color-mix(in srgb, var(--primary-color) 16%, transparent 84%),
-      inset 0 1px 0 rgba(255,255,255,0.16) !important;
+      0 12px 24px rgba(0,0,0,0.22),
+      inset 0 1px 0 rgba(255,255,255,0.14) !important;
   }
 
-  .facile-radio-panel::before,
-  #theme-menu.theme-menu::before{
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    border-radius: inherit !important;
-    pointer-events: none !important;
-    background: rgba(0,0,0,0.10) !important;
-    z-index: 0 !important;
+  .facile-radio-panel{
+    padding: 18px 12px 13px !important;
   }
 
-  .facile-radio-panel > *,
-  #theme-menu.theme-menu > *{
-    position: relative !important;
-    z-index: 1 !important;
+  .facile-radio-header{
+    min-height: 58px !important;
+    margin: 0 calc(var(--facile-panel-x-size) + 14px) 14px 14px !important;
   }
 
-  .facile-radio-header strong,
-  .facile-radio-header span,
-  #theme-menu > h3,
-  #theme-menu h4,
-  #theme-menu .theme-btn,
-  #theme-menu button,
-  .facile-radio-row-text strong,
-  .facile-radio-row-text em,
-  .facile-radio-note{
-    text-shadow: 0 1px 2px rgba(0,0,0,0.42) !important;
-  }
-
-  .facile-radio-results,
   #theme-menu.theme-menu{
-    overscroll-behavior: contain !important;
-    -webkit-overflow-scrolling: touch !important;
+    padding: 52px 12px 13px !important;
   }
 
-  /* Mantener transiciones esenciales, pero evitar animaciones decorativas caras en móvil. */
+  .facile-radio-close,
+  #theme-menu .theme-menu-close{
+    --facile-panel-x-size: 34px;
+    --facile-panel-x-top: 12px;
+    --facile-panel-x-right: 12px;
+    border-radius: 14px !important;
+    font-size: 1.45rem !important;
+  }
+
+  /* Quitar animación decorativa continua del brillo. Se mantiene el botón bonito sin coste permanente. */
   #theme-menu .theme-btn::after{
     animation: none !important;
-    opacity: 0.38 !important;
+    opacity: 0.32 !important;
   }
 
   .facile-radio-row,
@@ -3631,13 +3726,67 @@ main.intro .container > section:not(#facile-news-widget){
   #theme-menu button[onclick="applyCustomBackground()"],
   #theme-menu button[onclick="clearCustomBackground()"]{
     transition:
-      transform 120ms ease,
-      filter 120ms ease,
-      background 160ms ease,
-      box-shadow 160ms ease !important;
+      transform 110ms ease,
+      filter 110ms ease,
+      background 140ms ease,
+      border-color 140ms ease !important;
+  }
+}
+
+/* =========================================================
+   3) FLUIDEZ GENERAL PC + MOVIL SIN CAMBIAR LA ESENCIA
+   ========================================================= */
+*{
+  box-sizing: border-box;
+}
+
+body{
+  text-rendering: optimizeLegibility;
+}
+
+img{
+  content-visibility: auto;
+  contain-intrinsic-size: 40px 40px;
+  backface-visibility: hidden;
+}
+
+.logo img{
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.logo-nav-container .logo img{
+  width: auto !important;
+  height: auto !important;
+  max-width: 225px !important;
+}
+
+main.intro .container > section:not(#facile-news-widget){
+  content-visibility: auto !important;
+  contain: layout style !important;
+  contain-intrinsic-size: 1px 138px !important;
+}
+
+#facile-news-widget,
+#weather-widget,
+.widget-box.ticker-widget{
+  content-visibility: auto !important;
+  contain-intrinsic-size: 1px 280px !important;
+}
+
+.facile-radio-results,
+#theme-menu.theme-menu,
+.mobile-menu-native > ul.mobile-menu-list{
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+@media only screen and (max-width: 767px){
+  body{
+    background-attachment: scroll !important;
   }
 
-  /* Optimización de cajas grandes: se conserva el vidrio principal, pero con sombras más baratas. */
   .container,
   .widget-box,
   .weather-widget,
@@ -3651,31 +3800,29 @@ main.intro .container > section:not(#facile-news-widget){
     box-shadow: 0 4px 12px rgba(0,0,0,0.10) !important;
   }
 
-  img{
-    content-visibility: auto;
-    contain-intrinsic-size: 40px 40px;
+  .logo img:hover{
+    animation: none !important;
+  }
+
+  main.intro .container > section:not(#facile-news-widget){
+    contain-intrinsic-size: 1px 120px !important;
   }
 }
 
-/* PC: mantener la esencia visual, pero reducir repintados en scroll. */
 @media only screen and (min-width: 768px){
   .facile-radio-panel,
   #theme-menu.theme-menu{
     contain: layout style paint !important;
   }
-
-  main.intro .container > section:not(#facile-news-widget){
-    contain-intrinsic-size: 1px 150px !important;
-  }
 }
 
 @media (prefers-reduced-motion: reduce){
-  .facile-radio-panel,
-  #theme-menu.theme-menu,
-  #theme-menu .theme-btn,
-  .facile-radio-row{
+  *,
+  *::before,
+  *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    animation: none !important;
+    scroll-behavior: auto !important;
   }
 }
-
