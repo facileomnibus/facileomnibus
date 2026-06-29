@@ -2711,35 +2711,55 @@ window.facileStartWeather = function(){
 
 <script>
 // Toggle del menú de temas
-function setThemeMenuOpen(isOpen) {
+(function(){
   const panel = document.getElementById("theme-panel");
+  const toggle = document.getElementById("theme-toggle");
   const menu = document.getElementById("theme-menu");
-  if (!panel || !menu) return;
-  menu.style.display = isOpen ? "block" : "none";
-  panel.classList.toggle("facile-theme-menu-open", isOpen);
-}
+  const close = document.getElementById("theme-menu-close");
 
-document.getElementById("theme-toggle").addEventListener("click", function(e) {
-  e.stopPropagation();
-  const menu = document.getElementById("theme-menu");
-  setThemeMenuOpen(menu.style.display === "none");
-});
+  if (!panel || !toggle || !menu) return;
 
-const themeMenuClose = document.getElementById("theme-menu-close");
-if (themeMenuClose) {
-  themeMenuClose.addEventListener("click", function(e) {
-    e.stopPropagation();
-    setThemeMenuOpen(false);
-  });
-}
-
-// Cerrar menú al hacer click fuera
-document.addEventListener("click", function(e) {
-  const panel = document.getElementById("theme-panel");
-  if (panel && !panel.contains(e.target)) {
-    setThemeMenuOpen(false);
+  function setThemeMenuOpen(isOpen) {
+    menu.style.display = isOpen ? "block" : "none";
+    panel.classList.toggle("facile-theme-menu-open", isOpen);
+    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    menu.setAttribute("aria-hidden", isOpen ? "false" : "true");
   }
-});
+
+  setThemeMenuOpen(false);
+
+  toggle.addEventListener("click", function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    setThemeMenuOpen(!panel.classList.contains("facile-theme-menu-open"));
+  }, true);
+
+  if (close) {
+    close.addEventListener("click", function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      setThemeMenuOpen(false);
+    }, true);
+  }
+
+  menu.addEventListener("click", function(event) {
+    event.stopPropagation();
+  }, true);
+
+  document.addEventListener("click", function(event) {
+    if (!panel.contains(event.target)) {
+      setThemeMenuOpen(false);
+    }
+  }, true);
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+      setThemeMenuOpen(false);
+    }
+  });
+})();
 
 // Aplicar fondo personalizado
 function applyCustomBackground() {
