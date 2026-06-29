@@ -3955,4 +3955,23 @@ main.intro .container > section:not(#facile-news-widget){
     padding-top: clamp(86px, 11vw, 132px) !important;
   }
 }
+/* FACILE FIX — SOMBRA LIMPIA BOTÓN BUSCADOR */
+.facile-search-submit{
+  overflow: hidden !important;
+  box-shadow:
+    0 4px 10px color-mix(in srgb, var(--secondary-color) 18%, rgba(0,0,0,0.10) 82%),
+    inset 0 1px 0 rgba(255,255,255,0.20) !important;
+}
 
+.facile-search-submit:hover,
+.facile-search-submit:focus-visible{
+  box-shadow:
+    0 5px 12px color-mix(in srgb, var(--secondary-color) 22%, rgba(0,0,0,0.12) 78%),
+    inset 0 1px 0 rgba(255,255,255,0.22) !important;
+}
+
+.facile-search-submit:active{
+  box-shadow:
+    0 2px 6px color-mix(in srgb, var(--secondary-color) 16%, rgba(0,0,0,0.12) 84%),
+    inset 0 1px 0 rgba(255,255,255,0.16) !important;
+}
