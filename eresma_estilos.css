@@ -4360,3 +4360,101 @@ main.intro .container > section:not(#facile-news-widget){
     font-size: 0.84rem !important;
   }
 }
+/* FACILE TEMAS — EFECTO PARA BOTONES FONDO PERSONALIZADO */
+#theme-menu button[onclick="applyCustomBackground()"],
+#theme-menu button[onclick="clearCustomBackground()"]{
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 42px !important;
+  border: 1px solid rgba(255,255,255,0.24) !important;
+  border-radius: 10px !important;
+  color: #ffffff !important;
+  font-weight: 850 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.36) !important;
+  background-size: 220% 220% !important;
+  background-position: 0% 50% !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.28) !important;
+  transition:
+    transform 170ms ease,
+    filter 170ms ease,
+    background-position 420ms ease,
+    box-shadow 210ms ease !important;
+}
+
+#theme-menu button[onclick="applyCustomBackground()"]::after,
+#theme-menu button[onclick="clearCustomBackground()"]::after{
+  content: "" !important;
+  position: absolute !important;
+  inset: -40% !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 38%,
+      rgba(255,255,255,0.34) 48%,
+      transparent 60%,
+      transparent 100%
+    ) !important;
+  transform: translateX(-70%) rotate(12deg) !important;
+  opacity: 0.58 !important;
+  animation: facileThemeButtonSweep 5.8s ease-in-out infinite !important;
+}
+
+#theme-menu button[onclick="applyCustomBackground()"]:hover,
+#theme-menu button[onclick="applyCustomBackground()"]:focus-visible,
+#theme-menu button[onclick="clearCustomBackground()"]:hover,
+#theme-menu button[onclick="clearCustomBackground()"]:focus-visible{
+  outline: none !important;
+  background-position: 100% 50% !important;
+  filter: brightness(1.07) saturate(1.08) !important;
+  transform: translateY(-2px) scale(1.018) !important;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.24),
+    0 0 0 2px rgba(255,255,255,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.32) !important;
+}
+
+#theme-menu button[onclick="applyCustomBackground()"]:active,
+#theme-menu button[onclick="clearCustomBackground()"]:active{
+  transform: translateY(1px) scale(0.985) !important;
+}
+
+/* Mantener colores propios de cada botón */
+#theme-menu button[onclick="applyCustomBackground()"]{
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 82%, white 18%),
+      color-mix(in srgb, var(--secondary-color) 84%, white 16%)
+    ) !important;
+}
+
+#theme-menu button[onclick="clearCustomBackground()"]{
+  background:
+    linear-gradient(
+      135deg,
+      #9aa3ad 0%,
+      #7e8791 52%,
+      #6d7580 100%
+    ) !important;
+}
+
+/* En móvil mantenemos el efecto, pero sin animación continua para rendimiento */
+@media only screen and (max-width: 767px){
+  #theme-menu button[onclick="applyCustomBackground()"]::after,
+  #theme-menu button[onclick="clearCustomBackground()"]::after{
+    animation: none !important;
+    opacity: 0.30 !important;
+  }
+
+  #theme-menu button[onclick="applyCustomBackground()"],
+  #theme-menu button[onclick="clearCustomBackground()"]{
+    transition:
+      transform 120ms ease,
+      filter 120ms ease,
+      box-shadow 150ms ease !important;
+  }
+}
