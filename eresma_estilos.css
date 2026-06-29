@@ -3289,3 +3289,216 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
 #theme-menu .theme-btn::after{
   pointer-events: none !important;
 }
+:root{
+  --facile-panel-radius: 24px;
+  --facile-panel-open-y: 0;
+  --facile-panel-closed-y: 8px;
+  --facile-panel-closed-scale: 0.98;
+  --facile-panel-speed: 170ms;
+
+  --facile-panel-dynamic-bg:
+    radial-gradient(
+      circle at 20% 0%,
+      color-mix(in srgb, var(--primary-color) 30%, rgba(255,255,255,0.18) 70%),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 88% 100%,
+      color-mix(in srgb, var(--secondary-color) 34%, transparent 66%),
+      transparent 38%
+    ),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--primary-color) 34%, rgba(8,18,38,0.82) 66%) 0%,
+      color-mix(in srgb, var(--primary-color) 18%, var(--secondary-color) 28%) 46%,
+      color-mix(in srgb, var(--secondary-color) 38%, rgba(5,34,34,0.78) 62%) 100%
+    );
+
+  --facile-panel-dynamic-border:
+    color-mix(in srgb, var(--primary-color) 42%, rgba(255,255,255,0.22) 58%);
+
+  --facile-panel-dynamic-shadow:
+    0 20px 48px rgba(0,0,0,0.34),
+    0 0 24px color-mix(in srgb, var(--primary-color) 18%, transparent 82%),
+    0 0 30px color-mix(in srgb, var(--secondary-color) 16%, transparent 84%),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.facile-radio-panel,
+#theme-menu.theme-menu{
+  border-radius: var(--facile-panel-radius) !important;
+  color: #ffffff !important;
+  background: var(--facile-panel-dynamic-bg) !important;
+  border: 1px solid var(--facile-panel-dynamic-border) !important;
+  box-shadow: var(--facile-panel-dynamic-shadow) !important;
+  backdrop-filter: blur(13px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(13px) saturate(1.08) !important;
+
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(var(--facile-panel-closed-y)) scale(var(--facile-panel-closed-scale)) !important;
+  transform-origin: bottom right !important;
+
+  transition:
+    opacity var(--facile-panel-speed) ease,
+    transform var(--facile-panel-speed) ease,
+    visibility var(--facile-panel-speed) ease,
+    background var(--theme-transition-speed) ease,
+    border-color var(--theme-transition-speed) ease,
+    box-shadow var(--theme-transition-speed) ease !important;
+}
+
+.facile-radio-widget.is-open .facile-radio-panel,
+#theme-panel.facile-theme-menu-open #theme-menu.theme-menu{
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(var(--facile-panel-open-y)) scale(1) !important;
+}
+
+#theme-panel.theme-panel{
+  z-index: 2148 !important;
+  overflow: visible !important;
+}
+
+#theme-menu.theme-menu{
+  display: block;
+  z-index: 2149 !important;
+}
+
+#theme-panel:not(.facile-theme-menu-open) #theme-menu.theme-menu{
+  pointer-events: none !important;
+}
+
+#theme-panel.facile-theme-menu-open #theme-menu.theme-menu{
+  display: block !important;
+  pointer-events: auto !important;
+}
+
+.facile-radio-button,
+#theme-toggle.theme-toggle-btn{
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.38), transparent 31%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 82%, white 18%),
+      color-mix(in srgb, var(--secondary-color) 84%, white 16%)
+    ) !important;
+  box-shadow:
+    0 7px 16px rgba(0,0,0,0.22),
+    0 0 14px color-mix(in srgb, var(--primary-color) 30%, transparent 70%),
+    inset 0 1px 0 rgba(255,255,255,0.28) !important;
+}
+
+.facile-radio-button:hover,
+.facile-radio-button:focus-visible,
+#theme-toggle.theme-toggle-btn:hover,
+#theme-toggle.theme-toggle-btn:focus-visible{
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.45), transparent 31%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 72%, white 28%),
+      color-mix(in srgb, var(--secondary-color) 74%, white 26%)
+    ) !important;
+  box-shadow:
+    0 9px 20px rgba(0,0,0,0.26),
+    0 0 18px color-mix(in srgb, var(--secondary-color) 38%, transparent 62%),
+    inset 0 1px 0 rgba(255,255,255,0.32) !important;
+}
+
+#theme-menu .theme-menu-close,
+.facile-radio-close{
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 28%, rgba(255,255,255,0.20) 72%),
+      color-mix(in srgb, var(--secondary-color) 28%, rgba(255,255,255,0.16) 72%)
+    ) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.18) !important;
+}
+
+#theme-menu > h3{
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 86%, white 14%),
+      color-mix(in srgb, var(--secondary-color) 84%, white 16%)
+    ) !important;
+}
+
+.facile-radio-search button,
+.facile-radio-main-control,
+.facile-radio-small-control,
+#theme-menu button[onclick="applyCustomBackground()"]{
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.36), transparent 31%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 86%, white 14%),
+      color-mix(in srgb, var(--secondary-color) 86%, white 14%)
+    ) !important;
+}
+
+#theme-menu .theme-btn[data-theme="sol"]{
+  background: linear-gradient(135deg, #ffd456 0%, #ff9c38 48%, #ff626f 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="luna"]{
+  background: linear-gradient(135deg, #5b69ff 0%, #7053f0 48%, #253263 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="forest"]{
+  background: linear-gradient(135deg, #45cf73 0%, #159f62 48%, #0d6242 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="sunset"]{
+  background: linear-gradient(135deg, #ff9448 0%, #ff527f 50%, #814cff 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="ocean"]{
+  background: linear-gradient(135deg, #31cfff 0%, #238af2 52%, #1052b6 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="aurora"]{
+  background: linear-gradient(135deg, #53f0d6 0%, #55a9ff 45%, #a171ff 100%) !important;
+}
+
+#theme-menu .theme-menu-close,
+#theme-menu .theme-btn,
+#theme-menu #bg-url,
+#theme-menu button[onclick="applyCustomBackground()"],
+#theme-menu button[onclick="clearCustomBackground()"]{
+  pointer-events: auto !important;
+  z-index: 3 !important;
+}
+
+#theme-menu .theme-btn::after{
+  pointer-events: none !important;
+}
+
+@media only screen and (max-width: 767px){
+  .facile-radio-panel,
+  #theme-menu.theme-menu{
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition:
+      opacity 150ms ease,
+      transform 150ms ease,
+      visibility 150ms ease,
+      background var(--theme-transition-speed) ease,
+      border-color var(--theme-transition-speed) ease !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .facile-radio-panel,
+  #theme-menu.theme-menu{
+    transition-duration: 0.01ms !important;
+  }
+}
