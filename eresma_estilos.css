@@ -4009,3 +4009,127 @@ main.intro .container > section:not(#facile-news-widget){
     opacity: 0.75 !important;
   }
 }
+/* FACILE RADIO — CABECERA CENTRADA + BOTÓN INICIO */
+.facile-radio-panel{
+  --facile-radio-close-room: 52px;
+}
+
+/* Título y subtítulo realmente centrados, sin pegarse a la X */
+.facile-radio-header{
+  display: grid !important;
+  place-items: center !important;
+  min-height: 48px !important;
+  margin: 0 auto 14px !important;
+  padding: 0 var(--facile-radio-close-room) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+.facile-radio-header > div{
+  width: 100% !important;
+  max-width: 230px !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+.facile-radio-header strong,
+.facile-radio-header span{
+  display: block !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+.facile-radio-header strong{
+  font-size: clamp(1rem, 4.1vw, 1.16rem) !important;
+  line-height: 1.12 !important;
+}
+
+.facile-radio-header span{
+  margin-top: 5px !important;
+  font-size: clamp(0.76rem, 3.1vw, 0.84rem) !important;
+  line-height: 1.15 !important;
+  opacity: 0.90 !important;
+}
+
+/* Controles: play, favorito, Inicio y selector */
+.facile-radio-controls{
+  grid-template-columns: 48px 42px auto minmax(0, 1fr) !important;
+  gap: 8px !important;
+}
+
+.facile-radio-home-control{
+  height: 42px !important;
+  min-width: 68px !important;
+  padding: 0 12px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  cursor: pointer !important;
+  color: #ffffff !important;
+  font-size: 0.84rem !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.01em !important;
+  white-space: nowrap !important;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.34), transparent 31%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 84%, white 16%),
+      color-mix(in srgb, var(--secondary-color) 84%, white 16%)
+    ) !important;
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.22) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.26) !important;
+  transition:
+    transform 110ms ease,
+    filter 110ms ease,
+    box-shadow 130ms ease !important;
+}
+
+.facile-radio-home-control:hover,
+.facile-radio-home-control:focus-visible{
+  outline: none !important;
+  filter: brightness(1.06) saturate(1.04) !important;
+  transform: translateY(-1px) !important;
+}
+
+.facile-radio-home-control:active{
+  transform: translateY(1px) scale(0.98) !important;
+}
+
+/* Ajuste móvil para que no se apriete */
+@media only screen and (max-width: 767px){
+  .facile-radio-panel{
+    --facile-radio-close-room: 42px;
+  }
+
+  .facile-radio-header{
+    min-height: 50px !important;
+    padding: 0 var(--facile-radio-close-room) !important;
+    margin-bottom: 12px !important;
+  }
+
+  .facile-radio-header > div{
+    max-width: 205px !important;
+  }
+
+  .facile-radio-controls{
+    grid-template-columns: 44px 40px auto minmax(0, 1fr) !important;
+    gap: 7px !important;
+  }
+
+  .facile-radio-home-control{
+    height: 40px !important;
+    min-width: 62px !important;
+    padding: 0 10px !important;
+    border-radius: 13px !important;
+    font-size: 0.78rem !important;
+  }
+}
