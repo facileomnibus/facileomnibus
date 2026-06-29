@@ -1,6 +1,5 @@
 /* ===================================
    SISTEMA DE TEMAS DINÁMICOS FACILE
-   Persistencia robusta de tema + fondo personalizado
 =================================== */
 const THEMES = {
   sol: {
