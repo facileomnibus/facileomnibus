@@ -2712,55 +2712,139 @@ window.facileStartWeather = function(){
 <script>
 // Toggle del menú de temas
 (function(){
+  "use strict";
+
   const panel = document.getElementById("theme-panel");
   const toggle = document.getElementById("theme-toggle");
   const menu = document.getElementById("theme-menu");
-  const close = document.getElementById("theme-menu-close");
+  const closeButton = document.getElementById("theme-menu-close");
+
+  const radioWidget = document.getElementById("facileRadioWidget");
+  const radioClose = document.getElementById("facileRadioClose");
+  const radioToggle = document.getElementById("facileRadioToggle");
 
   if (!panel || !toggle || !menu) return;
 
-  function setThemeMenuOpen(isOpen) {
-    menu.style.display = isOpen ? "block" : "none";
-    panel.classList.toggle("facile-theme-menu-open", isOpen);
-    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    menu.setAttribute("aria-hidden", isOpen ? "false" : "true");
+  function isThemeOpen(){
+    return panel.classList.contains("facile-theme-menu-open");
   }
 
-  setThemeMenuOpen(false);
+  function setThemeOpen(open){
+    panel.classList.toggle("facile-theme-menu-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    menu.setAttribute("aria-hidden", open ? "false" : "true");
+    menu.style.display = open ? "block" : "none";
+  }
 
-  toggle.addEventListener("click", function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    setThemeMenuOpen(!panel.classList.contains("facile-theme-menu-open"));
-  }, true);
+  function closeRadioIfOpen(){
+    if (!radioWidget || !radioWidget.classList.contains("is-open")) return;
 
-  if (close) {
-    close.addEventListener("click", function(event) {
+    if (radioClose) {
+      radioClose.click();
+      return;
+    }
+
+    if (radioToggle) {
+      radioToggle.click();
+    }
+  }
+
+  function markSelectedTheme(button){
+    menu.querySelectorAll(".theme-btn").forEach(function(item){
+      item.classList.toggle("is-selected", item === button);
+    });
+  }
+
+  setThemeOpen(false);
+
+  window.addEventListener("click", function(event){
+    const target = event.target;
+
+    const clickedToggle = target === toggle || toggle.contains(target);
+    const clickedInsideMenu = menu.contains(target);
+    const clickedInsidePanel = panel.contains(target);
+
+    if (clickedToggle) {
       event.preventDefault();
-      event.stopPropagation();
       event.stopImmediatePropagation();
-      setThemeMenuOpen(false);
-    }, true);
-  }
 
-  menu.addEventListener("click", function(event) {
-    event.stopPropagation();
-  }, true);
+      const nextOpen = !isThemeOpen();
 
-  document.addEventListener("click", function(event) {
-    if (!panel.contains(event.target)) {
-      setThemeMenuOpen(false);
+      if (nextOpen) {
+        closeRadioIfOpen();
+      }
+
+      setThemeOpen(nextOpen);
+      return;
+    }
+
+    if (clickedInsideMenu) {
+      const closeTarget = target.closest("#theme-menu-close");
+      const themeTarget = target.closest(".theme-btn[data-theme]");
+      const applyBgTarget = target.closest('button[onclick="applyCustomBackground()"]');
+      const clearBgTarget = target.closest('button[onclick="clearCustomBackground()"]');
+
+      if (closeTarget) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        setThemeOpen(false);
+        return;
+      }
+
+      if (themeTarget) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        const themeName = themeTarget.getAttribute("data-theme");
+
+        if (themeName && typeof window.applyTheme === "function") {
+          window.applyTheme(themeName);
+        }
+
+        markSelectedTheme(themeTarget);
+        setThemeOpen(true);
+        return;
+      }
+
+      if (applyBgTarget) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        if (typeof window.applyCustomBackground === "function") {
+          window.applyCustomBackground();
+        }
+
+        setThemeOpen(true);
+        return;
+      }
+
+      if (clearBgTarget) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        if (typeof window.clearCustomBackground === "function") {
+          window.clearCustomBackground();
+        }
+
+        setThemeOpen(true);
+        return;
+      }
+
+      event.stopPropagation();
+      return;
+    }
+
+    if (isThemeOpen() && !clickedInsidePanel) {
+      setThemeOpen(false);
     }
   }, true);
 
-  document.addEventListener("keydown", function(event) {
+  window.addEventListener("keydown", function(event){
     if (event.key === "Escape") {
-      setThemeMenuOpen(false);
+      setThemeOpen(false);
     }
-  });
+  }, true);
 })();
-
 // Aplicar fondo personalizado
 function applyCustomBackground() {
   const url = document.getElementById("bg-url").value;
