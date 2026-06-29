@@ -2866,26 +2866,6 @@ window.facileStartWeather = function(){
     }
   }, true);
 })();
-// Aplicar fondo personalizado
-function applyCustomBackground() {
-  const url = document.getElementById("bg-url").value;
-  if (!url) {
-    alert("Por favor, pega una URL de imagen válida");
-    return;
-  }
-
-  const currentTheme = localStorage.getItem("selectedTheme") || "sol";
-  applyTheme(currentTheme, url);
-  alert("✅ Fondo aplicado");
-}
-
-// Limpiar fondo
-function clearCustomBackground() {
-  const currentTheme = localStorage.getItem("selectedTheme") || "sol";
-  applyTheme(currentTheme, null);
-  document.getElementById("bg-url").value = "";
-  alert("✅ Fondo limpiado");
-}
 </script>
 <script>
 (function() {
