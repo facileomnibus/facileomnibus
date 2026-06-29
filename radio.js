@@ -329,14 +329,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  async function loadFeatured() {
+  async function loadFeatured(options = {}) {
+    const preserveCurrent = options.preserveCurrent === true;
     setStatus("Cargando...");
 
     const cached = loadCache();
     if (cached.length) {
       renderStations(cached);
       renderPreset(cached);
-      selectStationFromLastOrFirst(cached);
+      if (!preserveCurrent || !currentStation) {
+        selectStationFromLastOrFirst(cached);
+      }
     }
 
     try {
@@ -348,7 +351,9 @@ document.addEventListener("DOMContentLoaded", () => {
       saveCache(stations);
       renderStations(stations);
       renderPreset(stations);
-      selectStationFromLastOrFirst(stations);
+      if (!preserveCurrent || !currentStation) {
+        selectStationFromLastOrFirst(stations);
+      }
       setStatus("Con el poder de Radio Browser");
     } catch (error) {
       console.warn("[FacileRadio] usando caché:", error);
@@ -373,7 +378,7 @@ async function goHomeRadio() {
   setStatus("Emisoras destacadas");
 
   try {
-    await loadFeatured();
+    await loadFeatured({ preserveCurrent: true });
     setStatus("Con el poder de Radio Browser");
   } catch (_) {
     setStatus("No se pudieron cargar destacadas");
