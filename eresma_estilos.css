@@ -3975,3 +3975,37 @@ main.intro .container > section:not(#facile-news-widget){
     0 2px 6px color-mix(in srgb, var(--secondary-color) 16%, rgba(0,0,0,0.12) 84%),
     inset 0 1px 0 rgba(255,255,255,0.16) !important;
 }
+/* FACILE FIX — LIMPIEZA DE SOMBRA/BANDA EN HEADER PC */
+@media only screen and (min-width: 768px){
+
+  .header{
+    overflow: hidden !important;
+    box-shadow:
+      0 4px 14px rgba(0,0,0,0.10),
+      inset 0 -1px 0 rgba(255,255,255,0.06) !important;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .header .container.logo-nav-container{
+    overflow: hidden !important;
+    box-shadow:
+      0 6px 16px rgba(0,0,0,0.10),
+      inset 0 1px 0 rgba(255,255,255,0.14),
+      inset 0 -1px 0 rgba(255,255,255,0.06) !important;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .header::after{
+    content: "" !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: 1px !important;
+    pointer-events: none !important;
+    background: rgba(255,255,255,0.06) !important;
+    opacity: 0.75 !important;
+  }
+}
