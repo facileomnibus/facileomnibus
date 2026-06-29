@@ -348,7 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderStations(stations);
       renderPreset(stations);
       selectStationFromLastOrFirst(stations);
-      setStatus("Radio Browser");
+      setStatus("Con el poder de Radio Browser");
     } catch (error) {
       console.warn("[FacileRadio] usando caché:", error);
 
