@@ -3240,4 +3240,52 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
     height: 32px !important;
   }
 }
+#theme-panel.theme-panel{
+  z-index: 2148 !important;
+  overflow: visible !important;
+}
 
+#theme-toggle.theme-toggle-btn{
+  position: relative !important;
+  z-index: 2 !important;
+  pointer-events: auto !important;
+}
+
+#theme-menu.theme-menu{
+  z-index: 2149 !important;
+}
+
+#theme-panel.facile-theme-menu-open #theme-menu.theme-menu{
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+#theme-panel:not(.facile-theme-menu-open) #theme-menu.theme-menu{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#theme-menu .theme-menu-close,
+#theme-menu .theme-btn,
+#theme-menu #bg-url,
+#theme-menu button[onclick="applyCustomBackground()"],
+#theme-menu button[onclick="clearCustomBackground()"]{
+  position: relative !important;
+  z-index: 3 !important;
+  pointer-events: auto !important;
+}
+
+#theme-menu .theme-menu-close{
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  cursor: pointer !important;
+}
+
+#theme-menu .theme-btn::after{
+  pointer-events: none !important;
+}
