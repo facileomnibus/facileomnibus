@@ -2684,3 +2684,129 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
     contain-intrinsic-size: 1px 118px !important;
   }
 }
+
+/* FACILE MENU PC RESPONSIVE */
+/*
+  Objetivo:
+  - Evitar que el logo y el menú de escritorio se rompan al usar zoom del navegador.
+  - Mantener el menú de PC visible y flexible.
+  - No tocar el menú móvil real ni el contenido de la página.
+*/
+@media only screen and (min-width: 768px){
+  .header{
+    overflow: visible !important;
+  }
+
+  .header .container.logo-nav-container{
+    width: min(calc(100% - 32px), 1400px) !important;
+    max-width: 1400px !important;
+    margin: 12px auto !important;
+    padding: clamp(12px, 1.4vw, 20px) clamp(14px, 2vw, 28px) !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: clamp(14px, 2vw, 28px) !important;
+    overflow: visible !important;
+  }
+
+  .header .logo{
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+
+  .header .logo img,
+  .logo-nav-container .logo img{
+    width: auto !important;
+    height: auto !important;
+    max-width: clamp(150px, 20vw, 225px) !important;
+    max-height: 86px !important;
+    object-fit: contain !important;
+  }
+
+  .header .navigation{
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    overflow: visible !important;
+  }
+
+  .desktop-menu{
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: clamp(8px, 1.1vw, 18px) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .desktop-menu > li{
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .desktop-menu > li > a{
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: clamp(8px, 0.9vw, 10px) clamp(10px, 1.2vw, 16px) !important;
+    font-size: clamp(0.92rem, 1.15vw, 1.05rem) !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+
+  main.intro{
+    padding-top: clamp(150px, 16vw, 240px) !important;
+  }
+}
+
+/* Modo escritorio estrecho o zoom alto: reducimos suavemente antes de saltar al móvil. */
+@media only screen and (min-width: 768px) and (max-width: 1120px){
+  .header .container.logo-nav-container{
+    width: min(calc(100% - 24px), 1100px) !important;
+    gap: 14px !important;
+  }
+
+  .header .logo img,
+  .logo-nav-container .logo img{
+    max-width: clamp(132px, 18vw, 185px) !important;
+  }
+
+  .desktop-menu{
+    gap: 8px !important;
+  }
+
+  .desktop-menu > li > a{
+    padding: 8px 11px !important;
+    font-size: clamp(0.84rem, 1.35vw, 0.98rem) !important;
+  }
+
+  main.intro{
+    padding-top: clamp(132px, 18vw, 190px) !important;
+  }
+}
+
+/* Si el espacio real de escritorio es muy justo, el menú de PC sigue ordenado en dos líneas sin empujar el logo. */
+@media only screen and (min-width: 768px) and (max-width: 920px){
+  .header .container.logo-nav-container{
+    align-items: flex-start !important;
+  }
+
+  .header .navigation{
+    padding-top: 2px !important;
+  }
+
+  .desktop-menu > li > a{
+    padding: 7px 10px !important;
+    font-size: 0.86rem !important;
+  }
+}
+
