@@ -2810,3 +2810,343 @@ main.intro .container > section:not(#facile-news-widget) > a.logo img{
   }
 }
 
+/* FACILE PULIDO RADIO Y TEMAS */
+:root{
+  --facile-panel-radius: 24px;
+  --facile-panel-border: rgba(125,219,255,0.30);
+  --facile-panel-bg-strong:
+    radial-gradient(circle at 20% 0%, rgba(103,196,255,0.20), transparent 34%),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, #182b4f 58%, var(--primary-color) 20%),
+      color-mix(in srgb, #063839 62%, var(--secondary-color) 18%)
+    );
+}
+
+/* RADIO: panel más centrado, título pulido y X en esquina superior derecha */
+.facile-radio-panel{
+  position: absolute !important;
+  padding: 16px 14px 14px !important;
+  border-radius: var(--facile-panel-radius) !important;
+  background: var(--facile-panel-bg-strong) !important;
+  border: 1px solid var(--facile-panel-border) !important;
+  box-shadow:
+    0 20px 48px rgba(0,0,0,0.34),
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    inset 0 1px 0 rgba(255,255,255,0.18) !important;
+  text-align: center !important;
+}
+
+.facile-radio-header{
+  position: relative !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 46px !important;
+  margin: 0 44px 14px !important;
+  text-align: center !important;
+}
+
+.facile-radio-header > div{
+  width: 100% !important;
+  min-width: 0 !important;
+  text-align: center !important;
+}
+
+.facile-radio-header strong{
+  display: block !important;
+  width: 100% !important;
+  font-size: 1.14rem !important;
+  line-height: 1.12 !important;
+  text-align: center !important;
+  letter-spacing: -0.01em !important;
+}
+
+.facile-radio-header span{
+  display: block !important;
+  width: 100% !important;
+  margin-top: 5px !important;
+  text-align: center !important;
+  opacity: 0.9 !important;
+}
+
+.facile-radio-close{
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 13px !important;
+  background: rgba(255,255,255,0.18) !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  color: #ffffff !important;
+  font-size: 1.45rem !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  display: grid !important;
+  place-items: center !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.18) !important;
+  transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease !important;
+}
+
+.facile-radio-close:hover,
+.facile-radio-close:focus-visible{
+  outline: none !important;
+  background: rgba(255,255,255,0.26) !important;
+  transform: translateY(-1px) scale(1.04) !important;
+}
+
+.facile-radio-search{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: 10px !important;
+  align-items: center !important;
+  margin: 0 auto 14px !important;
+  width: 100% !important;
+}
+
+.facile-radio-search input{
+  height: 44px !important;
+  border-radius: 14px !important;
+  text-align: left !important;
+  background: rgba(255,255,255,0.92) !important;
+}
+
+.facile-radio-search button,
+.facile-radio-main-control,
+.facile-radio-small-control{
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.40), transparent 31%),
+    linear-gradient(135deg, #39c9ff, #198ae5 55%, #16d5cf) !important;
+}
+
+.facile-radio-now{
+  max-width: 100% !important;
+  margin: 0 auto 12px !important;
+  text-align: left !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,0.14) !important;
+}
+
+.facile-radio-now-text strong,
+.facile-radio-now-text span{
+  text-align: left !important;
+}
+
+.facile-radio-controls{
+  margin: 12px auto !important;
+}
+
+.facile-radio-results{
+  margin: 10px auto 0 !important;
+  text-align: left !important;
+  scrollbar-color: rgba(255,255,255,0.65) rgba(255,255,255,0.14) !important;
+}
+
+.facile-radio-row{
+  border-radius: 16px !important;
+  background: rgba(255,255,255,0.14) !important;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease !important;
+}
+
+.facile-radio-row:hover,
+.facile-radio-row:focus-visible{
+  transform: translateY(-1px) !important;
+  background: rgba(255,255,255,0.21) !important;
+  border-color: rgba(255,255,255,0.20) !important;
+}
+
+.facile-radio-note{
+  margin: 12px auto 0 !important;
+  max-width: 92% !important;
+  text-align: center !important;
+}
+
+/* TEMAS: X de cierre, composición más limpia y botones por color de cada tema */
+#theme-menu.theme-menu{
+  position: absolute !important;
+  padding: 14px !important;
+  padding-top: 50px !important;
+  border-radius: var(--facile-panel-radius) !important;
+  text-align: center !important;
+  background: var(--facile-panel-bg-strong) !important;
+  border: 1px solid var(--facile-panel-border) !important;
+  box-shadow:
+    0 20px 48px rgba(0,0,0,0.34),
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    inset 0 1px 0 rgba(255,255,255,0.18) !important;
+}
+
+#theme-menu .theme-menu-close{
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  width: 34px !important;
+  height: 34px !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  border-radius: 13px !important;
+  cursor: pointer !important;
+  display: grid !important;
+  place-items: center !important;
+  color: #ffffff !important;
+  font-size: 1.45rem !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  background: rgba(255,255,255,0.18) !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.18) !important;
+  transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease !important;
+}
+
+#theme-menu .theme-menu-close:hover,
+#theme-menu .theme-menu-close:focus-visible{
+  outline: none !important;
+  background: rgba(255,255,255,0.26) !important;
+  transform: translateY(-1px) scale(1.04) !important;
+}
+
+#theme-menu > h3{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto 18px !important;
+  padding: 11px 20px !important;
+  max-width: calc(100% - 48px) !important;
+  border-radius: 15px !important;
+  text-align: center !important;
+  font-size: 1.08rem !important;
+  line-height: 1.12 !important;
+  background: linear-gradient(135deg, #2c98ff, #23d2d9) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.16) !important;
+}
+
+#theme-menu hr{
+  border: 0 !important;
+  height: 1px !important;
+  margin: 16px 0 18px !important;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.78), transparent) !important;
+}
+
+#theme-menu h4{
+  margin: 0 0 12px !important;
+  color: #ffffff !important;
+  font-size: 1rem !important;
+  font-weight: 850 !important;
+  text-align: center !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.25) !important;
+}
+
+#theme-menu #bg-url{
+  width: min(100%, 210px) !important;
+  margin: 0 auto 8px !important;
+  display: block !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+  background: rgba(255,255,255,0.94) !important;
+}
+
+#theme-menu .theme-buttons{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  margin: 0 auto 14px !important;
+}
+
+#theme-menu .theme-btn{
+  min-height: 42px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  color: #ffffff !important;
+  font-weight: 850 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.36) !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.30) !important;
+}
+
+#theme-menu .theme-btn[data-theme="sol"]{
+  background: linear-gradient(135deg, #ffd456 0%, #ff9c38 48%, #ff626f 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="luna"]{
+  background: linear-gradient(135deg, #5b69ff 0%, #7053f0 48%, #253263 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="forest"]{
+  background: linear-gradient(135deg, #45cf73 0%, #159f62 48%, #0d6242 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="sunset"]{
+  background: linear-gradient(135deg, #ff9448 0%, #ff527f 50%, #814cff 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="ocean"]{
+  background: linear-gradient(135deg, #31cfff 0%, #238af2 52%, #1052b6 100%) !important;
+}
+
+#theme-menu .theme-btn[data-theme="aurora"]{
+  background: linear-gradient(135deg, #53f0d6 0%, #55a9ff 45%, #a171ff 100%) !important;
+}
+
+#theme-menu .theme-btn:hover,
+#theme-menu .theme-btn:focus-visible,
+#theme-menu .theme-btn.is-selected{
+  outline: none !important;
+  filter: brightness(1.08) saturate(1.08) !important;
+  transform: translateY(-2px) scale(1.018) !important;
+  box-shadow:
+    0 12px 24px rgba(0,0,0,0.24),
+    0 0 0 2px rgba(255,255,255,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.36) !important;
+}
+
+#theme-menu button[onclick="applyCustomBackground()"]{
+  background: linear-gradient(135deg, #2393ea, #19c5df) !important;
+  border-radius: 8px !important;
+  font-weight: 800 !important;
+}
+
+#theme-menu button[onclick="clearCustomBackground()"]{
+  background: linear-gradient(135deg, #8f97a1, #6f7885) !important;
+  border-radius: 8px !important;
+  font-weight: 800 !important;
+}
+
+@media only screen and (max-width: 767px){
+  .facile-radio-panel{
+    padding: 16px 12px 13px !important;
+  }
+
+  .facile-radio-header{
+    margin: 0 38px 12px !important;
+  }
+
+  .facile-radio-close,
+  #theme-menu .theme-menu-close{
+    width: 32px !important;
+    height: 32px !important;
+    top: 10px !important;
+    right: 10px !important;
+  }
+
+  #theme-menu.theme-menu{
+    padding: 12px !important;
+    padding-top: 48px !important;
+  }
+
+  #theme-menu .theme-buttons{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  #theme-menu .theme-btn{
+    min-height: 40px !important;
+    padding: 9px 8px !important;
+    font-size: 0.88rem !important;
+  }
+}
+
