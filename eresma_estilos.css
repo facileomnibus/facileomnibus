@@ -4203,3 +4203,160 @@ main.intro .container > section:not(#facile-news-widget){
     font-size: 1rem !important;
   }
 }
+
+
+/* =========================================================
+   FACILE RADIO — ICONOS UNIFORMES + ANIMACIÓN UNIFICADA + HOME SIN CORTAR AUDIO
+   Este bloque final pisa reglas anteriores de la radio.
+========================================================= */
+:root{
+  --facile-radio-control-h: 42px;
+  --facile-radio-play-w: 48px;
+  --facile-radio-icon-w: 42px;
+  --facile-radio-control-radius: 14px;
+  --facile-radio-control-bg:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.38), transparent 31%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color) 86%, white 14%),
+      color-mix(in srgb, var(--secondary-color) 86%, white 14%)
+    );
+  --facile-radio-control-shadow:
+    0 6px 14px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.22);
+  --facile-radio-control-shadow-hover:
+    0 8px 18px rgba(0,0,0,0.20),
+    inset 0 1px 0 rgba(255,255,255,0.28);
+}
+
+/* 3 controles + selector: play / fav / home / select */
+.facile-radio-controls{
+  grid-template-columns: var(--facile-radio-play-w) var(--facile-radio-icon-w) var(--facile-radio-icon-w) minmax(0, 1fr) !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+/* Mismo tratamiento visual y misma animación para Play, Favorito, Home y Buscar */
+.facile-radio-main-control,
+.facile-radio-small-control,
+.facile-radio-home-control,
+.facile-radio-search button{
+  height: var(--facile-radio-control-h) !important;
+  min-height: var(--facile-radio-control-h) !important;
+  border: 0 !important;
+  border-radius: var(--facile-radio-control-radius) !important;
+  display: grid !important;
+  place-items: center !important;
+  cursor: pointer !important;
+  color: #ffffff !important;
+  background: var(--facile-radio-control-bg) !important;
+  box-shadow: var(--facile-radio-control-shadow) !important;
+  line-height: 1 !important;
+  font-weight: 850 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.26) !important;
+  -webkit-tap-highlight-color: transparent !important;
+  touch-action: manipulation !important;
+  transition:
+    transform 130ms ease,
+    filter 130ms ease,
+    box-shadow 150ms ease,
+    background 180ms ease !important;
+}
+
+.facile-radio-main-control{
+  width: var(--facile-radio-play-w) !important;
+  min-width: var(--facile-radio-play-w) !important;
+  padding: 0 !important;
+  font-size: 1.02rem !important;
+}
+
+.facile-radio-small-control,
+.facile-radio-home-control{
+  width: var(--facile-radio-icon-w) !important;
+  min-width: var(--facile-radio-icon-w) !important;
+  padding: 0 !important;
+  font-size: 1.06rem !important;
+}
+
+/* La estrella se mantiene como carácter blanco; no la cambiamos por emoji. */
+.facile-radio-small-control{
+  font-family: "Segoe UI Symbol", "Arial Unicode MS", "Segoe UI", Arial, sans-serif !important;
+}
+
+/* Casa blanca tipo icono, no emoji, para acercarla al estilo de la estrella */
+.facile-radio-home-icon{
+  width: 16px !important;
+  height: 16px !important;
+  display: block !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 2.35 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.20)) !important;
+  transform: translateY(0) !important;
+}
+
+/* Botón Buscar: conserva su ancho de texto, pero hereda animación */
+.facile-radio-search button{
+  width: auto !important;
+  min-width: 76px !important;
+  padding: 0 14px !important;
+  font-size: 0.88rem !important;
+}
+
+.facile-radio-main-control:hover,
+.facile-radio-main-control:focus-visible,
+.facile-radio-small-control:hover,
+.facile-radio-small-control:focus-visible,
+.facile-radio-home-control:hover,
+.facile-radio-home-control:focus-visible,
+.facile-radio-search button:hover,
+.facile-radio-search button:focus-visible{
+  outline: none !important;
+  filter: brightness(1.07) saturate(1.06) !important;
+  transform: translateY(-1px) scale(1.035) !important;
+  box-shadow: var(--facile-radio-control-shadow-hover) !important;
+}
+
+.facile-radio-main-control:active,
+.facile-radio-small-control:active,
+.facile-radio-home-control:active,
+.facile-radio-search button:active{
+  transform: translateY(1px) scale(0.975) !important;
+  filter: brightness(0.98) !important;
+}
+
+@media only screen and (max-width: 767px){
+  :root{
+    --facile-radio-control-h: 40px;
+    --facile-radio-play-w: 44px;
+    --facile-radio-icon-w: 40px;
+    --facile-radio-control-radius: 13px;
+  }
+
+  .facile-radio-controls{
+    grid-template-columns: var(--facile-radio-play-w) var(--facile-radio-icon-w) var(--facile-radio-icon-w) minmax(0, 1fr) !important;
+    gap: 7px !important;
+  }
+
+  .facile-radio-main-control{
+    font-size: 0.98rem !important;
+  }
+
+  .facile-radio-small-control,
+  .facile-radio-home-control{
+    font-size: 1rem !important;
+  }
+
+  .facile-radio-home-icon{
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .facile-radio-search button{
+    min-width: 72px !important;
+    padding: 0 12px !important;
+    font-size: 0.84rem !important;
+  }
+}
