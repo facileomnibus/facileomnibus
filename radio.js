@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("facileRadioAudio");
   const playBtn = document.getElementById("facileRadioPlay");
   const favBtn = document.getElementById("facileRadioFav");
+  const homeBtn = document.getElementById("facileRadioHome");
   const preset = document.getElementById("facileRadioPreset");
   const radioName = document.getElementById("facileRadioName");
   const radioMeta = document.getElementById("facileRadioMeta");
@@ -365,7 +366,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
+async function goHomeRadio() {
+  if (searchInput) searchInput.value = "";
+  if (preset) preset.value = "";
 
+  setStatus("Emisoras destacadas");
+
+  try {
+    await loadFeatured();
+    setStatus("Con el poder de Radio Browser");
+  } catch (_) {
+    setStatus("No se pudieron cargar destacadas");
+  }
+}
   async function searchStations(query) {
     setStatus("Buscando...");
     clearResults();
@@ -439,7 +452,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
+if (homeBtn) {
+  homeBtn.addEventListener("click", goHomeRadio);
+}
   if (favBtn) {
     favBtn.addEventListener("click", () => {
       if (!currentStation) return;
