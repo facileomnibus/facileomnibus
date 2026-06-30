@@ -3124,6 +3124,47 @@ window.facileStartWeather = function(){
     </div>
   </section>
 </div>
+
+<script>
+/* FACILE PERFORMANCE ORCHESTRATOR V6 */
+(function(){
+  "use strict";
+  const body = document.body;
+  const radio = document.getElementById("facileRadioWidget");
+  const theme = document.getElementById("theme-panel");
+  const mobileMenu = document.querySelector(".mobile-menu-native");
+  if (!body) return;
+
+  let ticking = false;
+
+  function syncHeavyState(){
+    ticking = false;
+    const radioOpen = !!(radio && radio.classList.contains("is-open"));
+    const themeOpen = !!(theme && theme.classList.contains("facile-theme-menu-open"));
+    const menuOpen = !!(mobileMenu && mobileMenu.hasAttribute("open"));
+    body.classList.toggle("facile-heavy-ui-open", radioOpen || themeOpen || menuOpen);
+    body.classList.toggle("facile-mobile-nav-open", menuOpen);
+  }
+
+  function requestSync(){
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(syncHeavyState);
+  }
+
+  const observer = new MutationObserver(requestSync);
+  if (radio) observer.observe(radio, { attributes: true, attributeFilter: ["class"] });
+  if (theme) observer.observe(theme, { attributes: true, attributeFilter: ["class"] });
+  if (mobileMenu) observer.observe(mobileMenu, { attributes: true, attributeFilter: ["open"] });
+
+  document.addEventListener("visibilitychange", function(){
+    body.classList.toggle("facile-page-hidden", document.hidden);
+  }, { passive: true });
+
+  requestSync();
+})();
+</script>
+
 </body>
 </html>    
 
