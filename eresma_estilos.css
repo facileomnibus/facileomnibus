@@ -4648,3 +4648,28 @@ main.intro .container > section:not(#facile-news-widget){
     height: 17px !important;
   }
 }
+/* FACILE — MICRO OPTIMIZACIÓN CONSERVADORA */
+.facile-radio-panel,
+#theme-menu.theme-menu{
+  will-change: auto !important;
+}
+
+.facile-radio-widget.is-open .facile-radio-panel,
+#theme-panel.facile-theme-menu-open #theme-menu.theme-menu{
+  will-change: opacity, transform !important;
+}
+
+@media only screen and (max-width: 767px){
+  .facile-radio-panel,
+  #theme-menu.theme-menu{
+    backdrop-filter: blur(1.5px) saturate(1.01) !important;
+    -webkit-backdrop-filter: blur(1.5px) saturate(1.01) !important;
+  }
+
+  #theme-menu .theme-btn::after,
+  #theme-menu button[onclick="applyCustomBackground()"]::after,
+  #theme-menu button[onclick="clearCustomBackground()"]::after{
+    animation: none !important;
+    opacity: 0.28 !important;
+  }
+}
