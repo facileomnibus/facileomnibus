@@ -4673,3 +4673,144 @@ main.intro .container > section:not(#facile-news-widget){
     opacity: 0.28 !important;
   }
 }
+/* FACILE MOVIL */
+@media only screen and (max-width: 767px){
+
+  /* 1) Paneles laterales: sin animación de apertura/cierre basada en transform/scale. */
+  .facile-radio-panel,
+  #theme-menu.theme-menu{
+    transform: none !important;
+    transition:
+      opacity 60ms linear,
+      visibility 0ms linear !important;
+    will-change: auto !important;
+
+    /* Mucho más barato que blur alto; mantenemos separación visual con fondo más sólido. */
+    backdrop-filter: blur(0.75px) saturate(1.01) !important;
+    -webkit-backdrop-filter: blur(0.75px) saturate(1.01) !important;
+
+    background:
+      radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--primary-color) 28%, rgba(255,255,255,0.12) 72%), transparent 32%),
+      radial-gradient(circle at 88% 100%, color-mix(in srgb, var(--secondary-color) 34%, transparent 66%), transparent 38%),
+      linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--primary-color) 30%, rgba(10,24,46,0.94) 70%) 0%,
+        color-mix(in srgb, var(--primary-color) 12%, var(--secondary-color) 36%) 48%,
+        color-mix(in srgb, var(--secondary-color) 38%, rgba(5,35,30,0.94) 62%) 100%
+      ) !important;
+
+    box-shadow:
+      0 9px 20px rgba(0,0,0,0.20),
+      inset 0 1px 0 rgba(255,255,255,0.12) !important;
+  }
+
+  .facile-radio-widget.is-open .facile-radio-panel,
+  #theme-panel.facile-theme-menu-open #theme-menu.theme-menu{
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    will-change: auto !important;
+  }
+
+  /* 2) Nada de escalados/desplazamientos en apertura/cierre. */
+  #theme-panel:not(.facile-theme-menu-open) #theme-menu.theme-menu,
+  .facile-radio-widget:not(.is-open) .facile-radio-panel{
+    transform: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* 3) Desactivar animaciones decorativas continuas dentro de Temas. */
+  #theme-menu .theme-btn::before,
+  #theme-menu .theme-btn::after,
+  #theme-menu button[onclick="applyCustomBackground()"]::before,
+  #theme-menu button[onclick="applyCustomBackground()"]::after,
+  #theme-menu button[onclick="clearCustomBackground()"]::before,
+  #theme-menu button[onclick="clearCustomBackground()"]::after{
+    animation: none !important;
+    transition: none !important;
+    opacity: 0.24 !important;
+    transform: none !important;
+  }
+
+  /* 4) Botones: mantener respuesta visual, pero sin scale/translate en táctil. */
+  .facile-radio-main-control,
+  .facile-radio-small-control,
+  .facile-radio-home-control,
+  .facile-radio-volume-toggle,
+  .facile-radio-search button,
+  #theme-menu .theme-btn,
+  #theme-menu .theme-menu-close,
+  #theme-menu button[onclick="applyCustomBackground()"],
+  #theme-menu button[onclick="clearCustomBackground()"]{
+    transition:
+      filter 90ms linear,
+      background-color 90ms linear,
+      box-shadow 90ms linear !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  .facile-radio-main-control:hover,
+  .facile-radio-main-control:focus-visible,
+  .facile-radio-small-control:hover,
+  .facile-radio-small-control:focus-visible,
+  .facile-radio-home-control:hover,
+  .facile-radio-home-control:focus-visible,
+  .facile-radio-volume-toggle:hover,
+  .facile-radio-volume-toggle:focus-visible,
+  .facile-radio-search button:hover,
+  .facile-radio-search button:focus-visible,
+  #theme-menu .theme-btn:hover,
+  #theme-menu .theme-btn:focus-visible,
+  #theme-menu .theme-menu-close:hover,
+  #theme-menu .theme-menu-close:focus-visible,
+  #theme-menu button[onclick="applyCustomBackground()"]:hover,
+  #theme-menu button[onclick="applyCustomBackground()"]:focus-visible,
+  #theme-menu button[onclick="clearCustomBackground()"]:hover,
+  #theme-menu button[onclick="clearCustomBackground()"]:focus-visible{
+    transform: none !important;
+    filter: brightness(1.05) saturate(1.02) !important;
+  }
+
+  .facile-radio-main-control:active,
+  .facile-radio-small-control:active,
+  .facile-radio-home-control:active,
+  .facile-radio-volume-toggle:active,
+  .facile-radio-search button:active,
+  #theme-menu .theme-btn:active,
+  #theme-menu .theme-menu-close:active,
+  #theme-menu button[onclick="applyCustomBackground()"]:active,
+  #theme-menu button[onclick="clearCustomBackground()"]:active{
+    transform: none !important;
+    filter: brightness(0.98) !important;
+  }
+
+  /* 5) Listas internas: scroll más estable y menos coste por fila. */
+  .facile-radio-results,
+  #theme-menu.theme-menu{
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .facile-radio-row{
+    transition: background-color 80ms linear, filter 80ms linear !important;
+    transform: none !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.10) !important;
+  }
+
+  .facile-radio-row:hover,
+  .facile-radio-row:focus-visible{
+    transform: none !important;
+    filter: brightness(1.03) !important;
+  }
+
+  /* 6) Imágenes de logos dentro de radio: no crear capas extra por imagen. */
+  .facile-radio-logo img,
+  .facile-radio-row-logo img{
+    transform: none !important;
+    backface-visibility: visible !important;
+  }
+}
