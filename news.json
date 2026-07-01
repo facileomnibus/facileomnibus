@@ -1,8 +1,24 @@
 {
-  "updatedAt": "2026-07-01T17:30:04.315802+00:00",
+  "updatedAt": "2026-07-01T19:22:00.255154+00:00",
   "source": "google-news-rss",
   "query": "",
   "items": [
+    {
+      "title": "Crisis en la cúpula de la Agencia Tributaria: la directora general y otros dos altos directivos piden salir",
+      "source": "ABC",
+      "summary": "Crisis en la cúpula de la Agencia Tributaria: la directora general y otros dos altos directivos piden salir ABC La Agencia Tributaria ultima el relevo de su directora general por desavenencias con el Ministerio y el PP lo atribuye al 'caso Zapatero' El Mundo R",
+      "image": "",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPZVdvMzZSOTRtUGlRTDdSeTk2VmNDRGVIT2VlTmlBR0FwQ1dlOU02NDdmTmU2YzZhZUVleVQxQlhHTHNoQWd4RWtXZFQzS1lSWFhsSWFra0ZNMkhrcXBHaFgxTDh0SmFPUGV5WVZRRmJncWZ3UENXcnZOQ3c2Q2g2YzFKYk5uTUJNSkFwVkJMZUt5Sy1BdnVvYko1ajFNQkZNQ19ENnV0VDhNdw?oc=5",
+      "pubDate": "Wed, 01 Jul 2026 11:24:49 GMT"
+    },
+    {
+      "title": "Las cifras que revelan la magnitud de los terremotos en Venezuela",
+      "source": "BBC",
+      "summary": "Las cifras que revelan la magnitud de los terremotos en Venezuela BBC El número de muertos por los terremotos de Venezuela asciende ya a 2.295 RTVE.es Se elevan a 2.295 los fallecidos por el doble terremoto de hace una semana en Venezuela El Mundo Un desastre",
+      "image": "",
+      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5qVXdjMWFVSXVwVzhvaHkzeFB6bnA2NGRVa2I2ekQwMEJ6UmRlVjZZYXVnRm9PRnpkdHEtU3ZSbHRRRmo4UDFYOXVPbGtFTGdreXpydGxXOGZsSjTSAWBBVV95cUxNTWNQd2JCTnEwcEVrdjQ0bzBsencwNmhXYnBfU2dybmNnYS16VzlLbXlLRWU4bW13eDB5dmpqWDdlbFNIY1lUQ24zYm5RWWdzVW90Q0tpLXZhRFZPWVVOQzc?oc=5",
+      "pubDate": "Wed, 01 Jul 2026 17:24:37 GMT"
+    },
     {
       "title": "El juez Pedraz cita a los dos fiscales de García Ortiz que se reunieron con la 'fontanera' del PSOE en la Fiscalía General",
       "source": "El Español",
@@ -12,60 +28,44 @@
       "pubDate": "Wed, 01 Jul 2026 11:25:57 GMT"
     },
     {
-      "title": "El Gobierno carga contra Aznar tras sus palabras pidiendo al PP que gobierne sin los nacionalistas: \"Presa de efluvios franquistas\"",
-      "source": "Cadena SER",
-      "summary": "El Gobierno carga contra Aznar tras sus palabras pidiendo al PP que gobierne sin los nacionalistas: \"Presa de efluvios franquistas\" Cadena SER Ayuso se desmarca del giro de Feijóo con Junts: “Lo sensato es alejarse de la amenaza independentista constante” EL P",
-      "image": "",
-      "link": "https://news.google.com/rss/articles/CBMilAJBVV95cUxPUms2VXFZZVFhR2d0ZG5hT0I5R1haeDB5M3JCUE5Nb3pKUF9FN1ZRNmtBYm5FRXItaDk0VTNkMk9mWW8xeWJEOEtJeC1JMHo3dkhJNFNkdTJhZm9lZEwybHlzdVBIR1BhSHdKRFFjRHl1LWhjclJlVjlhMkM1WDY2cFlTU08zXzZLRkdSUlp0d2ZCdXBUZ2d3VkRidWdpLUE4cFBPMWwyQXVaVzVJZlRTbi1QcVhZVjhuUkxyWXU5MkZlZHo0U2loUk9kWjJ1eXlmNTVFdk1QcF91TEc5bkttWHFCXzRpdGJpSW5DMG5TRGEwMy0tUzNUSmFJelY0eDNQRzhxN1ZlXzdIUUFaZ1ZpUnRqZUU?oc=5",
-      "pubDate": "Wed, 01 Jul 2026 11:29:33 GMT"
-    },
-    {
       "title": "El incendio en Leciñena afecta a zonas de nidificación de especies de aves forestales",
       "source": "SEO/BirdLife",
-      "summary": "El incendio en Leciñena afecta a zonas de nidificación de especies de aves forestales SEO/BirdLife Incendio en Leciñena: el Gobierno de Aragón pide prudencia ante el viento ABC El incendio forestal de Leciñena arrasa 2.200 hectáreas y se reactivan algunos punt",
+      "summary": "El incendio en Leciñena afecta a zonas de nidificación de especies de aves forestales SEO/BirdLife El valor patrimonial y natural de la Sierra de Alcubierre que arde en Zaragoza y Huesca: de trincheras a refugios de águilas y milanos heraldo.es El incendio de",
       "image": "",
       "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWktzWmNkOUtBMDFOVG9yNklNQkFVQlFwcGM0TTRwWnV2Ymdyel9SU0dXUWczYlVLc1FaeTJfd1dPaU9jd0JuZi0ySFQzQ0VGTWVnVzk5cVZPWjA0NERndnY0S2s0MkxCRDFIRnRKY19uY19nMEpuQ2hjcllBM0dIRlg4NXg5bnQ4bzVabWh6RWNvOFJua0ZqbTk1X2J5b0dYcGVSTg?oc=5",
       "pubDate": "Wed, 01 Jul 2026 13:55:00 GMT"
     },
     {
-      "title": "Este 1 de julio entra en vigor la tasa europea de tres euros a paquetes de plataformas como Temu y Shein",
-      "source": "elDiario.es",
-      "summary": "Este 1 de julio entra en vigor la tasa europea de tres euros a paquetes de plataformas como Temu y Shein elDiario.es La letra pequeña de la tasa de 3 euros por comprar en Shein o Temu: ¿quién paga realmente? La Vanguardia La logística pide una reforma aduanera",
+      "title": "Knuth, la 'viuda' de Isak Andic, declaró que el fallecido iba a hacer un nuevo testamento que \"lo cambiaba todo\"",
+      "source": "El Español",
+      "summary": "Knuth, la 'viuda' de Isak Andic, declaró que el fallecido iba a hacer un nuevo testamento que \"lo cambiaba todo\" El Español La pareja de Isak Andic declaró que el fundador de Mango quería dictar un nuevo testamento que “lo cambiaba todo” EL PAÍS La jueza orden",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQRGl6RlVSVUR6a3gtdF9QRWFaTVVnTHlqQkNtbHBfcHFnaURvbkhBeVRGSlBKZVFoSUp5WHB5NlJOb1B1MUgwNWlUZlIwTVl0dkNvc055eGNGajh6UnpMeTFLbWNzaXFRd1BJNTRkRE1KZXJPTUtXcl9aWDkxMkc4aDhsa1NmOXFpRGEyU3pPT21yeGNaNm9BazA2Uk54TkthZmZ0OTFmOTNJSG5VQTZIbGUwcGlNbFRxTG9OVzJwa1FHUdIBxwFBVV95cUxONG5TS0ZmbjVsZkpwczNnUGRpWERkZEdPNmE5QV9ONjN6OVpnLTFRYmlYRlA3bjRrLXZxRUxVY0dzdXQ1Wkp4eGdIcUs4dUQ2OXVRWk4xNTNma2hoazFxeWRydndfTGxsa0c0VUZJdnFzVWpFQ0p3cndsZ1FfWHJ3RlBNZWVzZTVKLUh0ZlJnZEY4bjNnNmZVazFjT3ViTzVDRms2UjVuUS1aTlJUWFI2dktlWExLMi11LW1YdWtid1EydjZrOGF3?oc=5",
-      "pubDate": "Wed, 01 Jul 2026 11:35:17 GMT"
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOSHM4MzRfNUhhLXJnMUJPSlU4eUw2d3o4aHZPdjBEWkJoWXBOS09NVDNGZEtqVWVDa2ViTm93RlVkeUxZcnR4SzR5ZkxhY05CbVppVGtJeURCZHdhRmpHOHg0ZndzWmk5QWpITkJJUEdyeGN6aVQyOUJTb0dJaUdUUjE2amg4SXJ3ZFhrS3BnRkhBeEo0MWw4WW55SGZFLVlsYi1HNmktdUxwLUI0LXo2VlVkZ1cxSGpRRUwzWDVPUlRuNnBGVV83TVZ6aDBvelFnYk1rT0NnbnRwUEXSAeABQVVfeXFMT0o5TXE0NlV0VnlTdTg1eDZKZk9fcGRtcWRfcUttX251cm12YVB0TGppbDN3QWdyemRzRklRajlvdHI5V2o5RXphMlJvXzNpbmY0R3d0Mkg2TmRLVUNFTERxazhCUFV6V2FxY1dsWDMxS3A5enF1Q3dfRGs0QW9BT21pN1U1cFh0cWx6YVlfR2hKazMwTjNKWFJlVGJBbXphLU1UV2pSUGtYc1N2cHBvLTMtdG9RZ3VReVhqSTY4RFN0LURBcEN0TUFlQ0cyYWJ5Zk9kWHBuVnRweVptcWIzS28?oc=5",
+      "pubDate": "Wed, 01 Jul 2026 16:50:20 GMT"
     },
     {
-      "title": "Entrega el cuadro olvidado de Sorolla que se encontró en una calle de Sevilla: \"Lo cogí porque me gustó el marco\"",
+      "title": "La Policía acude al trabajo de Vito Quiles para detenerlo, donde no se encontraba, y este reacciona en redes: “He salido a por el pan”",
       "source": "Telecinco",
-      "summary": "Entrega el cuadro olvidado de Sorolla que se encontró en una calle de Sevilla: \"Lo cogí porque me gustó el marco\" Telecinco Andrés, el murciano que ha devuelto un cuadro de Sorolla perdido en Sevilla: \"He cumplido con mi obligación\" El Mundo El cuadro de Sorol",
+      "summary": "La Policía acude al trabajo de Vito Quiles para detenerlo, donde no se encontraba, y este reacciona en redes: “He salido a por el pan” Telecinco La policía se persona en el canal donde trabaja Vito Quiles para arrestarlo EL PAÍS La Policía busca a Vito Quiles",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNMWRQNHhrVi1sVnJqY1hxc1paSnh0LUtCZmd1ZzhnZFBhUUQ1c1BLSFRORjBMRDRwTWpvWGlGSkVvSFV2SGJLTnFYem1US3dkYjdZVExBQnpLQTFzNTRFRm02U2YyOEgxdmJLR2RKVmNVUHRNYWZhUEhxc2ZxY1ZydW94UWJSR19vWnluU2h3MGhRM29fbjJqeXE1aDdpUi1EVnVTUHh6cEhtc3ZzS1VVX2xtTVJOQzFQUVAwTDN5anF5dFVMZXc0dHppTDJOQQ?oc=5",
-      "pubDate": "Wed, 01 Jul 2026 08:40:45 GMT"
+      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQR0dNQlZwaDNjcUJrTUdzUW5pVGlKTHktV3N2ZVlPR1VMTE5qYmMwZ1RtQVdWQXdqTk9kZUsyRmJhWEFYR3huN1hqTEpRM2tLN2J1c3gyV2NDR25oY21lTG9MSUtkdVJGUk5hdnNJR3RMMFphLVNYcDVjbjV3dUNlaWw0VlNGejNUb0x3dVAyT1Zkc0JmRjMtdHJQMDFrUW5qZ2ZzQkJSSkFQVDZXZTY1ZGVtYzZxdVhBLXZ3VWlPN3FMLXdFLW9uUWhrc3JUdnNwREpvYTFKbkVRcXRMTTdz?oc=5",
+      "pubDate": "Wed, 01 Jul 2026 15:13:50 GMT"
     },
     {
-      "title": "Dos décadas de permiso de conducir por puntos impulsan un cambio histórico en la seguridad vial española",
-      "source": "interior.gob.es",
-      "summary": "Dos décadas de permiso de conducir por puntos impulsan un cambio histórico en la seguridad vial española interior.gob.es El carnet por puntos cumple 20 años: los conductores han perdido 72 millones de puntos y la mortalidad en carretera ha caído un 60% Atresme",
-      "image": "",
-      "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxQcmMyeHpuVE5qcS1fNTFpc01HOEdVbll3a3VLbENBSlU0NE03dmRSOHFWY0VBSm9reWdNMlZCdFl5aXR4Ul9Ja0pmZWRtdjJzcTJvWVFlMDl6d2lEVVBPWlJZbk40TTgwbWdTZEN2SDd5R3lPNjFPekxZem5LZ1VPU2lBdXd2cjN2dnJCWDBzWUUxNVdJVE81bEhyaS1MdUp4aUthTDcyb1JQUWIyWWQwR3lTZHBMUVI2dHl6cFRLQ256VnRubUtxeFgyeDJjR2p1RnJVNThLLVVqdDZXZ0FKRzFWeGxiQXdFQThJeklBaU9XbzNoZ29VVw?oc=5",
-      "pubDate": "Wed, 01 Jul 2026 10:28:31 GMT"
-    },
-    {
-      "title": "Ascienden a 26 los españoles muertos por los terremotos de Venezuela",
-      "source": "Euronews",
-      "summary": "Ascienden a 26 los españoles muertos por los terremotos de Venezuela Euronews Exteriores aumenta a 26 los españoles muertos en Venezuela, además de 150 desaparecidos y 11 bajo los escombros El Mundo Albares confirma que 92 españoles volverán repatriados este m",
-      "image": "",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNcm1FdkczQzR6b2VHcDJmV1FKY1p5dzc5NFJzb1IydzVRWnhuUnRlQTBMMTVJNm1DWGhoOE5IOHBpeEFUd0ZmaHk3cmFJekh0cThWU0VvYUtIbDJOTm1acEFJck9XSzVjZ1JNLXZNTE5ld0tpZll0TkI2ZXRvenpudDRldU9qd2FrZXZNWV9adF95STNYTWFiTWt6N1MzR0VlUFhKSHVCa0pHZw?oc=5",
-      "pubDate": "Wed, 01 Jul 2026 15:07:07 GMT"
-    },
-    {
-      "title": "El Gobierno asegura estar tranquilo ante las dudas del Supremo sobre la regularización porque Bruselas ya avaló sus competencias",
+      "title": "Última hora del terremoto en Venezuela, en directo | Exteriores eleva a 26 el número de españoles muertos en los terremotos",
       "source": "EL PAÍS",
-      "summary": "El Gobierno asegura estar tranquilo ante las dudas del Supremo sobre la regularización porque Bruselas ya avaló sus competencias EL PAÍS El Gobierno activa una regularización exprés de inmigrantes ante el riesgo de bloqueo por el Supremo El Mundo Saiz pide tra",
+      "summary": "Última hora del terremoto en Venezuela, en directo | Exteriores eleva a 26 el número de españoles muertos en los terremotos EL PAÍS Exteriores aumenta a 26 los españoles muertos en Venezuela, además de 150 desaparecidos y 11 bajo los escombros El Mundo Venezue",
       "image": "",
-      "link": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxQUVRjdmItZFdNSUxrUnNEX0ZWNENHanhfdWJaUlEzY1ljNE0ySl8tdFRDX3dTX2RQWHpueHJUdFN6ZFZZcEQ4Q3lwYVM1MjFRRUlWbEtjbUNBUzhfUlhyNkRuU1NiTXRDUjZqWmxLTzcxbThYcjltaFRtNkphX3RkSWZMWjlaSHBOX2VyWEEtbWVTelY5MTZpWC1Hd1ZRUXVpZlpjd1l1R08yc0lEMFhkczczdURzeEJUYlhoUVVNM0QxRm82c0FwbGhqWHBMRVdrVXdsRDk1Yk5Ub2pOTWxVRHZEQW12eGh1aFJnVFFSM2pXdWp4bTFQbDNfRS05UUHSAZMCQVVfeXFMTVk1dW94RkxCbnlacHI3SVFmMjB5NVVEeFZaOWZzQnlVeW5PVzBjdGVFeDhVeFJtSXFDcENfYVduTVdVZmdtVFNmMmV4YlNDME44M3Z4bHRFOHZLY1dTRU1hajJVWnN0Y2Exd2VDcGFRZXd6bFBGLTN1V1VGenNWSjZTcVpHVHVjQU9pU2lkSFN5RkYtMHRRSnhTQ3VOeUY1NE9uZ3o2R3g2aHotM0tFcTRoQ3V2Y1REQXE0RGNqWGZ3WHhnMVZWUEVOWGMzcWZZX3JPdG95MXBoV0RyTDgtYTJTM0U4bVpUZnRIbE1iQVVoVDdGR2paUnVWMWo1enNmcmdoNVJTMldqY001TWo0dVV6djQ?oc=5",
-      "pubDate": "Wed, 01 Jul 2026 08:56:13 GMT"
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNNktPWXJiakxBOXZTandZc1Y3TE0wX1A3NFByRzhUdlphbFZYOGRycFlHZW5sVDFTRFdidlZISXU0cWR4S1lpN1JrR043WmtZc1o1M0xPRnJhb0VfbDhLMmcxSUY4dS1TRHZGV2RBRjNDSlFpMkRhS0dXTVZCdWYweDZkbWd6SmxJdGpRT2QzRUx0MGZtYWFz0gGrAUFVX3lxTE5GWTlpT2UwbU1odnU1X21rakFSTm9ORDM5VjRNU1hxbHF2RlhuTVdvczVvT2FWX0pWTzhPQUVXdFhPWVhsSVpwdUcxdkNWUUJBTUVTbnZHNmJJTXhhMTQzUVhweXk2Y2Yyd1VRN0xvT1dKbUhaajRRcnVKdndzV05xbW5xTXRNSC1hTG9fVTRFNkdLQ3hMVWFEWmFLSXk2S3llMU9EZ0REVkZKbw?oc=5",
+      "pubDate": "Wed, 01 Jul 2026 17:23:17 GMT"
+    },
+    {
+      "title": "Bolaños muestra su \"absoluta tranquilidad\" sobre la regularización de migrantes frente a la posibilidad de llevarlo ante la Justicia europea",
+      "source": "Cadena SER",
+      "summary": "Bolaños muestra su \"absoluta tranquilidad\" sobre la regularización de migrantes frente a la posibilidad de llevarlo ante la Justicia europea Cadena SER El PP empuja al Supremo a suspender la regularización masiva y Moncloa responderá con la Abogacía del Estado",
+      "image": "",
+      "link": "https://news.google.com/rss/articles/CBMinAJBVV95cUxPZXIwdks4WjJXVzBSYnpSYnZ0YzQtUkt5U3ZPTzBGSVRwNzVHR01YZDYzRHJqQUdIMWFuZzA3bHNfWUJoeklEXzN0ZmFXdFl0LUFyLWVPdEhBeUNncVFmSXQzelZiWllMRHVkXzF3OHhMaVZyLTkxTThhQnF5SUxmYk9HRm1JX011YXBoN0d4V08xektqNUZsS2Iwak5VT2ZZQ2dJeU5qeHNnQUdhQnZfZ2VpaXFQODI5N19qclFnVHpianlZeDNVdGRhcVJUZ1hQVmlFN0dkV3NocW04VUVqUl9TWV9BV1ZJUWk3cVdZQjczVWlVMzRHQUVqbk5XaVIteHJJdEVzQjd4WjVmUEdXTjVSUmRZUHI0NExIctIBsAJBVV95cUxPQ2FSOXZPS24zbUtiZDU1QXE5OFlZRkVhRUEzQ3hvbExpcTN3NUhMYzBGbTA4djJGWUo0NTVKaHdzaUtJRGtuVGo5YTNuZGxvcGMwN0FkdU5iS2JReGNGYzdtcXJ0Z2VxQVNIeDU0LTdiUGRIa3hBTXItSUt6emVJZ3dGS2hIOGtpQWc1VkZJb3RwdWhLb3hqNDhFVnFzWFB5Q2x3RWs1OGRXRHRqTjFOM2Z5SEdhVHo5cnhKWW9CTDNJbGpZQmVrRDZvbTJVV3RGUnJwWXlsQTREVjdhbW01S2dBTHVZMkxTQk84OXFXSm01MDRtdE1BaXJLVFdUTFN0T2NydElvMVMwQ2RQVUdlN3RBMk4tOWZIZ3RFX0tCTzZtNXhJNGhvOHI3SWM3V0NZ?oc=5",
+      "pubDate": "Wed, 01 Jul 2026 11:01:10 GMT"
     }
   ]
 }
